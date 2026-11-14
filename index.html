@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>สยามินทร์ดุเอล</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chonburi&family=Noto+Sans+Thai:wght@400;500;700&display=swap">
+<style>
+:root{
+  --lacquer:#0E0B0A; --panel:#15100D; --panel2:#1C1612; --line:#3A2E22;
+  --gold:#C9A24A; --gold2:#E8C766; --red:#8E1B1B; --violet:#8A79B8;
+  --text:#EDE3CC; --muted:#A79A84; --ink:#2A1A10;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--lacquer);color:var(--text);font-family:'Noto Sans Thai',sans-serif;overflow:hidden}
+button{font-family:inherit;cursor:pointer}
+h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
+.screen{position:fixed;inset:0;display:none}
+.screen.on{display:block}
+.btn{height:48px;padding:0 22px;border-radius:24px;border:2px solid var(--gold);background:var(--red);color:#F6ECD4;font-family:Chonburi,serif;font-size:17px;transition:transform .15s, filter .15s}
+.btn:hover{filter:brightness(1.15)} .btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--text);font-family:'Noto Sans Thai';font-size:15px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;color:var(--muted)}
+.field input{height:48px;border-radius:12px;border:1px solid var(--line);background:#0E0B0A;color:var(--text);padding:0 14px;font-size:16px;font-family:inherit}
+.field input:focus{outline:2px solid var(--gold);outline-offset:1px}
+.err{color:#E07A6A;font-size:13px;min-height:18px}
+
+/* ---------- การ์ด ---------- */
+.card{position:relative;width:var(--w,200px);aspect-ratio:2/3;border-radius:5%;transform-style:preserve-3d;container-type:inline-size;user-select:none}
+.card .art{position:absolute;object-fit:cover;object-position:50% 30%}
+.card .frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.card .nm{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;font-family:Chonburi,serif;color:var(--ink);font-size:6.2cqw;line-height:1.1;padding:0 4cqw;white-space:nowrap;overflow:hidden}
+.card .tx{position:absolute;color:var(--ink);font-size:4.6cqw;line-height:1.35;padding:2.5cqw 6cqw;overflow:hidden;text-align:center;display:flex;flex-direction:column;gap:1cqw}
+.card .tx .meta{font-size:4cqw;color:#6B4A2A}
+.card .tx b{color:#5A1010}
+.card .num{position:absolute;width:14cqw;aspect-ratio:1;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-size:7.5cqw;color:#2A1A10;text-shadow:0 0 2px #fff8}
+.card .num.cost{color:#F6ECD4;background:radial-gradient(circle,#1A3A6A 55%,#0E1E3A 70%);border-radius:50%;text-shadow:none}
+.card .num.atk{color:#8E1B1B}.card .num.hp{color:#1E5A2A}
+.card .num img{width:72%}
+.card .serial{position:absolute;left:50%;bottom:3.2%;transform:translateX(-50%);font-family:Chonburi,serif;font-size:5cqw;color:#3A220A;text-shadow:0 0 3px #FFE9A8}
+.card .wm{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-18deg);font-family:Chonburi,serif;font-size:11cqw;color:#fff;opacity:.38;letter-spacing:.1em;border:.8cqw solid #fff;padding:1cqw 4cqw;border-radius:2cqw;pointer-events:none;text-shadow:0 0 6px #000}
+.card .fx{position:absolute;inset:0;border-radius:5%;pointer-events:none;mix-blend-mode:color-dodge;opacity:0;transition:opacity .3s}
+.card.legend .fx{opacity:.55;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#ff6a2a55,transparent 45%)}
+.card.divine .fx{opacity:.8;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),#ffe7a088,transparent 40%),repeating-linear-gradient(115deg,transparent 0 9%,#fff3c022 10%,transparent 12%)}
+.card.creator .fx{opacity:.75;background:linear-gradient(calc(var(--ang,115) * 1deg),#ff4d4d55,#ffd24d55,#4dff8855,#4dd2ff55,#a04dff55,#ff4dd255);background-size:300% 300%;background-position:var(--mx,50%) var(--my,50%)}
+.card.tilt{transition:transform .08s linear}
+.glint{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px #fff8d0;pointer-events:none;animation:tw 1.6s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.4)}}
+
+/* ---------- หน้าล็อกอิน ---------- */
+#login{background:radial-gradient(ellipse at 50% 30%,#2A1530 0%,#0E0B0A 65%)}
+#login video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+#fxCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.showcase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:4vw;perspective:1100px;padding-bottom:22vh}
+.showcase .slot{animation:float 6s ease-in-out infinite}
+.showcase .slot:nth-child(1){animation-delay:-2s;transform:rotate(-8deg) translateY(30px)}
+.showcase .slot:nth-child(3){animation-delay:-4s;transform:rotate(8deg) translateY(30px)}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -16px}}
+.loginbox{position:absolute;left:50%;bottom:4vh;transform:translateX(-50%);width:min(420px,calc(100% - 32px));background:#15100Dee;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px;backdrop-filter:blur(6px);box-shadow:0 20px 60px #000c}
+.logo{position:absolute;top:3vh;left:0;right:0;text-align:center}
+.logo h1{margin:0;font-size:clamp(30px,5vw,56px);color:var(--gold2);text-shadow:0 2px 0 #5a3a10,0 0 30px #c9a24a66}
+.logo div{color:var(--muted);letter-spacing:.3em;font-size:13px}
+.note{font-size:12px;color:var(--muted);text-align:center}
+
+/* ---------- เลือกตัวละคร ---------- */
+#pick{background:radial-gradient(ellipse at 50% 20%,#241A10,#0E0B0A 70%);overflow:auto}
+.pickwrap{max-width:900px;margin:0 auto;padding:32px 16px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.chars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%}
+.charopt{border:2px solid var(--line);border-radius:18px;background:var(--panel);padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text)}
+.charopt.sel{border-color:var(--gold);box-shadow:0 0 0 3px #c9a24a44,0 0 40px #c9a24a33}
+.charopt .pic{width:100%;aspect-ratio:3/4;border-radius:12px;background:#0E0B0A;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.charopt .pic img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 20px #000)}
+
+/* ---------- หน้าแรก ---------- */
+#home{background:radial-gradient(ellipse at 30% 60%,#2A1A10,#0E0B0A 70%)}
+.topbar{position:absolute;top:0;left:0;right:0;height:64px;display:flex;align-items:center;gap:12px;padding:0 16px;background:linear-gradient(#0E0B0Aee,#0E0B0A00);z-index:5}
+.topbar .who{font-family:Chonburi,serif;font-size:18px;color:var(--gold2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;max-width:40%}
+.chip{display:flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:18px;background:var(--panel);border:1px solid var(--line);font-size:14px;white-space:nowrap}
+.chip i{font-style:normal;color:var(--gold2)}
+.spacer{flex:1}
+.hero{position:absolute;left:0;top:64px;bottom:150px;width:52%;display:flex;align-items:flex-end;justify-content:center}
+.hero img,.hero svg{max-height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 20px 40px #000);animation:heroIn .5s ease-out}
+@keyframes heroIn{from{opacity:0;transform:translateY(10px)}}
+.menu{position:absolute;right:4%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;width:min(340px,42%)}
+.menu button{height:64px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(90deg,#1C1612,#15100D);color:var(--text);font-family:Chonburi,serif;font-size:19px;display:flex;align-items:center;gap:14px;padding:0 18px;text-align:left}
+.menu button:hover{border-color:var(--gold)}
+.menu button small{display:block;font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
+.menu .ic{width:36px;height:36px;border-radius:50%;background:#2A1A12;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold2);flex:none}
+.dialog{position:absolute;left:3%;right:3%;bottom:3%;min-height:120px;background:#15100Df2;border:2px solid var(--gold);border-radius:16px;display:flex;gap:14px;padding:12px 16px;align-items:flex-end;z-index:6}
+.dialog .bust{width:110px;height:130px;margin-top:-50px;border-radius:12px;overflow:hidden;flex:none;background:#0E0B0A;border:1px solid var(--line)}
+.dialog .bust img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.dialog .bust.me{background:transparent;border:none;width:120px;height:150px;margin-top:-80px}
+.dialog .bust.me img{object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 6px 12px #000)}
+.dialog .who{font-family:Chonburi,serif;color:var(--gold2)}
+.dialog p{margin:4px 0 0;line-height:1.6}
+
+/* ---------- ตู้สุ่ม ---------- */
+#gacha{background:radial-gradient(ellipse at 50% 35%,#3A1414,#0E0B0A 65%)}
+#gacha.event{background:radial-gradient(ellipse at 50% 35%,#2A2050,#0E0B0A 65%)}
+.tabs{position:absolute;top:72px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
+.tabs button{height:40px;padding:0 16px;border-radius:20px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:14px}
+.tabs button.on{border-color:var(--gold);background:#2A1A12;color:var(--gold2)}
+.tabs button.ev{border-color:#B7A6F0;color:#D9CEFF;box-shadow:0 0 20px #8A79B866}
+.stage{position:absolute;top:120px;bottom:120px;left:0;right:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:0 16px}
+.stage h2{margin:0;font-size:clamp(22px,3.5vw,34px);color:var(--gold2)}
+.stage .sub{color:var(--muted);max-width:560px}
+.pullbar{position:absolute;bottom:24px;left:0;right:0;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:0 16px}
+.progress{width:min(420px,90%);height:10px;border-radius:5px;background:#2A1A12;overflow:hidden;border:1px solid var(--line)}
+.progress div{height:100%;background:linear-gradient(90deg,var(--gold),#F6E3A0)}
+.results{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:1100px;perspective:900px}
+.flip{width:var(--w);aspect-ratio:2/3;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.flip.open{transform:rotateY(180deg)}
+.flip>*{position:absolute;inset:0;backface-visibility:hidden}
+.flip .back{border-radius:5%;background-size:cover;background-position:center}
+.flip .front{transform:rotateY(180deg)}
+.flip.r-legend.open{filter:drop-shadow(0 0 14px #ff5a2a)}
+.flip.r-divine.open{filter:drop-shadow(0 0 18px #ffd86a)}
+.flip.r-creator.open{filter:drop-shadow(0 0 22px #b48cff)}
+.flip.r-epic.open{filter:drop-shadow(0 0 10px #9a6ad6)}
+
+/* ---------- ป๊อปอัป ---------- */
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.on{display:flex}
+.modal .box{width:min(640px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--panel);border:2px solid var(--gold);border-radius:18px;padding:22px}
+.modal.ev .box{border-color:#B7A6F0}
+.modal h3{margin:0 0 8px;color:var(--gold2);font-size:22px}
+.modal h4{margin:16px 0 6px;color:var(--gold2);font-family:Chonburi,serif;font-weight:400}
+.modal p,.modal li{line-height:1.65;font-size:15px}
+.modal ul{margin:0;padding-left:20px}
+.modal table{width:100%;border-collapse:collapse;font-size:14px}
+.modal td,.modal th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
+.modal th{color:var(--muted);font-weight:500}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.toast{position:fixed;top:76px;left:50%;transform:translateX(-50%);background:#15100Df5;border:1px solid var(--gold);color:var(--gold2);padding:10px 18px;border-radius:12px;z-index:60;font-size:15px;display:none;max-width:calc(100% - 32px);text-align:center}
+.toast.on{display:block;animation:pop .3s}
+@keyframes pop{from{transform:translate(-50%,-10px);opacity:0}}
+
+/* ---------- คลัง ---------- */
+#coll{overflow:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding:84px 16px 24px;max-width:1300px;margin:0 auto}
+.grid .cell{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:var(--muted)}
+.zoom{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;z-index:55;perspective:1000px}
+.zoom.on{display:flex}
+
+/* ---------- แอดมินจำลอง ---------- */
+#admin{position:fixed;right:12px;bottom:12px;width:300px;background:#101820f5;border:1px solid #4F7FB5;border-radius:12px;padding:12px;z-index:70;display:none;font-size:13px}
+#admin.on{display:block}
+#admin h4{margin:0 0 8px;color:#9CC3F0;font-family:'Noto Sans Thai'}
+#admin select,#admin input{width:100%;height:34px;margin:4px 0 8px;background:#0E0B0A;color:var(--text);border:1px solid var(--line);border-radius:8px;font-family:inherit}
+#admin button{width:100%;height:34px;margin-bottom:6px;border-radius:8px;border:1px solid #4F7FB5;background:#16263A;color:#DCE9F8}
+
+@media (max-width:720px){
+  .showcase{gap:2vw;padding-bottom:34vh}
+  .hero{width:100%;bottom:auto;height:calc(100% - 64px - 470px);min-height:150px}
+  .menu{left:16px;right:16px;width:auto;top:auto;bottom:196px;transform:none;gap:8px}
+  .topbar{gap:6px;padding:0 10px}.topbar .who{font-size:15px}.chip{height:32px;padding:0 8px;font-size:12px}
+  .menu button{height:54px;font-size:16px}
+  .dialog .bust{width:80px;height:96px}
+  .dialog .bust.me{display:none}
+  .chars{gap:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== หน้าล็อกอิน ========== -->
+<section id="login" class="screen on" aria-label="เข้าสู่ระบบ">
+  <video id="bgVideo" muted loop autoplay playsinline src="login/bg.mp4" onerror="this.remove()"></video>
+  <canvas id="fxCanvas"></canvas>
+  <div class="logo"><h1>สยามินทร์ดุเอล</h1><div>SIAM DUEL</div></div>
+  <div class="showcase" id="showcase"></div>
+  <form class="loginbox" id="loginForm" novalidate>
+    <h2 id="loginTitle" style="margin:0;font-size:22px;color:var(--gold2)">เข้าสู่ระบบ</h2>
+    <div class="field"><label for="u">ชื่อผู้ใช้</label><input id="u" autocomplete="username" required></div>
+    <div class="field"><label for="p">รหัสผ่าน</label><input id="p" type="password" autocomplete="current-password" required></div>
+    <div class="err" id="loginErr" role="alert"></div>
+    <button class="btn" type="submit" id="loginBtn">เข้าเล่น</button>
+    <button class="btn ghost" type="button" id="toggleReg">ยังไม่มีบัญชี? สมัครสมาชิก</button>
+    <div class="note">ตัวต้นแบบ: บัญชีเก็บในเบราว์เซอร์นี้เท่านั้น ระบบจริงใช้เซิร์ฟเวอร์</div>
+  </form>
+</section>
+
+<!-- ========== เลือกตัวละคร ========== -->
+<section id="pick" class="screen" aria-label="เลือกตัวละคร">
+  <div class="pickwrap">
+    <h1 style="margin:0;color:var(--gold2)">เลือกตัวละครของคุณ</h1>
+    <div class="note">ตัวละครนี้จะเป็นตัวแทนคุณในการดวล กิจกรรม และบทสนทนากับ NPC</div>
+    <div class="chars">
+      <button class="charopt" data-g="male"><div class="pic" id="pickMale"></div><b class="display" style="font-size:20px">ชาย</b></button>
+      <button class="charopt" data-g="female"><div class="pic" id="pickFemale"></div><b class="display" style="font-size:20px">หญิง</b></button>
+    </div>
+    <div class="field" style="width:min(360px,100%)"><label for="heroName">ชื่อในเกม</label><input id="heroName" maxlength="16" placeholder="เช่น ขุนศึกแดนสยาม"></div>
+    <div class="err" id="pickErr"></div>
+    <button class="btn" id="pickOk">เริ่มการเดินทาง</button>
+  </div>
+</section>
+
+<!-- ========== หน้าแรก ========== -->
+<section id="home" class="screen" aria-label="หน้าแรก">
+  <div class="topbar">
+    <span class="who" id="hWho"></span><span class="spacer"></span>
+    <span class="chip">โกลด์ <i id="hGold"></i></span>
+    <span class="chip">แต้มบุญ <i id="hMerit"></i></span>
+    <button class="btn ghost" style="height:36px" id="logout">ออก</button>
+  </div>
+  <div class="hero" id="hero"></div>
+  <nav class="menu">
+    <button data-go="duel"><span class="ic">⚔</span><span>ดวล<small>เร็ว ๆ นี้ · ดวลกับ AI และผู้เล่น</small></span></button>
+    <button data-go="gacha"><span class="ic">✦</span><span>ตู้สุ่มการ์ด<small id="evHint">ตู้ปกติ</small></span></button>
+    <button data-go="coll"><span class="ic">▤</span><span>คลังการ์ด<small id="collHint"></small></span></button>
+    <button data-go="market"><span class="ic">⇄</span><span>ตลาดกลาง<small>เร็ว ๆ นี้</small></span></button>
+  </nav>
+  <div class="dialog" id="dlg">
+    <div class="bust" id="dlgBust"></div>
+    <div style="flex:1"><div class="who">หมอผีเฒ่าแห่งหมู่บ้าน</div><p id="dlgText"></p></div>
+    <div class="bust me" id="dlgMe"></div>
+    <button class="btn ghost" style="height:36px" id="dlgClose">ปิด</button>
+  </div>
+</section>
+
+<!-- ========== ตู้สุ่ม ========== -->
+<section id="gacha" class="screen" aria-label="ตู้สุ่มการ์ด">
+  <div class="topbar">
+    <button class="btn ghost" style="height:36px" data-go="home">← กลับ</button><span class="spacer"></span>
+    <span class="chip">โกลด์ <i id="gGold"></i></span><span class="chip">แต้มบุญ <i id="gMerit"></i></span>
+    <button class="btn ghost" style="height:36px" id="gInfo" aria-label="ดูกติกาตู้">กติกา ?</button>
+  </div>
+  <div class="tabs" id="gTabs"></div>
+  <div class="stage" id="gStage"></div>
+  <div class="pullbar" id="gBar"></div>
+</section>
+
+<!-- ========== คลัง ========== -->
+<section id="coll" class="screen" aria-label="คลังการ์ด">
+  <div class="topbar"><button class="btn ghost" style="height:36px" data-go="home">← กลับ</button><span class="who" style="margin-left:8px">คลังการ์ด</span><span class="spacer"></span><span class="chip" id="cCount"></span></div>
+  <div class="grid" id="cGrid"></div>
+</section>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modalBox"></div></div>
+<div class="zoom" id="zoom"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<div id="admin" aria-label="หลังบ้านจำลอง">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h4>หลังบ้านจำลอง (ทดสอบ)</h4><button id="aX" aria-label="ปิดแผง" style="width:32px;height:32px;margin:0">×</button></div>
+  <label>การ์ดผู้สรรสร้างของรอบ</label><select id="aCard"></select>
+  <label>ชื่อรอบ / เทศกาล</label><input id="aName" value="เทศกาลลอยกระทง">
+  <button id="aOpen">เปิดตู้ Event</button><button id="aClose">ปิดตู้ Event</button>
+  <label>เกณฑ์สิทธิ์ (ครั้งที่ต้องสุ่ม) — ทดสอบเท่านั้น</label><input id="aTh" type="number" min="1" value="10000">
+  <button id="aGold">+100,000 โกลด์</button><button id="aReset">ล้างข้อมูลทดสอบทั้งหมด</button>
+</div>
+
+<script>
+const CARDS = [{"id":"SD001","name_th":"พระอิศวร","rarity_code":"creator","type":"ยูนิต","element":"ไฟ","cost":10,"atk":10,"hp":12,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: ร่ายรำศิวนาฏราช ทำลายยูนิตศัตรูทุกตัวที่ต้นทุน ≤6 แล้วส่งวิญญาณ; ต้นเทิร์น 2 ดาเมจไฟแก่ศัตรูทุกตัว","max_supply":1},{"id":"SD002","name_th":"พระนารายณ์","rarity_code":"creator","type":"ยูนิต","element":"น้ำ","cost":10,"atk":9,"hp":12,"keywords":["คงกระพัน","อวตาร"],"text_th":"อวตาร: ตายแล้วกลับมาในร่างใหม่ HP เต็ม +2/+2 (ได้ 2 ครั้งต่อเกม); ปลุกเสก: เรียกครุฑพาหนะ 5/5 เหาะเหิน","max_supply":1},{"id":"SD003","name_th":"พระพรหม","rarity_code":"creator","type":"ยูนิต","element":"ดิน","cost":10,"atk":8,"hp":14,"keywords":[],"text_th":"ปลุกเสก: ชุบชีวิตยูนิตเราทั้งหมดในสุสานที่ต้นทุน ≤5 HP เต็ม; สี่พักตร์: เห็นไพ่ในมือศัตรูตลอดเกม","max_supply":1},{"id":"SD004","name_th":"PlayCH • วัชระสายฟ้าแยกฟ้า","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":10,"atk":10,"hp":10,"keywords":[],"text_th":"ปลุกเสก: 5 ดาเมจแก่ศัตรูทุกตัว และ 5 ดาเมจที่ดวงชะตาศัตรู","max_supply":1},{"id":"SD005","name_th":"PlayCH • ปู่ผู้สร้างเกม ช่างปั้นวิญญาณ","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":10,"atk":8,"hp":12,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: เลือก 1 ใน 3 การ์ดสุ่มระดับ Legendary+ ใส่มือ ต้นทุน 0; ทุกครั้งที่ชุบชีวิต การ์ดนี้ +2/+2","max_supply":1},{"id":"SD006","name_th":"พระอินทร์","rarity_code":"creator","type":"ยูนิต","element":"ลม","cost":9,"atk":10,"hp":10,"keywords":["เหาะเหิน","ฮึกเหิม"],"text_th":"ปลุกเสก: วัชระสายฟ้า 6 ดาเมจแก่เป้าหมาย 1 ตัว และ 2 ดาเมจแก่ศัตรูที่เหลือ; ช้างเอราวัณฝ่ายเรา +3/+3","max_supply":1},{"id":"SD007","name_th":"PlayCH • ท้าวจตุรทิศจอยแดง","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":9,"atk":9,"hp":9,"keywords":["ฮึกเหิม","ลิ้มเลือด"],"text_th":"ปลุกเสก D-Pad เลือก 1 ใน 4 ทิศ: ↑ +3 ATK / ↓ ทวารบาล+คงกระพัน / ← ทำลายของขลังหรือกับดักศัตรู / → โจมตีได้ 2 ครั้ง","max_supply":1},{"id":"SD008","name_th":"PlayCH • ฤๅษีสี่มนตร์จอยคราม","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":9,"atk":6,"hp":10,"keywords":["คงกระพัน"],"text_th":"ต้นเทิร์นได้มนตร์สุ่ม 1 ใน 4: ดิน ให้ทวารบาลยูนิตเรา / น้ำ ฟื้น 4 / ลม ศัตรู 1 ตัวโจมตีไม่ได้ / ไฟ 3 ดาเมจ","max_supply":1},{"id":"SD009","name_th":"PlayCH • พรานเป้าเล็งมรณะ","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":8,"atk":8,"hp":6,"keywords":["กำบัง"],"text_th":"ทุกเทิร์นเล็งเป้า 1 ตัว ครบ 2 เทิร์นทำลายและส่งวิญญาณ (ไม่สนทวารบาล/คงกระพัน/อมตะ) — ยกเว้นเทพเจ้า Super Limited","max_supply":1},{"id":"SD010","name_th":"PlayCH • ศาลหมื่นวิญญาณ","rarity_code":"creator","type":"ของขลัง","element":"อากาศ","cost":6,"atk":null,"hp":null,"keywords":[],"text_th":"ยูนิตใดตาย = 1 วิญญาณผู้ติดตาม; ครบ 5: ชุบชีวิตยูนิตใดก็ได้จากสุสานทั้งสองฝ่าย (ยกเว้นเทพเจ้า) มาเป็นของเรา และจั่ว 2","max_supply":1},{"id":"SD011","name_th":"สมเด็จพระเจ้าตากสินมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":9,"atk":9,"hp":9,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ทุบหม้อข้าว — ทิ้งไพ่ในมือทั้งหมด ยูนิตเราทุกตัว +1/+1 ต่อใบที่ทิ้ง และได้ฮึกเหิม; ดวงชะตาเรา ≤10 ต้นทุน -4","max_supply":null},{"id":"SD012","name_th":"สมเด็จพระนเรศวรมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":9,"atk":9,"hp":8,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ยุทธหัตถี — ดวลกับยูนิตศัตรูที่แรงที่สุด 1 ตัว ผู้แพ้ถูกส่งวิญญาณ ชนะได้ +2/+2 ถาวร; ล้างสายสิญจน์/คุณไสยบนยูนิตเรา","max_supply":null},{"id":"SD013","name_th":"ทศกัณฐ์","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":9,"atk":10,"hp":10,"keywords":["อมตะ"],"text_th":"ถอดดวงใจ: ปลุกเสก วางกล่องดวงใจ 0/6 ในช่องกับดัก — ตราบที่กล่องยังอยู่ ทศกัณฐ์ตายแล้วฟื้น HP เต็ม","max_supply":null},{"id":"SD014","name_th":"พ่อขุนรามคำแหงมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":8,"atk":7,"hp":10,"keywords":["ทวารบาล"],"text_th":"ต้นเทิร์น: ในน้ำมีปลา ในนามีข้าว — ฟื้นดวงชะตา 2; ระฆังหน้าประตู: ยกเลิกคาถาเป้าหมายที่ใส่ยูนิตเรา 1 ครั้งต่อเทิร์น","max_supply":null},{"id":"SD015","name_th":"ปู่สังกะสา ย่าสังกะสี","rarity_code":"divine","type":"ยูนิต","element":"ดิน","cost":8,"atk":6,"hp":12,"keywords":[],"text_th":"ปลุกเสก: ปั้นดินเป็นคน — เรียกมนุษย์ดินปั้น 2/2 สามตัว; เมื่อยูนิตมนุษย์เราตาย ปั้นมนุษย์ดินปั้น 1/1 แทน","max_supply":3},{"id":"SD016","name_th":"พระราหู","rarity_code":"divine","type":"ยูนิต","element":"อากาศ","cost":8,"atk":8,"hp":8,"keywords":["ราหูจร","ดูดชีพ"],"text_th":"ปลุกเสก: เริ่มราหูอมจันทร์ทันที 2 เทิร์น; ระหว่างนั้นกลืนยูนิตศัตรูต้นทุน ≤4 เทิร์นละ 1 ตัว","max_supply":3},{"id":"SD017","name_th":"ท้าวเวสสุวรรณ","rarity_code":"divine","type":"ยูนิต","element":"ดิน","cost":8,"atk":7,"hp":10,"keywords":["ทวารบาล"],"text_th":"ผีฝ่ายศัตรูทุกตัว -2 ATK; ผีที่ศัตรูลงใหม่ถูกสายสิญจน์ 1 เทิร์น","max_supply":3},{"id":"SD018","name_th":"พญาครุฑ","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":8,"atk":9,"hp":8,"keywords":["เหาะเหิน","ฮึกเหิม"],"text_th":"ทำดาเมจ x2 กับนาค; ปลุกเสก: ทำลายยูนิตนาคศัตรู 1 ตัว","max_supply":null},{"id":"SD019","name_th":"พญาศรีสุทโธนาค","rarity_code":"legend","type":"ยูนิต","element":"น้ำ","cost":8,"atk":7,"hp":11,"keywords":["ทวารบาล","ดูดชีพ"],"text_th":"ปลุกเสก: ฟื้นดวงชะตา 6; ต้นเทิร์นเรียกนาคบริวาร 2/2; ยูนิตไฟศัตรู -2 ATK","max_supply":null},{"id":"SD020","name_th":"แม่นาคพระโขนง","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":8,"atk":8,"hp":9,"keywords":["อมตะ","ราหูจร","เหาะเหิน"],"text_th":"ยืดแขนได้ไกล โจมตีข้ามทวารบาล; ราหูอมจันทร์: +4/+4 และศัตรูทุกตัว -1 ATK","max_supply":null},{"id":"SD021","name_th":"สมเด็จพระศรีสุริโยทัย","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":7,"atk":6,"hp":7,"keywords":["ทวารบาล","คงกระพัน"],"text_th":"รับการโจมตีแทนผู้ปกครองฝ่ายเรา; สิ้นใจ: ผู้ปกครองฝ่ายเราทุกตัว +3/+3 ถาวร","max_supply":null},{"id":"SD022","name_th":"พระแม่ธรณี","rarity_code":"divine","type":"ยูนิต","element":"น้ำ","cost":7,"atk":4,"hp":10,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: บีบมวยผม — สายน้ำกวาดอสูรและผีฝ่ายศัตรูทุกตัว 4 ดาเมจ","max_supply":3},{"id":"SD023","name_th":"กุมภกรรณ","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":8,"atk":9,"hp":9,"keywords":["ทวารบาล"],"text_th":"ไม่โจมตีในเทิร์นที่ลง (หลับ); ปลุกเสก: หอกโมกขศักดิ์ — ยูนิตศัตรู 1 ตัวสลบจนกว่าจะได้ยาสังกรณีตรีชวา","max_supply":null},{"id":"SD024","name_th":"น้ำอมฤต","rarity_code":"legend","type":"คาถา","element":"อากาศ","cost":8,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตยูนิต 3 ตัวที่แรงที่สุดในสุสานเรา HP เต็ม; ใช้ได้ 1 ครั้งต่อเกม","max_supply":null},{"id":"SD025","name_th":"สมเด็จพระเจ้าอู่ทอง","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":6,"hp":8,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: สถาปนากรุง — สร้างของขลังกำแพงเมือง ยูนิตเราทุกตัว +0/+2","max_supply":null},{"id":"SD026","name_th":"ขุนแผนแสนสะท้าน","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":7,"atk":7,"hp":7,"keywords":["กำบัง","เมตตามหานิยม"],"text_th":"ปลุกเสก: เรียกกุมารทอง 2/2 กำบัง; ถือดาบฟ้าฟื้นได้ +4/+4 เพิ่ม; ม้าสีหมอกให้ฮึกเหิม","max_supply":null},{"id":"SD027","name_th":"พระอภัยมณี","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":7,"atk":4,"hp":8,"keywords":[],"text_th":"ปลุกเสก: เป่าปี่ — ศัตรูทุกตัวหลับ (โจมตีไม่ได้) 1 เทิร์น ผีและอสูรหลับ 2 เทิร์น","max_supply":null},{"id":"SD028","name_th":"นางผีเสื้อสมุทร","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":8,"hp":8,"keywords":["ราหูจร"],"text_th":"แปลงกาย: สลับร่างทุกเทิร์น หญิงงาม (4/8 ดูดชีพ) กับยักษ์ (8/8 ฮึกเหิม)","max_supply":null},{"id":"SD029","name_th":"ช้างเอราวัณ","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":7,"atk":6,"hp":10,"keywords":["ทวารบาล"],"text_th":"ยูนิตเราทุกตัวรับดาเมจ -1; ถ้ามีพระอินทร์ ได้ +3/+3","max_supply":null},{"id":"SD030","name_th":"ชาละวัน","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":8,"hp":8,"keywords":["ดูดชีพ"],"text_th":"ยูนิตน้ำเรา +1/+1; ลากลงน้ำ: ยูนิตที่ถูกโจมตีถ้า HP เหลือ ≤3 ถูกทำลาย","max_supply":null},{"id":"SD031","name_th":"ท้าวสุรนารี (ย่าโม)","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":6,"atk":6,"hp":6,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ทุ่งสัมฤทธิ์ — เรียกชาวโคราช 2/1 ฮึกเหิม 3 ตัว","max_supply":null},{"id":"SD032","name_th":"พระยาพิชัยดาบหัก","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":6,"atk":7,"hp":5,"keywords":["ฮึกเหิม","ลิ้มเลือด"],"text_th":"โจมตีได้ 2 ครั้งต่อเทิร์น; HP ≤2 ATK x2 (ดาบหัก)","max_supply":null},{"id":"SD033","name_th":"ท้าวเทพกระษัตรี และท้าวศรีสุนทร","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":6,"atk":5,"hp":7,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: กลลวงข้าศึก — ยูนิตศัตรูทุกตัวโจมตีไม่ได้ 1 เทิร์น","max_supply":null},{"id":"SD034","name_th":"หนุมาน","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":6,"atk":6,"hp":6,"keywords":["เหาะเหิน","อมตะ"],"text_th":"อมตะ: ลมพระพายพัดฟื้น HP เต็ม 1 ครั้ง; ปลุกเสก: หาวเป็นดาวเป็นเดือน ทำลายของขลังหรือกับดักศัตรู 1 ชิ้น","max_supply":null},{"id":"SD035","name_th":"ไกรสรราชสีห์","rarity_code":"legend","type":"ยูนิต","element":"ไฟ","cost":6,"atk":7,"hp":6,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: คำรามสะท้านไพร — ทำลายยูนิตศัตรูต้นทุน ≤2 ทั้งหมด","max_supply":null},{"id":"SD036","name_th":"ดาบฟ้าฟื้น","rarity_code":"epic","type":"ของขลัง","element":"ไฟ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต +4 ATK และโจมตีทะลุคงกระพัน; ขุนแผนถือ +4/+4 เพิ่ม","max_supply":null},{"id":"SD037","name_th":"เปรตยักษ์","rarity_code":"rare","type":"ยูนิต","element":"อากาศ","cost":6,"atk":6,"hp":9,"keywords":["ราหูจร"],"text_th":"ต้นเทิร์นกลืนการ์ด 1 ใบจากสุสานใดก็ได้ +1/+1; ราหูอมจันทร์: ศัตรูทุกตัว -1 ATK","max_supply":null},{"id":"SD038","name_th":"ควาญช้างศึก","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":5,"atk":5,"hp":7,"keywords":["ทวารบาล","ฮึกเหิม"],"text_th":"ดาเมจเกินจากการฆ่ายูนิตทะลุไปที่ดวงชะตาศัตรู","max_supply":null},{"id":"SD039","name_th":"ปอบเจ้าแม่หมู่บ้าน","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":5,"atk":5,"hp":5,"keywords":["ดูดชีพ","ลิ้มเลือด"],"text_th":"ฆ่ายูนิตได้ ดวงชะตาศัตรู -2; สิ้นใจ: สิงยูนิตศัตรูต้นทุนต่ำสุดมาเป็นของเรา (ยกเว้นผู้ปกครอง/เทพ)","max_supply":null},{"id":"SD040","name_th":"กระสือร้อยปี","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":5,"atk":4,"hp":4,"keywords":["เหาะเหิน","ราหูจร"],"text_th":"ราหูอมจันทร์: +3 ATK และได้ดูดชีพ; ตายทันทีถ้าศัตรูมีกับดักหนามพุทรา","max_supply":null},{"id":"SD041","name_th":"นางไม้ตะเคียน","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":5,"atk":3,"hp":8,"keywords":["ทวารบาล","พิษ 2"],"text_th":"ยูนิตที่โจมตีการ์ดนี้ติดพิษ 2","max_supply":null},{"id":"SD042","name_th":"ยาสังกรณีตรีชวา","rarity_code":"rare","type":"คาถา","element":"น้ำ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตยูนิตใดก็ได้ในสุสานเรา HP เต็ม และล้างสลบ (แก้หอกโมกขศักดิ์ได้)","max_supply":null},{"id":"SD043","name_th":"น้ำมันพราย","rarity_code":"rare","type":"คาถา","element":"ไฟ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"เมตตามหานิยม: ขโมยยูนิตศัตรูต้นทุน ≤5 มาเป็นของเรา (ยกเว้นผู้ปกครองและเทพ)","max_supply":null},{"id":"SD044","name_th":"ทหารดาบสองมือ","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":4,"atk":5,"hp":4,"keywords":["ฮึกเหิม"],"text_th":"โจมตียูนิตที่ต้นทุนต่ำกว่า ได้ 2 ครั้ง","max_supply":null},{"id":"SD045","name_th":"หมอผีปราบวิญญาณ","rarity_code":"rare","type":"ยูนิต","element":"ลม","cost":4,"atk":3,"hp":5,"keywords":["สายสิญจน์"],"text_th":"ปลุกเสก: จับผีศัตรู 1 ตัวใส่หม้อดิน (ส่งวิญญาณ)","max_supply":null},{"id":"SD046","name_th":"ฤๅษีตาไฟ","rarity_code":"rare","type":"ยูนิต","element":"อากาศ","cost":4,"atk":2,"hp":6,"keywords":[],"text_th":"ปลุกเสก เลือก: ชุบชีวิตยูนิตต้นทุน ≤3 หรือ สาปศัตรู 1 ตัวเป็นหิน (สายสิญจน์ 2 เทิร์น)","max_supply":null},{"id":"SD047","name_th":"เสือร้ายคาถาอาคม","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":4,"atk":4,"hp":4,"keywords":["กำบัง","คงกระพัน"],"text_th":"ปลุกเสก: ขโมยของขลัง 1 ชิ้นจากศัตรู","max_supply":null},{"id":"SD048","name_th":"นางวันทอง","rarity_code":"rare","type":"ยูนิต","element":"น้ำ","cost":4,"atk":2,"hp":5,"keywords":["เมตตามหานิยม"],"text_th":"ปลุกเสก: ขุนแผนหรือขุนช้างฝ่ายเรา +3/+3; ถ้ามีทั้งคู่ ศัตรูเป็นผู้เลือก (สองใจ)","max_supply":null},{"id":"SD049","name_th":"พิธีบูชาราหู","rarity_code":"rare","type":"คาถา","element":"อากาศ","cost":4,"atk":null,"hp":null,"keywords":[],"text_th":"เริ่มราหูอมจันทร์ทันที; ผีฝ่ายเราฟื้น HP เต็ม","max_supply":null},{"id":"SD050","name_th":"นักมวยคาดเชือก","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":3,"atk":4,"hp":4,"keywords":["ทวารบาล"],"text_th":"ชกสวน: ถูกโจมตีแล้วตอบโต้ +2 ดาเมจ","max_supply":null},{"id":"SD051","name_th":"หมอยาว่านร้อยแปด","rarity_code":"rare","type":"ยูนิต","element":"น้ำ","cost":3,"atk":1,"hp":5,"keywords":["ฟื้นฟู"],"text_th":"ปลุกเสก: ฟื้น 4 HP และล้างพิษ/คุณไสยทั้งหมดฝ่ายเรา","max_supply":null},{"id":"SD052","name_th":"พรานไพรหน้าไม้อาบยาง","rarity_code":"rare","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["เหาะเหิน","พิษ 1"],"text_th":"ยิงข้ามทวารบาล และใส่พิษ 1","max_supply":null},{"id":"SD053","name_th":"ผีพรายตายโหง","rarity_code":"standard","type":"ยูนิต","element":"น้ำ","cost":4,"atk":4,"hp":3,"keywords":["อมตะ"],"text_th":"เมื่อยูนิตใดตายบนสนาม +1 ATK","max_supply":null},{"id":"SD054","name_th":"คชสีห์","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":4,"atk":4,"hp":5,"keywords":["ทวารบาล"],"text_th":"ผู้ปกครองฝ่ายเรา +1 ATK","max_supply":null},{"id":"SD055","name_th":"ไกรทอง","rarity_code":"standard","type":"ยูนิต","element":"น้ำ","cost":4,"atk":4,"hp":4,"keywords":["ฮึกเหิม"],"text_th":"ทำดาเมจ x2 กับชาละวันและยูนิตจระเข้; สู้ใต้น้ำได้ (ไม่โดนลากลงน้ำ)","max_supply":null},{"id":"SD056","name_th":"พลายงาม","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":4,"atk":4,"hp":4,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ถ้ามีขุนแผนฝ่ายเรา ทั้งคู่ +2 ATK; ไม่ถูกเมตตามหานิยม","max_supply":null},{"id":"SD057","name_th":"ผีตาโขน","rarity_code":"standard","type":"ยูนิต","element":"อากาศ","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ขบวนแห่ เรียกผีตาโขนน้อย 1/1 อีก 2 ตัว; ผีตาโขนทุกตัว +1 ATK","max_supply":null},{"id":"SD058","name_th":"ผีกะ","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":3,"keywords":["ดูดชีพ"],"text_th":"ปลุกเสก: สิงคน — ยูนิตมนุษย์ศัตรู 1 ตัว -2 ATK และติดพิษ 1","max_supply":null},{"id":"SD059","name_th":"ผีตานี","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":5,"keywords":["กำบัง"],"text_th":"ยูนิตเราข้างเคียง +0/+2; สิ้นใจ: ฟื้นดวงชะตา 4","max_supply":null},{"id":"SD060","name_th":"ผีโพง","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":2,"keywords":["เหาะเหิน","ราหูจร"],"text_th":"ราหูอมจันทร์: ได้กำบัง","max_supply":null},{"id":"SD061","name_th":"ผีกระหัง","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["เหาะเหิน"],"text_th":"โจมตีข้ามทวารบาล; ราหูอมจันทร์ +2 ATK","max_supply":null},{"id":"SD062","name_th":"ผีบ้านผีเรือน","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":1,"hp":6,"keywords":["ทวารบาล","ฟื้นฟู"],"text_th":"ยูนิตเราไม่ถูกขโมย; ผีศัตรูโจมตีดวงชะตาเราโดยตรงไม่ได้","max_supply":null},{"id":"SD063","name_th":"กินรี","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":2,"hp":4,"keywords":["เหาะเหิน"],"text_th":"ต้นเทิร์นฟื้น 2 HP ยูนิตเราทุกตัว","max_supply":null},{"id":"SD064","name_th":"ม้าสีหมอก","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"ขุนแผนฝ่ายเราได้ฮึกเหิม","max_supply":null},{"id":"SD065","name_th":"เจ้าเงาะ (สังข์ทอง)","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":4,"keywords":["กำบัง"],"text_th":"ถอดรูป: ครั้งแรกที่ถูกเลือกเป็นเป้า กลายเป็นสังข์ทอง 5/5 คงกระพัน","max_supply":null},{"id":"SD066","name_th":"ปลุกพราย","rarity_code":"standard","type":"คาถา","element":"น้ำ","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตผีต้นทุน ≤4 จากสุสานเรา และ +1 ATK","max_supply":null},{"id":"SD067","name_th":"หม้อดินขังผี","rarity_code":"standard","type":"กับดัก","element":"ดิน","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"เมื่อศัตรูชุบชีวิต: ยกเลิก และส่งวิญญาณ 3 ใบในสุสานศัตรู","max_supply":null},{"id":"SD068","name_th":"น้ำมนต์ทิพย์","rarity_code":"standard","type":"คาถา","element":"น้ำ","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"ล้างพิษ/สายสิญจน์ทั้งหมดฝ่ายเรา และฟื้น 3 HP ทุกตัว","max_supply":null},{"id":"SD069","name_th":"กุมารทอง","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":2,"keywords":["กำบัง"],"text_th":"ปลุกเสก: แอบดูไพ่ในมือศัตรู 1 ใบ; มีขุนแผนฝ่ายเรา +2/+2","max_supply":null},{"id":"SD070","name_th":"ยักษ์ทวารบาล","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":4,"atk":3,"hp":6,"keywords":["ทวารบาล"],"text_th":"รับดาเมจจากคาถา -1","max_supply":null},{"id":"SD071","name_th":"ไมยราพ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":4,"atk":3,"hp":4,"keywords":["กำบัง"],"text_th":"ปลุกเสก: สะกดทัพ — ยูนิตศัตรู 2 ตัวหลับ 1 เทิร์น","max_supply":null},{"id":"SD072","name_th":"ปู่โสมเฝ้าทรัพย์","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":3,"atk":1,"hp":6,"keywords":["ทวารบาล"],"text_th":"ศัตรูที่ฆ่าการ์ดนี้ต้องทิ้งไพ่ 1 ใบ","max_supply":null},{"id":"SD073","name_th":"ผีแม่ม่าย","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ดูดชีพ"],"text_th":"ยูนิตศัตรูที่หลับหรือถูกสายสิญจน์ ถูกการ์ดนี้โจมตีตายทันที","max_supply":null},{"id":"SD074","name_th":"ยักษ์กุมภัณฑ์","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":3,"atk":4,"hp":3,"keywords":["ลิ้มเลือด"],"text_th":"ฆ่ายูนิตได้ +1/+1 ถาวร","max_supply":null},{"id":"SD075","name_th":"นางสำมนักขา","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":3,"keywords":[],"text_th":"ปลุกเสก: ยุแยง — ยูนิตศัตรู 2 ตัวโจมตีกันเอง 1 ครั้ง","max_supply":null},{"id":"SD076","name_th":"วานรสิบแปดมงกุฎ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"มีหนุมานฝ่ายเรา +1/+1","max_supply":null},{"id":"SD077","name_th":"ขุนช้าง","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":5,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: ร่ำรวย — จั่ว 1 ใบ; มีนางวันทองฝ่ายเรา +2/+2","max_supply":null},{"id":"SD078","name_th":"ผีกองกอย","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":2,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ศัตรู 1 ตัว -1 ATK","max_supply":null},{"id":"SD079","name_th":"ผีโขมด","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":2,"keywords":["ราหูจร"],"text_th":"แสงหลอกทาง: ยูนิตศัตรู 1 ตัวโจมตีเป้าสุ่ม","max_supply":null},{"id":"SD080","name_th":"ผีพุ่งไต้","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":3,"hp":1,"keywords":["เหาะเหิน"],"text_th":"สิ้นใจ: 2 ดาเมจแก่ศัตรูสุ่ม 1 ตัว","max_supply":null},{"id":"SD081","name_th":"ผีพรายน้ำ","rarity_code":"common","type":"ยูนิต","element":"น้ำ","cost":2,"atk":2,"hp":3,"keywords":["กำบัง"],"text_th":"ยูนิตไฟที่ถูกโจมตี -1 ATK ถาวร","max_supply":null},{"id":"SD082","name_th":"นาคบริวาร","rarity_code":"common","type":"ยูนิต","element":"น้ำ","cost":2,"atk":2,"hp":3,"keywords":["ดูดชีพ"],"text_th":"มีพญานาคฝ่ายเรา +1/+1","max_supply":null},{"id":"SD083","name_th":"ศรีธนญชัย","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":1,"hp":3,"keywords":["กำบัง"],"text_th":"ปลุกเสก: สลับ ATK/HP ของยูนิตใดก็ได้ 1 ตัว","max_supply":null},{"id":"SD084","name_th":"ตะกรุดโทน","rarity_code":"common","type":"ของขลัง","element":"ดิน","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต: ได้คงกระพัน","max_supply":null},{"id":"SD085","name_th":"ผ้ายันต์","rarity_code":"common","type":"ของขลัง","element":"ไฟ","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต +1/+1 และไม่โดนพิษ/คุณไสย","max_supply":null},{"id":"SD086","name_th":"หนามพุทรา","rarity_code":"common","type":"กับดัก","element":"ดิน","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ผีที่โจมตีถูกทำลายทันทีถ้าต้นทุน ≤4 (กระสือแพ้ทุกระดับ)","max_supply":null},{"id":"SD087","name_th":"ผีปะกำ","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":3,"keywords":[],"text_th":"ช้างฝ่ายเรา +1 ATK","max_supply":null},{"id":"SD088","name_th":"ผีโป่ง","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":1,"hp":3,"keywords":["พิษ 1"],"text_th":"ยูนิตที่โจมตีติดพิษ 1","max_supply":null},{"id":"SD089","name_th":"ผีนางรำ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":2,"hp":2,"keywords":[],"text_th":"ปลุกเสก: ศัตรู 1 ตัว -1 ATK เทิร์นนี้","max_supply":null},{"id":"SD090","name_th":"ชาวบ้านบางระจัน","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":2,"keywords":["ทวารบาล"],"text_th":"มีชาวบ้านบางระจันตัวอื่น +1/+1 (สามัคคี)","max_supply":null},{"id":"SD091","name_th":"นายขนมต้ม","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":3,"hp":2,"keywords":["ฮึกเหิม"],"text_th":"ชนะการต่อสู้ได้ +1 ATK ถาวร","max_supply":null},{"id":"SD092","name_th":"ทหารหน้าไม้","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":2,"hp":1,"keywords":["เหาะเหิน"],"text_th":"ยิงข้ามทวารบาล","max_supply":null},{"id":"SD093","name_th":"สิงห์หิมพานต์","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":3,"keywords":["ทวารบาล"],"text_th":"","max_supply":null},{"id":"SD094","name_th":"เปรตน้อย","rarity_code":"common","type":"ยูนิต","element":"อากาศ","cost":1,"atk":1,"hp":2,"keywords":[],"text_th":"ต้นเทิร์นกลืนการ์ด 1 ใบในสุสานศัตรู +1/+1 (ครั้งเดียว)","max_supply":null},{"id":"SD095","name_th":"แม่ซื้อ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":1,"atk":1,"hp":1,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ยูนิตศัตรูต้นทุน 1 ตัว -1 HP","max_supply":null},{"id":"SD096","name_th":"ผีตาแฮก","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":1,"atk":0,"hp":3,"keywords":["ทวารบาล"],"text_th":"ต้นเทิร์นฟื้นดวงชะตา 1","max_supply":null},{"id":"SD097","name_th":"ไพร่พลดาบ","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":1,"atk":2,"hp":1,"keywords":["ฮึกเหิม"],"text_th":"โจมตีได้ทันที","max_supply":null},{"id":"SD098","name_th":"สายสิญจน์","rarity_code":"common","type":"คาถา","element":"อากาศ","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"สายสิญจน์ยูนิตศัตรู 1 ตัว 1 เทิร์น (ผี 2 เทิร์น)","max_supply":null},{"id":"SD099","name_th":"ใบหนาด","rarity_code":"common","type":"คาถา","element":"ลม","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"2 ดาเมจแก่ผี 1 ตัว; ยูนิตเราไม่ถูกผีเลือกเป็นเป้า 1 เทิร์น","max_supply":null},{"id":"SD100","name_th":"น้ำมนต์","rarity_code":"common","type":"คาถา","element":"น้ำ","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"ฟื้น 3 HP หรือ 2 ดาเมจแก่ผี/อสูร 1 ตัว","max_supply":null}];
+const A = 'game_assets/';
+const BY = Object.fromEntries(CARDS.map(c=>[c.id,c]));
+const TH = n => String(n).replace(/\d/g,d=>'๐๑๒๓๔๕๖๗๘๙'[d]);
+const fmt = n => Number(n).toLocaleString('th-TH');
+
+/* ตำแหน่งช่องต่าง ๆ บนกรอบแต่ละระดับ (% ของการ์ด) */
+const L = {
+  common:  {win:[8.887,10.417,82.129,56.901], cost:[13.7,11.7], nm:[8,69,84,6],   tx:[8,76,84,11], atk:[13.7,91], hp:[86,91]},
+  standard:{win:[10.06,8.53,78.61,49.61],     cost:[14,10],     nm:[9,60,82,6],   tx:[9,68,82,17], atk:[14,90], hp:[86,90]},
+  rare:    {win:[10.84,10.22,77.93,47.98],    cost:[15.6,9.8],  nm:[10,60,80,6.5],tx:[10,68,80,16],atk:[15.6,89.6], hp:[89,89.6]},
+  epic:    {win:[11.43,13.09,76.95,43.42],    cost:[13.4,9.4],  nm:[10,58.5,80,7],tx:[10,67,80,15],atk:[13.4,88.5], hp:[85,88.5]},
+  legend:  {win:[13.38,15.56,72.95,40.49],    cost:[14.8,12],   nm:[12,58.2,74.5,6.3],tx:[11,66.2,78,16],atk:[14.8,88.5],hp:[86,88.5]},
+  divine:  {win:[13.38,15.76,73.14,40.56],    cost:[13.4,11.5], nm:[12,58.3,76,6.6],tx:[11,66.3,78,17],atk:[13.4,88.5],hp:[87.5,88.5]},
+  creator: {win:[12.99,14.58,74.02,41.93],    cost:[14,10.4],   nm:[12,58.3,76,6.6],tx:[11,66.3,78,16.5],atk:[14,88.5],hp:[86,88.5]},
+};
+const RARE_TH = {common:'ธรรมดา',standard:'ทั่วไป',rare:'หายาก',epic:'มหากาพย์',legend:'ตำนาน',divine:'พระเจ้า',creator:'ผู้สรรสร้าง'};
+const RARE_COL = {common:'#D8CDB8',standard:'#3E8E52',rare:'#4F9FE0',epic:'#9265C2',legend:'#D0412E',divine:'#E8C766',creator:'#C9A0FF'};
+const EL_IC = {'น้ำ':'el_water','ไฟ':'el_fire','ดิน':'el_earth','ลม':'el_wind','อากาศ':'el_akasha'};
+const TY_IC = {'คาถา':'ty_spell','ของขลัง':'ty_amulet','กับดัก':'ty_trap'};
+
+function cardEl(c, opt={}){
+  const r=c.rarity_code, l=L[r], e=document.createElement('div');
+  e.className='card '+r; e.style.setProperty('--w',(opt.w||200)+'px');
+  const pos=(a)=>`left:${a[0]}%;top:${a[1]}%;width:${a[2]}%;height:${a[3]}%`;
+  const isUnit=c.atk!==null && c.atk!=='' && c.atk!==undefined;
+  const kw=(c.keywords||[]).map(k=>`<b>${k}</b>`).join(' · ');
+  e.innerHTML=
+   `<img class="art" alt="" src="${opt.artSrc||A+'art/thumb/'+c.id+'.webp'}" style="${pos(l.win)}" ${opt.artSvg?'hidden':''}>`+
+   (opt.artSvg?`<div class="art" style="${pos(l.win)};overflow:hidden;border-radius:4%">${opt.artSvg}</div>`:'')+
+   `<img class="frame" alt="" src="${A}frames/thumb/${r}.webp">`+
+   `<div class="nm" style="${pos(l.nm)}">${c.name_th}</div>`+
+   `<div class="tx" style="${pos(l.tx)}"><span class="meta">${c.type} · ${c.element||''}${c.tribe?' · '+c.tribe:''}</span>${kw?`<span>${kw}</span>`:''}<span>${c.text_th||''}</span></div>`+
+   `<div class="num cost" style="left:${l.cost[0]}%;top:${l.cost[1]}%">${c.cost}</div>`+
+   (isUnit?`<div class="num atk" style="left:${l.atk[0]}%;top:${l.atk[1]}%">${c.atk}</div><div class="num hp" style="left:${l.hp[0]}%;top:${l.hp[1]}%">${c.hp}</div>`
+          :`<div class="num" style="left:${l.atk[0]}%;top:${l.atk[1]}%">${TY_IC[c.type]?`<img alt="${c.type}" src="${A}ui/${TY_IC[c.type]}.webp">`:''}</div><div class="num" style="left:${l.hp[0]}%;top:${l.hp[1]}%">${EL_IC[c.element]?`<img alt="${c.element}" src="${A}ui/${EL_IC[c.element]}.webp">`:''}</div>`)+
+   (opt.serial?`<div class="serial">${opt.serial}</div>`:'')+
+   (opt.sample?`<div class="wm">ตัวอย่าง</div>`:'')+
+   `<div class="fx"></div>`;
+  if(opt.tilt) addTilt(e);
+  if(opt.sparkle && (r==='divine'||r==='creator'||r==='legend')) addSparkle(e, r==='legend'?6:r==='divine'?14:20, opt.seed||1);
+  return e;
+}
+function addTilt(e){
+  e.classList.add('tilt');
+  const move=(x,y)=>{ const b=e.getBoundingClientRect(), px=(x-b.left)/b.width, py=(y-b.top)/b.height;
+    e.style.transform=`rotateY(${(px-.5)*24}deg) rotateX(${(.5-py)*24}deg)`;
+    e.style.setProperty('--mx',px*100+'%'); e.style.setProperty('--my',py*100+'%'); e.style.setProperty('--ang',90+px*90); };
+  e.addEventListener('pointermove',ev=>move(ev.clientX,ev.clientY));
+  e.addEventListener('pointerleave',()=>{e.style.transform='';});
+}
+function addSparkle(e,n,seed){ /* ลายประกายสุ่มจาก seed (ระบบจริงใช้ cert_id) ทำให้แต่ละใบไม่ซ้ำ */
+  let s=seed*9301+49297; const rnd=()=>((s=(s*9301+49297)%233280)/233280);
+  for(let i=0;i<n;i++){const g=document.createElement('span');g.className='glint';
+    g.style.left=(6+rnd()*88)+'%'; g.style.top=(6+rnd()*88)+'%'; g.style.animationDelay=(-rnd()*1.6)+'s'; g.style.animationDuration=(1.2+rnd()*1.4)+'s'; e.appendChild(g);}
+}
+
+/* ---------- การ์ดสมมติสำหรับหน้าล็อกอิน (ไม่ใช่การ์ดจริงในเกม) ---------- */
+const DEMO=[
+ {id:'DEMO1',name_th:'ท้าวพายุทมิฬ',rarity_code:'legend',type:'ยูนิต',element:'ลม',cost:7,atk:7,hp:6,keywords:['เหาะเหิน'],text_th:'การ์ดตัวอย่างสำหรับหน้าแรก',art:'login/demo1.png',g:['#3A0A0A','#D0412E','#F6B04A']},
+ {id:'DEMO3',name_th:'จอมเทพรุ่งอรุณ',rarity_code:'divine',type:'ยูนิต',element:'ไฟ',cost:10,atk:10,hp:10,keywords:['อมตะ'],text_th:'การ์ดตัวอย่างสำหรับหน้าแรก',art:'login/demo3.png',g:['#2A1A05','#E8C766','#FFF3C0']},
+ {id:'DEMO2',name_th:'นางพญาเพลิงจันทร์',rarity_code:'legend',type:'ยูนิต',element:'ไฟ',cost:6,atk:6,hp:7,keywords:['ฮึกเหิม'],text_th:'การ์ดตัวอย่างสำหรับหน้าแรก',art:'login/demo2.png',g:['#20061A','#B0306A','#FFB07A']},
+];
+function emblemSvg(g,k){ /* ภาพสัญลักษณ์สำรอง ใช้เมื่อยังไม่มีไฟล์ภาพตัวอย่าง */
+  return `<svg viewBox="0 0 100 100" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+   <defs><radialGradient id="rg${k}" cx="50%" cy="40%"><stop offset="0" stop-color="${g[2]}"/><stop offset=".45" stop-color="${g[1]}"/><stop offset="1" stop-color="${g[0]}"/></radialGradient></defs>
+   <rect width="100" height="100" fill="url(#rg${k})"/>
+   <g fill="none" stroke="${g[2]}" stroke-width="1.2" opacity=".85">
+    <circle cx="50" cy="48" r="26"/><circle cx="50" cy="48" r="18"/>
+    ${Array.from({length:16},(_,i)=>{const a=i*Math.PI/8;return `<path d="M${50+18*Math.cos(a)} ${48+18*Math.sin(a)} Q${50+30*Math.cos(a+.2)} ${48+30*Math.sin(a+.2)} ${50+26*Math.cos(a+.4)} ${48+26*Math.sin(a+.4)}"/>`}).join('')}
+   </g>
+   <path d="M50 22 L56 40 L74 40 L60 51 L65 69 L50 58 L35 69 L40 51 L26 40 L44 40Z" fill="${g[2]}" opacity=".9"/>
+  </svg>`;
+}
+function buildShowcase(){
+  const sc=document.getElementById('showcase'); sc.innerHTML='';
+  const w=Math.max(120,Math.min(240,innerWidth*0.2));
+  DEMO.forEach((d,i)=>{
+    const slot=document.createElement('div'); slot.className='slot';
+    const el=cardEl(d,{w:i===1?w*1.12:w,tilt:true,sparkle:true,seed:i+3,sample:true,artSrc:d.art});
+    const img=el.querySelector('img.art'); /* ถ้ายังไม่มีไฟล์ภาพ ใช้ภาพสัญลักษณ์แทน */
+    img.onerror=()=>{const div=document.createElement('div');div.className='art';div.style.cssText=img.style.cssText+';overflow:hidden;border-radius:4%';div.innerHTML=emblemSvg(d.g,i);img.replaceWith(div);};
+    slot.appendChild(el); sc.appendChild(slot);
+  });
+  if(window.DeviceOrientationEvent) addEventListener('deviceorientation',ev=>{ /* เอียงมือถือแล้วการ์ดขยับตาม */
+    if(ev.gamma==null) return; document.querySelectorAll('#showcase .card').forEach(c=>{
+      c.style.transform=`rotateY(${ev.gamma/2}deg) rotateX(${(ev.beta-45)/3}deg)`;
+      c.style.setProperty('--mx',(50+ev.gamma)+'%'); c.style.setProperty('--ang',90+ev.gamma*2);});
+  });
+}
+/* ละอองแสงลอยบนพื้นหลังหน้าล็อกอิน */
+(function particles(){
+  const cv=document.getElementById('fxCanvas'), ctx=cv.getContext('2d'); let P=[];
+  const rs=()=>{cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio;
+    P=Array.from({length:70},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:(Math.random()*2+0.5)*devicePixelRatio,v:(Math.random()*0.4+0.15)*devicePixelRatio,h:Math.random()<.5?42:270}))};
+  rs(); addEventListener('resize',()=>{rs();buildShowcase();});
+  (function f(){ if(document.getElementById('login').classList.contains('on')){ ctx.clearRect(0,0,cv.width,cv.height);
+    for(const p of P){p.y-=p.v;p.x+=Math.sin(p.y/60)*0.3;if(p.y<-5){p.y=cv.height+5;p.x=Math.random()*cv.width}
+      ctx.beginPath();ctx.fillStyle=`hsla(${p.h},90%,70%,.7)`;ctx.shadowColor=`hsl(${p.h},90%,60%)`;ctx.shadowBlur=8;ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();}}
+    requestAnimationFrame(f);})();
+})();
+
+/* ---------- ข้อมูลผู้เล่น (ต้นแบบ: เก็บในเบราว์เซอร์) ---------- */
+const KEY='siamProto.v1';
+let DB={users:{},cur:null,event:{open:false,cardId:'SD001',name:'เทศกาลลอยกระทง'},minted:{},threshold:10000};
+try{const s=localStorage.getItem(KEY); if(s) DB=Object.assign(DB,JSON.parse(s));}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}};
+const me=()=>DB.users[DB.cur];
+async function hash(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('siam:'+s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return 'x'+s.length+s}}
+
+const toast=(m,ms=3200)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),ms)};
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
+  if(id==='home')renderHome(); if(id==='gacha')renderGacha(true); if(id==='coll')renderColl(); if(id==='login')buildShowcase();}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]'); if(!g)return; const to=g.dataset.go;
+  if(to==='duel'||to==='market') return toast(to==='duel'?'โหมดดวลกำลังสร้าง จะมาในขั้นถัดไป':'ตลาดกลางเปิดเมื่อมีระบบเซิร์ฟเวอร์');
+  show(to);});
+
+/* ---------- ล็อกอิน / สมัคร ---------- */
+let regMode=false;
+document.getElementById('toggleReg').onclick=()=>{regMode=!regMode;
+  document.getElementById('loginTitle').textContent=regMode?'สมัครสมาชิก':'เข้าสู่ระบบ';
+  document.getElementById('loginBtn').textContent=regMode?'สร้างบัญชี':'เข้าเล่น';
+  document.getElementById('toggleReg').textContent=regMode?'มีบัญชีแล้ว? เข้าสู่ระบบ':'ยังไม่มีบัญชี? สมัครสมาชิก';
+  document.getElementById('loginErr').textContent='';};
+document.getElementById('loginForm').onsubmit=async ev=>{ev.preventDefault();
+  const u=document.getElementById('u').value.trim(), p=document.getElementById('p').value, err=document.getElementById('loginErr');
+  if(u.length<3) return err.textContent='ชื่อผู้ใช้ต้องมีอย่างน้อย 3 ตัวอักษร';
+  if(p.length<6) return err.textContent='รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร';
+  const h=await hash(u+':'+p);
+  if(regMode){ if(DB.users[u]) return err.textContent='ชื่อนี้มีผู้ใช้แล้ว';
+    DB.users[u]={pw:h,gender:null,name:'',gold:20000,merit:0,pulls:0,sinceLegend:0,cards:[]};
+  } else { if(!DB.users[u]||DB.users[u].pw!==h) return err.textContent='ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'; }
+  DB.cur=u; save(); err.textContent='';
+  show(me().gender?'home':'pick');};
+
+/* ---------- ภาพตัวละคร ---------- */
+function charImg(g,kind,alt){ /* kind: ชื่อท่า เช่น full_talk_right ; ไม่มีไฟล์ ลองท่าสำรอง แล้วค่อยใช้เงา */
+  const tries=[kind,'full_idle_right','full_idle_left','bust_talk_right','bust_talk_left','bust_neutral_left','bust'].filter((v,i,a)=>a.indexOf(v)===i && (v.startsWith(kind.split('_')[0])||v===kind));
+  const img=new Image(); img.alt=alt||''; let i=0; img.src=`characters/${g}_${tries[0]}.webp`;
+  img.onerror=()=>{ if(++i<tries.length) img.src=`characters/${g}_${tries[i]}.webp`; else img.replaceWith(silhouette(g)); }; return img;}
+let SIL=0;
+function silhouette(g){const k='sg'+(++SIL);const d=document.createElement('div');d.style.cssText='width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center';
+  d.innerHTML=`<svg viewBox="0 0 200 300" style="height:100%;max-width:100%" aria-hidden="true"><defs><linearGradient id="${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8C766"/><stop offset="1" stop-color="#5A3A10"/></linearGradient></defs>
+  <g fill="url(#${k})" opacity=".85"><path d="${g==='male'?'M100 10 l14 18 h-28z':'M100 8 l10 22 h-20z'}"/><circle cx="100" cy="52" r="22"/>
+  <path d="${g==='male'?'M58 300 L66 120 Q100 92 134 120 L142 300 Z':'M50 300 Q70 180 72 122 Q100 96 128 122 Q130 180 150 300 Z'}"/></g>
+  <text x="100" y="200" text-anchor="middle" font-size="12" fill="#1A120C" font-family="Noto Sans Thai">ใส่ภาพใน characters/</text></svg>`;return d;}
+let pickG=null;
+document.querySelectorAll('.charopt').forEach(b=>b.onclick=()=>{pickG=b.dataset.g;document.querySelectorAll('.charopt').forEach(x=>x.classList.toggle('sel',x===b))});
+document.getElementById('pickMale').appendChild(charImg('male','full_idle_right','ตัวละครชาย'));
+document.getElementById('pickFemale').appendChild(charImg('female','full_idle_right','ตัวละครหญิง'));
+document.getElementById('pickOk').onclick=()=>{const n=document.getElementById('heroName').value.trim(),e=document.getElementById('pickErr');
+  if(!pickG) return e.textContent='เลือกตัวละครชายหรือหญิงก่อน'; if(n.length<2) return e.textContent='ตั้งชื่อในเกมอย่างน้อย 2 ตัวอักษร';
+  Object.assign(me(),{gender:pickG,name:n}); save(); show('home');};
+
+/* ---------- หน้าแรก ---------- */
+function renderHome(){const u=me(); if(!u) return show('login');
+  document.getElementById('hWho').textContent=u.name;
+  document.getElementById('hGold').textContent=fmt(u.gold); document.getElementById('hMerit').textContent=fmt(u.merit);
+  const h=document.getElementById('hero'); h.innerHTML=''; h.appendChild(charImg(u.gender,'full_wai_right',u.name));
+  clearTimeout(h._t); h._t=setTimeout(()=>{h.innerHTML='';h.appendChild(charImg(u.gender,'full_talk_right',u.name));},2600);
+  document.getElementById('evHint').textContent=DB.event.open?`✦ ตู้ Event เปิดอยู่: ${DB.event.name}`:'ตู้ปกติ';
+  document.getElementById('collHint').textContent=`มีแล้ว ${new Set(u.cards.map(c=>c.id)).size} / 100 แบบ`;
+  const b=document.getElementById('dlgBust'); b.innerHTML=''; b.appendChild(charImg('npc_shaman','bust','หมอผีเฒ่า'));
+  const mb=document.getElementById('dlgMe'); mb.innerHTML=''; mb.appendChild(charImg(u.gender,'bust_talk_left',u.name));
+  document.getElementById('dlgText').textContent=DB.event.open
+    ? `${u.name} เอ๋ย ${DB.event.name} มาถึงแล้ว ตู้ผู้สรรสร้างเปิดรับผู้ที่สุ่มครบ ${fmt(DB.threshold)} ครั้ง ไปลองดวงที่ตู้สุ่มการ์ดสิ`
+    : `ยินดีต้อนรับ ${u.name} ลองไปที่ตู้สุ่มการ์ดเพื่อเริ่มสะสมการ์ดใบแรกของเจ้า`;
+  document.getElementById('dlg').style.display='';}
+document.getElementById('dlgClose').onclick=()=>document.getElementById('dlg').style.display='none';
+document.getElementById('logout').onclick=()=>{DB.cur=null;save();show('login')};
+
+/* ---------- ตู้สุ่ม ---------- */
+const RATES=[['common',60.109],['standard',27],['rare',9],['epic',2.89],['legend',1],['divine',0.001]];
+const POOL={}; CARDS.forEach(c=>{(POOL[c.rarity_code]=POOL[c.rarity_code]||[]).push(c)});
+let gTab='normal';
+function eligible(){return me().pulls>=DB.threshold}
+function renderGacha(first){const u=me(); const gs=document.getElementById('gacha');
+  if(!DB.event.open && gTab==='event') gTab='normal';
+  gs.classList.toggle('event',gTab==='event');
+  document.getElementById('gGold').textContent=fmt(u.gold); document.getElementById('gMerit').textContent=fmt(u.merit);
+  const tabs=document.getElementById('gTabs'); tabs.innerHTML='';
+  const t1=document.createElement('button');t1.textContent='ตู้ปกติ';t1.className=gTab==='normal'?'on':'';t1.onclick=()=>{gTab='normal';renderGacha()};tabs.appendChild(t1);
+  if(DB.event.open){const t2=document.createElement('button');t2.textContent='✦ ตู้ผู้สรรสร้าง';t2.className='ev '+(gTab==='event'?'on':'');t2.onclick=()=>{gTab='event';renderGacha();if(!u.seenEv){u.seenEv=DB.event.name;save();openInfo('event')}};tabs.appendChild(t2);}
+  const st=document.getElementById('gStage'), bar=document.getElementById('gBar');
+  if(gTab==='normal'){
+    st.innerHTML=`<h2>ตู้สุ่มการ์ดสยาม</h2><div class="sub">ครั้งละ 100 โกลด์ · 10 ครั้ง 1,000 โกลด์ · ได้แต้มบุญ +1 ทุกครั้ง</div>
+      <div class="sub">ตำนานการันตีภายใน ${fmt(200-u.sinceLegend)} ครั้ง</div>
+      <div class="sub">สุ่มสะสม ${fmt(u.pulls)} / ${fmt(DB.threshold)} ครั้ง (สิทธิ์ตู้ผู้สรรสร้าง)</div>
+      <div class="progress" aria-label="ความคืบหน้าสิทธิ์"><div style="width:${Math.min(100,u.pulls/DB.threshold*100)}%"></div></div>
+      <div class="results" id="gRes"></div>`;
+    bar.innerHTML=''; [[1,100],[10,1000]].forEach(([n,cost])=>{const b=document.createElement('button');b.className='btn';b.textContent=`สุ่ม ${n} ครั้ง · ${fmt(cost)} โกลด์`;b.disabled=u.gold<cost;b.onclick=()=>pullNormal(n,cost);bar.appendChild(b)});
+  } else {
+    const c=BY[DB.event.cardId], taken=DB.minted[c.id]>=1;
+    st.innerHTML=`<h2 style="color:#D9CEFF">${DB.event.name}</h2><div class="sub">รอบนี้ปล่อยการ์ดผู้สรรสร้างเพียง 1 ใบในเซิร์ฟเวอร์</div>
+      <div id="evCard"></div><div class="sub">${taken?'การ์ดใบนี้มีผู้ได้รับไปดูแลต่อแล้ว รอบนี้ปิดแล้ว':`ครั้งละ 5,000 โกลด์ · โอกาส 0.5% · ${eligible()?'คุณมีสิทธิ์สุ่มตู้นี้':`ต้องสุ่มตู้ปกติอีก ${fmt(DB.threshold-u.pulls)} ครั้งจึงจะมีสิทธิ์`}`}</div><div class="results" id="gRes"></div>`;
+    const ec=cardEl(c,{w:Math.min(220,innerWidth*0.4),tilt:true,sparkle:true,seed:7,serial:'๑/๑'}); if(taken) ec.style.filter='grayscale(1) brightness(.5)';
+    document.getElementById('evCard').appendChild(ec);
+    bar.innerHTML=''; const b=document.createElement('button');b.className='btn';b.style.background='#3A2A6A';b.style.borderColor='#B7A6F0';
+    b.textContent='สุ่มตู้ผู้สรรสร้าง · 5,000 โกลด์'; b.disabled=taken||!eligible()||u.gold<5000; b.onclick=pullEvent; bar.appendChild(b);
+  }
+  if(first && !u.seenNormal){u.seenNormal=true;save();openInfo('normal')}
+}
+function rollTier(u){
+  u.sinceLegend++;
+  if(u.sinceLegend>=200) return 'legend';
+  let legendBoost=u.sinceLegend>=150?(u.sinceLegend-149)*0.5:0;
+  let x=Math.random()*100, acc=0;
+  for(const [t,p0] of [...RATES].reverse()){ let p=p0+(t==='legend'?legendBoost:0); acc+=p; if(x<acc) return t; }
+  return 'common';
+}
+function pickCard(tier){
+  if(tier==='divine'){const left=POOL.divine.filter(c=>(DB.minted[c.id]||0)<3); if(!left.length) tier='legend'; else return left[Math.floor(Math.random()*left.length)];}
+  const p=POOL[tier]; return p[Math.floor(Math.random()*p.length)];
+}
+function pullNormal(n,cost){const u=me(); if(u.gold<cost) return;
+  u.gold-=cost; const out=[];
+  for(let i=0;i<n;i++){u.pulls++;u.merit++;let t=rollTier(u); const c=pickCard(t); if(c.rarity_code==='legend'||c.rarity_code==='divine') u.sinceLegend=0;
+    const inst={id:c.id,at:Date.now()}; if(c.rarity_code==='divine'){DB.minted[c.id]=(DB.minted[c.id]||0)+1;inst.serial=`${TH(DB.minted[c.id])}/${TH(3)}`;
+      toast(`ประกาศทั้งเซิร์ฟเวอร์: การ์ด ${c.name_th} ระดับพระเจ้า ${inst.serial} ถูกค้นพบแล้ว`,5000);}
+    u.cards.push(inst); out.push(inst);}
+  save(); renderGacha(); reveal(out);}
+function pullEvent(){const u=me(), c=BY[DB.event.cardId]; if(u.gold<5000||!eligible()||DB.minted[c.id]>=1) return;
+  u.gold-=5000; const win=Math.random()<0.005; save();
+  if(win){DB.minted[c.id]=1; const inst={id:c.id,at:Date.now(),serial:'๑/๑'}; u.cards.push(inst); save(); renderGacha(); reveal([inst]);
+    toast(`การ์ด ${c.name_th} ระดับผู้สรรสร้าง มีผู้ได้รับไปดูแลต่อแล้ว`,6000);}
+  else {renderGacha(); toast('ยังไม่ใช่วาสนาของท่าน · 5,000 โกลด์ถูกเผาเป็นเครื่องบูชา');}}
+function reveal(list){const box=document.getElementById('gRes'); box.innerHTML='';
+  const w=list.length>1?Math.min(120,(Math.min(innerWidth,1100)-60)/5):Math.min(220,innerWidth*0.45);
+  list.forEach((inst,i)=>{const c=BY[inst.id]; const f=document.createElement('div'); f.className='flip r-'+c.rarity_code; f.style.setProperty('--w',w+'px');
+    const back=document.createElement('div'); back.className='back'; back.style.backgroundImage=`url(${A}ui/thumb/card_back.webp)`;
+    const front=document.createElement('div'); front.className='front'; front.appendChild(cardEl(c,{w,serial:inst.serial,sparkle:true,seed:inst.at%997}));
+    f.append(back,front); f.onclick=()=>zoomCard(inst); box.appendChild(f);
+    setTimeout(()=>f.classList.add('open'),300+i*160);});}
+
+/* ---------- ป๊อปอัปกติกา ---------- */
+function openInfo(kind){const m=document.getElementById('modal'),b=document.getElementById('modalBox'); m.classList.toggle('ev',kind==='event');
+  const rows=RATES.map(([t,p])=>`<tr><td><span class="dot" style="background:${RARE_COL[t]}"></span>${RARE_TH[t]}</td><td>${p}%</td></tr>`).join('');
+  b.innerHTML = kind==='normal' ? `
+   <h3>กติกาตู้สุ่มการ์ดสยาม</h3>
+   <h4>ใช้อะไรสุ่ม</h4><ul><li>ใช้<b>โกลด์</b> ครั้งละ 100 หรือ 10 ครั้ง 1,000 โกลด์</li>
+   <li>โกลด์ได้จากภารกิจรายวัน รายสัปดาห์ การดวลกับผู้เล่น และกิจกรรมในเกม ซื้อขายระหว่างผู้เล่นได้</li>
+   <li>โกลด์ที่ใช้สุ่มถูก<b>เผาออกจากระบบ</b> ไม่คืนในทุกกรณี</li></ul>
+   <h4>โอกาสที่จะได้</h4><table><tr><th>ระดับ</th><th>โอกาส</th></tr>${rows}<tr><td><span class="dot" style="background:${RARE_COL.creator}"></span>ผู้สรรสร้าง</td><td>ไม่อยู่ในตู้นี้</td></tr></table>
+   <h4>การันตี</h4><ul><li>ตั้งแต่ครั้งที่ 150 โอกาสได้ตำนานเพิ่มครั้งละ 0.5%</li><li>ครั้งที่ 200 ได้การ์ดตำนานแน่นอน แล้วนับใหม่</li></ul>
+   <h4>การ์ดระดับพระเจ้า</h4><ul><li>มีเพียง <b>๓ ใบต่อแบบ</b> ทั้งเซิร์ฟเวอร์ พร้อมเลขรันเลขไทย เช่น ๑/๓</li><li>ถ้าออกครบทุกแบบแล้ว ผลที่สุ่มได้จะเปลี่ยนเป็นระดับตำนาน</li></ul>
+   <h4>แต้มบุญ</h4><ul><li>ได้ +1 ทุกครั้งที่สุ่ม ผูกกับบัญชี เทรดไม่ได้</li><li>สะสมครบ 50,000 แต้ม แลกการ์ดพระเจ้าแบบที่ยังออกไม่ครบได้</li></ul>
+   <h4>สิทธิ์ตู้ผู้สรรสร้าง</h4><ul><li>สุ่มตู้นี้สะสมครบ <b>${fmt(DB.threshold)} ครั้ง</b> (นับตลอดชีพ) จึงมีสิทธิ์เข้าตู้ผู้สรรสร้าง เมื่อระบบเปิดรอบพิเศษ</li></ul>
+   <div style="display:flex;justify-content:flex-end;margin-top:16px"><button class="btn" id="mOk">เข้าใจแล้ว</button></div>`
+  : `
+   <h3 style="color:#D9CEFF">ตู้ผู้สรรสร้าง · ${DB.event.name}</h3>
+   <p>ตู้พิเศษที่เปิดเฉพาะช่วงเทศกาลหรือกิจกรรมสำคัญ แต่ละรอบปล่อยการ์ดระดับผู้สรรสร้าง <b>เพียง 1 ใบในเซิร์ฟเวอร์</b> การ์ดระดับนี้มีทั้งเกมเพียง 10 แบบ แบบละ 1 ใบ และ<b>หาไม่ได้จากตู้ปกติ</b></p>
+   <h4>ใครสุ่มได้</h4><ul><li>ผู้ที่สุ่มตู้ปกติสะสมครบ ${fmt(DB.threshold)} ครั้ง (ตอนนี้คุณสุ่มแล้ว ${fmt(me().pulls)} ครั้ง)</li></ul>
+   <h4>ใช้อะไรสุ่ม และโอกาส</h4><ul><li>ครั้งละ <b>5,000 โกลด์</b> โอกาส <b>0.5%</b> (1 ใน 200) ไม่มีการันตี</li><li>โกลด์ทั้งหมดถูกเผาเป็นเครื่องบูชา ไม่คืนแม้รอบจะจบโดยไม่มีผู้ได้</li></ul>
+   <h4>เมื่อมีผู้ได้รับ</h4><ul><li>รอบจบทันที ระบบประกาศทั้งเซิร์ฟเวอร์ว่า "การ์ด… ระดับผู้สรรสร้าง มีผู้ได้รับไปดูแลต่อแล้ว" โดยไม่เปิดเผยชื่อ</li>
+   <li>การ์ดได้เลขรัน ๑/๑ บันทึกเข้ารหัสไว้ในเครื่องของผู้ได้รับเท่านั้น พร้อมฉบับสะสมภาพความละเอียดสูงหน้า-หลัง</li></ul>
+   <h4>ทำไมสำคัญ</h4><ul><li>เป็นการ์ดที่หายากที่สุดในเกม ไม่มีวันผลิตเพิ่ม ใช้ดวลได้ เก็บสะสม หรือเทรดผ่านตลาดกลางและเทรด 1:1 ได้</li></ul>
+   <div style="display:flex;justify-content:flex-end;margin-top:16px"><button class="btn" id="mOk" style="background:#3A2A6A;border-color:#B7A6F0">รับทราบ</button></div>`;
+  m.classList.add('on'); document.getElementById('mOk').onclick=()=>m.classList.remove('on'); document.getElementById('mOk').focus({preventScroll:true}); b.scrollTop=0;}
+document.getElementById('gInfo').onclick=()=>openInfo(gTab);
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')e.currentTarget.classList.remove('on')};
+addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('modal').classList.remove('on');document.getElementById('zoom').classList.remove('on')}});
+
+/* ---------- คลังและดูการ์ดขยาย ---------- */
+function renderColl(){const u=me(), g=document.getElementById('cGrid'); g.innerHTML='';
+  const cnt={}; u.cards.forEach(c=>cnt[c.id]=(cnt[c.id]||0)+1);
+  document.getElementById('cCount').textContent=`มีแล้ว ${Object.keys(cnt).length} / 100 แบบ · ${u.cards.length} ใบ`;
+  CARDS.forEach(c=>{const cell=document.createElement('div');cell.className='cell'; const owned=cnt[c.id];
+    const el=cardEl(c,{w:150}); if(!owned) el.style.filter='grayscale(1) brightness(.35)'; else el.onclick=()=>zoomCard(u.cards.find(x=>x.id===c.id));
+    cell.append(el, Object.assign(document.createElement('span'),{textContent:owned?`× ${owned}`:'ยังไม่มี'})); g.appendChild(cell);});}
+function zoomCard(inst){const z=document.getElementById('zoom'), c=BY[inst.id]; z.innerHTML='';
+  const big=cardEl(c,{w:Math.min(380,innerWidth*0.8,(innerHeight-40)/1.5),tilt:true,sparkle:true,seed:inst.at%997,serial:inst.serial});
+  big.querySelector('img.art').src=A+'art/'+c.id+'.webp'; big.querySelector('img.frame').src=A+'frames/'+c.rarity_code+'.webp';
+  z.appendChild(big); z.classList.add('on'); z.onclick=e=>{if(e.target===z)z.classList.remove('on')};}
+
+/* ---------- หลังบ้านจำลอง: เปิดด้วย ?admin=1 หรือกด Ctrl+Shift+A ---------- */
+const adm=document.getElementById('admin'), aCard=document.getElementById('aCard');
+POOL.creator.forEach(c=>aCard.add(new Option(`${c.id} · ${c.name_th}${DB.minted[c.id]?' (มีเจ้าของแล้ว)':''}`,c.id)));
+aCard.value=DB.event.cardId; document.getElementById('aTh').value=DB.threshold; document.getElementById('aName').value=DB.event.name;
+if(new URLSearchParams(location.search).has('admin')) adm.classList.add('on');
+addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==='a')adm.classList.toggle('on')});
+document.getElementById('aOpen').onclick=()=>{if(DB.minted[aCard.value])return toast('การ์ดใบนี้มีเจ้าของแล้ว เลือกใบอื่น');
+  DB.event={open:true,cardId:aCard.value,name:document.getElementById('aName').value||'กิจกรรมพิเศษ'}; DB.threshold=Math.max(1,+document.getElementById('aTh').value||10000);
+  Object.values(DB.users).forEach(x=>delete x.seenEv); save(); toast(`เปิดตู้ผู้สรรสร้าง: ${DB.event.name}`); refresh();};
+document.getElementById('aX').onclick=()=>adm.classList.remove('on');
+document.getElementById('aClose').onclick=()=>{DB.event.open=false;save();toast('ปิดตู้ Event แล้ว');refresh();};
+document.getElementById('aTh').onchange=e=>{DB.threshold=Math.max(1,+e.target.value||10000);save();refresh()};
+document.getElementById('aGold').onclick=()=>{if(!me())return;me().gold+=100000;save();refresh();};
+document.getElementById('aReset').onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){} location.reload();};
+function refresh(){const on=document.querySelector('.screen.on').id; if(on==='home')renderHome(); if(on==='gacha')renderGacha();}
+
+/* เริ่ม */
+if(DB.cur && me()) show(me().gender?'home':'pick'); else show('login');
+</script>
+</body>
+</html>
