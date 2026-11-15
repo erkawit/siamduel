@@ -4,10 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>สยามินทร์ดุเอล</title>
+<link rel="icon" type="image/png" href="ui_logo/favicon.png">
+<link rel="apple-touch-icon" href="ui_logo/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chonburi&family=Noto+Sans+Thai:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chonburi&family=Charm:wght@400;700&family=Sarabun:wght@400;600&family=Noto+Sans+Thai:wght@400;500;700&display=swap">
 <style>
-:root{
+@font-face{font-family:'Wasika';src:local('Wasika'),local('Wasika Regular'),url(fonts/Wasika.woff2) format('woff2'),url(fonts/Wasika.ttf) format('truetype'),url(fonts/Wasika.otf) format('opentype');font-display:swap}
+:root{--cardname:'Wasika','Charm',Chonburi,serif;--cardtext:'Wasika','Sarabun','Noto Sans Thai',sans-serif;
   --lacquer:#0E0B0A; --panel:#15100D; --panel2:#1C1612; --line:#3A2E22;
   --gold:#C9A24A; --gold2:#E8C766; --red:#8E1B1B; --violet:#8A79B8;
   --text:#EDE3CC; --muted:#A79A84; --ink:#2A1A10;
@@ -32,14 +35,17 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .card{position:relative;width:var(--w,200px);aspect-ratio:2/3;border-radius:5%;transform-style:preserve-3d;container-type:inline-size;user-select:none}
 .card .art{position:absolute;object-fit:cover;object-position:50% 30%}
 .card .frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.card .nm{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;font-family:Chonburi,serif;color:var(--ink);font-size:6.2cqw;line-height:1.1;padding:0 4cqw;white-space:nowrap;overflow:hidden}
-.card .tx{position:absolute;color:var(--ink);font-size:4.6cqw;line-height:1.35;padding:2.5cqw 6cqw;overflow:hidden;text-align:center;display:flex;flex-direction:column;gap:1cqw}
+.card .nm{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--cardname);font-weight:700;color:var(--ink);font-size:7cqw;line-height:1.05;padding:0 4cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .tx{position:absolute;color:var(--ink);font-family:var(--cardtext);font-size:4.9cqw;line-height:1.4;padding:2.5cqw 6cqw;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;text-align:center;display:flex;flex-direction:column;gap:1cqw;scrollbar-width:thin;scrollbar-color:#8E6A3A transparent;touch-action:pan-y}
+.card .tx::-webkit-scrollbar{width:1.6cqw}.card .tx::-webkit-scrollbar-thumb{background:#8E6A3A;border-radius:1cqw}
+.card .tx>*{flex:none}
 .card .tx .meta{font-size:4cqw;color:#6B4A2A}
 .card .tx b{color:#5A1010}
-.card .num{position:absolute;width:14cqw;aspect-ratio:1;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-size:7.5cqw;color:#2A1A10;text-shadow:0 0 2px #fff8}
-.card .num.cost{color:#F6ECD4;background:radial-gradient(circle,#1A3A6A 55%,#0E1E3A 70%);border-radius:50%;text-shadow:none}
+.card .num{position:absolute;width:calc(var(--d,12) * 1cqw);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-size:7.5cqw;color:#2A1A10;text-shadow:0 0 2px #fff8}
+.card .num{font-size:calc(var(--d,12) * .62cqw);line-height:1;font-weight:400}
+.card .num.cost{color:#1A3A6A;text-shadow:0 0 3px #fff,0 0 1px #fff}
 .card .num.atk{color:#8E1B1B}.card .num.hp{color:#1E5A2A}
-.card .num img{width:72%}
+.card .num img{width:100%;height:100%;object-fit:contain}
 .card .serial{position:absolute;left:50%;bottom:3.2%;transform:translateX(-50%);font-family:Chonburi,serif;font-size:5cqw;color:#3A220A;text-shadow:0 0 3px #FFE9A8}
 .card .wm{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-18deg);font-family:Chonburi,serif;font-size:11cqw;color:#fff;opacity:.38;letter-spacing:.1em;border:.8cqw solid #fff;padding:1cqw 4cqw;border-radius:2cqw;pointer-events:none;text-shadow:0 0 6px #000}
 .card .fx{position:absolute;inset:0;border-radius:5%;pointer-events:none;mix-blend-mode:color-dodge;opacity:0;transition:opacity .3s}
@@ -51,10 +57,10 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 @keyframes tw{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.4)}}
 
 /* ---------- หน้าล็อกอิน ---------- */
-#login{background:radial-gradient(ellipse at 50% 30%,#2A1530 0%,#0E0B0A 65%)}
+#login{background:linear-gradient(#0E0B0A55,#0E0B0Acc 85%),url(ui_art_web/gacha_bg.webp) center/cover,#0E0B0A}
 #login video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
 #fxCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.showcase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:4vw;perspective:1100px;padding-bottom:22vh}
+.showcase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:4vw;perspective:1100px;padding-bottom:22vh;padding-top:16vh}
 .showcase .slot{animation:float 6s ease-in-out infinite}
 .showcase .slot:nth-child(1){animation-delay:-2s;transform:rotate(-8deg) translateY(30px)}
 .showcase .slot:nth-child(3){animation-delay:-4s;transform:rotate(8deg) translateY(30px)}
@@ -64,6 +70,8 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .cbt{position:fixed;top:0;left:0;right:0;z-index:5;border:none;border-bottom:1px solid #E8C766;background:#8E1B1Bee;color:#FFF3D0;font-size:12px;letter-spacing:.05em;padding:6px 14px;cursor:pointer;font-family:inherit}
 #login .logo{top:calc(3vh + 30px)}
 .cbtchip{color:#FFE7A0;border-color:#8E1B1B;background:#3A1010;cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.logoimg{height:clamp(90px,19vh,190px);max-width:90vw;object-fit:contain;filter:drop-shadow(0 8px 24px #000)}
 .logo h1{margin:0;font-size:clamp(30px,5vw,56px);color:var(--gold2);text-shadow:0 2px 0 #5a3a10,0 0 30px #c9a24a66}
 .logo div{color:var(--muted);letter-spacing:.3em;font-size:13px}
 .note{font-size:12px;color:var(--muted);text-align:center}
@@ -147,7 +155,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .pullbar{position:absolute;bottom:24px;left:0;right:0;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:0 16px}
 .progress{width:min(420px,90%);height:10px;border-radius:5px;background:#2A1A12;overflow:hidden;border:1px solid var(--line)}
 .progress div{height:100%;background:linear-gradient(90deg,var(--gold),#F6E3A0)}
-.results{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:1100px;perspective:900px}
+.results{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:1100px;margin:0 auto;perspective:900px}
 .flip{width:var(--w);aspect-ratio:2/3;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
 .flip.open{transform:rotateY(180deg)}
 .flip>*{position:absolute;inset:0;backface-visibility:hidden}
@@ -181,6 +189,10 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .grid .cell{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:var(--muted)}
 .zoom{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;z-index:55;perspective:1000px}
 .zoom.on{display:flex}
+.zwrap{transform-origin:center;touch-action:none;transition:transform .12s ease-out;cursor:grab}
+.zbar{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:#15100Df0;border:1px solid var(--gold);border-radius:24px;padding:6px 10px;z-index:2}
+.zbar button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);font-size:20px}
+.zbar span{min-width:56px;text-align:center;color:var(--text);font-size:14px}
 
 /* ---------- แอดมินจำลอง ---------- */
 #admin{position:fixed;right:12px;bottom:12px;width:300px;background:#101820f5;border:1px solid #4F7FB5;border-radius:12px;padding:12px;z-index:70;display:none;font-size:13px}
@@ -207,7 +219,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 <section id="login" class="screen" aria-label="เข้าสู่ระบบ">
   <video id="bgVideo" muted loop autoplay playsinline src="login/bg.mp4" onerror="this.remove()"></video>
   <canvas id="fxCanvas"></canvas>
-  <div class="logo"><h1>สยามินทร์ดุเอล</h1><div>SIAM DUEL</div><button class="cbt" data-cbt="1">CLOSED BETA · ข้อมูลทั้งหมดจะถูกรีเซตเมื่อสิ้นสุดการทดสอบ</button></div>
+  <div class="logo"><h1 class="sr">สยามินทร์ดุเอล SIAM DUEL</h1><img class="logoimg" src="ui_logo/logo.webp" alt="สยามินทร์ดุเอล SIAM DUEL"><button class="cbt" data-cbt="1">CLOSED BETA · ข้อมูลทั้งหมดจะถูกรีเซตเมื่อสิ้นสุดการทดสอบ</button></div>
   <div class="showcase" id="showcase"></div>
   <form class="loginbox" id="loginForm" novalidate>
     <h2 id="loginTitle" style="margin:0;font-size:22px;color:var(--gold2)">เข้าสู่ระบบ</h2>
@@ -315,13 +327,13 @@ const fmt = n => Number(n).toLocaleString('th-TH');
 
 /* ตำแหน่งช่องต่าง ๆ บนกรอบแต่ละระดับ (% ของการ์ด) */
 const L = {
-  common:  {win:[8.887,10.417,82.129,56.901], cost:[13.7,11.7], nm:[8,69,84,6],   tx:[8,76,84,11], atk:[13.7,91], hp:[86,91]},
-  standard:{win:[10.06,8.53,78.61,49.61],     cost:[14,10],     nm:[9,60,82,6],   tx:[9,68,82,17], atk:[14,90], hp:[86,90]},
-  rare:    {win:[10.84,10.22,77.93,47.98],    cost:[15.6,9.8],  nm:[10,60,80,6.5],tx:[10,68,80,16],atk:[15.6,89.6], hp:[89,89.6]},
-  epic:    {win:[11.43,13.09,76.95,43.42],    cost:[13.4,9.4],  nm:[10,58.5,80,7],tx:[10,67,80,15],atk:[13.4,88.5], hp:[85,88.5]},
-  legend:  {win:[13.38,15.56,72.95,40.49],    cost:[14.8,12],   nm:[12,58.2,74.5,6.3],tx:[11,66.2,78,16],atk:[14.8,88.5],hp:[86,88.5]},
-  divine:  {win:[13.38,15.76,73.14,40.56],    cost:[13.4,11.5], nm:[12,58.3,76,6.6],tx:[11,66.3,78,17],atk:[13.4,88.5],hp:[87.5,88.5]},
-  creator: {win:[12.99,14.58,74.02,41.93],    cost:[14,10.4],   nm:[12,58.3,76,6.6],tx:[11,66.3,78,16.5],atk:[14,88.5],hp:[86,88.5]},
+  common:{win:[8.887,10.417,82.129,56.901], d:11.82, cost:[13.87,12.37], nm:[10.45, 69.79, 78.32, 4.23], tx:[8.98, 76.3, 81.64, 10.4], atk:[13.48,91.31], hp:[85.89,91.24]},
+  standard:{win:[10.06,8.53,78.61,49.61], d:11.56, cost:[14.65,10.71], nm:[12.21, 60.48, 75.68, 5.86], tx:[9.67, 68.95, 80.66, 17.55], atk:[13.43,90.95], hp:[86.43,90.95]},
+  rare:{win:[10.84,10.22,77.93,47.98], d:12.5, cost:[14.6,10.64], nm:[10.16, 60.42, 79.49, 6.05], tx:[9.18, 68.88, 81.45, 17.33], atk:[13.53,90.98], hp:[86.43,90.98]},
+  epic:{win:[11.43,13.09,76.95,43.42], d:11.91, cost:[14.4,10.64], nm:[11.52, 59.24, 76.86, 5.47], tx:[10.06, 67.64, 79.69, 18.48], atk:[13.57,90.69], hp:[86.18,90.69]},
+  legend:{win:[13.38,15.56,72.95,40.49], d:10.74, cost:[14.65,12.66], nm:[14.06, 58.98, 71.48, 5.08], tx:[11.72, 66.99, 76.46, 17.63], atk:[14.01,88.8], hp:[85.6,88.8]},
+  divine:{win:[13.38,15.76,73.14,40.56], d:11.03, cost:[14.7,13.35], nm:[13.28, 58.92, 72.56, 5.14], tx:[10.45, 66.93, 78.91, 18.05], atk:[14.75,89.26], hp:[84.96,89.26]},
+  creator:{win:[12.99,14.58,74.02,41.93], d:11.62, cost:[14.5,12.4], nm:[11.43, 58.98, 77.44, 5.27], tx:[10.55, 67.25, 78.71, 17.38], atk:[13.72,89.16], hp:[86.28,89.1]},
 };
 const RARE_TH = {common:'ธรรมดา',standard:'ทั่วไป',rare:'หายาก',epic:'มหากาพย์',legend:'ตำนาน',divine:'พระเจ้า',creator:'ผู้สรรสร้าง'};
 const RARE_COL = {common:'#D8CDB8',standard:'#3E8E52',rare:'#4F9FE0',epic:'#9265C2',legend:'#D0412E',divine:'#E8C766',creator:'#C9A0FF'};
@@ -330,7 +342,7 @@ const TY_IC = {'คาถา':'ty_spell','ของขลัง':'ty_amulet','�
 
 function cardEl(c, opt={}){
   const r=c.rarity_code, l=L[r], e=document.createElement('div');
-  e.className='card '+r; e.style.setProperty('--w',(opt.w||200)+'px');
+  e.className='card '+r; e.style.setProperty('--w',(opt.w||200)+'px'); e.style.setProperty('--d',l.d||12);
   const pos=(a)=>`left:${a[0]}%;top:${a[1]}%;width:${a[2]}%;height:${a[3]}%`;
   const isUnit=c.atk!==null && c.atk!=='' && c.atk!==undefined;
   const kw=(c.keywords||[]).map(k=>`<b>${k}</b>`).join(' · ');
@@ -342,7 +354,7 @@ function cardEl(c, opt={}){
    `<div class="tx" style="${pos(l.tx)}"><span class="meta">${c.type} · ${c.element||''}${c.tribe?' · '+c.tribe:''}</span>${kw?`<span>${kw}</span>`:''}<span>${c.text_th||''}</span></div>`+
    `<div class="num cost" style="left:${l.cost[0]}%;top:${l.cost[1]}%">${c.cost}</div>`+
    (isUnit?`<div class="num atk" style="left:${l.atk[0]}%;top:${l.atk[1]}%">${c.atk}</div><div class="num hp" style="left:${l.hp[0]}%;top:${l.hp[1]}%">${c.hp}</div>`
-          :`<div class="num" style="left:${l.atk[0]}%;top:${l.atk[1]}%">${TY_IC[c.type]?`<img alt="${c.type}" src="${A}ui/${TY_IC[c.type]}.webp">`:''}</div><div class="num" style="left:${l.hp[0]}%;top:${l.hp[1]}%">${EL_IC[c.element]?`<img alt="${c.element}" src="${A}ui/${EL_IC[c.element]}.webp">`:''}</div>`)+
+          :`<div class="num" style="left:${l.atk[0]}%;top:${l.atk[1]}%">${TY_IC[c.type]?`<img alt="${c.type}" src="ui_icons/${TY_IC[c.type]}.webp">`:''}</div><div class="num" style="left:${l.hp[0]}%;top:${l.hp[1]}%">${EL_IC[c.element]?`<img alt="${c.element}" src="ui_icons/${EL_IC[c.element]}.webp">`:''}</div>`)+
    (opt.serial?`<div class="serial">${opt.serial}</div>`:'')+
    (opt.sample?`<div class="wm">ตัวอย่าง</div>`:'')+
    `<div class="fx"></div>`;
@@ -635,9 +647,32 @@ function renderColl(){const u=me(), g=document.getElementById('cGrid'); g.innerH
     const el=cardEl(c,{w:150}); if(!owned) el.style.filter='grayscale(1) brightness(.35)'; else el.onclick=()=>zoomCard(u.cards.find(x=>x.id===c.id));
     cell.append(el, Object.assign(document.createElement('span'),{textContent:owned?`× ${owned}`:'ยังไม่มี'})); g.appendChild(cell);});}
 function zoomCard(inst){const z=document.getElementById('zoom'), c=BY[inst.id]; z.innerHTML='';
-  const big=cardEl(c,{w:Math.min(380,innerWidth*0.8,(innerHeight-40)/1.5),tilt:true,sparkle:true,seed:inst.at%997,serial:inst.serial});
+  const base=Math.min(380,innerWidth*0.8,(innerHeight-110)/1.5);
+  const big=cardEl(c,{w:base,tilt:true,sparkle:true,seed:inst.at%997,serial:inst.serial});
   big.querySelector('img.art').src=A+'art/'+c.id+'.webp'; big.querySelector('img.frame').src=A+'frames/'+c.rarity_code+'.webp';
-  z.appendChild(big); z.classList.add('on'); z.onclick=e=>{if(e.target===z)z.classList.remove('on')};}
+  const wrap=document.createElement('div'); wrap.className='zwrap'; wrap.appendChild(big);
+  const bar=document.createElement('div'); bar.className='zbar';
+  bar.innerHTML=`<button aria-label="ย่อ">−</button><span id="zPct">100%</span><button aria-label="ขยาย">+</button><button aria-label="ขนาดเดิม">⟲</button><button aria-label="ปิด">✕</button>`;
+  z.append(wrap,bar); z.classList.add('on');
+  let k=1,tx=0,ty=0; const MIN=1,MAX=3.5;
+  const apply=()=>{k=Math.min(MAX,Math.max(MIN,k)); if(k===1){tx=0;ty=0}
+    wrap.style.transform=`translate(${tx}px,${ty}px) scale(${k})`; document.getElementById('zPct').textContent=Math.round(k*100)+'%';
+    big.classList.toggle('tilt',k===1); if(k>1) big.style.transform='';};
+  const [bMinus,bPlus,bReset,bClose]=bar.querySelectorAll('button');
+  bMinus.onclick=()=>{k/=1.3;apply()}; bPlus.onclick=()=>{k*=1.3;apply()}; bReset.onclick=()=>{k=1;apply()};
+  const close=()=>z.classList.remove('on'); bClose.onclick=close;
+  z.onclick=e=>{if(e.target===z)close()};
+  z.onwheel=e=>{e.preventDefault(); k*=e.deltaY<0?1.15:1/1.15; apply()};
+  big.ondblclick=()=>{k=k>1?1:2.2;apply()};
+  /* ลากเพื่อเลื่อน (เมื่อซูม) และหนีบสองนิ้วเพื่อซูม */
+  const pts=new Map(); let last=null, pinch0=0, k0=1;
+  wrap.onpointerdown=e=>{pts.set(e.pointerId,{x:e.clientX,y:e.clientY}); wrap.setPointerCapture(e.pointerId);
+    if(pts.size===2){const [a,b]=[...pts.values()]; pinch0=Math.hypot(a.x-b.x,a.y-b.y); k0=k;} last={x:e.clientX,y:e.clientY};};
+  wrap.onpointermove=e=>{if(!pts.has(e.pointerId))return; pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===2){const [a,b]=[...pts.values()]; k=k0*Math.hypot(a.x-b.x,a.y-b.y)/(pinch0||1); apply(); return;}
+    if(k>1&&last){tx+=e.clientX-last.x; ty+=e.clientY-last.y; last={x:e.clientX,y:e.clientY}; apply();}};
+  wrap.onpointerup=wrap.onpointercancel=e=>{pts.delete(e.pointerId); last=null;};
+}
 
 /* ---------- หลังบ้านจำลอง: เปิดด้วย ?admin=1 หรือกด Ctrl+Shift+A ---------- */
 const adm=document.getElementById('admin'), aCard=document.getElementById('aCard');
