@@ -1,0 +1,767 @@
+{
+ "card_size": [
+  1024,
+  1536
+ ],
+ "tiers": {
+  "common": {
+   "name_th": "ธรรมดา",
+   "frame": "frames/common.webp",
+   "frame_thumb": "frames/thumb/common.webp",
+   "art_window_pct": {
+    "left": 8.887,
+    "top": 10.417,
+    "width": 82.129,
+    "height": 56.901
+   }
+  },
+  "standard": {
+   "name_th": "ทั่วไป",
+   "frame": "frames/standard.webp",
+   "frame_thumb": "frames/thumb/standard.webp",
+   "art_window_pct": {
+    "left": 10.059,
+    "top": 8.529,
+    "width": 78.613,
+    "height": 49.609
+   }
+  },
+  "rare": {
+   "name_th": "หายาก",
+   "frame": "frames/rare.webp",
+   "frame_thumb": "frames/thumb/rare.webp",
+   "art_window_pct": {
+    "left": 10.84,
+    "top": 10.221,
+    "width": 77.93,
+    "height": 47.982
+   }
+  },
+  "epic": {
+   "name_th": "มหากาพย์",
+   "frame": "frames/epic.webp",
+   "frame_thumb": "frames/thumb/epic.webp",
+   "art_window_pct": {
+    "left": 11.426,
+    "top": 13.086,
+    "width": 76.953,
+    "height": 43.424
+   }
+  },
+  "legend": {
+   "name_th": "ตำนาน",
+   "frame": "frames/legend.webp",
+   "frame_thumb": "frames/thumb/legend.webp",
+   "art_window_pct": {
+    "left": 13.379,
+    "top": 15.56,
+    "width": 72.949,
+    "height": 40.495
+   }
+  },
+  "divine": {
+   "name_th": "พระเจ้า",
+   "frame": "frames/divine.webp",
+   "frame_thumb": "frames/thumb/divine.webp",
+   "art_window_pct": {
+    "left": 13.379,
+    "top": 15.755,
+    "width": 73.145,
+    "height": 40.56
+   }
+  },
+  "creator": {
+   "name_th": "ผู้สรรสร้าง",
+   "frame": "frames/creator.webp",
+   "frame_thumb": "frames/thumb/creator.webp",
+   "art_window_pct": {
+    "left": 12.988,
+    "top": 14.583,
+    "width": 74.023,
+    "height": 41.927
+   }
+  }
+ },
+ "cards": {
+  "SD001": {
+   "tier": "creator",
+   "art": "art/SD001.webp",
+   "art_thumb": "art/thumb/SD001.webp",
+   "token": false
+  },
+  "SD002": {
+   "tier": "creator",
+   "art": "art/SD002.webp",
+   "art_thumb": "art/thumb/SD002.webp",
+   "token": false
+  },
+  "SD003": {
+   "tier": "creator",
+   "art": "art/SD003.webp",
+   "art_thumb": "art/thumb/SD003.webp",
+   "token": false
+  },
+  "SD004": {
+   "tier": "creator",
+   "art": "art/SD004.webp",
+   "art_thumb": "art/thumb/SD004.webp",
+   "token": false
+  },
+  "SD005": {
+   "tier": "creator",
+   "art": "art/SD005.webp",
+   "art_thumb": "art/thumb/SD005.webp",
+   "token": false
+  },
+  "SD006": {
+   "tier": "creator",
+   "art": "art/SD006.webp",
+   "art_thumb": "art/thumb/SD006.webp",
+   "token": false
+  },
+  "SD007": {
+   "tier": "creator",
+   "art": "art/SD007.webp",
+   "art_thumb": "art/thumb/SD007.webp",
+   "token": false
+  },
+  "SD008": {
+   "tier": "creator",
+   "art": "art/SD008.webp",
+   "art_thumb": "art/thumb/SD008.webp",
+   "token": false
+  },
+  "SD009": {
+   "tier": "creator",
+   "art": "art/SD009.webp",
+   "art_thumb": "art/thumb/SD009.webp",
+   "token": false
+  },
+  "SD010": {
+   "tier": "creator",
+   "art": "art/SD010.webp",
+   "art_thumb": "art/thumb/SD010.webp",
+   "token": false
+  },
+  "SD011": {
+   "tier": "epic",
+   "art": "art/SD011.webp",
+   "art_thumb": "art/thumb/SD011.webp",
+   "token": false
+  },
+  "SD012": {
+   "tier": "epic",
+   "art": "art/SD012.webp",
+   "art_thumb": "art/thumb/SD012.webp",
+   "token": false
+  },
+  "SD013": {
+   "tier": "epic",
+   "art": "art/SD013.webp",
+   "art_thumb": "art/thumb/SD013.webp",
+   "token": false
+  },
+  "SD014": {
+   "tier": "epic",
+   "art": "art/SD014.webp",
+   "art_thumb": "art/thumb/SD014.webp",
+   "token": false
+  },
+  "SD015": {
+   "tier": "divine",
+   "art": "art/SD015.webp",
+   "art_thumb": "art/thumb/SD015.webp",
+   "token": false
+  },
+  "SD016": {
+   "tier": "divine",
+   "art": "art/SD016.webp",
+   "art_thumb": "art/thumb/SD016.webp",
+   "token": false
+  },
+  "SD017": {
+   "tier": "divine",
+   "art": "art/SD017.webp",
+   "art_thumb": "art/thumb/SD017.webp",
+   "token": false
+  },
+  "SD018": {
+   "tier": "legend",
+   "art": "art/SD018.webp",
+   "art_thumb": "art/thumb/SD018.webp",
+   "token": false
+  },
+  "SD019": {
+   "tier": "legend",
+   "art": "art/SD019.webp",
+   "art_thumb": "art/thumb/SD019.webp",
+   "token": false
+  },
+  "SD020": {
+   "tier": "epic",
+   "art": "art/SD020.webp",
+   "art_thumb": "art/thumb/SD020.webp",
+   "token": false
+  },
+  "SD021": {
+   "tier": "epic",
+   "art": "art/SD021.webp",
+   "art_thumb": "art/thumb/SD021.webp",
+   "token": false
+  },
+  "SD022": {
+   "tier": "divine",
+   "art": "art/SD022.webp",
+   "art_thumb": "art/thumb/SD022.webp",
+   "token": false
+  },
+  "SD023": {
+   "tier": "epic",
+   "art": "art/SD023.webp",
+   "art_thumb": "art/thumb/SD023.webp",
+   "token": false
+  },
+  "SD024": {
+   "tier": "legend",
+   "art": "art/SD024.webp",
+   "art_thumb": "art/thumb/SD024.webp",
+   "token": false
+  },
+  "SD025": {
+   "tier": "epic",
+   "art": "art/SD025.webp",
+   "art_thumb": "art/thumb/SD025.webp",
+   "token": false
+  },
+  "SD026": {
+   "tier": "epic",
+   "art": "art/SD026.webp",
+   "art_thumb": "art/thumb/SD026.webp",
+   "token": false
+  },
+  "SD027": {
+   "tier": "epic",
+   "art": "art/SD027.webp",
+   "art_thumb": "art/thumb/SD027.webp",
+   "token": false
+  },
+  "SD028": {
+   "tier": "epic",
+   "art": "art/SD028.webp",
+   "art_thumb": "art/thumb/SD028.webp",
+   "token": false
+  },
+  "SD029": {
+   "tier": "legend",
+   "art": "art/SD029.webp",
+   "art_thumb": "art/thumb/SD029.webp",
+   "token": false
+  },
+  "SD030": {
+   "tier": "epic",
+   "art": "art/SD030.webp",
+   "art_thumb": "art/thumb/SD030.webp",
+   "token": false
+  },
+  "SD031": {
+   "tier": "epic",
+   "art": "art/SD031.webp",
+   "art_thumb": "art/thumb/SD031.webp",
+   "token": false
+  },
+  "SD032": {
+   "tier": "epic",
+   "art": "art/SD032.webp",
+   "art_thumb": "art/thumb/SD032.webp",
+   "token": false
+  },
+  "SD033": {
+   "tier": "epic",
+   "art": "art/SD033.webp",
+   "art_thumb": "art/thumb/SD033.webp",
+   "token": false
+  },
+  "SD034": {
+   "tier": "legend",
+   "art": "art/SD034.webp",
+   "art_thumb": "art/thumb/SD034.webp",
+   "token": false
+  },
+  "SD035": {
+   "tier": "legend",
+   "art": "art/SD035.webp",
+   "art_thumb": "art/thumb/SD035.webp",
+   "token": false
+  },
+  "SD036": {
+   "tier": "epic",
+   "art": "art/SD036.webp",
+   "art_thumb": "art/thumb/SD036.webp",
+   "token": false
+  },
+  "SD037": {
+   "tier": "rare",
+   "art": "art/SD037.webp",
+   "art_thumb": "art/thumb/SD037.webp",
+   "token": false
+  },
+  "SD038": {
+   "tier": "rare",
+   "art": "art/SD038.webp",
+   "art_thumb": "art/thumb/SD038.webp",
+   "token": false
+  },
+  "SD039": {
+   "tier": "rare",
+   "art": "art/SD039.webp",
+   "art_thumb": "art/thumb/SD039.webp",
+   "token": false
+  },
+  "SD040": {
+   "tier": "rare",
+   "art": "art/SD040.webp",
+   "art_thumb": "art/thumb/SD040.webp",
+   "token": false
+  },
+  "SD041": {
+   "tier": "rare",
+   "art": "art/SD041.webp",
+   "art_thumb": "art/thumb/SD041.webp",
+   "token": false
+  },
+  "SD042": {
+   "tier": "rare",
+   "art": "art/SD042.webp",
+   "art_thumb": "art/thumb/SD042.webp",
+   "token": false
+  },
+  "SD043": {
+   "tier": "rare",
+   "art": "art/SD043.webp",
+   "art_thumb": "art/thumb/SD043.webp",
+   "token": false
+  },
+  "SD044": {
+   "tier": "rare",
+   "art": "art/SD044.webp",
+   "art_thumb": "art/thumb/SD044.webp",
+   "token": false
+  },
+  "SD045": {
+   "tier": "rare",
+   "art": "art/SD045.webp",
+   "art_thumb": "art/thumb/SD045.webp",
+   "token": false
+  },
+  "SD046": {
+   "tier": "rare",
+   "art": "art/SD046.webp",
+   "art_thumb": "art/thumb/SD046.webp",
+   "token": false
+  },
+  "SD047": {
+   "tier": "rare",
+   "art": "art/SD047.webp",
+   "art_thumb": "art/thumb/SD047.webp",
+   "token": false
+  },
+  "SD048": {
+   "tier": "rare",
+   "art": "art/SD048.webp",
+   "art_thumb": "art/thumb/SD048.webp",
+   "token": false
+  },
+  "SD049": {
+   "tier": "rare",
+   "art": "art/SD049.webp",
+   "art_thumb": "art/thumb/SD049.webp",
+   "token": false
+  },
+  "SD050": {
+   "tier": "rare",
+   "art": "art/SD050.webp",
+   "art_thumb": "art/thumb/SD050.webp",
+   "token": false
+  },
+  "SD051": {
+   "tier": "rare",
+   "art": "art/SD051.webp",
+   "art_thumb": "art/thumb/SD051.webp",
+   "token": false
+  },
+  "SD052": {
+   "tier": "rare",
+   "art": "art/SD052.webp",
+   "art_thumb": "art/thumb/SD052.webp",
+   "token": false
+  },
+  "SD053": {
+   "tier": "standard",
+   "art": "art/SD053.webp",
+   "art_thumb": "art/thumb/SD053.webp",
+   "token": false
+  },
+  "SD054": {
+   "tier": "standard",
+   "art": "art/SD054.webp",
+   "art_thumb": "art/thumb/SD054.webp",
+   "token": false
+  },
+  "SD055": {
+   "tier": "standard",
+   "art": "art/SD055.webp",
+   "art_thumb": "art/thumb/SD055.webp",
+   "token": false
+  },
+  "SD056": {
+   "tier": "standard",
+   "art": "art/SD056.webp",
+   "art_thumb": "art/thumb/SD056.webp",
+   "token": false
+  },
+  "SD057": {
+   "tier": "standard",
+   "art": "art/SD057.webp",
+   "art_thumb": "art/thumb/SD057.webp",
+   "token": false
+  },
+  "SD058": {
+   "tier": "standard",
+   "art": "art/SD058.webp",
+   "art_thumb": "art/thumb/SD058.webp",
+   "token": false
+  },
+  "SD059": {
+   "tier": "standard",
+   "art": "art/SD059.webp",
+   "art_thumb": "art/thumb/SD059.webp",
+   "token": false
+  },
+  "SD060": {
+   "tier": "standard",
+   "art": "art/SD060.webp",
+   "art_thumb": "art/thumb/SD060.webp",
+   "token": false
+  },
+  "SD061": {
+   "tier": "standard",
+   "art": "art/SD061.webp",
+   "art_thumb": "art/thumb/SD061.webp",
+   "token": false
+  },
+  "SD062": {
+   "tier": "standard",
+   "art": "art/SD062.webp",
+   "art_thumb": "art/thumb/SD062.webp",
+   "token": false
+  },
+  "SD063": {
+   "tier": "standard",
+   "art": "art/SD063.webp",
+   "art_thumb": "art/thumb/SD063.webp",
+   "token": false
+  },
+  "SD064": {
+   "tier": "standard",
+   "art": "art/SD064.webp",
+   "art_thumb": "art/thumb/SD064.webp",
+   "token": false
+  },
+  "SD065": {
+   "tier": "standard",
+   "art": "art/SD065.webp",
+   "art_thumb": "art/thumb/SD065.webp",
+   "token": false
+  },
+  "SD066": {
+   "tier": "standard",
+   "art": "art/SD066.webp",
+   "art_thumb": "art/thumb/SD066.webp",
+   "token": false
+  },
+  "SD067": {
+   "tier": "standard",
+   "art": "art/SD067.webp",
+   "art_thumb": "art/thumb/SD067.webp",
+   "token": false
+  },
+  "SD068": {
+   "tier": "standard",
+   "art": "art/SD068.webp",
+   "art_thumb": "art/thumb/SD068.webp",
+   "token": false
+  },
+  "SD069": {
+   "tier": "standard",
+   "art": "art/SD069.webp",
+   "art_thumb": "art/thumb/SD069.webp",
+   "token": false
+  },
+  "SD070": {
+   "tier": "common",
+   "art": "art/SD070.webp",
+   "art_thumb": "art/thumb/SD070.webp",
+   "token": false
+  },
+  "SD071": {
+   "tier": "common",
+   "art": "art/SD071.webp",
+   "art_thumb": "art/thumb/SD071.webp",
+   "token": false
+  },
+  "SD072": {
+   "tier": "common",
+   "art": "art/SD072.webp",
+   "art_thumb": "art/thumb/SD072.webp",
+   "token": false
+  },
+  "SD073": {
+   "tier": "common",
+   "art": "art/SD073.webp",
+   "art_thumb": "art/thumb/SD073.webp",
+   "token": false
+  },
+  "SD074": {
+   "tier": "common",
+   "art": "art/SD074.webp",
+   "art_thumb": "art/thumb/SD074.webp",
+   "token": false
+  },
+  "SD075": {
+   "tier": "common",
+   "art": "art/SD075.webp",
+   "art_thumb": "art/thumb/SD075.webp",
+   "token": false
+  },
+  "SD076": {
+   "tier": "common",
+   "art": "art/SD076.webp",
+   "art_thumb": "art/thumb/SD076.webp",
+   "token": false
+  },
+  "SD077": {
+   "tier": "common",
+   "art": "art/SD077.webp",
+   "art_thumb": "art/thumb/SD077.webp",
+   "token": false
+  },
+  "SD078": {
+   "tier": "common",
+   "art": "art/SD078.webp",
+   "art_thumb": "art/thumb/SD078.webp",
+   "token": false
+  },
+  "SD079": {
+   "tier": "common",
+   "art": "art/SD079.webp",
+   "art_thumb": "art/thumb/SD079.webp",
+   "token": false
+  },
+  "SD080": {
+   "tier": "common",
+   "art": "art/SD080.webp",
+   "art_thumb": "art/thumb/SD080.webp",
+   "token": false
+  },
+  "SD081": {
+   "tier": "common",
+   "art": "art/SD081.webp",
+   "art_thumb": "art/thumb/SD081.webp",
+   "token": false
+  },
+  "SD082": {
+   "tier": "common",
+   "art": "art/SD082.webp",
+   "art_thumb": "art/thumb/SD082.webp",
+   "token": false
+  },
+  "SD083": {
+   "tier": "common",
+   "art": "art/SD083.webp",
+   "art_thumb": "art/thumb/SD083.webp",
+   "token": false
+  },
+  "SD084": {
+   "tier": "common",
+   "art": "art/SD084.webp",
+   "art_thumb": "art/thumb/SD084.webp",
+   "token": false
+  },
+  "SD085": {
+   "tier": "common",
+   "art": "art/SD085.webp",
+   "art_thumb": "art/thumb/SD085.webp",
+   "token": false
+  },
+  "SD086": {
+   "tier": "common",
+   "art": "art/SD086.webp",
+   "art_thumb": "art/thumb/SD086.webp",
+   "token": false
+  },
+  "SD087": {
+   "tier": "common",
+   "art": "art/SD087.webp",
+   "art_thumb": "art/thumb/SD087.webp",
+   "token": false
+  },
+  "SD088": {
+   "tier": "common",
+   "art": "art/SD088.webp",
+   "art_thumb": "art/thumb/SD088.webp",
+   "token": false
+  },
+  "SD089": {
+   "tier": "common",
+   "art": "art/SD089.webp",
+   "art_thumb": "art/thumb/SD089.webp",
+   "token": false
+  },
+  "SD090": {
+   "tier": "common",
+   "art": "art/SD090.webp",
+   "art_thumb": "art/thumb/SD090.webp",
+   "token": false
+  },
+  "SD091": {
+   "tier": "common",
+   "art": "art/SD091.webp",
+   "art_thumb": "art/thumb/SD091.webp",
+   "token": false
+  },
+  "SD092": {
+   "tier": "common",
+   "art": "art/SD092.webp",
+   "art_thumb": "art/thumb/SD092.webp",
+   "token": false
+  },
+  "SD093": {
+   "tier": "common",
+   "art": "art/SD093.webp",
+   "art_thumb": "art/thumb/SD093.webp",
+   "token": false
+  },
+  "SD094": {
+   "tier": "common",
+   "art": "art/SD094.webp",
+   "art_thumb": "art/thumb/SD094.webp",
+   "token": false
+  },
+  "SD095": {
+   "tier": "common",
+   "art": "art/SD095.webp",
+   "art_thumb": "art/thumb/SD095.webp",
+   "token": false
+  },
+  "SD096": {
+   "tier": "common",
+   "art": "art/SD096.webp",
+   "art_thumb": "art/thumb/SD096.webp",
+   "token": false
+  },
+  "SD097": {
+   "tier": "common",
+   "art": "art/SD097.webp",
+   "art_thumb": "art/thumb/SD097.webp",
+   "token": false
+  },
+  "SD098": {
+   "tier": "common",
+   "art": "art/SD098.webp",
+   "art_thumb": "art/thumb/SD098.webp",
+   "token": false
+  },
+  "SD099": {
+   "tier": "common",
+   "art": "art/SD099.webp",
+   "art_thumb": "art/thumb/SD099.webp",
+   "token": false
+  },
+  "SD100": {
+   "tier": "common",
+   "art": "art/SD100.webp",
+   "art_thumb": "art/thumb/SD100.webp",
+   "token": false
+  },
+  "TK_GARUDA": {
+   "tier": "common",
+   "art": "art/TK_GARUDA.webp",
+   "art_thumb": "art/thumb/TK_GARUDA.webp",
+   "token": true
+  },
+  "TK_CLAY2": {
+   "tier": "common",
+   "art": "art/TK_CLAY2.webp",
+   "art_thumb": "art/thumb/TK_CLAY2.webp",
+   "token": true
+  },
+  "TK_CLAY1": {
+   "tier": "common",
+   "art": "art/TK_CLAY1.webp",
+   "art_thumb": "art/thumb/TK_CLAY1.webp",
+   "token": true
+  },
+  "TK_NAGA": {
+   "tier": "common",
+   "art": "art/TK_NAGA.webp",
+   "art_thumb": "art/thumb/TK_NAGA.webp",
+   "token": true
+  },
+  "TK_HEARTBOX": {
+   "tier": "common",
+   "art": "art/TK_HEARTBOX.webp",
+   "art_thumb": "art/thumb/TK_HEARTBOX.webp",
+   "token": true
+  },
+  "TK_WALL": {
+   "tier": "common",
+   "art": "art/TK_WALL.webp",
+   "art_thumb": "art/thumb/TK_WALL.webp",
+   "token": true
+  },
+  "TK_KORAT": {
+   "tier": "common",
+   "art": "art/TK_KORAT.webp",
+   "art_thumb": "art/thumb/TK_KORAT.webp",
+   "token": true
+  },
+  "TK_KUMAN": {
+   "tier": "common",
+   "art": "art/TK_KUMAN.webp",
+   "art_thumb": "art/thumb/TK_KUMAN.webp",
+   "token": true
+  },
+  "TK_TAKHON": {
+   "tier": "common",
+   "art": "art/TK_TAKHON.webp",
+   "art_thumb": "art/thumb/TK_TAKHON.webp",
+   "token": true
+  },
+  "TK_SANGTHONG": {
+   "tier": "common",
+   "art": "art/TK_SANGTHONG.webp",
+   "art_thumb": "art/thumb/TK_SANGTHONG.webp",
+   "token": true
+  },
+  "TK_COIN": {
+   "tier": "common",
+   "art": "art/TK_COIN.webp",
+   "art_thumb": "art/thumb/TK_COIN.webp",
+   "token": true
+  }
+ },
+ "ui": {
+  "card_back": {
+   "full": "ui/card_back.webp",
+   "thumb": "ui/thumb/card_back.webp"
+  },
+  "el_akasha": "ui/el_akasha.webp",
+  "el_earth": "ui/el_earth.webp",
+  "el_fire": "ui/el_fire.webp",
+  "el_water": "ui/el_water.webp",
+  "el_wind": "ui/el_wind.webp",
+  "ty_amulet": "ui/ty_amulet.webp",
+  "ty_spell": "ui/ty_spell.webp",
+  "ty_trap": "ui/ty_trap.webp"
+ }
+}

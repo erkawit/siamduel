@@ -1,0 +1,4563 @@
+{
+ "game": "สยามินทร์ดุเอล (Siam Duel)",
+ "set": "ชุดที่ 1: ราหูอมจันทร์",
+ "version": "1.1",
+ "cards": [
+  {
+   "id": "SD001",
+   "name_th": "พระอิศวร",
+   "name_en": "Phra Isuan, Lord of Destruction",
+   "category": "เทพเจ้า",
+   "tribe": "เทพ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 10,
+   "atk": 10,
+   "hp": 12,
+   "keywords": [
+    "คงกระพัน"
+   ],
+   "text_th": "ปลุกเสก: ร่ายรำศิวนาฏราช ทำลายยูนิตศัตรูทุกตัวที่ต้นทุน ≤6 แล้วส่งวิญญาณ; ต้นเทิร์น 2 ดาเมจไฟแก่ศัตรูทุกตัว",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "destroy": {
+        "target": "all_enemy_units",
+        "filter": {
+         "cost_lte": 6
+        },
+        "purge": true
+       }
+      }
+     ]
+    },
+    {
+     "on": "turn_start",
+     "do": [
+      {
+       "damage": {
+        "target": "all_enemy_units",
+        "amount": 2
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD001.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the Thai depiction of Phra Isuan (Shiva) with a third eye of fire, dancing the cosmic dance on a burning lotus, crescent moon in his hair, majestic and respectful, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, molten gold and blood-red flames on black lacquer, temple fire embers, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": true,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD002",
+   "name_th": "พระนารายณ์",
+   "name_en": "Phra Narai, the Preserver",
+   "category": "เทพเจ้า",
+   "tribe": "เทพ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 10,
+   "atk": 9,
+   "hp": 12,
+   "keywords": [
+    "คงกระพัน",
+    "อวตาร"
+   ],
+   "text_th": "อวตาร: ตายแล้วกลับมาในร่างใหม่ HP เต็ม +2/+2 (ได้ 2 ครั้งต่อเกม); ปลุกเสก: เรียกครุฑพาหนะ 5/5 เหาะเหิน",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "summon": {
+        "token": "TK_GARUDA",
+        "count": 1
+       }
+      }
+     ]
+    },
+    {
+     "special": "avatar",
+     "uses": 2,
+     "buff": {
+      "atk": 2,
+      "hp": 2
+     },
+     "desc": "ตายแล้วกลับขึ้นช่องเดิม HP เต็ม +2/+2 ใช้ได้ 2 ครั้งต่อเกม แม้ถูกส่งวิญญาณ"
+    }
+   ],
+   "art": "/assets/cards/SD002.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the Thai depiction of Phra Narai (Vishnu) with four arms holding discus, conch, mace and lotus, standing on a giant Garuda above a dark sea, majestic and respectful, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": true,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD003",
+   "name_th": "พระพรหม",
+   "name_en": "Phra Phrom, the Creator",
+   "category": "เทพเจ้า",
+   "tribe": "เทพ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 10,
+   "atk": 8,
+   "hp": 14,
+   "keywords": [],
+   "text_th": "ปลุกเสก: ชุบชีวิตยูนิตเราทั้งหมดในสุสานที่ต้นทุน ≤5 HP เต็ม; สี่พักตร์: เห็นไพ่ในมือศัตรูตลอดเกม",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "revive": {
+        "from": "my_crypt",
+        "filter": {
+         "cost_lte": 5
+        },
+        "count": "all",
+        "hp": "full"
+       }
+      }
+     ]
+    },
+    {
+     "aura": {
+      "target": "enemy_player",
+      "rule": "reveal_enemy_hand"
+     }
+    }
+   ],
+   "art": "/assets/cards/SD003.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the Thai depiction of Phra Phrom (Brahma) with four serene faces looking in four directions, seated on a golden swan, ancient scriptures floating around, majestic and respectful, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": true,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD004",
+   "name_th": "PlayCH • วัชระสายฟ้าแยกฟ้า",
+   "name_en": "PlayCH • Split-Sky Vajra",
+   "category": "PlayCH",
+   "tribe": "อากาศ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 10,
+   "atk": 10,
+   "hp": 10,
+   "keywords": [],
+   "text_th": "ปลุกเสก: 5 ดาเมจแก่ศัตรูทุกตัว และ 5 ดาเมจที่ดวงชะตาศัตรู",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "damage": {
+        "target": "all_enemy_units",
+        "amount": 5
+       }
+      },
+      {
+       "damage": {
+        "target": "enemy_player",
+        "amount": 5
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD004.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a celestial Thai warrior holding a giant vajra where a red-and-blue lightning bolt splits the night sky over temple spires, armor half red half blue, fused with the PlayCH emblem motifs: a red game controller and a blue game controller split by a red-and-blue lightning bolt, a glowing red play-button sigil, chrome crosshair targeting runes, rendered with Thai kanok flame ornaments and gold leaf on carbon-fiber black, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD005",
+   "name_th": "PlayCH • ปู่ผู้สร้างเกม ช่างปั้นวิญญาณ",
+   "name_en": "PlayCH • Game Creator, Soul Sculptor",
+   "category": "PlayCH",
+   "tribe": "อากาศ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 10,
+   "atk": 8,
+   "hp": 12,
+   "keywords": [
+    "คงกระพัน"
+   ],
+   "text_th": "ปลุกเสก: เลือก 1 ใน 3 การ์ดสุ่มระดับ Legendary+ ใส่มือ ต้นทุน 0; ทุกครั้งที่ชุบชีวิต การ์ดนี้ +2/+2",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "discover": {
+        "pool": {
+         "rarity_gte": "ตำนาน"
+        },
+        "choices": 3,
+        "cost_set": 0
+       }
+      }
+     ]
+    },
+    {
+     "on": "ally_revived",
+     "do": [
+      {
+       "buff": {
+        "target": "self",
+        "atk": 2,
+        "hp": 2,
+        "duration": "perm"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD005.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a godlike old craftsman sculpting glowing cards from sacred clay on a lotus anvil, the round PlayCH emblem as a giant golden halo behind him, fused with the PlayCH emblem motifs: a red game controller and a blue game controller split by a red-and-blue lightning bolt, a glowing red play-button sigil, chrome crosshair targeting runes, rendered with Thai kanok flame ornaments and gold leaf on carbon-fiber black, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD006",
+   "name_th": "พระอินทร์",
+   "name_en": "Phra In, King of the Heavens",
+   "category": "เทพเจ้า",
+   "tribe": "เทพ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 9,
+   "atk": 10,
+   "hp": 10,
+   "keywords": [
+    "เหาะเหิน",
+    "ฮึกเหิม"
+   ],
+   "text_th": "ปลุกเสก: วัชระสายฟ้า 6 ดาเมจแก่เป้าหมาย 1 ตัว และ 2 ดาเมจแก่ศัตรูที่เหลือ; ช้างเอราวัณฝ่ายเรา +3/+3",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "damage": {
+        "target": "chosen_enemy_unit",
+        "amount": 6,
+        "splash_others": 2
+       }
+      }
+     ]
+    },
+    {
+     "aura": {
+      "target": "other_ally_units",
+      "filter": {
+       "name": "ช้างเอราวัณ"
+      },
+      "atk": 3,
+      "hp": 3
+     }
+    }
+   ],
+   "art": "/assets/cards/SD006.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the Thai depiction of Phra In (Indra) with green skin, golden crown, holding a thunderbolt vajra, riding the three-headed white elephant Erawan through storm clouds, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": true,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD007",
+   "name_th": "PlayCH • ท้าวจตุรทิศจอยแดง",
+   "name_en": "PlayCH • Crimson Controller Lord",
+   "category": "PlayCH",
+   "tribe": "อากาศ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 9,
+   "atk": 9,
+   "hp": 9,
+   "keywords": [
+    "ฮึกเหิม",
+    "ลิ้มเลือด"
+   ],
+   "text_th": "ปลุกเสก D-Pad เลือก 1 ใน 4 ทิศ: ↑ +3 ATK / ↓ ทวารบาล+คงกระพัน / ← ทำลายของขลังหรือกับดักศัตรู / → โจมตีได้ 2 ครั้ง",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "choose": {
+        "options": [
+         [
+          {
+           "buff": {
+            "target": "self",
+            "atk": 3,
+            "hp": 0,
+            "duration": "perm"
+           }
+          }
+         ],
+         [
+          {
+           "grant": {
+            "target": "self",
+            "keywords": [
+             "ทวารบาล",
+             "คงกระพัน"
+            ],
+            "duration": "perm"
+           }
+          }
+         ],
+         [
+          {
+           "destroy": {
+            "target": "chosen_enemy_slot_card"
+           }
+          }
+         ],
+         [
+          {
+           "grant": {
+            "target": "self",
+            "keywords": [
+             "โจมตี 2 ครั้ง"
+            ],
+            "duration": "perm"
+           }
+          }
+         ]
+        ],
+        "chooser": "me"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD007.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a crimson Thai guardian lord of the four directions in red lacquer armor whose chest plate is a red game controller with a glowing white D-pad cross, fused with the PlayCH emblem motifs: a red game controller and a blue game controller split by a red-and-blue lightning bolt, a glowing red play-button sigil, chrome crosshair targeting runes, rendered with Thai kanok flame ornaments and gold leaf on carbon-fiber black, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD008",
+   "name_th": "PlayCH • ฤๅษีสี่มนตร์จอยคราม",
+   "name_en": "PlayCH • Azure Hermit of Four Mantras",
+   "category": "PlayCH",
+   "tribe": "อากาศ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 9,
+   "atk": 6,
+   "hp": 10,
+   "keywords": [
+    "คงกระพัน"
+   ],
+   "text_th": "ต้นเทิร์นได้มนตร์สุ่ม 1 ใน 4: ดิน ให้ทวารบาลยูนิตเรา / น้ำ ฟื้น 4 / ลม ศัตรู 1 ตัวโจมตีไม่ได้ / ไฟ 3 ดาเมจ",
+   "ability_code": [
+    {
+     "on": "turn_start",
+     "do": [
+      {
+       "random_of": {
+        "options": [
+         [
+          {
+           "grant": {
+            "target": "all_ally_units",
+            "keywords": [
+             "ทวารบาล"
+            ],
+            "duration": "turn"
+           }
+          }
+         ],
+         [
+          {
+           "heal": {
+            "target": "self_player",
+            "amount": 4
+           }
+          }
+         ],
+         [
+          {
+           "disable_attack": {
+            "target": "random_enemy_unit",
+            "turns": 1
+           }
+          }
+         ],
+         [
+          {
+           "damage": {
+            "target": "random_enemy_unit",
+            "amount": 3
+           }
+          }
+         ]
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD008.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Thai hermit sage (ruesi) in a tiger-skin robe with a blue face mask, four glowing orbs arranged like controller face buttons orbiting his staff, fused with the PlayCH emblem motifs: a red game controller and a blue game controller split by a red-and-blue lightning bolt, a glowing red play-button sigil, chrome crosshair targeting runes, rendered with Thai kanok flame ornaments and gold leaf on carbon-fiber black, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD009",
+   "name_th": "PlayCH • พรานเป้าเล็งมรณะ",
+   "name_en": "PlayCH • Crosshair Hunter of Death",
+   "category": "PlayCH",
+   "tribe": "อากาศ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 8,
+   "hp": 6,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ทุกเทิร์นเล็งเป้า 1 ตัว ครบ 2 เทิร์นทำลายและส่งวิญญาณ (ไม่สนทวารบาล/คงกระพัน/อมตะ) — ยกเว้นเทพเจ้า Super Limited",
+   "ability_code": [
+    {
+     "special": "lock_on",
+     "turns": 2,
+     "purge": true,
+     "ignores": [
+      "ทวารบาล",
+      "คงกระพัน",
+      "อมตะ"
+     ],
+     "exempt": {
+      "tribe": "เทพ",
+      "rarity": "ผู้สรรสร้าง"
+     },
+     "desc": "ยามเช้าเลือกยูนิตศัตรู 1 ตัวเป็นเป้า ถ้าเป้ายังอยู่ครบ 2 ยามเช้า ทำลายและส่งวิญญาณ"
+    }
+   ],
+   "art": "/assets/cards/SD009.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a masked Thai jungle hunter with a long crossbow, glowing chrome crosshair reticles locking onto spirits in the dark forest, fused with the PlayCH emblem motifs: a red game controller and a blue game controller split by a red-and-blue lightning bolt, a glowing red play-button sigil, chrome crosshair targeting runes, rendered with Thai kanok flame ornaments and gold leaf on carbon-fiber black, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD010",
+   "name_th": "PlayCH • ศาลหมื่นวิญญาณ",
+   "name_en": "PlayCH • Shrine of Ten Thousand Souls",
+   "category": "PlayCH",
+   "tribe": "อากาศ",
+   "rarity": "ผู้สรรสร้าง",
+   "element": "อากาศ",
+   "type": "ของขลัง",
+   "cost": 6,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ยูนิตใดตาย = 1 วิญญาณผู้ติดตาม; ครบ 5: ชุบชีวิตยูนิตใดก็ได้จากสุสานทั้งสองฝ่าย (ยกเว้นเทพเจ้า) มาเป็นของเรา และจั่ว 2",
+   "ability_code": [
+    {
+     "special": "soul_counter",
+     "per": "any_death",
+     "threshold": 5,
+     "do": [
+      {
+       "revive": {
+        "from": "any_crypt",
+        "filter": {
+         "not_category": "เทพเจ้า"
+        },
+        "count": 1,
+        "pick": "choose",
+        "hp": "full",
+        "side": "me"
+       }
+      },
+      {
+       "draw": {
+        "count": 2
+       }
+      }
+     ],
+     "desc": "ยูนิตใดตาย +1 วิญญาณ ครบ 5 ทำผลแล้วรีเซ็ตเป็น 0"
+    }
+   ],
+   "art": "/assets/cards/SD010.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a colossal Thai spirit house shrine shaped like a glowing red play-button gate, ten thousand ghostly souls streaming into it like an audience, fused with the PlayCH emblem motifs: a red game controller and a blue game controller split by a red-and-blue lightning bolt, a glowing red play-button sigil, chrome crosshair targeting runes, rendered with Thai kanok flame ornaments and gold leaf on carbon-fiber black, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, divine god-tier presence, radiant gold aura behind, colossal scale, ultra detailed. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Super Limited",
+   "rarity_code": "creator",
+   "max_supply": 1,
+   "collector_edition": true,
+   "collector_fx": "rainbow_holo"
+  },
+  {
+   "id": "SD011",
+   "name_th": "สมเด็จพระเจ้าตากสินมหาราช",
+   "name_en": "King Taksin the Great",
+   "category": "ผู้ปกครอง",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 9,
+   "atk": 9,
+   "hp": 9,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "ปลุกเสก: ทุบหม้อข้าว — ทิ้งไพ่ในมือทั้งหมด ยูนิตเราทุกตัว +1/+1 ต่อใบที่ทิ้ง และได้ฮึกเหิม; ดวงชะตาเรา ≤10 ต้นทุน -4",
+   "ability_code": [
+    {
+     "special": "discard_hand_buff",
+     "on": "play",
+     "per_card": {
+      "atk": 1,
+      "hp": 1
+     },
+     "grant": [
+      "ฮึกเหิม"
+     ],
+     "target": "all_ally_units",
+     "desc": "ทิ้งไพ่ในมือทั้งหมด ยูนิตเราทุกตัว +1/+1 ถาวรต่อใบที่ทิ้ง และได้ฮึกเหิม"
+    },
+    {
+     "special": "cost_mod",
+     "if": {
+      "self_fate_lte": 10
+     },
+     "amount": -4
+    }
+   ],
+   "art": "/assets/cards/SD011.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a respectful heroic portrait of King Taksin in Thonburi-era battle attire with a sword, riding a warhorse at dawn, smashed clay rice pots below, loyal soldiers behind, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, molten gold and blood-red flames on black lacquer, temple fire embers, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": true,
+   "is_deity": false,
+   "rarity_old": "Limited",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD012",
+   "name_th": "สมเด็จพระนเรศวรมหาราช",
+   "name_en": "King Naresuan the Great",
+   "category": "ผู้ปกครอง",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 9,
+   "atk": 9,
+   "hp": 8,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "ปลุกเสก: ยุทธหัตถี — ดวลกับยูนิตศัตรูที่แรงที่สุด 1 ตัว ผู้แพ้ถูกส่งวิญญาณ ชนะได้ +2/+2 ถาวร; ล้างสายสิญจน์/คุณไสยบนยูนิตเรา",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "cleanse": {
+        "target": "all_ally_units"
+       }
+      }
+     ]
+    },
+    {
+     "special": "duel",
+     "on": "play",
+     "target": "enemy_strongest",
+     "loser": "purge",
+     "winner_buff": {
+      "atk": 2,
+      "hp": 2
+     },
+     "desc": "ยุทธหัตถี: ปะทะกับเป้าซ้ำจนฝ่ายหนึ่งตาย ฝ่ายตายถูกส่งวิญญาณ ถ้าการ์ดนี้ชนะ +2/+2 ถาวร"
+    }
+   ],
+   "art": "/assets/cards/SD012.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a respectful heroic portrait of King Naresuan on a war elephant in Ayutthaya-era armor, holding a long-handled glaive in elephant battle, dust and banners, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": true,
+   "is_deity": false,
+   "rarity_old": "Limited",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD013",
+   "name_th": "ทศกัณฐ์",
+   "name_en": "Thotsakan, Ten-Faced Demon King",
+   "category": "อสูร",
+   "tribe": "อสูร",
+   "rarity": "มหากาพย์",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 9,
+   "atk": 10,
+   "hp": 10,
+   "keywords": [
+    "อมตะ"
+   ],
+   "text_th": "ถอดดวงใจ: ปลุกเสก วางกล่องดวงใจ 0/6 ในช่องกับดัก — ตราบที่กล่องยังอยู่ ทศกัณฐ์ตายแล้วฟื้น HP เต็ม",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "summon": {
+        "token": "TK_HEARTBOX",
+        "count": 1,
+        "zone": "slot"
+       }
+      }
+     ]
+    },
+    {
+     "special": "heart_box",
+     "desc": "ตราบที่กล่องดวงใจของเราอยู่ในช่อง ทศกัณฐ์ตายแล้วกลับขึ้นช่องเดิม HP เต็ม (ส่งวิญญาณก็กันไม่ได้)"
+    }
+   ],
+   "art": "/assets/cards/SD013.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Thotsakan the ten-faced, twenty-armed demon king of Lanka in green and gold khon armor, holding a weapon in every hand, burning palace, molten gold and blood-red flames on black lacquer, temple fire embers, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Limited",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD014",
+   "name_th": "พ่อขุนรามคำแหงมหาราช",
+   "name_en": "King Ram Khamhaeng the Great",
+   "category": "ผู้ปกครอง",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 7,
+   "hp": 10,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ต้นเทิร์น: ในน้ำมีปลา ในนามีข้าว — ฟื้นดวงชะตา 2; ระฆังหน้าประตู: ยกเลิกคาถาเป้าหมายที่ใส่ยูนิตเรา 1 ครั้งต่อเทิร์น",
+   "ability_code": [
+    {
+     "on": "turn_start",
+     "do": [
+      {
+       "heal": {
+        "target": "self_player",
+        "amount": 2
+       }
+      }
+     ]
+    },
+    {
+     "special": "spell_shield",
+     "per_turn": 1,
+     "protects": "all_ally_units",
+     "desc": "ยกเลิกคาถาศัตรูที่เลือกยูนิตเราเป็นเป้า 1 ครั้งต่อเทิร์น"
+    }
+   ],
+   "art": "/assets/cards/SD014.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a respectful portrait of King Ram Khamhaeng of Sukhothai beside a great bell and a stone inscription, rice fields and rivers glowing under moonlight, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": true,
+   "is_deity": false,
+   "rarity_old": "Limited",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD015",
+   "name_th": "ปู่สังกะสา ย่าสังกะสี",
+   "name_en": "Pu Sangkasa & Ya Sangkasi",
+   "category": "เทพเจ้า",
+   "tribe": "เทพ",
+   "rarity": "พระเจ้า",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 6,
+   "hp": 12,
+   "keywords": [],
+   "text_th": "ปลุกเสก: ปั้นดินเป็นคน — เรียกมนุษย์ดินปั้น 2/2 สามตัว; เมื่อยูนิตมนุษย์เราตาย ปั้นมนุษย์ดินปั้น 1/1 แทน",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "summon": {
+        "token": "TK_CLAY2",
+        "count": 3
+       }
+      }
+     ]
+    },
+    {
+     "on": "ally_death",
+     "if": {
+      "tribe": "มนุษย์"
+     },
+     "do": [
+      {
+       "summon": {
+        "token": "TK_CLAY1",
+        "count": 1
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD015.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the primordial creator grandparents of Lanna and Isan myth, an elderly couple of giant size shaping the first humans from clay at the dawn of the world, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": true,
+   "rarity_old": "Limited",
+   "rarity_code": "divine",
+   "max_supply": 3,
+   "collector_edition": true,
+   "collector_fx": "gold_glitter"
+  },
+  {
+   "id": "SD016",
+   "name_th": "พระราหู",
+   "name_en": "Phra Rahu, the Eclipse",
+   "category": "เทพเจ้า",
+   "tribe": "อสูร",
+   "rarity": "พระเจ้า",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 8,
+   "hp": 8,
+   "keywords": [
+    "ราหูจร",
+    "ดูดชีพ"
+   ],
+   "text_th": "ปลุกเสก: เริ่มราหูอมจันทร์ทันที 2 เทิร์น; ระหว่างนั้นกลืนยูนิตศัตรูต้นทุน ≤4 เทิร์นละ 1 ตัว",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "start_rahu": {
+        "rounds": 2
+       }
+      }
+     ]
+    },
+    {
+     "on": "turn_start",
+     "if": {
+      "rahu_active": true
+     },
+     "do": [
+      {
+       "destroy": {
+        "target": "random_enemy_unit",
+        "filter": {
+         "cost_lte": 4
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD016.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the demon-god Rahu, a giant head and torso with fangs, devouring the full moon in a black sky, dark violet and gold, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": true,
+   "rarity_old": "Limited",
+   "rarity_code": "divine",
+   "max_supply": 3,
+   "collector_edition": true,
+   "collector_fx": "gold_glitter"
+  },
+  {
+   "id": "SD017",
+   "name_th": "ท้าวเวสสุวรรณ",
+   "name_en": "Thao Wessuwan, King of Yaksha",
+   "category": "เทพเจ้า",
+   "tribe": "อสูร",
+   "rarity": "พระเจ้า",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 7,
+   "hp": 10,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ผีฝ่ายศัตรูทุกตัว -2 ATK; ผีที่ศัตรูลงใหม่ถูกสายสิญจน์ 1 เทิร์น",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "all_enemy_units",
+      "filter": {
+       "tribe": "ผี"
+      },
+      "atk": -2
+     }
+    },
+    {
+     "on": "enemy_play",
+     "if": {
+      "tribe": "ผี"
+     },
+     "do": [
+      {
+       "seal": {
+        "target": "event_unit",
+        "turns": 1
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD017.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Thao Wessuwan, the giant green-skinned yaksha king guardian holding a great club, standing before a temple gate as ghosts flee, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": true,
+   "rarity_old": "Limited",
+   "rarity_code": "divine",
+   "max_supply": 3,
+   "collector_edition": true,
+   "collector_fx": "gold_glitter"
+  },
+  {
+   "id": "SD018",
+   "name_th": "พญาครุฑ",
+   "name_en": "Phaya Khrut, King of Garudas",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ตำนาน",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 9,
+   "hp": 8,
+   "keywords": [
+    "เหาะเหิน",
+    "ฮึกเหิม"
+   ],
+   "text_th": "ทำดาเมจ x2 กับนาค; ปลุกเสก: ทำลายยูนิตนาคศัตรู 1 ตัว",
+   "ability_code": [
+    {
+     "special": "damage_mult",
+     "vs": {
+      "name_contains": "นาค"
+     },
+     "mult": 2
+    },
+    {
+     "on": "play",
+     "do": [
+      {
+       "destroy": {
+        "target": "chosen_enemy_unit",
+        "filter": {
+         "name_contains": "นาค"
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD018.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the mighty red-and-gold Garuda with outstretched wings clutching a naga serpent in its talons above the Himmapan forest, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Limited",
+   "rarity_code": "legend",
+   "max_supply": null,
+   "collector_edition": true,
+   "collector_fx": "ember"
+  },
+  {
+   "id": "SD019",
+   "name_th": "พญาศรีสุทโธนาค",
+   "name_en": "Phaya Si Suttho, Naga King",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ตำนาน",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 7,
+   "hp": 11,
+   "keywords": [
+    "ทวารบาล",
+    "ดูดชีพ"
+   ],
+   "text_th": "ปลุกเสก: ฟื้นดวงชะตา 6; ต้นเทิร์นเรียกนาคบริวาร 2/2; ยูนิตไฟศัตรู -2 ATK",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "heal": {
+        "target": "self_player",
+        "amount": 6
+       }
+      }
+     ]
+    },
+    {
+     "on": "turn_start",
+     "do": [
+      {
+       "summon": {
+        "token": "TK_NAGA",
+        "count": 1
+       }
+      }
+     ]
+    },
+    {
+     "aura": {
+      "target": "all_enemy_units",
+      "filter": {
+       "element": "ไฟ"
+      },
+      "atk": -2
+     }
+    }
+   ],
+   "art": "/assets/cards/SD019.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a colossal seven-headed naga king rising from the Mekong at night, emerald scales and a crown of jewels, glowing fireballs over the water, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Limited",
+   "rarity_code": "legend",
+   "max_supply": null,
+   "collector_edition": true,
+   "collector_fx": "ember"
+  },
+  {
+   "id": "SD020",
+   "name_th": "แม่นาคพระโขนง",
+   "name_en": "Mae Nak of Phra Khanong",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "มหากาพย์",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 8,
+   "hp": 9,
+   "keywords": [
+    "อมตะ",
+    "ราหูจร",
+    "เหาะเหิน"
+   ],
+   "text_th": "ยืดแขนได้ไกล โจมตีข้ามทวารบาล; ราหูอมจันทร์: +4/+4 และศัตรูทุกตัว -1 ATK",
+   "ability_code": [
+    {
+     "on": "rahu",
+     "do": [
+      {
+       "buff": {
+        "target": "self",
+        "atk": 4,
+        "hp": 4,
+        "duration": "rahu"
+       }
+      },
+      {
+       "buff": {
+        "target": "all_enemy_units",
+        "atk": -1,
+        "hp": 0,
+        "duration": "rahu"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD020.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the legendary ghost Mae Nak with long black hair and a pale face holding a baby, her arm stretching unnaturally long beneath a stilt house by a dark canal, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Limited",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD021",
+   "name_th": "สมเด็จพระศรีสุริโยทัย",
+   "name_en": "Queen Suriyothai",
+   "category": "ผู้ปกครอง",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 7,
+   "atk": 6,
+   "hp": 7,
+   "keywords": [
+    "ทวารบาล",
+    "คงกระพัน"
+   ],
+   "text_th": "รับการโจมตีแทนผู้ปกครองฝ่ายเรา; สิ้นใจ: ผู้ปกครองฝ่ายเราทุกตัว +3/+3 ถาวร",
+   "ability_code": [
+    {
+     "special": "protect_ruler",
+     "filter": {
+      "category": "ผู้ปกครอง",
+      "exclude_self": true
+     },
+     "desc": "การโจมตีที่เล็งผู้ปกครองฝ่ายเราเปลี่ยนมาที่การ์ดนี้"
+    },
+    {
+     "on": "death",
+     "do": [
+      {
+       "buff": {
+        "target": "all_ally_units",
+        "filter": {
+         "category": "ผู้ปกครอง"
+        },
+        "atk": 3,
+        "hp": 3,
+        "duration": "perm"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD021.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a respectful heroic portrait of Queen Suriyothai in warrior attire on a war elephant, shielding the king, Ayutthaya battlefield, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": true,
+   "is_deity": false,
+   "rarity_old": "Limited",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD022",
+   "name_th": "พระแม่ธรณี",
+   "name_en": "Phra Mae Thorani, Earth Goddess",
+   "category": "เทพเจ้า",
+   "tribe": "เทพ",
+   "rarity": "พระเจ้า",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 7,
+   "atk": 4,
+   "hp": 10,
+   "keywords": [
+    "คงกระพัน"
+   ],
+   "text_th": "ปลุกเสก: บีบมวยผม — สายน้ำกวาดอสูรและผีฝ่ายศัตรูทุกตัว 4 ดาเมจ",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "damage": {
+        "target": "all_enemy_units",
+        "filter": {
+         "tribe": [
+          "อสูร",
+          "ผี"
+         ]
+        },
+        "amount": 4
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD022.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the earth goddess Phra Mae Thorani wringing a torrent of water from her long hair, the flood sweeping away an army of demons, respectful and serene, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, holographic gold-leaf sheen, floating Thai sacred script, cinematic lighting. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": true,
+   "rarity_old": "Limited",
+   "rarity_code": "divine",
+   "max_supply": 3,
+   "collector_edition": true,
+   "collector_fx": "gold_glitter"
+  },
+  {
+   "id": "SD023",
+   "name_th": "กุมภกรรณ",
+   "name_en": "Kumphakan",
+   "category": "อสูร",
+   "tribe": "อสูร",
+   "rarity": "มหากาพย์",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 8,
+   "atk": 9,
+   "hp": 9,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ไม่โจมตีในเทิร์นที่ลง (หลับ); ปลุกเสก: หอกโมกขศักดิ์ — ยูนิตศัตรู 1 ตัวสลบจนกว่าจะได้ยาสังกรณีตรีชวา",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "self",
+      "rule": "cannot_attack_turn_played"
+     }
+    },
+    {
+     "special": "stun",
+     "on": "play",
+     "target": "chosen_enemy_unit",
+     "cured_by": "ยาสังกรณีตรีชวา",
+     "desc": "หอกโมกขศักดิ์: เป้าโจมตีไม่ได้และไม่มีความสามารถ จนกว่าจะถูก cleanse ด้วยยาสังกรณีตรีชวา"
+    }
+   ],
+   "art": "/assets/cards/SD023.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the giant demon Kumphakan in green khon armor wielding the spear Mokkhasak, a fallen warrior at his feet, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD024",
+   "name_th": "น้ำอมฤต",
+   "name_en": "Amrita, Nectar of Immortality",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ตำนาน",
+   "element": "อากาศ",
+   "type": "คาถา",
+   "cost": 8,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ชุบชีวิตยูนิต 3 ตัวที่แรงที่สุดในสุสานเรา HP เต็ม; ใช้ได้ 1 ครั้งต่อเกม",
+   "ability_code": [
+    {
+     "on": "play",
+     "once_per_game": true,
+     "do": [
+      {
+       "revive": {
+        "from": "my_crypt",
+        "count": 3,
+        "pick": "strongest",
+        "hp": "full"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD024.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a golden vessel overflowing with luminous nectar, churned from the cosmic ocean, divine light, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "legend",
+   "max_supply": null,
+   "collector_edition": true,
+   "collector_fx": "ember"
+  },
+  {
+   "id": "SD025",
+   "name_th": "สมเด็จพระเจ้าอู่ทอง",
+   "name_en": "King U Thong",
+   "category": "ผู้ปกครอง",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 7,
+   "atk": 6,
+   "hp": 8,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ปลุกเสก: สถาปนากรุง — สร้างของขลังกำแพงเมือง ยูนิตเราทุกตัว +0/+2",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "summon": {
+        "token": "TK_WALL",
+        "count": 1,
+        "zone": "slot"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD025.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a respectful portrait of King U Thong founding Ayutthaya on an island of three rivers, city walls rising behind him, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": true,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD026",
+   "name_th": "ขุนแผนแสนสะท้าน",
+   "name_en": "Khun Phaen",
+   "category": "วรรณคดี",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 7,
+   "atk": 7,
+   "hp": 7,
+   "keywords": [
+    "กำบัง",
+    "เมตตามหานิยม"
+   ],
+   "text_th": "ปลุกเสก: เรียกกุมารทอง 2/2 กำบัง; ถือดาบฟ้าฟื้นได้ +4/+4 เพิ่ม; ม้าสีหมอกให้ฮึกเหิม",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "summon": {
+        "token": "TK_KUMAN",
+        "count": 1
+       }
+      }
+     ]
+    },
+    {
+     "aura": {
+      "target": "self",
+      "if": {
+       "equipped": "ดาบฟ้าฟื้น"
+      },
+      "atk": 4,
+      "hp": 4
+     }
+    }
+   ],
+   "art": "/assets/cards/SD026.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Khun Phaen the legendary warrior-sorcerer of Thai literature, tattooed with sacred yantra, holding the sword Fa Fuen, a golden ghost child at his side, molten gold and blood-red flames on black lacquer, temple fire embers, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD027",
+   "name_th": "พระอภัยมณี",
+   "name_en": "Phra Aphai Mani",
+   "category": "วรรณคดี",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 7,
+   "atk": 4,
+   "hp": 8,
+   "keywords": [],
+   "text_th": "ปลุกเสก: เป่าปี่ — ศัตรูทุกตัวหลับ (โจมตีไม่ได้) 1 เทิร์น ผีและอสูรหลับ 2 เทิร์น",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "sleep": {
+        "target": "all_enemy_units",
+        "turns": 1
+       }
+      },
+      {
+       "sleep": {
+        "target": "all_enemy_units",
+        "filter": {
+         "tribe": [
+          "ผี",
+          "อสูร"
+         ]
+        },
+        "turns": 2
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD027.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Phra Aphai Mani playing a magic flute on a rocky shore at night, soundwaves of light putting a giant sea ogress to sleep, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD028",
+   "name_th": "นางผีเสื้อสมุทร",
+   "name_en": "Nang Phisuea Samut, Sea Ogress",
+   "category": "วรรณคดี",
+   "tribe": "อสูร",
+   "rarity": "มหากาพย์",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 7,
+   "atk": 8,
+   "hp": 8,
+   "keywords": [
+    "ราหูจร"
+   ],
+   "text_th": "แปลงกาย: สลับร่างทุกเทิร์น หญิงงาม (4/8 ดูดชีพ) กับยักษ์ (8/8 ฮึกเหิม)",
+   "ability_code": [
+    {
+     "special": "dual_form",
+     "toggle": "turn_start",
+     "forms": [
+      {
+       "atk": 4,
+       "hp": 8,
+       "grant": [
+        "ดูดชีพ"
+       ]
+      },
+      {
+       "atk": 8,
+       "hp": 8,
+       "grant": [
+        "ฮึกเหิม"
+       ]
+      }
+     ],
+     "desc": "เริ่มเป็นร่างหญิงงาม สลับร่างทุกยามเช้าของเจ้าของ ดาเมจที่ได้รับคงอยู่"
+    }
+   ],
+   "art": "/assets/cards/SD028.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the sea ogress from Phra Aphai Mani, half beautiful woman half monstrous giantess, rising from a stormy sea, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD029",
+   "name_th": "ช้างเอราวัณ",
+   "name_en": "Erawan, the Thirty-Three-Headed Elephant",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ตำนาน",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 7,
+   "atk": 6,
+   "hp": 10,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ยูนิตเราทุกตัวรับดาเมจ -1; ถ้ามีพระอินทร์ ได้ +3/+3",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "all_ally_units",
+      "rule": "damage_taken_minus_1"
+     }
+    },
+    {
+     "aura": {
+      "target": "self",
+      "if": {
+       "ally_name": "พระอินทร์"
+      },
+      "atk": 3,
+      "hp": 3
+     }
+    }
+   ],
+   "art": "/assets/cards/SD029.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the colossal white elephant Erawan with many heads and tusks, standing on clouds above heaven's palace, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "legend",
+   "max_supply": null,
+   "collector_edition": true,
+   "collector_fx": "ember"
+  },
+  {
+   "id": "SD030",
+   "name_th": "ชาละวัน",
+   "name_en": "Chalawan, Crocodile Lord",
+   "category": "วรรณคดี",
+   "tribe": "หิมพานต์",
+   "rarity": "มหากาพย์",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 7,
+   "atk": 8,
+   "hp": 8,
+   "keywords": [
+    "ดูดชีพ"
+   ],
+   "text_th": "ยูนิตน้ำเรา +1/+1; ลากลงน้ำ: ยูนิตที่ถูกโจมตีถ้า HP เหลือ ≤3 ถูกทำลาย",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "other_ally_units",
+      "filter": {
+       "element": "น้ำ"
+      },
+      "atk": 1,
+      "hp": 1
+     }
+    },
+    {
+     "on": "after_hit",
+     "if": {
+      "target_hp_lte": 3
+     },
+     "do": [
+      {
+       "destroy": {
+        "target": "attack_target"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD030.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Chalawan the crocodile lord in his crystal underwater cave, half man half giant crocodile, glowing gems, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD031",
+   "name_th": "ท้าวสุรนารี (ย่าโม)",
+   "name_en": "Thao Suranari",
+   "category": "ผู้ปกครอง",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 6,
+   "atk": 6,
+   "hp": 6,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "ปลุกเสก: ทุ่งสัมฤทธิ์ — เรียกชาวโคราช 2/1 ฮึกเหิม 3 ตัว",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "summon": {
+        "token": "TK_KORAT",
+        "count": 3
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD031.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a respectful heroic portrait of Thao Suranari leading Korat villagers with a sword in the night, campfires and banners, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": true,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD032",
+   "name_th": "พระยาพิชัยดาบหัก",
+   "name_en": "Phraya Phichai Dap Hak",
+   "category": "ผู้ปกครอง",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 6,
+   "atk": 7,
+   "hp": 5,
+   "keywords": [
+    "ฮึกเหิม",
+    "ลิ้มเลือด"
+   ],
+   "text_th": "โจมตีได้ 2 ครั้งต่อเทิร์น; HP ≤2 ATK x2 (ดาบหัก)",
+   "ability_code": [
+    {
+     "special": "extra_attack",
+     "attacks_per_turn": 2
+    },
+    {
+     "aura": {
+      "target": "self",
+      "if": {
+       "self_hp_lte": 2
+      },
+      "rule": "atk_x2"
+     }
+    }
+   ],
+   "art": "/assets/cards/SD032.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the warrior Phraya Phichai fighting with two swords, one sword broken, wounded but unyielding in a rain of arrows, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, molten gold and blood-red flames on black lacquer, temple fire embers, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": true,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD033",
+   "name_th": "ท้าวเทพกระษัตรี และท้าวศรีสุนทร",
+   "name_en": "Thao Thep Krasattri & Thao Si Sunthon",
+   "category": "ผู้ปกครอง",
+   "tribe": "มนุษย์",
+   "rarity": "มหากาพย์",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 6,
+   "atk": 5,
+   "hp": 7,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ปลุกเสก: กลลวงข้าศึก — ยูนิตศัตรูทุกตัวโจมตีไม่ได้ 1 เทิร์น",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "disable_attack": {
+        "target": "all_enemy_units",
+        "turns": 1
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD033.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of two heroine sisters of Thalang in battle dress commanding women disguised as soldiers on the walls of Phuket at night, respectful, dignified and majestic depiction, no caricature, no humor, no gore on the figure, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": true,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD034",
+   "name_th": "หนุมาน",
+   "name_en": "Hanuman",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ตำนาน",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 6,
+   "atk": 6,
+   "hp": 6,
+   "keywords": [
+    "เหาะเหิน",
+    "อมตะ"
+   ],
+   "text_th": "อมตะ: ลมพระพายพัดฟื้น HP เต็ม 1 ครั้ง; ปลุกเสก: หาวเป็นดาวเป็นเดือน ทำลายของขลังหรือกับดักศัตรู 1 ชิ้น",
+   "ability_code": [
+    {
+     "special": "undying_full",
+     "desc": "อมตะแบบพิเศษ: กลับมาด้วย HP เต็มแทน HP 1"
+    },
+    {
+     "on": "play",
+     "do": [
+      {
+       "destroy": {
+        "target": "chosen_enemy_slot_card"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD034.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Hanuman the white monkey warrior with a crown and trident, yawning stars and moons into the night sky, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "legend",
+   "max_supply": null,
+   "collector_edition": true,
+   "collector_fx": "ember"
+  },
+  {
+   "id": "SD035",
+   "name_th": "ไกรสรราชสีห์",
+   "name_en": "Kraisorn Ratchasi",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ตำนาน",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 6,
+   "atk": 7,
+   "hp": 6,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "ปลุกเสก: คำรามสะท้านไพร — ทำลายยูนิตศัตรูต้นทุน ≤2 ทั้งหมด",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "destroy": {
+        "target": "all_enemy_units",
+        "filter": {
+         "cost_lte": 2
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD035.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the Himmapan lion king Kraisorn with a flaming red mane and white body roaring on a cliff, molten gold and blood-red flames on black lacquer, temple fire embers, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "legend",
+   "max_supply": null,
+   "collector_edition": true,
+   "collector_fx": "ember"
+  },
+  {
+   "id": "SD036",
+   "name_th": "ดาบฟ้าฟื้น",
+   "name_en": "Fa Fuen, the Heaven-Waking Sword",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "มหากาพย์",
+   "element": "ไฟ",
+   "type": "ของขลัง",
+   "cost": 5,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ติดยูนิต +4 ATK และโจมตีทะลุคงกระพัน; ขุนแผนถือ +4/+4 เพิ่ม",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "equip": {
+        "target": "chosen_ally_unit",
+        "atk": 4,
+        "hp": 0,
+        "rule": "pierce_barrier"
+       }
+      }
+     ]
+    },
+    {
+     "aura": {
+      "target": "bearer",
+      "if": {
+       "bearer_name": "ขุนแผนแสนสะท้าน"
+      },
+      "atk": 4,
+      "hp": 4
+     }
+    }
+   ],
+   "art": "/assets/cards/SD036.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a legendary Thai sword forged in a sacred ritual, crackling with lightning, resting on a black lacquer stand, molten gold and blood-red flames on black lacquer, temple fire embers, rich gold-leaf accents, crimson flames, heroic pose. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Legendary",
+   "rarity_code": "epic",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD037",
+   "name_th": "เปรตยักษ์",
+   "name_en": "Giant Pret",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "หายาก",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 6,
+   "atk": 6,
+   "hp": 9,
+   "keywords": [
+    "ราหูจร"
+   ],
+   "text_th": "ต้นเทิร์นกลืนการ์ด 1 ใบจากสุสานใดก็ได้ +1/+1; ราหูอมจันทร์: ศัตรูทุกตัว -1 ATK",
+   "ability_code": [
+    {
+     "on": "turn_start",
+     "do": [
+      {
+       "consume_crypt": {
+        "side": "any",
+        "count": 1,
+        "then": [
+         {
+          "buff": {
+           "target": "self",
+           "atk": 1,
+           "hp": 1,
+           "duration": "perm"
+          }
+         }
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "on": "rahu",
+     "do": [
+      {
+       "buff": {
+        "target": "all_enemy_units",
+        "atk": -1,
+        "hp": 0,
+        "duration": "rahu"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD037.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a towering Pret hungry ghost as tall as a palm tree with a needle-thin mouth and long limbs, moaning in a temple courtyard at night, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD038",
+   "name_th": "ควาญช้างศึก",
+   "name_en": "War Elephant Mahout",
+   "category": "8 อาชีพ",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 5,
+   "atk": 5,
+   "hp": 7,
+   "keywords": [
+    "ทวารบาล",
+    "ฮึกเหิม"
+   ],
+   "text_th": "ดาเมจเกินจากการฆ่ายูนิตทะลุไปที่ดวงชะตาศัตรู",
+   "ability_code": [
+    {
+     "special": "trample",
+     "desc": "ดาเมจเกิน HP ของยูนิตที่ฆ่า ทะลุไปที่ดวงชะตาศัตรู"
+    }
+   ],
+   "art": "/assets/cards/SD038.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a mahout with an ankus atop an armored war elephant charging through mist, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD039",
+   "name_th": "ปอบเจ้าแม่หมู่บ้าน",
+   "name_en": "Matriarch Pop Ghost",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "หายาก",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 5,
+   "atk": 5,
+   "hp": 5,
+   "keywords": [
+    "ดูดชีพ",
+    "ลิ้มเลือด"
+   ],
+   "text_th": "ฆ่ายูนิตได้ ดวงชะตาศัตรู -2; สิ้นใจ: สิงยูนิตศัตรูต้นทุนต่ำสุดมาเป็นของเรา (ยกเว้นผู้ปกครอง/เทพ)",
+   "ability_code": [
+    {
+     "on": "kill",
+     "do": [
+      {
+       "damage": {
+        "target": "enemy_player",
+        "amount": 2
+       }
+      }
+     ]
+    },
+    {
+     "on": "death",
+     "do": [
+      {
+       "steal": {
+        "target": "enemy_lowest_cost",
+        "filter": {
+         "not_category": [
+          "ผู้ปกครอง",
+          "เทพเจ้า"
+         ]
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD039.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Phi Pop ghost, an old woman with bloody mouth crouching over a sleeping villager in a dark wooden house, molten gold and blood-red flames on black lacquer, temple fire embers, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD040",
+   "name_th": "กระสือร้อยปี",
+   "name_en": "Hundred-Year Krasue",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "หายาก",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 5,
+   "atk": 4,
+   "hp": 4,
+   "keywords": [
+    "เหาะเหิน",
+    "ราหูจร"
+   ],
+   "text_th": "ราหูอมจันทร์: +3 ATK และได้ดูดชีพ; ตายทันทีถ้าศัตรูมีกับดักหนามพุทรา",
+   "ability_code": [
+    {
+     "on": "rahu",
+     "do": [
+      {
+       "buff": {
+        "target": "self",
+        "atk": 3,
+        "hp": 0,
+        "duration": "rahu"
+       }
+      },
+      {
+       "grant": {
+        "target": "self",
+        "keywords": [
+         "ดูดชีพ"
+        ],
+        "duration": "rahu"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD040.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Krasue, a floating woman's head with glowing entrails dangling below, drifting over a rice field under a dark moon, molten gold and blood-red flames on black lacquer, temple fire embers, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD041",
+   "name_th": "นางไม้ตะเคียน",
+   "name_en": "Takhian Tree Spirit",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "หายาก",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 5,
+   "atk": 3,
+   "hp": 8,
+   "keywords": [
+    "ทวารบาล",
+    "พิษ 2"
+   ],
+   "text_th": "ยูนิตที่โจมตีการ์ดนี้ติดพิษ 2",
+   "ability_code": [],
+   "art": "/assets/cards/SD041.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the Nang Takhian spirit, a beautiful pale woman in a traditional dress emerging from a huge ancient takhian tree wrapped in colored cloth, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD042",
+   "name_th": "ยาสังกรณีตรีชวา",
+   "name_en": "Sangkorani Trichawa Elixir",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "หายาก",
+   "element": "น้ำ",
+   "type": "คาถา",
+   "cost": 5,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ชุบชีวิตยูนิตใดก็ได้ในสุสานเรา HP เต็ม และล้างสลบ (แก้หอกโมกขศักดิ์ได้)",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "choose": {
+        "options": [
+         [
+          {
+           "revive": {
+            "from": "my_crypt",
+            "count": 1,
+            "pick": "choose",
+            "hp": "full"
+           }
+          }
+         ],
+         [
+          {
+           "cleanse": {
+            "target": "chosen_ally_unit"
+           }
+          }
+         ]
+        ],
+        "chooser": "me"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD042.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a glowing herbal elixir in a gold bowl with the legendary revival herbs from Ramakien, healing light, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD043",
+   "name_th": "น้ำมันพราย",
+   "name_en": "Phrai Oil of Enchantment",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "หายาก",
+   "element": "ไฟ",
+   "type": "คาถา",
+   "cost": 5,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "เมตตามหานิยม: ขโมยยูนิตศัตรูต้นทุน ≤5 มาเป็นของเรา (ยกเว้นผู้ปกครองและเทพ)",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "steal": {
+        "target": "chosen_enemy_unit",
+        "filter": {
+         "cost_lte": 5,
+         "not_category": [
+          "ผู้ปกครอง",
+          "เทพเจ้า"
+         ]
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD043.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a tiny dark glass vial of sinister enchantment oil glowing red over a candle flame, black magic charms, molten gold and blood-red flames on black lacquer, temple fire embers, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD044",
+   "name_th": "ทหารดาบสองมือ",
+   "name_en": "Twin-Blade Swordsman",
+   "category": "8 อาชีพ",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 5,
+   "hp": 4,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "โจมตียูนิตที่ต้นทุนต่ำกว่า ได้ 2 ครั้ง",
+   "ability_code": [
+    {
+     "special": "extra_attack",
+     "attacks_per_turn": 2,
+     "only_vs": {
+      "cost_lt_self": true
+     }
+    }
+   ],
+   "art": "/assets/cards/SD044.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of an Ayutthaya-era warrior wielding two krabi swords in a fierce stance, red sash, burning village, molten gold and blood-red flames on black lacquer, temple fire embers, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD045",
+   "name_th": "หมอผีปราบวิญญาณ",
+   "name_en": "Exorcist Shaman",
+   "category": "8 อาชีพ",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 3,
+   "hp": 5,
+   "keywords": [
+    "สายสิญจน์"
+   ],
+   "text_th": "ปลุกเสก: จับผีศัตรู 1 ตัวใส่หม้อดิน (ส่งวิญญาณ)",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "destroy": {
+        "target": "chosen_enemy_unit",
+        "filter": {
+         "tribe": "ผี"
+        },
+        "purge": true
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD045.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Thai village exorcist with sacred thread and a clay pot sealing a shrieking ghost, candles and incense, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD046",
+   "name_th": "ฤๅษีตาไฟ",
+   "name_en": "Fire-Eyed Hermit",
+   "category": "8 อาชีพ",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 2,
+   "hp": 6,
+   "keywords": [],
+   "text_th": "ปลุกเสก เลือก: ชุบชีวิตยูนิตต้นทุน ≤3 หรือ สาปศัตรู 1 ตัวเป็นหิน (สายสิญจน์ 2 เทิร์น)",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "choose": {
+        "options": [
+         [
+          {
+           "revive": {
+            "from": "my_crypt",
+            "filter": {
+             "cost_lte": 3
+            },
+            "count": 1,
+            "pick": "choose",
+            "hp": "full"
+           }
+          }
+         ],
+         [
+          {
+           "seal": {
+            "target": "chosen_enemy_unit",
+            "turns": 2
+           }
+          },
+          {
+           "disable_attack": {
+            "target": "chosen_enemy_unit",
+            "turns": 2
+           }
+          }
+         ]
+        ],
+        "chooser": "me"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD046.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of an old Thai hermit (ruesi) in a tiger-skin hat with burning eyes, meditating in a cave as stone statues come alive, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD047",
+   "name_th": "เสือร้ายคาถาอาคม",
+   "name_en": "Bandit Tiger of Black Magic",
+   "category": "8 อาชีพ",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 4,
+   "hp": 4,
+   "keywords": [
+    "กำบัง",
+    "คงกระพัน"
+   ],
+   "text_th": "ปลุกเสก: ขโมยของขลัง 1 ชิ้นจากศัตรู",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "steal": {
+        "target": "chosen_enemy_slot_card",
+        "filter": {
+         "type": "ของขลัง"
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD047.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a notorious Thai bandit (suea) covered in yantra tattoos and amulets, bullets bouncing off his skin, molten gold and blood-red flames on black lacquer, temple fire embers, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD048",
+   "name_th": "นางวันทอง",
+   "name_en": "Nang Wanthong",
+   "category": "วรรณคดี",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 2,
+   "hp": 5,
+   "keywords": [
+    "เมตตามหานิยม"
+   ],
+   "text_th": "ปลุกเสก: ขุนแผนหรือขุนช้างฝ่ายเรา +3/+3; ถ้ามีทั้งคู่ ศัตรูเป็นผู้เลือก (สองใจ)",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "buff": {
+        "target": "chosen_ally_unit",
+        "filter": {
+         "name": [
+          "ขุนแผนแสนสะท้าน",
+          "ขุนช้าง"
+         ]
+        },
+        "atk": 3,
+        "hp": 3,
+        "duration": "perm",
+        "chooser_if_both": "opponent"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD048.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Nang Wanthong in classical Ayutthaya dress, torn between two paths, a tragic and beautiful figure in a moonlit garden, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD049",
+   "name_th": "พิธีบูชาราหู",
+   "name_en": "Rahu Offering Ritual",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "หายาก",
+   "element": "อากาศ",
+   "type": "คาถา",
+   "cost": 4,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "เริ่มราหูอมจันทร์ทันที; ผีฝ่ายเราฟื้น HP เต็ม",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "start_rahu": {
+        "rounds": 1
+       }
+      },
+      {
+       "heal": {
+        "target": "all_ally_units",
+        "filter": {
+         "tribe": "ผี"
+        },
+        "amount": "full"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD049.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a nighttime ritual with eight black offerings before a Rahu shrine as the moon darkens, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD050",
+   "name_th": "นักมวยคาดเชือก",
+   "name_en": "Rope-Bound Boxer",
+   "category": "8 อาชีพ",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 4,
+   "hp": 4,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ชกสวน: ถูกโจมตีแล้วตอบโต้ +2 ดาเมจ",
+   "ability_code": [
+    {
+     "on": "attacked",
+     "do": [
+      {
+       "damage": {
+        "target": "attacker",
+        "amount": 2
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD050.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Muay Boran fighter with hemp rope-wrapped fists and a mongkhon headband, mid-strike in a torch-lit ring, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD051",
+   "name_th": "หมอยาว่านร้อยแปด",
+   "name_en": "Herbalist of a Hundred Roots",
+   "category": "8 อาชีพ",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 1,
+   "hp": 5,
+   "keywords": [
+    "ฟื้นฟู"
+   ],
+   "text_th": "ปลุกเสก: ฟื้น 4 HP และล้างพิษ/คุณไสยทั้งหมดฝ่ายเรา",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "heal": {
+        "target": "all_ally_units",
+        "amount": 4
+       }
+      },
+      {
+       "cleanse": {
+        "target": "all_ally_units"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD051.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a traditional Thai herbal healer grinding glowing herbs on a stone mortar, jars of roots and amulets, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD052",
+   "name_th": "พรานไพรหน้าไม้อาบยาง",
+   "name_en": "Poison-Crossbow Hunter",
+   "category": "8 อาชีพ",
+   "tribe": "มนุษย์",
+   "rarity": "หายาก",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 3,
+   "keywords": [
+    "เหาะเหิน",
+    "พิษ 1"
+   ],
+   "text_th": "ยิงข้ามทวารบาล และใส่พิษ 1",
+   "ability_code": [],
+   "art": "/assets/cards/SD052.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a jungle hunter aiming a crossbow with poisoned bolts from a tree branch in the deep forest at night, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, swirling violet incense smoke around the subject. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Epic",
+   "rarity_code": "rare",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD053",
+   "name_th": "ผีพรายตายโหง",
+   "name_en": "Violent-Death Phrai",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ทั่วไป",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 4,
+   "hp": 3,
+   "keywords": [
+    "อมตะ"
+   ],
+   "text_th": "เมื่อยูนิตใดตายบนสนาม +1 ATK",
+   "ability_code": [
+    {
+     "on": "any_death",
+     "do": [
+      {
+       "buff": {
+        "target": "self",
+        "atk": 1,
+        "hp": 0,
+        "duration": "perm"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD053.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a vengeful ghost of violent death, drenched and pale with burning eyes, rising from a dark canal, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD054",
+   "name_th": "คชสีห์",
+   "name_en": "Khotchasi",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ทั่วไป",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 4,
+   "hp": 5,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ผู้ปกครองฝ่ายเรา +1 ATK",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "all_ally_units",
+      "filter": {
+       "category": "ผู้ปกครอง"
+      },
+      "atk": 1
+     }
+    }
+   ],
+   "art": "/assets/cards/SD054.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Khotchasi, a Himmapan creature with a lion's body and an elephant's trunk and tusks, guarding a palace gate, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD055",
+   "name_th": "ไกรทอง",
+   "name_en": "Kraithong, Crocodile Slayer",
+   "category": "วรรณคดี",
+   "tribe": "มนุษย์",
+   "rarity": "ทั่วไป",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 4,
+   "hp": 4,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "ทำดาเมจ x2 กับชาละวันและยูนิตจระเข้; สู้ใต้น้ำได้ (ไม่โดนลากลงน้ำ)",
+   "ability_code": [
+    {
+     "special": "damage_mult",
+     "vs": {
+      "name": "ชาละวัน"
+     },
+     "mult": 2
+    },
+    {
+     "special": "immune_steal",
+     "target": "self",
+     "also": "ignore_chalawan_drag"
+    }
+   ],
+   "art": "/assets/cards/SD055.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Kraithong the crocodile hunter with a magic spear diving into a dark river after a giant crocodile, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD056",
+   "name_th": "พลายงาม",
+   "name_en": "Phlai Ngam",
+   "category": "วรรณคดี",
+   "tribe": "มนุษย์",
+   "rarity": "ทั่วไป",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 4,
+   "hp": 4,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ปลุกเสก: ถ้ามีขุนแผนฝ่ายเรา ทั้งคู่ +2 ATK; ไม่ถูกเมตตามหานิยม",
+   "ability_code": [
+    {
+     "on": "play",
+     "if": {
+      "ally_name": "ขุนแผนแสนสะท้าน"
+     },
+     "do": [
+      {
+       "buff": {
+        "target": "self",
+        "atk": 2,
+        "hp": 0,
+        "duration": "perm"
+       }
+      },
+      {
+       "buff": {
+        "target": "all_ally_units",
+        "filter": {
+         "name": "ขุนแผนแสนสะท้าน"
+        },
+        "atk": 2,
+        "hp": 0,
+        "duration": "perm"
+       }
+      }
+     ]
+    },
+    {
+     "special": "immune_steal",
+     "target": "self"
+    }
+   ],
+   "art": "/assets/cards/SD056.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Phlai Ngam, the young son of Khun Phaen, a heroic youth warrior with amulets and a sword, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD057",
+   "name_th": "ผีตาโขน",
+   "name_en": "Phi Ta Khon",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ทั่วไป",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 3,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "ปลุกเสก: ขบวนแห่ เรียกผีตาโขนน้อย 1/1 อีก 2 ตัว; ผีตาโขนทุกตัว +1 ATK",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "summon": {
+        "token": "TK_TAKHON",
+        "count": 2
+       }
+      }
+     ]
+    },
+    {
+     "aura": {
+      "target": "all_ally_units",
+      "filter": {
+       "name_contains": "ผีตาโขน"
+      },
+      "atk": 1
+     }
+    }
+   ],
+   "art": "/assets/cards/SD057.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Phi Ta Khon festival spirit with a huge colorful mask with long nose and horns, dancing with a wooden phallic sword and cowbells, dark festival night, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD058",
+   "name_th": "ผีกะ",
+   "name_en": "Phi Ka",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ทั่วไป",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 3,
+   "keywords": [
+    "ดูดชีพ"
+   ],
+   "text_th": "ปลุกเสก: สิงคน — ยูนิตมนุษย์ศัตรู 1 ตัว -2 ATK และติดพิษ 1",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "buff": {
+        "target": "chosen_enemy_unit",
+        "filter": {
+         "tribe": "มนุษย์"
+        },
+        "atk": -2,
+        "hp": 0,
+        "duration": "perm"
+       }
+      },
+      {
+       "poison": {
+        "target": "chosen_enemy_unit",
+        "amount": 1
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD058.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Phi Ka possessing spirit, a shadowy figure seeping into a villager's body, northern Thai house, molten gold and blood-red flames on black lacquer, temple fire embers, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD059",
+   "name_th": "ผีตานี",
+   "name_en": "Nang Tani",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ทั่วไป",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 2,
+   "hp": 5,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ยูนิตเราข้างเคียง +0/+2; สิ้นใจ: ฟื้นดวงชะตา 4",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "adjacent_allies",
+      "hp": 2
+     }
+    },
+    {
+     "on": "death",
+     "do": [
+      {
+       "heal": {
+        "target": "self_player",
+        "amount": 4
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD059.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the Nang Tani ghost, a woman in green dress floating beside a wild banana tree under the full moon, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD060",
+   "name_th": "ผีโพง",
+   "name_en": "Phi Phong",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ทั่วไป",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 2,
+   "keywords": [
+    "เหาะเหิน",
+    "ราหูจร"
+   ],
+   "text_th": "ราหูอมจันทร์: ได้กำบัง",
+   "ability_code": [
+    {
+     "on": "rahu",
+     "do": [
+      {
+       "grant": {
+        "target": "self",
+        "keywords": [
+         "กำบัง"
+        ],
+        "duration": "rahu"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD060.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Phi Phong ghost with a glowing light from its nose, prowling a muddy field at night hunting frogs and crabs, molten gold and blood-red flames on black lacquer, temple fire embers, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD061",
+   "name_th": "ผีกระหัง",
+   "name_en": "Krahang",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ทั่วไป",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 3,
+   "keywords": [
+    "เหาะเหิน"
+   ],
+   "text_th": "โจมตีข้ามทวารบาล; ราหูอมจันทร์ +2 ATK",
+   "ability_code": [
+    {
+     "on": "rahu",
+     "do": [
+      {
+       "buff": {
+        "target": "self",
+        "atk": 2,
+        "hp": 0,
+        "duration": "rahu"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD061.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Krahang ghost, a man flying with rice-winnowing baskets as wings and a pestle between his legs, over dark rooftops, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD062",
+   "name_th": "ผีบ้านผีเรือน",
+   "name_en": "Household Guardian Spirits",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ทั่วไป",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 1,
+   "hp": 6,
+   "keywords": [
+    "ทวารบาล",
+    "ฟื้นฟู"
+   ],
+   "text_th": "ยูนิตเราไม่ถูกขโมย; ผีศัตรูโจมตีดวงชะตาเราโดยตรงไม่ได้",
+   "ability_code": [
+    {
+     "special": "immune_steal",
+     "target": "all_ally_units"
+    },
+    {
+     "special": "ghosts_cannot_hit_player",
+     "desc": "ยูนิตผีศัตรูโจมตีดวงชะตาเราโดยตรงไม่ได้"
+    }
+   ],
+   "art": "/assets/cards/SD062.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of benevolent ancestral household spirits glowing softly around a traditional Thai wooden house and its spirit shrine, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD063",
+   "name_th": "กินรี",
+   "name_en": "Kinnaree",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ทั่วไป",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 2,
+   "hp": 4,
+   "keywords": [
+    "เหาะเหิน"
+   ],
+   "text_th": "ต้นเทิร์นฟื้น 2 HP ยูนิตเราทุกตัว",
+   "ability_code": [
+    {
+     "on": "turn_start",
+     "do": [
+      {
+       "heal": {
+        "target": "all_ally_units",
+        "amount": 2
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD063.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a graceful kinnaree, half woman half swan, dancing by a moonlit Himmapan lake, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD064",
+   "name_th": "ม้าสีหมอก",
+   "name_en": "Si Mok, the Mist Horse",
+   "category": "วรรณคดี",
+   "tribe": "หิมพานต์",
+   "rarity": "ทั่วไป",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 3,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "ขุนแผนฝ่ายเราได้ฮึกเหิม",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "all_ally_units",
+      "filter": {
+       "name": "ขุนแผนแสนสะท้าน"
+      },
+      "grant": [
+       "ฮึกเหิม"
+      ]
+     }
+    }
+   ],
+   "art": "/assets/cards/SD064.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a magical grey warhorse born of ritual, galloping through morning mist with a war saddle, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD065",
+   "name_th": "เจ้าเงาะ (สังข์ทอง)",
+   "name_en": "Chao Ngo, Sang Thong",
+   "category": "วรรณคดี",
+   "tribe": "มนุษย์",
+   "rarity": "ทั่วไป",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 2,
+   "hp": 4,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ถอดรูป: ครั้งแรกที่ถูกเลือกเป็นเป้า กลายเป็นสังข์ทอง 5/5 คงกระพัน",
+   "ability_code": [
+    {
+     "special": "transform_once",
+     "on": "first_targeted",
+     "into": "TK_SANGTHONG"
+    }
+   ],
+   "art": "/assets/cards/SD065.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a dark-skinned curly-haired disguise peeling away to reveal a golden prince underneath, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD066",
+   "name_th": "ปลุกพราย",
+   "name_en": "Raise the Phrai",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ทั่วไป",
+   "element": "น้ำ",
+   "type": "คาถา",
+   "cost": 3,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ชุบชีวิตผีต้นทุน ≤4 จากสุสานเรา และ +1 ATK",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "revive": {
+        "from": "my_crypt",
+        "filter": {
+         "tribe": "ผี",
+         "cost_lte": 4
+        },
+        "count": 1,
+        "pick": "choose",
+        "hp": "full",
+        "then": [
+         {
+          "buff": {
+           "target": "event_unit",
+           "atk": 1,
+           "hp": 0,
+           "duration": "perm"
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD066.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a sorcerer chanting over a grave at midnight, pale hands rising from the earth, black candles, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD067",
+   "name_th": "หม้อดินขังผี",
+   "name_en": "Ghost-Sealing Clay Pot",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ทั่วไป",
+   "element": "ดิน",
+   "type": "กับดัก",
+   "cost": 3,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "เมื่อศัตรูชุบชีวิต: ยกเลิก และส่งวิญญาณ 3 ใบในสุสานศัตรู",
+   "ability_code": [
+    {
+     "on": "enemy_revive",
+     "do": [
+      {
+       "counter": {}
+      },
+      {
+       "purge_crypt": {
+        "side": "enemy",
+        "count": 3
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD067.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a clay pot sealed with sacred cloth and string, trapped ghostly faces pressing from inside, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD068",
+   "name_th": "น้ำมนต์ทิพย์",
+   "name_en": "Divine Holy Water",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ทั่วไป",
+   "element": "น้ำ",
+   "type": "คาถา",
+   "cost": 3,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ล้างพิษ/สายสิญจน์ทั้งหมดฝ่ายเรา และฟื้น 3 HP ทุกตัว",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "cleanse": {
+        "target": "all_ally_units"
+       }
+      },
+      {
+       "heal": {
+        "target": "all_ally_units",
+        "amount": 3
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD068.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a silver bowl of holy water with floating lotus petals and sacred thread, soft glowing mist, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD069",
+   "name_th": "กุมารทอง",
+   "name_en": "Kuman Thong",
+   "category": "วรรณคดี",
+   "tribe": "ผี",
+   "rarity": "ทั่วไป",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 2,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ปลุกเสก: แอบดูไพ่ในมือศัตรู 1 ใบ; มีขุนแผนฝ่ายเรา +2/+2",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "reveal_hand": {
+        "count": 1
+       }
+      }
+     ]
+    },
+    {
+     "aura": {
+      "target": "self",
+      "if": {
+       "ally_name": "ขุนแผนแสนสะท้าน"
+      },
+      "atk": 2,
+      "hp": 2
+     }
+    }
+   ],
+   "art": "/assets/cards/SD069.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Kuman Thong, a golden ghost child spirit with a topknot, whispering secrets, eerie golden glow, molten gold and blood-red flames on black lacquer, temple fire embers, cool sapphire highlights, moderate glow. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Rare",
+   "rarity_code": "standard",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD070",
+   "name_th": "ยักษ์ทวารบาล",
+   "name_en": "Temple Gate Yaksha",
+   "category": "อสูร",
+   "tribe": "อสูร",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 3,
+   "hp": 6,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "รับดาเมจจากคาถา -1",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "self",
+      "rule": "spell_damage_taken_minus_1"
+     }
+    }
+   ],
+   "art": "/assets/cards/SD070.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a giant yaksha temple guardian statue coming alive, holding a great club, porcelain-mosaic armor, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD071",
+   "name_th": "ไมยราพ",
+   "name_en": "Maiyarap, the Sleep Sorcerer",
+   "category": "อสูร",
+   "tribe": "อสูร",
+   "rarity": "ธรรมดา",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 4,
+   "atk": 3,
+   "hp": 4,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ปลุกเสก: สะกดทัพ — ยูนิตศัตรู 2 ตัวหลับ 1 เทิร์น",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "sleep": {
+        "target": "chosen_enemy_units",
+        "count": 2,
+        "turns": 1
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD071.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the demon sorcerer Maiyarap blowing sleeping powder through a pipe over a sleeping army, underworld kingdom, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD072",
+   "name_th": "ปู่โสมเฝ้าทรัพย์",
+   "name_en": "Pu Som, Treasure Guardian",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 1,
+   "hp": 6,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ศัตรูที่ฆ่าการ์ดนี้ต้องทิ้งไพ่ 1 ใบ",
+   "ability_code": [
+    {
+     "on": "death",
+     "if": {
+      "killed_by_enemy": true
+     },
+     "do": [
+      {
+       "discard": {
+        "side": "enemy",
+        "count": 1,
+        "random": true
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD072.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of an ancient old man ghost guarding buried gold jars in a ruined temple, eyes glowing, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD073",
+   "name_th": "ผีแม่ม่าย",
+   "name_en": "Widow Ghost",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 3,
+   "keywords": [
+    "ดูดชีพ"
+   ],
+   "text_th": "ยูนิตศัตรูที่หลับหรือถูกสายสิญจน์ ถูกการ์ดนี้โจมตีตายทันที",
+   "ability_code": [
+    {
+     "on": "attack",
+     "if": {
+      "target_status": [
+       "asleep",
+       "sealed"
+      ]
+     },
+     "do": [
+      {
+       "destroy": {
+        "target": "attack_target"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD073.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a widow ghost in white drifting through a village at night where houses hang red shirts to ward her off, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD074",
+   "name_th": "ยักษ์กุมภัณฑ์",
+   "name_en": "Kumphan Ogre",
+   "category": "อสูร",
+   "tribe": "อสูร",
+   "rarity": "ธรรมดา",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 4,
+   "hp": 3,
+   "keywords": [
+    "ลิ้มเลือด"
+   ],
+   "text_th": "ฆ่ายูนิตได้ +1/+1 ถาวร",
+   "ability_code": [],
+   "art": "/assets/cards/SD074.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a fanged ogre warrior with a pot belly and a heavy mace, red skin, demon army behind, molten gold and blood-red flames on black lacquer, temple fire embers, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD075",
+   "name_th": "นางสำมนักขา",
+   "name_en": "Sammanakkha",
+   "category": "อสูร",
+   "tribe": "อสูร",
+   "rarity": "ธรรมดา",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 3,
+   "keywords": [],
+   "text_th": "ปลุกเสก: ยุแยง — ยูนิตศัตรู 2 ตัวโจมตีกันเอง 1 ครั้ง",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "fight": {
+        "target": "chosen_enemy_units",
+        "count": 2
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD075.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the scheming demoness Sammanakkha from Ramakien whispering lies, a sly grin, khon ornaments, molten gold and blood-red flames on black lacquer, temple fire embers, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD076",
+   "name_th": "วานรสิบแปดมงกุฎ",
+   "name_en": "Crowned Monkey Captain",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ธรรมดา",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 3,
+   "hp": 3,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "มีหนุมานฝ่ายเรา +1/+1",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "self",
+      "if": {
+       "ally_name": "หนุมาน"
+      },
+      "atk": 1,
+      "hp": 1
+     }
+    }
+   ],
+   "art": "/assets/cards/SD076.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a crowned monkey general from Hanuman's army with a spear, leaping into battle, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD077",
+   "name_th": "ขุนช้าง",
+   "name_en": "Khun Chang",
+   "category": "วรรณคดี",
+   "tribe": "มนุษย์",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 3,
+   "atk": 2,
+   "hp": 5,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ปลุกเสก: ร่ำรวย — จั่ว 1 ใบ; มีนางวันทองฝ่ายเรา +2/+2",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "draw": {
+        "count": 1
+       }
+      }
+     ]
+    },
+    {
+     "aura": {
+      "target": "self",
+      "if": {
+       "ally_name": "นางวันทอง"
+      },
+      "atk": 2,
+      "hp": 2
+     }
+    }
+   ],
+   "art": "/assets/cards/SD077.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of Khun Chang, the wealthy bald nobleman in rich silk garments, counting gold, jealous expression, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD078",
+   "name_th": "ผีกองกอย",
+   "name_en": "Phi Kong Koi",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 2,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ปลุกเสก: ศัตรู 1 ตัว -1 ATK",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "buff": {
+        "target": "chosen_enemy_unit",
+        "atk": -1,
+        "hp": 0,
+        "duration": "perm"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD078.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a one-legged forest ghost hopping through the jungle crying kong-koi, hollow eyes, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD079",
+   "name_th": "ผีโขมด",
+   "name_en": "Phi Khamot",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 2,
+   "keywords": [
+    "ราหูจร"
+   ],
+   "text_th": "แสงหลอกทาง: ยูนิตศัตรู 1 ตัวโจมตีเป้าสุ่ม",
+   "ability_code": [
+    {
+     "special": "misdirect",
+     "on": "play",
+     "target": "chosen_enemy_unit",
+     "desc": "การโจมตีครั้งถัดไปของเป้า เปลี่ยนเป้าแบบสุ่ม (รวมพวกเดียวกันได้ ยกเว้นตัวเอง)"
+    }
+   ],
+   "art": "/assets/cards/SD079.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a will-o-the-wisp ghost light floating over a swamp, luring a lost traveler, molten gold and blood-red flames on black lacquer, temple fire embers, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD080",
+   "name_th": "ผีพุ่งไต้",
+   "name_en": "Phi Phung Tai",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 3,
+   "hp": 1,
+   "keywords": [
+    "เหาะเหิน"
+   ],
+   "text_th": "สิ้นใจ: 2 ดาเมจแก่ศัตรูสุ่ม 1 ตัว",
+   "ability_code": [
+    {
+     "on": "death",
+     "do": [
+      {
+       "damage": {
+        "target": "random_enemy_unit",
+        "amount": 2
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD080.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a streak of ghost fire shooting across the night sky like a falling torch, molten gold and blood-red flames on black lacquer, temple fire embers, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD081",
+   "name_th": "ผีพรายน้ำ",
+   "name_en": "River Phrai",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 3,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ยูนิตไฟที่ถูกโจมตี -1 ATK ถาวร",
+   "ability_code": [
+    {
+     "on": "after_hit",
+     "if": {
+      "target_element": "ไฟ"
+     },
+     "do": [
+      {
+       "buff": {
+        "target": "attack_target",
+        "atk": -1,
+        "hp": 0,
+        "duration": "perm"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD081.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a drowned water spirit with hair like river weeds reaching from black water, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD082",
+   "name_th": "นาคบริวาร",
+   "name_en": "Naga Retainer",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ธรรมดา",
+   "element": "น้ำ",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 3,
+   "keywords": [
+    "ดูดชีพ"
+   ],
+   "text_th": "มีพญานาคฝ่ายเรา +1/+1",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "self",
+      "if": {
+       "ally_name": "พญาศรีสุทโธนาค"
+      },
+      "atk": 1,
+      "hp": 1
+     }
+    }
+   ],
+   "art": "/assets/cards/SD082.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a young naga serpent with green scales coiling around a temple staircase, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD083",
+   "name_th": "ศรีธนญชัย",
+   "name_en": "Sri Thanonchai, the Trickster",
+   "category": "วรรณคดี",
+   "tribe": "มนุษย์",
+   "rarity": "ธรรมดา",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 1,
+   "hp": 3,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ปลุกเสก: สลับ ATK/HP ของยูนิตใดก็ได้ 1 ตัว",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "swap_stats": {
+        "target": "chosen_unit"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD083.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the clever trickster Sri Thanonchai with a cunning smirk, tricking a nobleman, theatrical lighting, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD084",
+   "name_th": "ตะกรุดโทน",
+   "name_en": "Takrut Amulet",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ของขลัง",
+   "cost": 2,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ติดยูนิต: ได้คงกระพัน",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "equip": {
+        "target": "chosen_ally_unit",
+        "atk": 0,
+        "hp": 0,
+        "grant": [
+         "คงกระพัน"
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD084.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a rolled metal takrut amulet inscribed with yantra on a cord, glowing faintly, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD085",
+   "name_th": "ผ้ายันต์",
+   "name_en": "Yantra Cloth",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ธรรมดา",
+   "element": "ไฟ",
+   "type": "ของขลัง",
+   "cost": 2,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ติดยูนิต +1/+1 และไม่โดนพิษ/คุณไสย",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "equip": {
+        "target": "chosen_ally_unit",
+        "atk": 1,
+        "hp": 1,
+        "rule": "immune_poison"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD085.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a red cloth covered in sacred Thai yantra diagrams and script, edges glowing, molten gold and blood-red flames on black lacquer, temple fire embers, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD086",
+   "name_th": "หนามพุทรา",
+   "name_en": "Jujube Thorns",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "กับดัก",
+   "cost": 2,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ผีที่โจมตีถูกทำลายทันทีถ้าต้นทุน ≤4 (กระสือแพ้ทุกระดับ)",
+   "ability_code": [
+    {
+     "on": "enemy_attack",
+     "if": {
+      "attacker_tribe": "ผี",
+      "attacker_cost_lte": 4,
+      "or_attacker_name": "กระสือร้อยปี"
+     },
+     "do": [
+      {
+       "counter": {}
+      },
+      {
+       "destroy": {
+        "target": "attacker"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD086.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a fence of thorny jujube branches around a house at night, a ghost recoiling, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, faint jade glow along the edges. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Uncommon",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD087",
+   "name_th": "ผีปะกำ",
+   "name_en": "Phi Pakam",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 3,
+   "keywords": [],
+   "text_th": "ช้างฝ่ายเรา +1 ATK",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "all_ally_units",
+      "filter": {
+       "name_contains": "ช้าง"
+      },
+      "atk": 1
+     }
+    }
+   ],
+   "art": "/assets/cards/SD087.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the spirit of a sacred elephant-lasso rope, a coiled glowing rawhide rope with a shadowy face, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD088",
+   "name_th": "ผีโป่ง",
+   "name_en": "Phi Pong",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 1,
+   "hp": 3,
+   "keywords": [
+    "พิษ 1"
+   ],
+   "text_th": "ยูนิตที่โจมตีติดพิษ 1",
+   "ability_code": [],
+   "art": "/assets/cards/SD088.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a forest salt-lick spirit rising as mist from a muddy clearing where animals gather, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD089",
+   "name_th": "ผีนางรำ",
+   "name_en": "Ghost Dancer",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 2,
+   "keywords": [],
+   "text_th": "ปลุกเสก: ศัตรู 1 ตัว -1 ATK เทิร์นนี้",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "buff": {
+        "target": "chosen_enemy_unit",
+        "atk": -1,
+        "hp": 0,
+        "duration": "turn"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD089.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a ghostly classical Thai dancer in a golden crown dancing in an abandoned theater, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD090",
+   "name_th": "ชาวบ้านบางระจัน",
+   "name_en": "Villager of Bang Rachan",
+   "category": "มนุษย์",
+   "tribe": "มนุษย์",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 2,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "มีชาวบ้านบางระจันตัวอื่น +1/+1 (สามัคคี)",
+   "ability_code": [
+    {
+     "aura": {
+      "target": "self",
+      "if": {
+       "ally_name": "ชาวบ้านบางระจัน",
+       "exclude_self": true
+      },
+      "atk": 1,
+      "hp": 1
+     }
+    }
+   ],
+   "art": "/assets/cards/SD090.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a brave villager of Bang Rachan with a farming blade, behind a wooden palisade, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD091",
+   "name_th": "นายขนมต้ม",
+   "name_en": "Nai Khanom Tom",
+   "category": "มนุษย์",
+   "tribe": "มนุษย์",
+   "rarity": "ธรรมดา",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 3,
+   "hp": 2,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "ชนะการต่อสู้ได้ +1 ATK ถาวร",
+   "ability_code": [
+    {
+     "on": "kill",
+     "do": [
+      {
+       "buff": {
+        "target": "self",
+        "atk": 1,
+        "hp": 0,
+        "duration": "perm"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD091.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of the legendary Muay Thai boxer Nai Khanom Tom in a fighting stance, ancient ring, molten gold and blood-red flames on black lacquer, temple fire embers, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD092",
+   "name_th": "ทหารหน้าไม้",
+   "name_en": "Crossbowman",
+   "category": "มนุษย์",
+   "tribe": "มนุษย์",
+   "rarity": "ธรรมดา",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 1,
+   "keywords": [
+    "เหาะเหิน"
+   ],
+   "text_th": "ยิงข้ามทวารบาล",
+   "ability_code": [],
+   "art": "/assets/cards/SD092.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a Thai crossbowman on a city wall at night, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD093",
+   "name_th": "สิงห์หิมพานต์",
+   "name_en": "Himmapan Lion",
+   "category": "สัตว์หิมพานต์",
+   "tribe": "หิมพานต์",
+   "rarity": "ธรรมดา",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 2,
+   "atk": 2,
+   "hp": 3,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "",
+   "ability_code": [],
+   "art": "/assets/cards/SD093.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a small Himmapan lion guardian with flame-like mane at a temple entrance, molten gold and blood-red flames on black lacquer, temple fire embers, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD094",
+   "name_th": "เปรตน้อย",
+   "name_en": "Little Pret",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "อากาศ",
+   "type": "ยูนิต",
+   "cost": 1,
+   "atk": 1,
+   "hp": 2,
+   "keywords": [],
+   "text_th": "ต้นเทิร์นกลืนการ์ด 1 ใบในสุสานศัตรู +1/+1 (ครั้งเดียว)",
+   "ability_code": [
+    {
+     "on": "turn_start",
+     "once": true,
+     "do": [
+      {
+       "consume_crypt": {
+        "side": "enemy",
+        "count": 1,
+        "then": [
+         {
+          "buff": {
+           "target": "self",
+           "atk": 1,
+           "hp": 1,
+           "duration": "perm"
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD094.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a small thin hungry ghost with a pinhole mouth begging in the dark, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD095",
+   "name_th": "แม่ซื้อ",
+   "name_en": "Mae Sue",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ลม",
+   "type": "ยูนิต",
+   "cost": 1,
+   "atk": 1,
+   "hp": 1,
+   "keywords": [
+    "กำบัง"
+   ],
+   "text_th": "ปลุกเสก: ยูนิตศัตรูต้นทุน 1 ตัว -1 HP",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "damage": {
+        "target": "chosen_enemy_unit",
+        "filter": {
+         "cost_eq": 1
+        },
+        "amount": 1
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD095.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a mischievous guardian spirit of infants hovering over a cradle, ambiguous and eerie, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD096",
+   "name_th": "ผีตาแฮก",
+   "name_en": "Phi Ta Haek",
+   "category": "ผี",
+   "tribe": "ผี",
+   "rarity": "ธรรมดา",
+   "element": "ดิน",
+   "type": "ยูนิต",
+   "cost": 1,
+   "atk": 0,
+   "hp": 3,
+   "keywords": [
+    "ทวารบาล"
+   ],
+   "text_th": "ต้นเทิร์นฟื้นดวงชะตา 1",
+   "ability_code": [
+    {
+     "on": "turn_start",
+     "do": [
+      {
+       "heal": {
+        "target": "self_player",
+        "amount": 1
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD096.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a rice-field guardian spirit beside a small bamboo shrine in a paddy at dusk, ochre, laterite red-brown and dark jungle green, ancient Ayutthaya brick ruins, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD097",
+   "name_th": "ไพร่พลดาบ",
+   "name_en": "Sword Levy",
+   "category": "มนุษย์",
+   "tribe": "มนุษย์",
+   "rarity": "ธรรมดา",
+   "element": "ไฟ",
+   "type": "ยูนิต",
+   "cost": 1,
+   "atk": 2,
+   "hp": 1,
+   "keywords": [
+    "ฮึกเหิม"
+   ],
+   "text_th": "โจมตีได้ทันที",
+   "ability_code": [],
+   "art": "/assets/cards/SD097.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a common Ayutthaya foot soldier with a krabi and a round shield, molten gold and blood-red flames on black lacquer, temple fire embers, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD098",
+   "name_th": "สายสิญจน์",
+   "name_en": "Sai Sin Sacred Thread",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ธรรมดา",
+   "element": "อากาศ",
+   "type": "คาถา",
+   "cost": 1,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "สายสิญจน์ยูนิตศัตรู 1 ตัว 1 เทิร์น (ผี 2 เทิร์น)",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "seal": {
+        "target": "chosen_enemy_unit",
+        "turns": 1,
+        "turns_if_ghost": 2
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD098.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of white sacred thread wound around a ghost, glowing and binding it, starless black void with gold-leaf Thai kanok flame patterns and faint violet light, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD099",
+   "name_th": "ใบหนาด",
+   "name_en": "Naat Leaves",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ธรรมดา",
+   "element": "ลม",
+   "type": "คาถา",
+   "cost": 1,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "2 ดาเมจแก่ผี 1 ตัว; ยูนิตเราไม่ถูกผีเลือกเป็นเป้า 1 เทิร์น",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "damage": {
+        "target": "chosen_enemy_unit",
+        "filter": {
+         "tribe": "ผี"
+        },
+        "amount": 2
+       }
+      },
+      {
+       "grant": {
+        "target": "all_ally_units",
+        "keywords": [
+         "untargetable_by_ghosts"
+        ],
+        "duration": "turn"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD099.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a bundle of naat leaves waved in the dark, ghosts recoiling, storm-grey and jade green wind spirals, swirling banana leaves and incense smoke, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  },
+  {
+   "id": "SD100",
+   "name_th": "น้ำมนต์",
+   "name_en": "Holy Water",
+   "category": "คาถา/ของขลัง",
+   "tribe": "-",
+   "rarity": "ธรรมดา",
+   "element": "น้ำ",
+   "type": "คาถา",
+   "cost": 1,
+   "atk": null,
+   "hp": null,
+   "keywords": [],
+   "text_th": "ฟื้น 3 HP หรือ 2 ดาเมจแก่ผี/อสูร 1 ตัว",
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "choose": {
+        "options": [
+         [
+          {
+           "heal": {
+            "target": "chosen_ally_unit",
+            "amount": 3
+           }
+          }
+         ],
+         [
+          {
+           "damage": {
+            "target": "chosen_enemy_unit",
+            "filter": {
+             "tribe": [
+              "ผี",
+              "อสูร"
+             ]
+            },
+            "amount": 2
+           }
+          }
+         ]
+        ],
+        "chooser": "me"
+       }
+      }
+     ]
+    }
+   ],
+   "art": "/assets/cards/SD100.webp",
+   "art_prompt": "Thai dark fantasy trading card illustration of a small bowl of holy water sprinkled with a bundle of leaves, deep teal and black river water, silver moonlight on a misty Chao Phraya at night, muted colors, simple dark background. Style: dark Thai mural painting meets cinematic concept art, ornate Thai kanok patterns and gold leaf, dramatic rim lighting, temple incense smoke, drifting embers, highly detailed, single centered subject, vertical 2:3 with dark empty space in the bottom third. No text, no letters, no logo, no frame, no watermark.",
+   "is_ruler": false,
+   "is_deity": false,
+   "rarity_old": "Common",
+   "rarity_code": "common",
+   "max_supply": null,
+   "collector_edition": false,
+   "collector_fx": null
+  }
+ ],
+ "tokens": [
+  {
+   "id": "TK_GARUDA",
+   "name_th": "ครุฑพาหนะ",
+   "tribe": "หิมพานต์",
+   "element": "ลม",
+   "atk": 5,
+   "hp": 5,
+   "keywords": [
+    "เหาะเหิน"
+   ]
+  },
+  {
+   "id": "TK_CLAY2",
+   "name_th": "มนุษย์ดินปั้น",
+   "tribe": "มนุษย์",
+   "element": "ดิน",
+   "atk": 2,
+   "hp": 2,
+   "keywords": []
+  },
+  {
+   "id": "TK_CLAY1",
+   "name_th": "มนุษย์ดินปั้นน้อย",
+   "tribe": "มนุษย์",
+   "element": "ดิน",
+   "atk": 1,
+   "hp": 1,
+   "keywords": []
+  },
+  {
+   "id": "TK_NAGA",
+   "name_th": "นาคบริวาร (โทเคน)",
+   "tribe": "หิมพานต์",
+   "element": "น้ำ",
+   "atk": 2,
+   "hp": 2,
+   "keywords": []
+  },
+  {
+   "id": "TK_HEARTBOX",
+   "name_th": "กล่องดวงใจทศกัณฐ์",
+   "type": "ของขลัง",
+   "hp": 6,
+   "keywords": [],
+   "note": "อยู่ในช่องกับดัก/ของขลัง ศัตรูเลือกโจมตีได้เหมือนยูนิต (ATK 0) ทำลายได้ด้วยดาเมจหรือเอฟเฟกต์ destroy"
+  },
+  {
+   "id": "TK_WALL",
+   "name_th": "กำแพงเมือง",
+   "type": "ของขลัง",
+   "keywords": [],
+   "aura": {
+    "target": "all_ally_units",
+    "hp": 2
+   }
+  },
+  {
+   "id": "TK_KORAT",
+   "name_th": "ชาวโคราช",
+   "tribe": "มนุษย์",
+   "element": "ดิน",
+   "atk": 2,
+   "hp": 1,
+   "keywords": [
+    "ฮึกเหิม"
+   ]
+  },
+  {
+   "id": "TK_KUMAN",
+   "name_th": "กุมารทอง (โทเคน)",
+   "tribe": "ผี",
+   "element": "ไฟ",
+   "atk": 2,
+   "hp": 2,
+   "keywords": [
+    "กำบัง"
+   ]
+  },
+  {
+   "id": "TK_TAKHON",
+   "name_th": "ผีตาโขนน้อย",
+   "tribe": "ผี",
+   "element": "อากาศ",
+   "atk": 1,
+   "hp": 1,
+   "keywords": []
+  },
+  {
+   "id": "TK_SANGTHONG",
+   "name_th": "พระสังข์ทอง",
+   "tribe": "มนุษย์",
+   "element": "ดิน",
+   "atk": 5,
+   "hp": 5,
+   "keywords": [
+    "คงกระพัน"
+   ]
+  },
+  {
+   "id": "TK_COIN",
+   "name_th": "เบี้ยหอยเสี่ยงทาย",
+   "type": "คาถา",
+   "cost": 0,
+   "ability_code": [
+    {
+     "on": "play",
+     "do": [
+      {
+       "gain_akhom": {
+        "amount": 1
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "rarity_order": [
+  "ธรรมดา",
+  "ทั่วไป",
+  "หายาก",
+  "มหากาพย์",
+  "ตำนาน",
+  "พระเจ้า",
+  "ผู้สรรสร้าง"
+ ],
+ "serial_format": {
+  "numerals": "thai",
+  "pattern": "{serial}/{max_supply}",
+  "example": "๒/๓",
+  "digits": "๐๑๒๓๔๕๖๗๘๙"
+ }
+}
