@@ -195,7 +195,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 @media (max-width:900px){.gstat{position:absolute;top:auto;bottom:100px;left:8px;right:8px;width:auto;font-size:12px}.gstat .ttl{font-size:15px}.gstat .row{padding:1px 0}#gacha .stage{top:110px;bottom:270px}#gacha .stage .lotus{width:min(220px,50vw)}}
 
 /* ---------- ห้องพัก (ใหม่) ---------- */
-.room2{position:absolute;top:64px;bottom:0;left:0;right:0;display:grid;grid-template-columns:260px minmax(0,1.05fr) minmax(0,1fr);gap:10px;padding:8px 12px 12px}
+.room2{position:absolute;top:64px;bottom:0;left:0;right:0;display:grid;grid-template-columns:260px minmax(0,1.05fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:10px;padding:8px 12px 12px}
 .room2 .hero2{position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:0}
 .room2 .hero2>img,.room2 .hero2>svg{max-height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 20px 40px #000)}
 .room2 .say{position:absolute;top:0;left:0;right:0;font-size:13.5px;line-height:1.6}
@@ -230,8 +230,10 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 
 /* ---------- ตลาดกลาง ---------- */
 #market{background:linear-gradient(#0E0B0A88,#0E0B0Aee),url(ui_art_web/lobby_bg.webp) center/cover,#0E0B0A}
-.mk{position:absolute;top:64px;bottom:0;left:0;right:0;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:10px;padding:8px 12px 12px}
-.mk .col>.tpanel{height:100%;display:flex;flex-direction:column;gap:8px}
+.mk{position:absolute;top:64px;bottom:0;left:0;right:0;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:10px;padding:8px 12px 12px}
+.mk .col{min-height:0;display:flex;flex-direction:column}
+.mk .col>.tpanel{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
+.lst,.news,.mgrid,.decks,#coll,.mk,.reslayer{-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#8E6A3A #0E0B0A}
 .mtabs{display:flex;gap:6px}
 .mtabs button{height:36px;padding:0 14px;border-radius:18px;border:1px solid var(--line);background:#0E0B0A;color:var(--muted);font-size:13px}
 .mtabs button.on{border-color:var(--gold);color:var(--gold2);background:#2A1A12}
@@ -245,7 +247,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .news{flex:1;min-height:0;overflow:auto;font-size:13px;line-height:1.6;display:flex;flex-direction:column;gap:6px}
 .news div{padding:6px 8px;border-radius:8px;background:#0E0B0Acc;border-left:3px solid var(--gold)}
 .news .hot{border-left-color:#E8C766;color:#FFE7A0}
-@media (max-width:900px){.mk{grid-template-columns:1fr;overflow:auto}.mk .col>.tpanel{height:auto;min-height:420px}}
+@media (max-width:900px){.mk{display:block;overflow:auto}.mk .col{margin-bottom:10px}.mk .col>.tpanel{min-height:0}.mk .lst{overflow:visible;flex:none}.mk .news{max-height:320px}}
 
 /* ---------- ป๊อปอัป ---------- */
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
@@ -292,6 +294,134 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
   .dialog .bust.me{display:none}
   .chars{gap:10px}
 }
+/* ---------- หน้าดวลกระดานชนวน ---------- */
+#duel{background:radial-gradient(ellipse at 50% 40%,#1E1712,#0B0807 75%);user-select:none;-webkit-user-select:none}
+.dwrap{position:absolute;inset:0;display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(300px,1.35fr);gap:14px;padding:10px 14px}
+.dside{display:flex;flex-direction:column;gap:10px;min-height:0}
+.dboard{position:relative;height:calc(100vh - 20px);aspect-ratio:2/3;background:url(ui_art_web/duel_board_mobile.webp) center/100% 100% no-repeat;filter:drop-shadow(0 18px 40px #000)}
+.dslot{position:absolute;border-radius:6%;display:flex;align-items:center;justify-content:center}
+.dslot.u{width:14.6%;height:14%}
+.dslot.t{width:9.6%;height:8.9%}
+.dslot.can{box-shadow:0 0 0 2px #E8C766,0 0 18px #E8C766aa;background:#E8C76622;cursor:pointer;animation:pulse 1.2s ease-in-out infinite}
+.dslot.tgt{box-shadow:0 0 0 3px #FF5A3C,0 0 22px #FF5A3Ccc;cursor:crosshair;border-radius:8%;z-index:3;animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{filter:brightness(1.35)}}
+.dunit{position:relative;width:100%;height:100%;cursor:pointer;transition:transform .2s}
+.dunit .card{position:absolute;inset:0;width:100%!important;height:auto}
+.dunit .card .num,.dunit .card .tx{display:none}
+.dunit.ready{filter:drop-shadow(0 0 6px #7CFF8A)}
+.dunit.sel{transform:translateY(-8%) scale(1.06);filter:drop-shadow(0 0 10px #FFE07A)}
+.dunit.sleep .card{filter:grayscale(.6) brightness(.75)}
+.dunit.lunge{animation:lunge .35s ease-in-out}
+.dunit.lunge.down{animation:lungeDown .35s ease-in-out}
+@keyframes lunge{50%{transform:translateY(-40%) scale(1.1)}}
+@keyframes lungeDown{50%{transform:translateY(40%) scale(1.1)}}
+.dunit.hit{animation:shake .35s}
+@keyframes shake{20%{translate:-4px 0}40%{translate:4px 0}60%{translate:-3px 0}80%{translate:2px 0}}
+.dstat{position:absolute;bottom:-6%;left:-6%;right:-6%;display:flex;justify-content:space-between;pointer-events:none}
+.dstat b{min-width:34%;height:auto;aspect-ratio:1;max-width:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-weight:400;font-size:clamp(11px,1.6vh,16px);color:#fff;border:2px solid #F1DFA8;box-shadow:0 2px 6px #000}
+.dstat .a{background:#8E1B1B}.dstat .h{background:#1E5A2A}
+.dstat .up{color:#B8FFB0}.dstat .down{color:#FFB0A0}
+.dkw{position:absolute;top:-4%;left:-4%;right:-4%;display:flex;flex-wrap:wrap;gap:2px;justify-content:center;pointer-events:none}
+.dkw i{font-style:normal;font-size:clamp(8px,1.1vh,11px);line-height:1;padding:2px 4px;border-radius:6px;background:#0E0B0Ae6;color:#F1DFA8;border:1px solid #8E6A3A}
+.dkw i.bad{color:#FFB0A0;border-color:#8E1B1B}
+.dtrap{width:100%;height:100%;border-radius:8%;background:url(game_assets/ui/thumb/card_back.webp) center/cover;box-shadow:0 4px 10px #000;cursor:pointer}
+.dtrap.up{background:none}
+.dtrap .card{width:100%!important}
+.dtrap .card .tx,.dtrap .card .num{display:none}
+.dtrap small{position:absolute;bottom:2px;left:0;right:0;text-align:center;font-size:10px;color:#F1DFA8;text-shadow:0 0 3px #000}
+.dmoon{position:absolute;left:50%;top:49.8%;width:9%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;transition:box-shadow .6s,background .6s}
+.dmoon.on{background:radial-gradient(circle,#7B3FC455,transparent 70%);box-shadow:0 0 40px 14px #7B3FC4aa}
+.dturn{position:absolute;left:9%;right:9%;top:46.6%;display:flex;justify-content:space-between;font-size:clamp(10px,1.4vh,13px);color:#E8D9B0;text-shadow:0 0 4px #000;pointer-events:none}
+.pbox{position:relative;background:#15100Dee;border:1px solid var(--line);border-radius:16px;padding:10px;display:grid;grid-template-columns:72px 1fr;gap:4px 10px;align-items:center}
+.pbox .pic{grid-row:span 3;width:72px;height:72px;border-radius:50%;overflow:hidden;background:#0E0B0A;border:2px solid var(--gold);display:flex;align-items:flex-end;justify-content:center}
+.pbox .pic img{width:120%;height:auto}
+.pbox .nm{font-family:Chonburi,serif;color:var(--gold2);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbox .fate{font-family:Chonburi,serif;font-size:26px;color:#FFE7A0;display:flex;align-items:center;gap:6px}
+.pbox .fate small{font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
+.pbox .res{display:flex;gap:3px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
+.pbox .res i{width:11px;height:11px;transform:rotate(45deg);background:#2A3A6A;border:1px solid #6FA0FF;display:inline-block}
+.pbox .res i.on{background:#6FA0FF;box-shadow:0 0 6px #6FA0FF}
+.pbox .res u{width:11px;height:11px;border-radius:50%;background:#3A2A10;border:1px solid #E8C766;display:inline-block;text-decoration:none}
+.pbox .res u.on{background:#E8C766;box-shadow:0 0 6px #E8C766}
+.pbox .meta{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.pbox .meta button{height:28px;border-radius:14px;border:1px solid var(--line);background:#0E0B0A;color:var(--text);font-size:12px;padding:0 10px}
+.pbox .backs{display:flex;gap:2px}.pbox .backs span{width:14px;height:20px;border-radius:2px;background:url(game_assets/ui/thumb/card_back.webp) center/cover;box-shadow:0 1px 2px #000}
+.pbox.tgt{box-shadow:0 0 0 3px #FF5A3C,0 0 24px #FF5A3Ccc;cursor:crosshair}
+.pbox.cur{border-color:var(--gold);box-shadow:0 0 18px #E8C76655}
+.pbox.hit{animation:shake .35s}
+.dmid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px;align-items:stretch}
+.dmid .btn{width:100%}
+.dmid .info{font-size:13px;line-height:1.6;color:var(--muted);background:#15100Dcc;border:1px solid var(--line);border-radius:12px;padding:10px}
+.dmid .info b{color:var(--gold2);font-weight:500}
+#dHand{background:#15100Dee;border:1px solid var(--line);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:8px;min-height:0}
+#dHand .ttl{font-family:Chonburi,serif;color:var(--gold2);font-size:15px;display:flex;justify-content:space-between;align-items:center}
+#dHand .ttl small{font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;align-content:start;overflow:auto;padding:6px 2px 10px}
+.hcard{position:relative;cursor:pointer;transition:transform .15s,filter .15s;justify-self:center}
+.hcard.play{filter:drop-shadow(0 0 7px #7CFF8A)}
+.hcard.dim{filter:grayscale(.7) brightness(.6)}
+.hcard.sel{transform:translateY(-10px) scale(1.04);filter:drop-shadow(0 0 12px #FFE07A)}
+.hcard .zz{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:1px solid var(--gold);background:#0E0B0Acc;color:var(--gold2);font-size:14px;line-height:1;z-index:2}
+.hcard .c2{position:absolute;left:6%;top:3%;min-width:22%;aspect-ratio:1;border-radius:50%;background:#1A3A6A;color:#fff;font-family:Chonburi,serif;display:flex;align-items:center;justify-content:center;font-size:14px;border:2px solid #9CC2FF;z-index:2}
+#dLog{flex:1;min-height:120px;overflow:auto;background:#15100Dcc;border:1px solid var(--line);border-radius:16px;padding:10px;font-size:12.5px;line-height:1.55;color:var(--muted);overscroll-behavior:contain}
+#dLog div{padding:2px 0;border-bottom:1px dashed #3A2A1A}
+#dLog .turn{color:var(--gold2)}#dLog .rahu{color:#C9A0FF}#dLog .fx{color:#E8D9B0}#dLog .trap{color:#FF9A7A}#dLog .end{color:#FFE07A;font-weight:600}#dLog .warn{color:#E07A6A}
+#dLog .atk{color:#FFB08A}#dLog .play{color:#CFE8FF}
+.dprompt{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:20;display:none;align-items:center;gap:10px;background:#15100Df2;border:1px solid var(--gold);border-radius:22px;padding:8px 8px 8px 16px;color:#FFE7A0;font-size:14px;box-shadow:0 8px 30px #000c;max-width:calc(100% - 24px)}
+.dprompt.on{display:flex}
+.dprompt span{white-space:nowrap}
+.dprompt button{height:32px;border-radius:16px;border:1px solid var(--line);background:#0E0B0A;color:var(--text);padding:0 12px;font-size:13px;flex:none}
+.dbanner{position:absolute;left:0;right:0;top:42%;text-align:center;z-index:25;pointer-events:none;font-family:Chonburi,serif;font-size:clamp(26px,5vw,52px);color:#FFE7A0;text-shadow:0 0 20px #000,0 0 40px #8E1B1B;opacity:0;transition:opacity .3s}
+.dbanner.on{opacity:1}
+.float{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-family:Chonburi,serif;font-size:clamp(16px,2.6vh,26px);pointer-events:none;z-index:30;animation:floatUp 1.1s ease-out forwards;text-shadow:0 0 6px #000,0 0 2px #000}
+.float.dmg{color:#FF6A4A}.float.heal{color:#7CFF8A}.float.blk{color:#9CC2FF;font-size:clamp(11px,1.6vh,14px)}
+@keyframes floatUp{0%{opacity:0;translate:0 10px}15%{opacity:1}100%{opacity:0;translate:0 -40px}}
+.poof{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-size:clamp(10px,1.5vh,14px);color:#E8D9B0;background:radial-gradient(circle,#E8D9B055,transparent 70%);animation:poof .9s ease-out forwards;pointer-events:none;border-radius:8%}
+.poof.purge{color:#C9A0FF;background:radial-gradient(circle,#7B3FC488,transparent 70%)}
+@keyframes poof{0%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(1.4)}}
+.dover{position:absolute;inset:0;z-index:40;background:#000c;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;text-align:center;padding:16px}
+.dover.on{display:flex}
+.dover h2{margin:0;font-size:clamp(34px,7vw,64px);color:#FFE7A0;text-shadow:0 0 30px #8E1B1B}
+.dover p{margin:0;color:var(--text);max-width:520px;line-height:1.7}
+.dover .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.mull{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0}
+.mull .hcard.x{filter:grayscale(1) brightness(.45)}
+.mull .hcard.x::after{content:'เปลี่ยน';position:absolute;left:50%;top:45%;transform:translate(-50%,-50%) rotate(-12deg);font-family:Chonburi,serif;color:#FF9A7A;font-size:18px;border:2px solid #FF9A7A;padding:2px 8px;border-radius:8px;background:#000a}
+.dsetup .opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin:8px 0}
+.dsetup .opt{border:1px solid var(--line);border-radius:12px;background:#0E0B0A;color:var(--text);padding:10px;text-align:left;font-size:14px;line-height:1.5}
+.dsetup .opt small{display:block;color:var(--muted);font-size:12px}
+.dsetup .opt.on{border-color:var(--gold);background:#2A1A12;box-shadow:0 0 12px #E8C76644}
+.dsetup .opt[disabled]{opacity:.45}
+.pickrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.pickrow button.opt{min-width:160px}
+.logbtn{display:none}
+@media (max-width:900px),(orientation:portrait){
+  .dwrap{display:flex;flex-direction:column;gap:6px;padding:6px 6px 8px;overflow:hidden}
+  .dside{display:contents}
+  #dOpp{order:1}.dboard{order:2}#dMe{order:3}.dmid{order:4}#dHand{order:5}
+  .dboard{height:auto;width:min(100%,calc((100dvh - 330px) * .6667));align-self:center;flex:none}
+  #dHand{min-height:128px}
+  .pbox{grid-template-columns:34px minmax(0,1fr) minmax(0,1.25fr);grid-template-areas:"pic nm fate" "pic res meta";padding:4px 8px;border-radius:12px;gap:0 8px}
+  .pbox .pic{grid-area:pic;width:34px;height:34px}
+  .pbox .nm{grid-area:nm;font-size:13px}.pbox .fate{grid-area:fate;font-size:18px;justify-content:flex-end}
+  .pbox .fate small{font-size:10px}
+  .pbox .res{grid-area:res}
+  .pbox .meta{grid-area:meta;justify-content:flex-end;gap:4px;flex-wrap:nowrap;font-size:11px;align-items:center}
+  .pbox .meta button{height:22px;padding:0 7px;font-size:11px}
+  .pbox .backs span{width:9px;height:13px}
+  .dmid{flex:none;flex-direction:row;gap:6px}
+  .dmid .info{display:none}
+  .dmid .btn{height:40px;font-size:15px}
+  #dHand{padding:6px;border-radius:12px;flex:1;min-height:0}
+  #dHand .ttl{display:none}
+  .hgrid{display:flex;gap:6px;overflow-x:auto;overflow-y:hidden;padding:8px 2px 4px}
+  .hcard{flex:none}
+  #dLog{position:absolute;inset:auto 8px 8px 8px;height:45vh;z-index:22;display:none;box-shadow:0 -10px 30px #000}
+  #dLog.on{display:block}
+  .logbtn{display:inline-flex}
+  .dprompt{top:auto;bottom:12px}
+}
+
 </style>
 </head>
 <body>
@@ -340,7 +470,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
   <div class="hero" id="hero"></div>
   <nav class="menu">
     <button data-go="room"><img class="mic" alt="" src="ui_art_web/ic_room.webp"><span>ห้องพักส่วนตัว<small id="roomHint">จัดเด็ค 3 เซ็ต</small></span></button>
-    <button data-go="duel"><img class="mic" alt="" src="ui_art_web/ic_duel.webp"><span>ดวล<small>ขั้นถัดไป · ดวลกับ AI และผู้เล่น</small></span></button>
+    <button data-go="duel"><img class="mic" alt="" src="ui_art_web/ic_duel.webp"><span>ดวล<small>ดวลกับหมอผีเฒ่า (AI) · ผู้เล่นจริงตามมา</small></span></button>
     <button data-go="gacha"><img class="mic" alt="" src="ui_art_web/ic_gacha.webp"><span>ตู้สุ่มการ์ด<small id="evHint">ตู้ปกติ</small></span></button>
     <button data-go="coll"><img class="mic" alt="" src="ui_art_web/ic_collection.webp"><span>คลังการ์ด<small id="collHint"></small></span></button>
     <button data-go="guild"><img class="mic" alt="" src="ui_art_web/ic_guild.webp"><span>กิลด์<small>ลานฝึก · ด่านฝึก AI</small></span></button>
@@ -404,6 +534,15 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
   <div class="guide" id="mGuide"></div>
 </section>
 
+<section id="duel" class="screen" aria-label="ดวลกระดานชนวน">
+  <div class="dwrap">
+    <div class="dside"><div id="dOpp" class="pbox"></div><div class="dmid" id="dMid"></div><div id="dMe" class="pbox"></div></div>
+    <div class="dboard" id="dBoard" aria-label="กระดานชนวน"></div>
+    <div class="dside"><div id="dHand"></div><div id="dLog" aria-live="polite"></div></div>
+  </div>
+  <div class="dprompt" id="dPrompt"></div><div class="dbanner" id="dBanner"></div><div class="dover" id="dOver"></div>
+</section>
+
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modalBox"></div></div>
 <div class="zoom" id="zoom"></div>
 <div class="toast" id="toast" role="status"></div>
@@ -418,6 +557,886 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* สยามมินทร์ดูเอล — เอนจินดวล (กติกา docs/rules.md R1–R14)
+   ใช้ได้ทั้งในเบราว์เซอร์และ Node: SiamEngine.create(defs) → { newGame, act, legal, need, view, ... }
+   state เป็น JSON ล้วน (clone ได้ด้วย JSON) สุ่มด้วย seeded RNG เท่านั้น (R14.1) */
+(function (root) {
+'use strict';
+const RARITY = ['ธรรมดา', 'ทั่วไป', 'หายาก', 'มหากาพย์', 'ตำนาน', 'พระเจ้า', 'ผู้สรรสร้าง'];
+const BEATS = { 'น้ำ': 'ไฟ', 'ไฟ': 'ดิน', 'ดิน': 'ลม', 'ลม': 'น้ำ' };
+const MAX_FATE = 30, HAND_MAX = 5, MAX_AKHOM = 10, MAX_BARAMI = 3, TURN_LIMIT = 40;
+const HARMFUL = new Set(['damage', 'destroy', 'seal', 'sleep', 'disable_attack', 'steal', 'poison', 'fight', 'swap_stats']);
+class Need { constructor(spec) { this.spec = spec; } }
+const arr = v => v == null ? [] : Array.isArray(v) ? v : [v];
+const clone = o => JSON.parse(JSON.stringify(o));
+
+function create(DEFS_IN) {
+  const DEF = {};
+  for (const c of DEFS_IN.cards) DEF[c.id] = Object.assign({ token: false }, c);
+  for (const t of DEFS_IN.tokens) DEF[t.id] = Object.assign({ type: 'ยูนิต', cost: 0, category: t.tribe || 'โทเคน', rarity: 'ธรรมดา', keywords: [], ability_code: [], token: true }, t, { token: true });
+  const D = id => DEF[id];
+  const rules = d => (d && d.ability_code) || [];
+  const specials = (d, name) => rules(d).filter(r => r.special === name);
+  const hasSpecial = (d, name) => specials(d, name).length > 0;
+
+  /* ---------- RNG (mulberry32) ---------- */
+  function rnd(st) { let t = (st.rng = (st.rng + 0x6D2B79F5) >>> 0); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  const rint = (st, n) => Math.floor(rnd(st) * n);
+  function shuffle(st, a) { for (let i = a.length - 1; i > 0; i--) { const j = rint(st, i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  const uid = st => 'u' + (++st.nextUid);
+
+  /* ---------- log/fx ---------- */
+  const log = (st, text, kind) => { st.log.push({ t: st.turn, text, kind: kind || '' }); if (st.log.length > 300) st.log.shift(); };
+  const fx = (st, e) => st.fx.push(e);
+  const nm = id => (D(id) || {}).name_th || id;
+
+  /* ---------- ค้นหา ---------- */
+  function allUnits(st, firstPid) {
+    const out = [], order = firstPid == null ? [st.cur, 1 - st.cur] : [firstPid, 1 - firstPid];
+    for (const p of order) st.players[p].units.forEach((u, i) => { if (u) out.push(u); });
+    return out;
+  }
+  const findUnit = (st, id) => { for (const p of st.players) for (const u of p.units) if (u && u.uid === id) return u; return null; };
+  const findSlot = (st, id) => { for (const p of st.players) for (const s of p.slots) if (s && s.uid === id) return s; return null; };
+  const slotOf = (st, u) => st.players[u.owner].units.indexOf(u);
+  const rahuNatural = T => T >= 3 && (T % 3 === 0 || (T - 1) % 3 === 0);
+  const rahuActive = st => rahuNatural(st.turn) || st.turn <= st.rahuUntil;
+
+  /* ---------- สถานะยูนิต ---------- */
+  const sealed = u => (u.status.seal || 0) > 0 || !!u.status.stun;
+  function baseKw(st, u) {
+    if (sealed(u)) return [];
+    const d = D(u.id); let k = d.keywords.slice();
+    if (u.form != null) { const f = specials(d, 'dual_form')[0]; if (f) k = k.concat(f.forms[u.form].grant || []); }
+    k = k.concat(u.kw);
+    for (const t of u.tmp) if (t.kw) k = k.concat(t.kw);
+    for (const e of u.equips) k = k.concat(e.grant || []);
+    return k.filter(x => !u.lost.includes(x));
+  }
+  function auraMods(st, u, forHp) {   // [{atk,hp,grant,rule}] ที่มีผลกับยูนิต u (forHp: เฉพาะที่เพิ่ม HP กันวนซ้ำ)
+    const out = [];
+    for (const p of [0, 1]) {
+      const P = st.players[p];
+      P.units.forEach((src, i) => {
+        if (!src || sealed(src)) return;
+        for (const r of rules(D(src.id))) { if (!r.aura) continue; const a = r.aura; if (forHp && !a.hp) continue;
+          if (!auraHits(st, src, a, u, p, i)) continue;
+          if (a.if && !auraIf(st, src, a.if, u)) continue;
+          out.push(a); }
+        for (const e of src.equips) for (const r of rules(D(e.id))) { if (!r.aura || r.aura.target !== 'bearer' || src !== u || (forHp && !r.aura.hp)) continue;
+          if (r.aura.if && r.aura.if.bearer_name && D(u.id).name_th !== r.aura.if.bearer_name) continue; out.push(r.aura); }
+      });
+      for (const s of P.slots) { if (!s || s.facedown) continue; const d = D(s.id);
+        if (d.aura && p === u.owner && (d.aura.target === 'all_ally_units')) out.push(d.aura); }
+    }
+    return out;
+  }
+  function auraHits(st, src, a, u, p, i) {
+    const t = a.target;
+    if (t === 'self') { if (src !== u) return false; }
+    else if (t === 'all_ally_units') { if (u.owner !== p) return false; }
+    else if (t === 'other_ally_units') { if (u.owner !== p || u === src) return false; }
+    else if (t === 'all_enemy_units') { if (u.owner === p) return false; }
+    else if (t === 'adjacent_allies') { if (u.owner !== p) return false; const j = slotOf(st, u); if (Math.abs(j - i) !== 1) return false; }
+    else return false;
+    if (a.filter && !match(st, u, a.filter, src)) return false;
+    return true;
+  }
+  function auraIf(st, src, c, u) {
+    if (c.ally_name) { const ok = st.players[src.owner].units.some(x => x && x !== src && D(x.id).name_th === c.ally_name); if (!ok) return false; }
+    if (c.equipped) { if (!src.equips.some(e => D(e.id).name_th === c.equipped)) return false; }
+    if (c.self_hp_lte != null) { if (hpOf(st, src, true) > c.self_hp_lte) return false; }
+    return true;
+  }
+  function rahuMod(st, u) {
+    if (!rahuActive(st)) return 0; const d = D(u.id);
+    if (d.category === 'ผู้ปกครอง') return 0;
+    if (d.tribe === 'ผี') return 1;
+    if (d.tribe === 'เทพ' && d.id !== 'SD016') return -1;
+    return 0;
+  }
+  function baseStats(u) { const d = D(u.id); let a = d.atk || 0, h = d.hp || 0;
+    if (u.form != null) { const f = specials(d, 'dual_form')[0]; if (f) { a = f.forms[u.form].atk; h = f.forms[u.form].hp; } }
+    return [a, h]; }
+  function maxHpOf(st, u) { let [, h] = baseStats(u); h += u.php; for (const t of u.tmp) h += t.hp || 0; for (const e of u.equips) h += e.hp || 0;
+    for (const a of auraMods(st, u, true)) h += a.hp || 0; return h; }
+  function hpOf(st, u) { return maxHpOf(st, u) - u.dmg; }
+  function atkOf(st, u) { let [a] = baseStats(u); a += u.patk; for (const t of u.tmp) a += t.atk || 0; for (const e of u.equips) a += e.atk || 0;
+    let x2 = false; for (const m of auraMods(st, u)) { a += m.atk || 0; if (m.rule === 'atk_x2') x2 = true; }
+    a += rahuMod(st, u); if (x2) a *= 2; return Math.max(0, a); }
+  function kwOf(st, u) { let k = baseKw(st, u); if (!sealed(u)) for (const m of auraMods(st, u)) k = k.concat(m.grant || []); return k; }
+  const has = (st, u, k) => kwOf(st, u).includes(k);
+  const poisonKw = (st, u) => { let n = 0; for (const k of kwOf(st, u)) { const m = /^พิษ (\d+)$/.exec(k); if (m) n = Math.max(n, +m[1]); } return n; };
+  const ruleOn = (st, u, rule) => { if (sealed(u)) return false; if (u.equips.some(e => e.rule === rule)) return true; return auraMods(st, u).some(m => m.rule === rule); };
+  const shrouded = (st, u) => has(st, u, 'กำบัง') && !u.shroudOff;
+  const isRulerOrDeity = d => d.category === 'ผู้ปกครอง' || d.category === 'เทพเจ้า' || d.is_ruler || d.is_deity;
+  const greatImmune = (u, srcDef) => { const d = D(u.id); return d.tribe === 'เทพ' && d.rarity === 'ผู้สรรสร้าง' && (!srcDef || srcDef.rarity !== 'ผู้สรรสร้าง'); };
+  const costOfDef = d => d.cost || 0;
+
+  function match(st, u, f, self) {
+    const d = D(u.id);
+    if (f.tribe && !arr(f.tribe).includes(d.tribe)) return false;
+    if (f.element && !arr(f.element).includes(d.element)) return false;
+    if (f.category && !arr(f.category).includes(d.category)) return false;
+    if (f.not_category && arr(f.not_category).some(c => c === d.category || (c === 'เทพเจ้า' && d.is_deity) || (c === 'ผู้ปกครอง' && d.is_ruler))) return false;
+    if (f.name && !arr(f.name).includes(d.name_th)) return false;
+    if (f.name_contains && !d.name_th.includes(f.name_contains)) return false;
+    if (f.cost_lte != null && costOfDef(d) > f.cost_lte) return false;
+    if (f.cost_gte != null && costOfDef(d) < f.cost_gte) return false;
+    if (f.cost_eq != null && costOfDef(d) !== f.cost_eq) return false;
+    if (f.rarity && d.rarity !== f.rarity) return false;
+    if (f.rarity_gte && RARITY.indexOf(d.rarity) < RARITY.indexOf(f.rarity_gte)) return false;
+    if (f.hp_lte != null && u.status && hpOf(st, u) > f.hp_lte) return false;
+    if (f.type && d.type !== f.type) return false;
+    if (f.status) { const s = arr(f.status); if (!s.some(x => (x === 'asleep' && u.status.sleep > 0) || (x === 'sealed' && sealed(u)))) return false; }
+    if (f.exclude_self && self && u === self) return false;
+    return true;
+  }
+  const matchDef = (d, f) => match(null, { id: d.id, status: null }, Object.assign({}, f, { hp_lte: undefined, status: undefined }), null);
+
+  /* ---------- สร้างยูนิต ---------- */
+  function mkUnit(st, pid, id, extra) {
+    const d = D(id);
+    const u = { uid: uid(st), id, owner: pid, patk: 0, php: 0, dmg: 0, kw: [], lost: [], tmp: [], equips: [], status: {}, played: st.turn,
+      attacks: 0, shroudOff: false, token: !!d.token, form: hasSpecial(d, 'dual_form') ? 0 : null, avatarUses: (specials(d, 'avatar')[0] || {}).uses || 0, once: {} };
+    return Object.assign(u, extra || {});
+  }
+  function placeUnit(st, pid, u, slot) {
+    const P = st.players[pid];
+    if (slot == null || P.units[slot]) slot = P.units.findIndex(x => !x);
+    if (slot < 0) return null;
+    u.owner = pid; P.units[slot] = u; return u;
+  }
+  function onEnter(st, u) { // ราหูเริ่มทำงานกับยูนิตที่ลงระหว่างช่วงราหู
+    if (rahuActive(st) && !sealed(u)) for (const r of rules(D(u.id))) if (r.on === 'rahu') run(st, r.do, ctxFor(st, u));
+  }
+
+  /* ---------- ctx และการเลือกเป้า ---------- */
+  function ctxFor(st, u, extra) { return Object.assign({ pid: u.owner, self: u, src: D(u.id) }, extra || {}); }
+  function pick(st, ctx, spec) {
+    if (!spec.options.length) { if (ctx.plan && ctx.strict) throw new Need(spec); return null; }
+    if (ctx.picks) { if (ctx.pi < ctx.picks.length) { const v = ctx.picks[ctx.pi++]; return v; } if (ctx.plan) throw new Need(spec); }
+    return autoPick(st, ctx, spec);
+  }
+  function unitValue(st, u) { return atkOf(st, u) * 1.2 + Math.max(0, hpOf(st, u)) + costOfDef(D(u.id)) * 0.5; }
+  function autoPick(st, ctx, spec) {
+    const o = spec.options;
+    if (spec.kind === 'option') return 0;
+    if (spec.kind === 'discover') { return o.slice().sort((a, b) => costOfDef(D(b)) - costOfDef(D(a)))[0]; }
+    if (spec.kind === 'crypt') { let best = 0; o.forEach((c, i) => { if (costOfDef(D(c.id)) > costOfDef(D(o[best].id))) best = i; }); return o[best].idx; }
+    if (spec.kind === 'slotcard') return o[0];
+    const val = id => { const u = findUnit(st, id); return u ? unitValue(st, u) : 0; };
+    const sorted = o.slice().sort((a, b) => val(b) - val(a));
+    if (spec.count > 1) return sorted.slice(0, spec.count);
+    return sorted[0];
+  }
+  function canTargetByEnemy(st, u, ctx) { // เอฟเฟกต์ศัตรูเล็ง u ได้ไหม
+    if (u.owner === ctx.pid) return true;
+    if (shrouded(st, u)) return false;
+    if (ctx.src && ctx.src.tribe === 'ผี' && has(st, u, 'untargetable_by_ghosts')) return false;
+    return true;
+  }
+  function unitOptions(st, ctx, side, filter) {
+    let list = [];
+    if (side === 'enemy' || side === 'any') list = list.concat(st.players[1 - ctx.pid].units.filter(Boolean));
+    if (side === 'ally' || side === 'any') list = list.concat(st.players[ctx.pid].units.filter(Boolean));
+    return list.filter(u => (!filter || match(st, u, filter, ctx.self)) && canTargetByEnemy(st, u, ctx) && u !== ctx.selfExclude);
+  }
+  function chosen(st, ctx, side, filter, count, label, harmful) {
+    const opts = unitOptions(st, ctx, side, filter).map(u => u.uid);
+    const spec = { kind: count > 1 ? 'units' : 'unit', options: opts, count: count || 1, label, side, harmful };
+    let v = pick(st, ctx, spec); if (v == null) return [];
+    v = arr(v).filter(x => opts.includes(x));
+    const us = v.map(x => findUnit(st, x)).filter(Boolean);
+    if (ctx.isSpell && !ctx.plan) { const foe = us.find(u => u.owner !== ctx.pid);
+      if (foe) { const F = st.players[foe.owner], g = F.units.find(x => x && !sealed(x) && hasSpecial(D(x.id), 'spell_shield'));
+        if (g && !F.shieldUsed) { F.shieldUsed = true; ctx.countered = true; log(st, `${nm(g.id)} ปัดคาถาให้ทัพของตน!`, 'fx'); return []; } } }
+    for (const u of us) firstTargeted(st, u, ctx);
+    return us.map(u => findUnit(st, u.uid) || u);
+  }
+  function firstTargeted(st, u, ctx) {
+    if (u.owner === ctx.pid || u.once.targeted) return; u.once.targeted = true;
+    if (sealed(u)) return;
+    const s = specials(D(u.id), 'transform_once')[0];
+    if (s) { const P = st.players[u.owner], i = slotOf(st, u); const nu = mkUnit(st, u.owner, s.into); nu.played = u.played; nu.uid = u.uid; P.units[i] = nu; log(st, `${nm(u.id)} แปลงร่างเป็น ${nm(s.into)}!`, 'fx'); }
+  }
+  const LABEL = { chosen_enemy_unit: 'เลือกยูนิตศัตรู', chosen_ally_unit: 'เลือกยูนิตฝ่ายเรา', chosen_unit: 'เลือกยูนิต', chosen_enemy_units: 'เลือกยูนิตศัตรู' };
+  function targets(st, spec, ctx, effName) {
+    const t = typeof spec === 'string' ? spec : spec.target, f = spec.filter, harmful = HARMFUL.has(effName) || (effName === 'buff' && (spec.atk < 0 || spec.hp < 0));
+    const P = st.players[ctx.pid], E = st.players[1 - ctx.pid];
+    const flt = list => list.filter(u => u && (!f || match(st, u, f, ctx.self)));
+    switch (t) {
+      case 'self': return ctx.self && findUnit(st, ctx.self.uid) ? [findUnit(st, ctx.self.uid)] : [];
+      case 'self_player': return [{ player: ctx.pid }];
+      case 'enemy_player': return [{ player: 1 - ctx.pid }];
+      case 'all_enemy_units': return flt(E.units);
+      case 'all_ally_units': return flt(P.units);
+      case 'all_units': return flt(allUnits(st));
+      case 'other_ally_units': return flt(P.units).filter(u => u !== ctx.self);
+      case 'adjacent_allies': { const i = ctx.self ? slotOf(st, ctx.self) : -9; return flt([P.units[i - 1], P.units[i + 1]]); }
+      case 'random_enemy_unit': { const l = flt(E.units); return l.length ? [l[rint(st, l.length)]] : []; }
+      case 'enemy_strongest': { const l = flt(E.units).sort((a, b) => atkOf(st, b) - atkOf(st, a) || costOfDef(D(b.id)) - costOfDef(D(a.id))); return l.slice(0, 1); }
+      case 'enemy_lowest_cost': { const l = flt(E.units).sort((a, b) => costOfDef(D(a.id)) - costOfDef(D(b.id))); return l.slice(0, 1); }
+      case 'chosen_enemy_unit': return chosen(st, ctx, 'enemy', f, 1, LABEL[t], harmful);
+      case 'chosen_enemy_units': return chosen(st, ctx, 'enemy', f, spec.count || 1, LABEL[t], harmful);
+      case 'chosen_ally_unit': return chosen(st, ctx, 'ally', f, 1, LABEL[t], harmful);
+      case 'chosen_unit': return chosen(st, ctx, 'any', f, 1, LABEL[t], harmful);
+      case 'attacker': return ctx.attacker && findUnit(st, ctx.attacker.uid) ? [findUnit(st, ctx.attacker.uid)] : [];
+      case 'attack_target': return ctx.attack_target && findUnit(st, ctx.attack_target.uid) ? [findUnit(st, ctx.attack_target.uid)] : [];
+      case 'event_unit': return ctx.event_unit && findUnit(st, ctx.event_unit.uid) ? [findUnit(st, ctx.event_unit.uid)] : [];
+      case 'killer': return ctx.killer && findUnit(st, ctx.killer.uid) ? [findUnit(st, ctx.killer.uid)] : [];
+      case 'bearer': return ctx.bearer ? [ctx.bearer] : [];
+      case 'chosen_enemy_slot_card': {
+        const opts = E.slots.filter(s => s && (!f || !f.type || D(s.id).type === f.type)).map(s => s.uid);
+        const v = pick(st, ctx, { kind: 'slotcard', options: opts, count: 1, label: 'เลือกการ์ดในช่องกับดัก/ของขลังของศัตรู', side: 'enemy', harmful: true });
+        return v == null ? [] : [findSlot(st, v)].filter(Boolean);
+      }
+    }
+    return [];
+  }
+
+  /* ---------- ดาเมจ ---------- */
+  function damageUnit(st, u, amount, source) { // source: {unit, isSpell, combat, pierce, pid}
+    if (!u || amount <= 0 || !findUnit(st, u.uid)) return 0;
+    if (ruleOn(st, u, 'damage_taken_minus_1')) amount -= 1;
+    if (source && source.isSpell && ruleOn(st, u, 'spell_damage_taken_minus_1')) amount -= 1;
+    if (amount <= 0) return 0;
+    if (has(st, u, 'คงกระพัน') && !(source && source.pierce)) { u.lost.push('คงกระพัน'); log(st, `${nm(u.id)} คงกระพัน กันดาเมจไว้`, 'fx'); fx(st, { k: 'block', uid: u.uid }); return 0; }
+    u.dmg += amount; if (source && source.pid != null) u.lastHitBy = source.pid; if (source && source.unit) u.lastHitUnit = source.unit.uid;
+    fx(st, { k: 'dmg', uid: u.uid, n: amount }); return amount;
+  }
+  function damagePlayer(st, pid, amount) { if (amount <= 0) return 0; st.players[pid].fate -= amount; fx(st, { k: 'dmg', player: pid, n: amount }); return amount; }
+  function healPlayer(st, pid, n) { const P = st.players[pid]; const b = P.fate; P.fate = Math.min(MAX_FATE, P.fate + n); if (P.fate > b) fx(st, { k: 'heal', player: pid, n: P.fate - b }); }
+  function multVs(st, attacker, target) { if (!attacker || sealed(attacker)) return 1; let m = 1;
+    for (const s of specials(D(attacker.id), 'damage_mult')) if (match(st, target, s.vs, attacker)) m *= s.mult; return m; }
+
+  /* ---------- ทำเอฟเฟกต์ ---------- */
+  function run(st, list, ctx) {
+    for (const e of list || []) {
+      if (st.over) return;
+      if (ctx.countered) return;
+      const k = Object.keys(e)[0], p = e[k] || {};
+      if (++st.trigCount > 400) { if (!st.loopWarned) { st.loopWarned = true; log(st, 'เอฟเฟกต์วนซ้ำเกินกำหนด หยุดการทำงาน (R10.3)', 'warn'); } return; }
+      EFFECT[k] ? EFFECT[k](st, p, ctx) : log(st, `ยังไม่รองรับเอฟเฟกต์ ${k}`, 'warn');
+    }
+  }
+  function grantTo(u, kws, dur) { if (dur === 'perm') { u.kw.push(...kws); u.lost = u.lost.filter(x => !kws.includes(x)); } else u.tmp.push({ kw: kws, exp: dur || 'turn' }); }
+  const EFFECT = {
+    damage(st, p, ctx) {
+      const ts = targets(st, p, ctx, 'damage');
+      for (const t of ts) {
+        if (t.player != null) { damagePlayer(st, t.player, p.amount); continue; }
+        if (t.slotcard) continue;
+        const amt = p.amount * multVs(st, ctx.self, t);
+        damageUnit(st, t, amt, { isSpell: ctx.isSpell, pid: ctx.pid, unit: ctx.self });
+        if (p.splash_others) for (const o of st.players[t.owner].units) if (o && o !== t) damageUnit(st, o, p.splash_others, { isSpell: ctx.isSpell, pid: ctx.pid });
+      }
+    },
+    heal(st, p, ctx) { for (const t of targets(st, p, ctx, 'heal')) { if (t.player != null) { healPlayer(st, t.player, p.amount); continue; }
+      const before = t.dmg; t.dmg = p.amount === 'full' ? 0 : Math.max(0, t.dmg - p.amount); if (before > t.dmg) fx(st, { k: 'heal', uid: t.uid, n: before - t.dmg }); } },
+    buff(st, p, ctx) { for (const t of targets(st, p, ctx, 'buff')) { if (t.player != null) continue;
+      if (p.duration === 'perm') { t.patk += p.atk || 0; t.php += p.hp || 0; } else t.tmp.push({ atk: p.atk || 0, hp: p.hp || 0, exp: p.duration || 'turn' });
+      fx(st, { k: 'buff', uid: t.uid }); } },
+    grant(st, p, ctx) { for (const t of targets(st, p, ctx, 'grant')) if (t.player == null) grantTo(t, p.keywords, p.duration); },
+    summon(st, p, ctx) {
+      const side = p.side === 'enemy' ? 1 - ctx.pid : ctx.pid, P = st.players[side];
+      for (let i = 0; i < (p.count || 1); i++) {
+        if (p.zone === 'slot') { const j = P.slots.findIndex(x => !x); if (j < 0) break; const d = D(p.token);
+          P.slots[j] = { uid: uid(st), id: p.token, owner: side, facedown: false, placed: st.turn, dmg: 0 }; log(st, `${nm(p.token)} ปรากฏในช่องของขลัง`); continue; }
+        const u = placeUnit(st, side, mkUnit(st, side, p.token), null); if (!u) break; u.played = st.turn; fx(st, { k: 'summon', uid: u.uid }); onEnter(st, u);
+      }
+    },
+    destroy(st, p, ctx) { for (const t of targets(st, p, ctx, 'destroy')) {
+      if (t.player != null) continue;
+      if (t.owner != null && findSlot(st, t.uid)) { removeSlot(st, t); continue; }
+      if (greatImmune(t, ctx.src)) { log(st, `${nm(t.id)} ไม่สะทกสะท้าน (กฎความยิ่งใหญ่)`, 'fx'); continue; }
+      t.destroyed = true; if (p.purge) t.purge = true; t.lastHitBy = ctx.pid; fx(st, { k: 'destroy', uid: t.uid }); } },
+    revive(st, p, ctx) {
+      const side = ctx.pid, P = st.players[side];
+      const n = p.count === 'all' ? 99 : (p.count || 1);
+      // กับดักศัตรู enemy_revive
+      const cctx = { countered: false };
+      trapCheck(st, 1 - side, 'enemy_revive', { pid: 1 - side, reviver: side, cctx });
+      if (cctx.countered) { log(st, 'การชุบชีวิตถูกยกเลิก', 'fx'); return; }
+      let revived = 0;
+      for (let i = 0; i < n; i++) {
+        if (!P.units.some(x => !x)) break;
+        const pool = [];
+        const crypts = p.from === 'enemy_crypt' ? [1 - side] : p.from === 'any_crypt' ? [side, 1 - side] : [side];
+        for (const cs of crypts) st.players[cs].crypt.forEach((c, idx) => { const d = D(c.id); if (d.type !== 'ยูนิต') return;
+          if (p.filter && !matchDef(d, p.filter)) return; if (cs !== side && isRulerOrDeity(d)) return; pool.push({ side: cs, idx, id: c.id, key: cs + ':' + idx }); });
+        if (!pool.length) break;
+        let pickd;
+        if (p.pick === 'strongest') pickd = pool.slice().sort((a, b) => costOfDef(D(b.id)) - costOfDef(D(a.id)))[0];
+        else if (p.pick === 'random') pickd = pool[rint(st, pool.length)];
+        else if (p.count === 'all') pickd = pool[0];
+        else { const v = pick(st, ctx, { kind: 'crypt', options: pool.map(x => ({ idx: x.key, id: x.id })), count: 1, label: 'เลือกการ์ดจากสุสาน' }); pickd = pool.find(x => x.key === v) || pool[0]; }
+        st.players[pickd.side].crypt.splice(pickd.idx, 1);
+        const u = placeUnit(st, side, mkUnit(st, side, pickd.id), null); u.played = st.turn;
+        if (p.hp === 1) u.dmg = maxHpOf(st, u) - 1;
+        log(st, `${nm(pickd.id)} ถูกชุบชีวิต`, 'fx'); fx(st, { k: 'revive', uid: u.uid }); revived++;
+        onEnter(st, u);
+        if (p.then) run(st, p.then, Object.assign({}, ctx, { event_unit: u }));
+      }
+      if (revived) fireSide(st, side, 'ally_revived', { });
+    },
+    purge_crypt(st, p, ctx) { const side = p.side === 'enemy' ? 1 - ctx.pid : ctx.pid, P = st.players[side];
+      const out = P.crypt.splice(Math.max(0, P.crypt.length - (p.count || 1))); P.purged.push(...out); if (out.length) log(st, `สุสานถูกส่งวิญญาณ ${out.length} ใบ`, 'fx'); },
+    seal(st, p, ctx) { for (const t of targets(st, p, ctx, 'seal')) { if (t.player != null || greatImmune(t, ctx.src)) continue;
+      const n = (p.turns_if_ghost && D(t.id).tribe === 'ผี') ? p.turns_if_ghost : (p.turns || 99); t.status.seal = Math.max(t.status.seal || 0, n); log(st, `${nm(t.id)} ถูกสายสิญจน์ ${n === 99 ? 'ถาวร' : n + ' เทิร์น'}`, 'fx'); } },
+    sleep(st, p, ctx) { for (const t of targets(st, p, ctx, 'sleep')) { if (t.player != null) continue; t.status.sleep = Math.max(t.status.sleep || 0, p.turns || 1); fx(st, { k: 'sleep', uid: t.uid }); } },
+    disable_attack(st, p, ctx) { for (const t of targets(st, p, ctx, 'disable_attack')) { if (t.player != null) continue; t.status.noatk = Math.max(t.status.noatk || 0, p.turns || 1); } },
+    steal(st, p, ctx) {
+      for (const t of targets(st, p, ctx, 'steal')) {
+        if (t.player != null) continue;
+        if (findSlot(st, t.uid)) { const E = st.players[t.owner], P = st.players[ctx.pid], j = P.slots.findIndex(x => !x); if (j < 0) continue;
+          E.slots[E.slots.indexOf(t)] = null; t.owner = ctx.pid; P.slots[j] = t; log(st, `ขโมย ${nm(t.id)} มาไว้ฝั่งเรา`, 'fx'); continue; }
+        if (!canSteal(st, t, ctx)) { log(st, `${nm(t.id)} ไม่ถูกเมตตามหานิยม`, 'fx'); continue; }
+        const E = st.players[t.owner], j = st.players[ctx.pid].units.findIndex(x => !x); if (j < 0) continue;
+        E.units[E.units.indexOf(t)] = null; t.owner = ctx.pid; t.played = st.turn; st.players[ctx.pid].units[j] = t; log(st, `${nm(t.id)} ถูกเมตตามหานิยม ย้ายมาอยู่ฝั่งเรา`, 'fx'); fx(st, { k: 'steal', uid: t.uid });
+      }
+    },
+    draw(st, p, ctx) { for (let i = 0; i < (p.count || 1); i++) drawCard(st, ctx.pid); },
+    discard(st, p, ctx) { const side = p.side === 'enemy' ? 1 - ctx.pid : ctx.pid, P = st.players[side];
+      for (let i = 0; i < (p.count || 1) && P.hand.length; i++) { const j = p.random ? rint(st, P.hand.length) : P.hand.length - 1; const c = P.hand.splice(j, 1)[0]; P.crypt.push({ id: c.id }); log(st, `${side === ctx.pid ? 'เรา' : 'ศัตรู'}ทิ้ง ${nm(c.id)}`, 'fx'); } },
+    reveal_hand(st, p, ctx) { const E = st.players[1 - ctx.pid]; if (!E.hand.length) return; const c = E.hand[rint(st, E.hand.length)]; c.revealed = true; log(st, `เปิดเผยไพ่ในมือศัตรู: ${nm(c.id)}`, 'fx'); },
+    start_rahu(st, p) { const wasActive = rahuActive(st); st.rahuUntil = Math.max(st.rahuUntil, st.turn + (p.rounds || 1) * 2 - 1); log(st, '🌘 ราหูอมจันทร์!', 'rahu'); if (!wasActive) { st.rahuWas = true; rahuBegin(st); } },
+    cleanse(st, p, ctx) { for (const t of targets(st, p, ctx, 'cleanse')) { if (t.player != null) continue;
+      t.status.poison = null; t.status.seal = 0; t.status.sleep = 0; t.status.noatk = 0; if (t.status.stun && ctx.src && ctx.src.name_th === 'ยาสังกรณีตรีชวา') t.status.stun = false; fx(st, { k: 'heal', uid: t.uid, n: 0 }); } },
+    choose(st, p, ctx) { const labels = p.options.map(optLabel);
+      const v = pick(st, ctx, { kind: 'option', options: labels.map((_, i) => i), labels, count: 1, label: 'เลือกผลของการ์ด' });
+      run(st, p.options[v == null ? 0 : v], ctx); },
+    random_of(st, p, ctx) { run(st, p.options[rint(st, p.options.length)], ctx); },
+    swap_stats(st, p, ctx) { for (const t of targets(st, p, ctx, 'swap_stats')) { if (t.player != null) continue; const a = atkOf(st, t), h = hpOf(st, t);
+      t.patk += h - a; t.php += a - h + t.dmg; log(st, `${nm(t.id)} สลับพลัง เป็น ${h}/${a}`, 'fx'); } },
+    consume_crypt(st, p, ctx) { const sides = p.side === 'any' ? [1 - ctx.pid, ctx.pid] : p.side === 'enemy' ? [1 - ctx.pid] : [ctx.pid];
+      let n = 0; for (const s of sides) { const P = st.players[s]; while (n < (p.count || 1) && P.crypt.length) { P.purged.push(P.crypt.pop()); n++; } }
+      if (n) { log(st, `${ctx.self ? nm(ctx.self.id) : ''} กลืนวิญญาณจากสุสาน`, 'fx'); run(st, p.then, ctx); } },
+    discover(st, p, ctx) {
+      const pool = Object.values(DEF).filter(d => !d.token && matchDef(d, p.pool));
+      const choices = []; const bag = pool.slice(); while (choices.length < (p.choices || 3) && bag.length) choices.push(bag.splice(rint(st, bag.length), 1)[0].id);
+      const v = pick(st, ctx, { kind: 'discover', options: choices, count: 1, label: 'เลือกการ์ด 1 ใบเข้ามือ' });
+      if (v) addToHand(st, ctx.pid, { uid: uid(st), id: v, costSet: p.cost_set });
+    },
+    counter(st, p, ctx) { if (ctx.cctx) ctx.cctx.countered = true; },
+    equip(st, p, ctx) { const ts = targets(st, p, ctx, 'equip'); for (const t of ts) { if (t.player != null) continue;
+      t.equips.push({ id: ctx.cardId, atk: p.atk || 0, hp: p.hp || 0, grant: p.grant || [], rule: p.rule || null }); fx(st, { k: 'buff', uid: t.uid }); log(st, `${nm(ctx.cardId)} ติดกับ ${nm(t.id)}`); } },
+    poison(st, p, ctx) { for (const t of targets(st, p, ctx, 'poison')) if (t.player == null) applyPoison(st, t, p.amount); },
+    fight(st, p, ctx) { const ts = targets(st, p, ctx, 'fight').filter(t => t.player == null); if (ts.length < 2) return;
+      const [a, b] = ts; const da = atkOf(st, a), db = atkOf(st, b); damageUnit(st, b, da, { unit: a, pid: a.owner }); damageUnit(st, a, db, { unit: b, pid: b.owner }); log(st, `${nm(a.id)} ปะทะ ${nm(b.id)}`, 'fx'); },
+    gain_akhom(st, p, ctx) { st.players[ctx.pid].akhom += p.amount || 1; },
+  };
+  function optLabel(opt) {
+    const e = opt[0], k = Object.keys(e)[0], p = e[k];
+    const T = { buff: () => `+${p.atk || 0}/+${p.hp || 0}`, grant: () => `ได้ ${p.keywords.join(' ')}`, destroy: () => p.target === 'chosen_enemy_slot_card' ? 'ทำลายกับดัก/ของขลังศัตรู' : 'ทำลายยูนิต',
+      revive: () => 'ชุบชีวิตจากสุสาน', cleanse: () => 'ล้างสถานะร้าย', seal: () => 'สายสิญจน์ศัตรู', heal: () => `ฟื้น HP ${p.amount}`, damage: () => `ดาเมจ ${p.amount}` };
+    return (T[k] || (() => k))();
+  }
+  function applyPoison(st, u, x) { if (ruleOn(st, u, 'immune_poison')) return; const cur = u.status.poison; u.status.poison = { x: Math.max(x, cur ? cur.x : 0), n: 2 }; fx(st, { k: 'poison', uid: u.uid }); }
+  function canSteal(st, t, ctx) {
+    const d = D(t.id); if (isRulerOrDeity(d) || greatImmune(t, ctx.src)) return false;
+    if (hasSpecial(d, 'immune_steal') && !sealed(t)) return false;
+    for (const a of st.players[t.owner].units) if (a && !sealed(a) && specials(D(a.id), 'immune_steal').some(s => s.target === 'all_ally_units')) return false;
+    return true;
+  }
+  function removeSlot(st, s) { const P = st.players[s.owner]; const i = P.slots.indexOf(s); if (i < 0) return; P.slots[i] = null; if (!D(s.id).token) P.crypt.push({ id: s.id }); log(st, `${nm(s.id)} ถูกทำลาย`, 'fx'); }
+
+  /* ---------- ทริกเกอร์ ---------- */
+  function evalIf(st, c, ctx, self) {
+    if (!c) return true;
+    const ev = ctx.event_unit;
+    if (c.rahu_active != null && rahuActive(st) !== c.rahu_active) return false;
+    if (c.tribe && !(ev && arr(c.tribe).includes(D(ev.id).tribe))) return false;
+    if (c.ally_name && !st.players[self ? self.owner : ctx.pid].units.some(x => x && x !== self && D(x.id).name_th === c.ally_name)) return false;
+    if (c.target_hp_lte != null) { const t = ctx.attack_target && findUnit(st, ctx.attack_target.uid); if (!t || hpOf(st, t) > c.target_hp_lte) return false; }
+    if (c.target_element) { const t = ctx.attack_target; if (!t || D(t.id).element !== c.target_element) return false; }
+    if (c.target_status) { const t = ctx.attack_target && findUnit(st, ctx.attack_target.uid); if (!t || !match(st, t, { status: c.target_status })) return false; }
+    if (c.killed_by_enemy && !(self && self.lastHitBy != null && self.lastHitBy !== self.owner)) return false;
+    if (c.attacker_tribe || c.attacker_cost_lte != null) {
+      const a = ctx.attacker; if (!a) return false; const d = D(a.id);
+      const okMain = (!c.attacker_tribe || d.tribe === c.attacker_tribe) && (c.attacker_cost_lte == null || costOfDef(d) <= c.attacker_cost_lte);
+      const okAlt = c.or_attacker_name && d.name_th === c.or_attacker_name;
+      if (!okMain && !okAlt) return false;
+    }
+    return true;
+  }
+  function fireUnit(st, u, on, extra) { // ทริกเกอร์ของยูนิต u เอง
+    if (!u || sealed(u)) return;
+    for (const r of rules(D(u.id))) {
+      if (r.on !== on) continue;
+      if (r.once) { if (u.once[on]) continue; }
+      const ctx = ctxFor(st, u, extra);
+      if (!evalIf(st, r.if, ctx, u)) continue;
+      if (r.once) u.once[on] = true;
+      run(st, r.do, ctx);
+    }
+  }
+  function fireSide(st, pid, on, extra, exclude) {
+    for (const u of st.players[pid].units.slice()) if (u && u !== exclude && findUnit(st, u.uid)) fireUnit(st, u, on, extra);
+  }
+  function trapCheck(st, pid, on, extra) { // กับดักคว่ำของ pid
+    const P = st.players[pid];
+    for (const s of P.slots.slice()) {
+      if (!s || !s.facedown || s.placed === st.turn) continue;
+      const d = D(s.id);
+      for (const r of rules(d)) {
+        if (r.on !== on) continue;
+        const ctx = Object.assign({ pid, self: null, src: d }, extra);
+        if (!evalIf(st, r.if, ctx, null)) continue;
+        P.slots[P.slots.indexOf(s)] = null; P.crypt.push({ id: s.id });
+        log(st, `กับดักทำงาน: ${nm(s.id)}!`, 'trap'); fx(st, { k: 'trap', id: s.id, pid });
+        run(st, r.do, Object.assign(ctx, { cctx: extra.cctx }));
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /* ---------- ความตาย (R10) ---------- */
+  function checkDeaths(st) {
+    for (let guard = 0; guard < 30; guard++) {
+      const dead = [];
+      for (const p of [st.cur, 1 - st.cur]) st.players[p].units.forEach(u => { if (u && (u.destroyed || hpOf(st, u) <= 0)) dead.push(u); });
+      const deadSlots = [];
+      for (const p of [st.cur, 1 - st.cur]) st.players[p].slots.forEach(s => { if (s && s.id === 'TK_HEARTBOX' && s.dmg >= (D(s.id).hp || 6)) deadSlots.push(s); });
+      deadSlots.forEach(s => removeSlot(st, s));
+      if (!dead.length) break;
+      const died = [];
+      for (const u of dead) {
+        const P = st.players[u.owner], i = P.units.indexOf(u); if (i < 0) continue;
+        const d = D(u.id);
+        // อวตาร (ใช้ได้แม้ส่งวิญญาณ)
+        if (!sealed(u) && u.avatarUses > 0) { u.avatarUses--; const b = specials(d, 'avatar')[0].buff; resetBack(u); u.patk += b.atk; u.php += b.hp; log(st, `${nm(u.id)} อวตาร! กลับมาพร้อม +${b.atk}/+${b.hp}`, 'fx'); fx(st, { k: 'revive', uid: u.uid }); continue; }
+        // กล่องดวงใจ
+        if (hasSpecial(d, 'heart_box') && P.slots.some(s => s && s.id === 'TK_HEARTBOX')) { resetBack(u); log(st, `${nm(u.id)} ไม่ตาย ตราบที่กล่องดวงใจยังอยู่`, 'fx'); fx(st, { k: 'revive', uid: u.uid }); continue; }
+        // อมตะ
+        if (!u.purge && !sealed(u) && has(st, u, 'อมตะ')) { const full = hasSpecial(d, 'undying_full'); resetBack(u); u.lost.push('อมตะ'); u.kw = u.kw.filter(k => k !== 'อมตะ');
+          if (!full) u.dmg = maxHpOf(st, u) - 1; log(st, `${nm(u.id)} อมตะ ลุกขึ้นอีกครั้ง`, 'fx'); fx(st, { k: 'revive', uid: u.uid }); continue; }
+        P.units[i] = null;
+        for (const e of u.equips) P.crypt.push({ id: e.id });
+        if (u.token) {} else if (u.purge) { P.purged.push({ id: u.id }); log(st, `${nm(u.id)} ถูกส่งวิญญาณ`, 'fx'); }
+        else { P.crypt.push({ id: u.id }); log(st, `${nm(u.id)} ตาย`); }
+        fx(st, { k: 'die', uid: u.uid, purge: !!u.purge });
+        died.push(u);
+      }
+      for (const u of died) {
+        if (!u.purge) fireUnitDead(st, u, 'death', { event_unit: u });
+        fireSide(st, u.owner, 'ally_death', { event_unit: u });
+        for (const p of [st.cur, 1 - st.cur]) fireSide(st, p, 'any_death', { event_unit: u });
+        for (const p of [0, 1]) for (const s of st.players[p].slots) if (s && !s.facedown) { const sc = specials(D(s.id), 'soul_counter')[0];
+          if (sc) { s.souls = (s.souls || 0) + 1; if (s.souls >= sc.threshold) { s.souls = 0; log(st, `${nm(s.id)} วิญญาณครบ ${sc.threshold}!`, 'fx'); run(st, sc.do, { pid: p, self: null, src: D(s.id) }); } } }
+        if (u.lastHitUnit) { const k = findUnit(st, u.lastHitUnit); if (k && k.owner !== u.owner) { u.killedBy = k.uid; } }
+      }
+      checkWin(st); if (st.over) return;
+    }
+  }
+  function resetBack(u) { u.dmg = 0; u.destroyed = false; u.purge = false; u.tmp = u.tmp.filter(t => (t.atk || 0) >= 0 && (t.hp || 0) >= 0); u.status = {}; }
+  function fireUnitDead(st, u, on, extra) { // สิ้นใจ: ทำงานจากสุสาน (ctx.self ไม่อยู่บนสนาม)
+    for (const r of rules(D(u.id))) { if (r.on !== on) continue; const ctx = { pid: u.owner, self: u, src: D(u.id), event_unit: u, selfExclude: u };
+      if (!evalIf(st, r.if, ctx, u)) continue; run(st, r.do, ctx); }
+  }
+  function checkWin(st) {
+    if (st.over) return;
+    const a = st.players[0].fate <= 0, b = st.players[1].fate <= 0;
+    if (a || b) { st.over = { winner: a && b ? -1 : a ? 1 : 0, reason: 'fate' }; log(st, a && b ? 'เสมอ!' : `${st.players[a ? 1 : 0].name} ชนะ!`, 'end'); }
+  }
+
+  /* ---------- จั่ว ---------- */
+  function addToHand(st, pid, c) { const P = st.players[pid]; if (P.hand.length >= HAND_MAX) { P.crypt.push({ id: c.id }); log(st, `มือเต็ม ${pid === st.cur ? '' : ''}${nm(c.id)} ลงสุสาน (R4.4)`, 'warn'); return false; } P.hand.push(c); return true; }
+  function drawCard(st, pid) {
+    const P = st.players[pid];
+    if (!P.deck.length) { P.emptyDraws++; damagePlayer(st, pid, P.emptyDraws); log(st, `${P.name} เด็คหมด เสียดวงชะตา ${P.emptyDraws}`, 'warn'); checkWin(st); return; }
+    const id = P.deck.shift(); addToHand(st, pid, { uid: uid(st), id });
+  }
+
+  /* ---------- ราหู ---------- */
+  function rahuBegin(st) { for (const u of allUnits(st)) fireUnit(st, u, 'rahu', {}); }
+  function rahuEnd(st) { for (const p of st.players) for (const u of p.units) if (u) u.tmp = u.tmp.filter(t => t.exp !== 'rahu'); }
+
+  /* ---------- เทิร์น ---------- */
+  function startTurn(st) {
+    const P = st.players[st.cur];
+    st.trigCount = 0;
+    P.akhomMax = Math.min(MAX_AKHOM, P.akhomMax + 1); P.akhom = P.akhomMax;
+    const now = rahuActive(st);
+    if (now && !st.rahuWas) { log(st, '🌘 ราหูอมจันทร์ ผีแกร่งขึ้น เทพอ่อนลง', 'rahu'); rahuBegin(st); }
+    if (!now && st.rahuWas) { rahuEnd(st); log(st, '🌕 ราหูคลายจันทร์', 'rahu'); }
+    st.rahuWas = now;
+    if (P.turnsTaken > 0) drawCard(st, st.cur);
+    P.turnsTaken++;
+    if (st.over) return;
+    for (const u of P.units) if (u) { u.attacks = 0; u.secondOnly = false; }
+    P.shieldUsed = false;
+    // ร่างคู่สลับ
+    for (const u of P.units) if (u && u.form != null && !sealed(u) && P.turnsTaken > 1 && u.played < st.turn) u.form = 1 - u.form;
+    fireSide(st, st.cur, 'turn_start', {});
+    for (const s of P.slots.slice()) if (s && !s.facedown) for (const r of rules(D(s.id))) if (r.on === 'turn_start') run(st, r.do, { pid: st.cur, self: null, src: D(s.id) });
+    // เล็งเป้า (lock_on)
+    for (const u of P.units) if (u && !sealed(u)) { const s = specials(D(u.id), 'lock_on')[0]; if (!s) continue;
+      const tgt = u.lock && findUnit(st, u.lock.uid);
+      if (tgt && tgt.owner !== u.owner) { u.lock.n++; if (u.lock.n >= s.turns) { log(st, `${nm(u.id)} ยิงเป้า ${nm(tgt.id)} ส่งวิญญาณ!`, 'fx'); tgt.destroyed = true; tgt.purge = true; tgt.avatarUses = 0; tgt.lost.push('อมตะ', 'คงกระพัน'); u.lock = null; } }
+      else { const opts = st.players[1 - u.owner].units.filter(x => x && !(D(x.id).tribe === s.exempt.tribe && D(x.id).rarity === s.exempt.rarity)).sort((a, b) => unitValue(st, b) - unitValue(st, a));
+        u.lock = opts[0] ? { uid: opts[0].uid, n: 0 } : null; if (u.lock) log(st, `${nm(u.id)} เล็งเป้า ${nm(opts[0].id)}`, 'fx'); } }
+    // พิษ ฟื้นฟู
+    for (const u of P.units) if (u) {
+      if (u.status.poison) { const ps = u.status.poison; damageUnit(st, u, ps.x, { pid: 1 - u.owner }); ps.n--; if (ps.n <= 0) u.status.poison = null; }
+      if (has(st, u, 'ฟื้นฟู')) u.dmg = 0;
+    }
+    checkDeaths(st);
+  }
+  function endTurn(st) {
+    const P = st.players[st.cur];
+    fireSide(st, st.cur, 'turn_end', {});
+    for (const p of st.players) for (const u of p.units) if (u) u.tmp = u.tmp.filter(t => t.exp !== 'turn');
+    P.barami = Math.min(MAX_BARAMI, P.barami + Math.max(0, P.akhom)); P.akhom = 0;
+    for (const u of P.units) if (u) for (const k of ['sleep', 'seal', 'noatk']) if (u.status[k] > 0 && u.status[k] < 99) u.status[k]--;
+    checkDeaths(st); if (st.over) return;
+    if (st.turn >= TURN_LIMIT) { const a = st.players[0].fate, b = st.players[1].fate; st.over = { winner: a === b ? -1 : a > b ? 0 : 1, reason: 'turns' }; log(st, `ครบ ${TURN_LIMIT} เทิร์น`, 'end'); return; }
+    st.turn++; st.cur = 1 - st.cur;
+    startTurn(st);
+  }
+
+  /* ---------- ต้นทุน ---------- */
+  function costOf(st, pid, hc) {
+    const d = D(hc.id); if (hc.costSet != null) return hc.costSet;
+    let c = d.cost || 0;
+    for (const s of specials(d, 'cost_mod')) if (s.if && s.if.self_fate_lte != null && st.players[pid].fate <= s.if.self_fate_lte) c += s.amount;
+    return Math.max(0, c);
+  }
+  const usesBarami = d => d.type !== 'ยูนิต';
+  function canPay(st, pid, hc) { const P = st.players[pid], c = costOf(st, pid, hc); return (usesBarami(D(hc.id)) ? P.akhom + P.barami : P.akhom) >= c; }
+  function pay(st, pid, hc) { const P = st.players[pid]; let c = costOf(st, pid, hc);
+    if (usesBarami(D(hc.id))) { const b = Math.min(P.barami, c); P.barami -= b; c -= b; } P.akhom -= c; }
+  const isEquip = d => d.type === 'ของขลัง' && rules(d).some(r => r.do && r.do.some(e => e.equip));
+
+  /* ---------- action ---------- */
+  function apply(st, a) {
+    st.fx = []; st.trigCount = 0;
+    if (st.over) return err('เกมจบแล้ว');
+    if (a.t === 'mulligan') return mulligan(st, a);
+    if (st.phase !== 'main') return err('ยังอยู่ช่วงเปลี่ยนไพ่');
+    if (a.t === 'concede') { st.over = { winner: 1 - a.pid, reason: 'concede' }; log(st, `${st.players[a.pid].name} ยอมแพ้`, 'end'); return ok(); }
+    if (a.pid !== st.cur) return err('ยังไม่ใช่เทิร์นของคุณ');
+    if (a.t === 'end') { log(st, `${st.players[st.cur].name} จบเทิร์น`, 'turn'); endTurn(st); return ok(); }
+    if (a.t === 'play') return play(st, a);
+    if (a.t === 'attack') return attack(st, a);
+    return err('ไม่รู้จักคำสั่ง');
+  }
+  const ok = () => ({ ok: true }), err = m => ({ ok: false, err: m });
+  function mulligan(st, a) {
+    if (st.phase !== 'mulligan') return err('เลยช่วงเปลี่ยนไพ่แล้ว');
+    const P = st.players[a.pid]; if (P.mulled) return err('เปลี่ยนไพ่ไปแล้ว');
+    const back = P.hand.filter(c => (a.uids || []).includes(c.uid) && c.id !== 'TK_COIN');
+    P.hand = P.hand.filter(c => !back.includes(c));
+    for (const c of back) P.deck.push(c.id); shuffle(st, P.deck);
+    const coin = P.hand.filter(c => c.id === 'TK_COIN'); P.hand = P.hand.filter(c => c.id !== 'TK_COIN');
+    for (let i = 0; i < back.length; i++) P.hand.push({ uid: uid(st), id: P.deck.shift() });
+    P.hand.push(...coin);
+    P.mulled = true; if (back.length) log(st, `${P.name} เปลี่ยนไพ่ ${back.length} ใบ`);
+    if (st.players.every(p => p.mulled)) { st.phase = 'main'; log(st, `เริ่มดวล! ${st.players[st.cur].name} เริ่มก่อน`, 'turn'); startTurn(st); }
+    return ok();
+  }
+  function play(st, a) {
+    const P = st.players[a.pid], hi = P.hand.findIndex(c => c.uid === a.card); if (hi < 0) return err('ไม่มีการ์ดใบนี้ในมือ');
+    const hc = P.hand[hi], d = D(hc.id);
+    if (!canPay(st, a.pid, hc)) return err(usesBarami(d) ? 'อาคมและบารมีไม่พอ' : 'อาคมไม่พอ');
+    const onceRule = rules(d).find(r => r.once_per_game); if (onceRule && P.used[d.id]) return err('การ์ดนี้ใช้ได้ครั้งเดียวต่อเกม');
+    if (d.type === 'ยูนิต') { if (a.slot == null || a.slot < 0 || a.slot > 4 || P.units[a.slot]) { if (!P.units.some(x => !x)) return err('สนามเต็ม'); return err('เลือกช่องยูนิตที่ว่าง'); } }
+    if (d.type === 'กับดัก' || (d.type === 'ของขลัง' && !isEquip(d))) { if (!P.slots.some(x => !x)) return err('ช่องกับดัก/ของขลังเต็ม'); }
+    if (isEquip(d) && !P.units.some(Boolean)) return err('ต้องมียูนิตฝ่ายเราให้ติดของขลัง');
+    if (d.type === 'คาถา' || isEquip(d)) { const nd = need(st, a.pid, hc.uid, a.slot, a.picks || [], true); if (nd && nd.options.length === 0) return err('ไม่มีเป้าหมายที่ถูกต้อง'); }
+    pay(st, a.pid, hc); P.hand.splice(hi, 1); if (onceRule) P.used[d.id] = true;
+    const ctx = { pid: a.pid, src: d, picks: a.picks || [], pi: 0, cardId: d.id };
+    if (d.type === 'ยูนิต') {
+      const u = placeUnit(st, a.pid, mkUnit(st, a.pid, d.id), a.slot); ctx.self = u; ctx.selfExclude = u;
+      log(st, `${P.name} ลง ${nm(d.id)}`, 'play'); fx(st, { k: 'summon', uid: u.uid });
+      onEnter(st, u);
+      for (const r of rules(d)) if (r.on === 'play' && evalIf(st, r.if, ctx, u)) run(st, r.do, ctx);
+      for (const s of specials(d, 'discard_hand_buff')) { const n = P.hand.length; while (P.hand.length) P.crypt.push({ id: P.hand.pop().id });
+        for (const x of P.units) if (x) { x.patk += n * s.per_card.atk; x.php += n * s.per_card.hp; grantTo(x, s.grant || [], 'perm'); } log(st, `ทิ้งไพ่ ${n} ใบ ทัพทั้งหมด +${n}/+${n}`, 'fx'); }
+      for (const s of specials(d, 'stun')) { const t = targets(st, s.target, ctx, 'seal')[0]; if (t) { t.status.stun = true; log(st, `${nm(t.id)} ถูกหอกโมกขศักดิ์ ขยับไม่ได้`, 'fx'); } }
+      for (const s of specials(d, 'misdirect')) { const t = targets(st, s.target, ctx, 'seal')[0]; if (t) { t.status.misdirect = true; log(st, `${nm(t.id)} ถูกผีโขมดหลอก`, 'fx'); } }
+      for (const s of specials(d, 'duel')) { const t = targets(st, s.target, ctx, 'destroy')[0]; if (t && findUnit(st, u.uid)) hattayuddha(st, u, t, s); }
+      for (const opp of [1 - a.pid]) fireSide(st, opp, 'enemy_play', { event_unit: u });
+    } else if (d.type === 'คาถา') {
+      log(st, `${P.name} ใช้คาถา ${nm(d.id)}`, 'play'); fx(st, { k: 'spell', id: d.id, pid: a.pid });
+      ctx.isSpell = true;
+      const cctx = { countered: false }; trapCheck(st, 1 - a.pid, 'enemy_spell', { cctx });
+      if (!cctx.countered) { ctx.shieldCheck = true; for (const r of rules(d)) if (r.on === 'play') run(st, r.do, ctx); }
+      if (!d.token) P.crypt.push({ id: d.id });
+    } else if (d.type === 'กับดัก') {
+      const j = P.slots.findIndex(x => !x); P.slots[j] = { uid: uid(st), id: d.id, owner: a.pid, facedown: true, placed: st.turn, dmg: 0 };
+      log(st, `${P.name} วางกับดักคว่ำไว้`, 'play');
+    } else if (d.type === 'ของขลัง') {
+      if (isEquip(d)) { log(st, `${P.name} ใช้ของขลัง ${nm(d.id)}`, 'play'); for (const r of rules(d)) if (r.on === 'play') run(st, r.do, ctx); }
+      else { const j = P.slots.findIndex(x => !x); P.slots[j] = { uid: uid(st), id: d.id, owner: a.pid, facedown: false, placed: st.turn, dmg: 0, souls: 0 }; log(st, `${P.name} ตั้ง ${nm(d.id)}`, 'play'); }
+    }
+    checkDeaths(st); return ok();
+  }
+  function hattayuddha(st, me, foe, s) {
+    log(st, `ยุทธหัตถี! ${nm(me.id)} ปะทะ ${nm(foe.id)}`, 'fx');
+    for (let i = 0; i < 30; i++) {
+      const a = atkOf(st, me), b = atkOf(st, foe); if (a <= 0 && b <= 0) break;
+      damageUnit(st, foe, a, { unit: me, pid: me.owner }); damageUnit(st, me, b, { unit: foe, pid: foe.owner });
+      const md = hpOf(st, me) <= 0, fd = hpOf(st, foe) <= 0;
+      if (md || fd) { if (fd) { foe.purge = true; foe.destroyed = true; } if (md) { me.purge = true; me.destroyed = true; }
+        if (fd && !md) { me.patk += s.winner_buff.atk; me.php += s.winner_buff.hp; } break; }
+    }
+  }
+
+  function attackOptions(st, pid, u) { // เป้าที่ u โจมตีได้ [{uid}|{player}|{slot}]
+    const E = st.players[1 - pid], fly = has(st, u, 'เหาะเหิน');
+    const guards = E.units.filter(x => x && has(st, x, 'ทวารบาล') && !sealed(x) && !shrouded(st, x));
+    const ghost = D(u.id).tribe === 'ผี';
+    let list = E.units.filter(x => x && !shrouded(st, x) && !(ghost && has(st, x, 'untargetable_by_ghosts')));
+    if (u.secondOnly) list = list.filter(x => costOfDef(D(x.id)) < costOfDef(D(u.id)));
+    const out = [];
+    const mustGuard = guards.length && !fly;
+    for (const x of list) if (!mustGuard || guards.includes(x)) out.push({ uid: x.uid });
+    if (!mustGuard && !u.secondOnly) {
+      const blocked = ghost && E.units.some(x => x && !sealed(x) && hasSpecial(D(x.id), 'ghosts_cannot_hit_player'));
+      if (!blocked) out.push({ player: 1 - pid });
+      for (const s of E.slots) if (s && s.id === 'TK_HEARTBOX') out.push({ slot: s.uid });
+    }
+    return out;
+  }
+  function attacksPerTurn(st, u) { let n = 1; if (has(st, u, 'โจมตี 2 ครั้ง')) n = 2; if (!sealed(u)) for (const s of specials(D(u.id), 'extra_attack')) n = Math.max(n, s.attacks_per_turn); return n; }
+  function canAttack(st, u) {
+    if (!u || u.owner !== st.cur) return 'ไม่ใช่ยูนิตของคุณ';
+    if (u.status.stun) return 'ยูนิตนี้ถูกหอกโมกขศักดิ์ ขยับไม่ได้';
+    if (u.status.sleep > 0) return 'ยูนิตนี้หลับอยู่';
+    if (u.status.noatk > 0) return 'ยูนิตนี้ถูกห้ามโจมตี';
+    if (atkOf(st, u) <= 0) return 'ATK เป็น 0 โจมตีไม่ได้';
+    if (u.played === st.turn && !has(st, u, 'ฮึกเหิม')) return 'ยูนิตเพิ่งลงต้องรอเทิร์นหน้า (ยกเว้นฮึกเหิม)';
+    if (u.attacks >= attacksPerTurn(st, u)) return 'ยูนิตนี้โจมตีครบแล้วในเทิร์นนี้';
+    return null;
+  }
+  function attack(st, a) {
+    let u = findUnit(st, a.unit); const why = canAttack(st, u); if (why) return err(why);
+    a = Object.assign({}, a, { target: Object.assign({}, a.target) });
+    const opts = attackOptions(st, a.pid, u);
+    const tKey = a.target; const okT = opts.some(o => (o.uid && o.uid === tKey.uid) || (o.player != null && o.player === tKey.player) || (o.slot && o.slot === tKey.slot));
+    if (!okT) { const E = st.players[1 - a.pid]; if (E.units.some(x => x && has(st, x, 'ทวารบาล')) && !has(st, u, 'เหาะเหิน')) return err('ต้องโจมตียูนิตทวารบาลก่อน (ยกเว้นเหาะเหิน)'); return err('เลือกเป้านี้ไม่ได้'); }
+    u.attacks++; { const ea = sealed(u) ? null : specials(D(u.id), 'extra_attack')[0]; u.secondOnly = !!(ea && ea.only_vs && u.attacks === 1); }
+    u.shroudOff = true;
+    let target = tKey.uid ? findUnit(st, tKey.uid) : null;
+    if (target) { firstTargeted(st, target, { pid: a.pid }); target = findUnit(st, tKey.uid); }
+    // ผีโขมด: เปลี่ยนเป้าสุ่ม
+    if (u.status.misdirect) { u.status.misdirect = false; const pool = allUnits(st).filter(x => x !== u); if (pool.length) { target = pool[rint(st, pool.length)]; log(st, `${nm(u.id)} ถูกหลอก ตีผิดเป้าไปที่ ${nm(target.id)}`, 'fx'); tKey.player = undefined; tKey.slot = undefined; } }
+    // ปกป้องผู้ปกครอง
+    if (target && target.owner !== u.owner && D(target.id).category === 'ผู้ปกครอง') {
+      const g = st.players[target.owner].units.find(x => x && x !== target && !sealed(x) && hasSpecial(D(x.id), 'protect_ruler'));
+      if (g) { log(st, `${nm(g.id)} เข้าขวางแทน ${nm(target.id)}`, 'fx'); target = g; }
+    }
+    const tname = target ? nm(target.id) : tKey.player != null ? 'ดวงชะตา' : 'กล่องดวงใจ';
+    log(st, `${nm(u.id)} โจมตี ${tname}`, 'atk');
+    fireUnit(st, u, 'attack', { attack_target: target });
+    u = findUnit(st, a.unit); if (!u || st.over) { checkDeaths(st); return ok(); }
+    if (target && !findUnit(st, target.uid)) { checkDeaths(st); return ok(); }
+    const cctx = { countered: false }; trapCheck(st, 1 - a.pid, 'enemy_attack', { attacker: u, attack_target: target, cctx });
+    u = findUnit(st, a.unit);
+    if (cctx.countered || !u || u.destroyed) { log(st, 'การโจมตีถูกยกเลิก', 'fx'); checkDeaths(st); return ok(); }
+    fx(st, { k: 'attack', from: u.uid, to: target ? target.uid : tKey.player != null ? 'p' + tKey.player : tKey.slot });
+    const life = has(st, u, 'ดูดชีพ'), pois = poisonKw(st, u), pierce = ruleOn(st, u, 'pierce_barrier');
+    if (target && target.owner !== undefined && findUnit(st, target.uid)) {
+      const ea = D(u.id).element, eb = D(target.id).element;
+      let da = atkOf(st, u), db = atkOf(st, target);
+      if (BEATS[ea] === eb) da = Math.floor(da * 1.5);
+      if (BEATS[eb] === ea) db = Math.floor(db * 1.5);
+      da *= multVs(st, u, target); db *= multVs(st, target, u);
+      const hpB = hpOf(st, target);
+      const dealtA = damageUnit(st, target, da, { unit: u, pid: u.owner, pierce, combat: true });
+      const dealtB = target.owner !== u.owner ? damageUnit(st, u, db, { unit: target, pid: target.owner, combat: true, pierce: ruleOn(st, target, 'pierce_barrier') }) : 0;
+      if (life && dealtA) healPlayer(st, u.owner, dealtA);
+      if (has(st, target, 'ดูดชีพ') && dealtB) healPlayer(st, target.owner, dealtB);
+      if (pois && dealtA) applyPoison(st, target, pois);
+      const tp = poisonKw(st, target); if (tp && dealtB) applyPoison(st, u, tp);
+      if (hasSpecial(D(u.id), 'trample') && !sealed(u) && dealtA > hpB && hpB > 0) { damagePlayer(st, target.owner, dealtA - hpB); log(st, `ดาเมจทะลุ ${dealtA - hpB}`, 'fx'); }
+      const tDies = hpOf(st, target) <= 0, uDies = hpOf(st, u) <= 0;
+      fireUnit(st, u, 'after_hit', { attack_target: target });
+      if (findUnit(st, target.uid)) fireUnit(st, target, 'attacked', { attacker: u });
+      if (tDies && findUnit(st, u.uid) && has(st, u, 'ลิ้มเลือด')) { u.patk++; u.php++; }
+      if (uDies && findUnit(st, target.uid) && has(st, target, 'ลิ้มเลือด')) { target.patk++; target.php++; }
+      checkDeaths(st);
+      if (tDies && !findUnit(st, target.uid) && findUnit(st, u.uid)) fireUnit(st, u, 'kill', { event_unit: target });
+    } else if (tKey.player != null) {
+      const n = damagePlayer(st, tKey.player, atkOf(st, u)); if (life) healPlayer(st, u.owner, n);
+      fireUnit(st, u, 'after_hit', {});
+    } else if (tKey.slot) { const s = findSlot(st, tKey.slot); if (s) { s.dmg += atkOf(st, u); fx(st, { k: 'dmg', slot: s.uid, n: atkOf(st, u) }); } }
+    checkDeaths(st); checkWin(st); return ok();
+  }
+
+  /* ---------- วางแผนการเลือก (UI/AI) ---------- */
+  function need(st, pid, cardUid, slot, picks, strict) { // คืน spec ของสิ่งที่ต้องเลือกถัดไป หรือ null ถ้าครบ
+    const s2 = clone(st); s2.log = []; const P = s2.players[pid], hc = P.hand.find(c => c.uid === cardUid); if (!hc) return null;
+    const d = D(hc.id);
+    if (d.type === 'ยูนิต' && (slot == null || P.units[slot])) { slot = P.units.findIndex(x => !x); if (slot < 0) return null; }
+    P.akhom = 99; P.barami = 3;
+    const ctx = { pid, src: d, picks: picks.slice(), pi: 0, plan: true, strict: !!strict, cardId: d.id };
+    try {
+      P.hand = P.hand.filter(c => c !== hc);
+      if (d.type === 'ยูนิต') { const u = placeUnit(s2, pid, mkUnit(s2, pid, d.id), slot); ctx.self = u; ctx.selfExclude = u;
+        for (const r of rules(d)) if (r.on === 'play' && evalIf(s2, r.if, ctx, u)) run(s2, r.do, ctx);
+        for (const sp of rules(d).filter(r => ['stun', 'misdirect', 'duel'].includes(r.special))) targets(s2, sp.target, ctx, 'seal'); }
+      else if (d.type === 'คาถา' || isEquip(d)) { ctx.isSpell = d.type === 'คาถา'; for (const r of rules(d)) if (r.on === 'play') run(s2, r.do, ctx); }
+    } catch (e) { if (e instanceof Need) return e.spec; throw e; }
+    return null;
+  }
+  function legal(st, pid) { // action ที่ทำได้ (ยังไม่รวมการเลือกเป้าของเอฟเฟกต์)
+    const P = st.players[pid], out = { plays: [], attacks: [] };
+    if (st.over || st.phase !== 'main' || st.cur !== pid) return out;
+    for (const hc of P.hand) { const d = D(hc.id); if (!canPay(st, pid, hc)) continue;
+      if (rules(d).some(r => r.once_per_game) && P.used[d.id]) continue;
+      if (d.type === 'ยูนิต' && !P.units.some(x => !x)) continue;
+      if ((d.type === 'กับดัก' || (d.type === 'ของขลัง' && !isEquip(d))) && !P.slots.some(x => !x)) continue;
+      if (isEquip(d) && !P.units.some(Boolean)) continue;
+      if (d.type === 'คาถา' || isEquip(d)) { const nd = need(st, pid, hc.uid, null, [], true); if (nd && !nd.options.length) continue; }
+      out.plays.push(hc.uid); }
+    for (const u of P.units) if (u && !canAttack(st, u)) out.attacks.push({ unit: u.uid, targets: attackOptions(st, pid, u) });
+    return out;
+  }
+
+  /* ---------- เกมใหม่ ---------- */
+  function newGame(opt) {
+    const st = { v: 1, seed: opt.seed >>> 0, rng: opt.seed >>> 0, nextUid: 0, turn: 1, cur: 0, phase: 'mulligan', rahuUntil: 0, rahuWas: false,
+      over: null, log: [], fx: [], trigCount: 0, players: [] };
+    st.cur = rint(st, 2);
+    for (let p = 0; p < 2; p++) {
+      st.players.push({ name: opt.names[p], fate: MAX_FATE, deck: shuffle(st, opt.decks[p].slice()), hand: [], units: [null, null, null, null, null], slots: [null, null],
+        crypt: [], purged: [], akhom: 0, akhomMax: 0, barami: 0, emptyDraws: 0, turnsTaken: 0, used: {}, mulled: false, shieldUsed: false });
+    }
+    for (const p of [st.cur, 1 - st.cur]) { const n = p === st.cur ? 3 : 4; for (let i = 0; i < n; i++) drawCard(st, p); }
+    st.players[1 - st.cur].hand.push({ uid: uid(st), id: 'TK_COIN' });
+    log(st, `${st.players[st.cur].name} ได้เริ่มก่อน · ${st.players[1 - st.cur].name} ได้เบี้ยหอยเสี่ยงทาย`, 'turn');
+    return st;
+  }
+  function deckErrors(ids) {
+    const errs = []; if (ids.length !== 30) errs.push(`เด็คต้องมี 30 ใบ (ตอนนี้ ${ids.length})`);
+    const cnt = {}; ids.forEach(i => cnt[i] = (cnt[i] || 0) + 1);
+    const lim = { 'ธรรมดา': 3, 'ทั่วไป': 3, 'หายาก': 2, 'มหากาพย์': 2, 'ตำนาน': 1, 'พระเจ้า': 1, 'ผู้สรรสร้าง': 1 };
+    for (const id in cnt) { const d = D(id); if (!d) { errs.push('การ์ดไม่รู้จัก ' + id); continue; } if (cnt[id] > lim[d.rarity]) errs.push(`${d.name_th} ใส่ได้ไม่เกิน ${lim[d.rarity]} ใบ`); }
+    const hi = ids.filter(i => ['ตำนาน', 'พระเจ้า', 'ผู้สรรสร้าง'].includes(D(i).rarity)).length; if (hi > 3) errs.push('ตำนาน+พระเจ้า+ผู้สรรสร้าง รวมไม่เกิน 3 ใบ');
+    if (ids.filter(i => D(i).rarity === 'ผู้สรรสร้าง').length > 1) errs.push('ผู้สรรสร้างได้ 1 ใบต่อเด็ค');
+    if (ids.filter(i => ['เทพเจ้า', 'ผู้ปกครอง'].includes(D(i).category)).length > 3) errs.push('เทพเจ้า+ผู้ปกครอง รวมไม่เกิน 3 ใบ');
+    return errs;
+  }
+  function view(st, pid) { // R14.3 ซ่อนข้อมูลลับของอีกฝ่าย
+    const v = clone(st); const E = v.players[1 - pid];
+    E.hand = E.hand.map(c => c.revealed ? c : { uid: c.uid, id: null }); E.deck = E.deck.length; v.players[pid].deck = v.players[pid].deck.length;
+    E.slots = E.slots.map(s => s && s.facedown ? { uid: s.uid, facedown: true, owner: s.owner } : s); v.rng = 0; return v;
+  }
+
+  return { newGame, apply, need, legal, view, deckErrors, D, atkOf, hpOf, maxHpOf, kwOf, has, sealed, rahuActive, costOf, canPay, canAttack, attackOptions, attacksPerTurn,
+    unitValue, isEquip, clone, shrouded, specials, RARITY, BEATS };
+}
+const api = { create };
+if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.SiamEngine = api;
+})(typeof self !== 'undefined' ? self : this);
+
+</script>
+<script>
+/* สยามมินทร์ดูเอล — AI คู่ดวล (จำลองทุกทางเลือกแล้วเลือกทางที่สถานการณ์ดีที่สุด)
+   ระดับ: easy (สุ่มพลาดบ้าง) · normal · hard (คิดล่วงหน้าการโจมตีสวนของอีกฝ่ายแบบคร่าว ๆ) */
+(function (root) {
+'use strict';
+const DECKS = {
+  ayutthaya: { name: 'ทัพกรุงศรี', ids: ['SD029','SD031','SD032','SD033','SD038','SD038','SD044','SD044','SD050','SD050','SD051','SD051','SD052','SD052','SD047','SD090','SD090','SD090','SD091','SD091','SD091','SD092','SD092','SD092','SD097','SD097','SD097','SD084','SD084','SD054'] },
+  ghost: { name: 'รัตติกาลผี', ids: ['SD024','SD020','SD037','SD037','SD039','SD039','SD040','SD040','SD041','SD041','SD049','SD049','SD053','SD053','SD057','SD057','SD058','SD058','SD066','SD066','SD073','SD073','SD078','SD078','SD080','SD080','SD088','SD088','SD094','SD096'] },
+  himmapan: { name: 'หิมพานต์', ids: ['SD034','SD030','SD030','SD054','SD054','SD063','SD063','SD063','SD064','SD064','SD076','SD076','SD076','SD082','SD082','SD082','SD093','SD093','SD093','SD055','SD055','SD056','SD056','SD100','SD100','SD100','SD068','SD068','SD081','SD081'] },
+  lanka: { name: 'ลงกา', ids: ['SD035','SD023','SD028','SD028','SD070','SD070','SD070','SD071','SD071','SD071','SD074','SD074','SD074','SD075','SD075','SD075','SD043','SD043','SD039','SD039','SD079','SD079','SD080','SD080','SD085','SD085','SD098','SD098','SD091','SD097'] },
+};
+const KW_VAL = { 'ทวารบาล': 1, 'กำบัง': 1, 'คงกระพัน': 1.5, 'อมตะ': 2, 'เหาะเหิน': 1, 'ดูดชีพ': 1, 'ลิ้มเลือด': 0.5, 'ฟื้นฟู': 1 };
+
+function create(E) {
+  function score(st, pid) {
+    if (st.over) return st.over.winner === pid ? 1e5 : st.over.winner === -1 ? 0 : -1e5;
+    const me = st.players[pid], op = st.players[1 - pid];
+    let s = 0;
+    s += (Math.min(me.fate, 30) - op.fate) * 1.1;
+    if (op.fate <= 10) s += (10 - op.fate) * 0.8;      // เร่งปิดเกม
+    if (me.fate <= 10) s -= (10 - me.fate) * 0.8;
+    const side = (P, sign) => { for (const u of P.units) if (u) { let v = E.unitValue(st, u); for (const k of E.kwOf(st, u)) v += KW_VAL[k] || 0;
+      if (u.status.sleep || u.status.stun || u.status.noatk) v *= 0.7; s += sign * v; }
+      for (const x of P.slots) if (x) s += sign * 2; };
+    side(me, 1); side(op, -1);
+    s += me.hand.length * 1.2 - op.hand.length * 0.6 + me.barami * 0.3;
+    return s;
+  }
+  function picksFor(st, pid, hc, slot) { // คืนลิสต์ชุดการเลือก (แตกตามตัวเลือก choose)
+    const out = []; const stack = [[]];
+    let guard = 0;
+    while (stack.length && guard++ < 24) {
+      const pk = stack.pop(); const nd = E.need(st, pid, hc.uid, slot, pk);
+      if (!nd) { out.push(pk); continue; }
+      if (!nd.options.length) { out.push(pk); continue; }
+      if (nd.kind === 'option') { for (const o of nd.options) stack.push(pk.concat([o])); continue; }
+      if (nd.kind === 'crypt') { stack.push(pk.concat([nd.options.slice().sort((a, b) => (E.D(b.id).cost || 0) - (E.D(a.id).cost || 0))[0].idx])); continue; }
+      if (nd.kind === 'discover') { stack.push(pk.concat([nd.options.slice().sort((a, b) => (E.D(b).cost || 0) - (E.D(a).cost || 0))[0]])); continue; }
+      if (nd.kind === 'slotcard') { stack.push(pk.concat([nd.options[0]])); continue; }
+      // ยูนิต: ลองตัวที่มีค่าที่สุด 3 ตัวแรก
+      const val = id => { for (const p of st.players) for (const u of p.units) if (u && u.uid === id) return E.unitValue(st, u); return 0; };
+      const sorted = nd.options.slice().sort((a, b) => val(b) - val(a));
+      if (nd.count > 1) stack.push(pk.concat([sorted.slice(0, nd.count)]));
+      else for (const o of sorted.slice(0, 3)) stack.push(pk.concat([o]));
+    }
+    return out.slice(0, 8);
+  }
+  function candidates(st, pid) {
+    const L = E.legal(st, pid), P = st.players[pid], out = [];
+    for (const cu of L.plays) {
+      const hc = P.hand.find(c => c.uid === cu), d = E.D(hc.id);
+      const slots = d.type === 'ยูนิต' ? [P.units.findIndex(x => !x)] : [null];
+      for (const slot of slots) for (const picks of picksFor(st, pid, hc, slot)) out.push({ t: 'play', pid, card: cu, slot, picks });
+    }
+    for (const a of L.attacks) for (const t of a.targets) out.push({ t: 'attack', pid, unit: a.unit, target: t.uid ? { uid: t.uid } : t.player != null ? { player: t.player } : { slot: t.slot } });
+    return out;
+  }
+  function threat(st, pid) { // ดาเมจสูงสุดคร่าว ๆ ที่อีกฝ่ายตีหน้าเราได้เทิร์นหน้า
+    const op = st.players[1 - pid], me = st.players[pid];
+    const guards = me.units.some(u => u && E.has(st, u, 'ทวารบาล'));
+    let dmg = 0; for (const u of op.units) if (u && !u.status.stun) { if (!guards || E.has(st, u, 'เหาะเหิน')) dmg += E.atkOf(st, u); }
+    return dmg;
+  }
+  function greedy(st, pid, level) {
+    const base = score(st, pid);
+    let best = null, bestS = -Infinity;
+    for (const a of candidates(st, pid)) {
+      const s2 = E.clone(st); const r = E.apply(s2, a); if (!r.ok) continue;
+      let s = score(s2, pid);
+      if (level === 'easy') s += (Math.random() - 0.5) * 6;
+      if (s > bestS) { bestS = s; best = a; }
+    }
+    const need = level === 'easy' ? 0.8 : 0.05;
+    return best && bestS > base + need ? best : { t: 'end', pid };
+  }
+  function rollout(st, pid) { // เล่นต่อจนจบเทิร์นเรา แล้วให้อีกฝ่ายเล่น 1 เทิร์นแบบปกติ
+    let n = 0;
+    while (!st.over && st.cur === pid && n++ < 25) { const a = greedy(st, pid, 'normal'); if (!E.apply(st, a).ok) E.apply(st, { t: 'end', pid }); }
+    n = 0;
+    while (!st.over && st.cur !== pid && n++ < 25) { const a = greedy(st, st.cur, 'normal'); if (!E.apply(st, a).ok) E.apply(st, { t: 'end', pid: st.cur }); }
+    return score(st, pid);
+  }
+  function decide(st, pid, level) {
+    level = level || 'normal';
+    if (level === 'easy' && Math.random() < 0.3) { const c = candidates(st, pid); return c.length && Math.random() < 0.6 ? c[Math.floor(Math.random() * c.length)] : { t: 'end', pid }; }
+    if (level !== 'hard') return greedy(st, pid, level);
+    let best = { t: 'end', pid }; const s0 = E.clone(st); E.apply(s0, best); let bestS = rollout(s0, pid);
+    for (const a of candidates(st, pid)) {
+      const s2 = E.clone(st); if (!E.apply(s2, a).ok) continue;
+      const s = rollout(s2, pid);
+      if (s > bestS + 0.01) { bestS = s; best = a; }
+    }
+    return best;
+  }
+  function mulliganPick(st, pid) { const P = st.players[pid]; return P.hand.filter(c => c.id !== 'TK_COIN' && (E.D(c.id).cost || 0) >= 6).map(c => c.uid); }
+  return { decide, score, mulliganPick, candidates };
+}
+const api = { create, DECKS };
+if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.SiamAI = api;
+})(typeof self !== 'undefined' ? self : this);
+
+</script>
 <script>
 const CARDS = [{"id":"SD001","name_th":"พระอิศวร","rarity_code":"creator","type":"ยูนิต","element":"ไฟ","cost":10,"atk":10,"hp":12,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: ร่ายรำศิวนาฏราช ทำลายยูนิตศัตรูทุกตัวที่ต้นทุน ≤6 แล้วส่งวิญญาณ; ต้นเทิร์น 2 ดาเมจไฟแก่ศัตรูทุกตัว","max_supply":1},{"id":"SD002","name_th":"พระนารายณ์","rarity_code":"creator","type":"ยูนิต","element":"น้ำ","cost":10,"atk":9,"hp":12,"keywords":["คงกระพัน","อวตาร"],"text_th":"อวตาร: ตายแล้วกลับมาในร่างใหม่ HP เต็ม +2/+2 (ได้ 2 ครั้งต่อเกม); ปลุกเสก: เรียกครุฑพาหนะ 5/5 เหาะเหิน","max_supply":1},{"id":"SD003","name_th":"พระพรหม","rarity_code":"creator","type":"ยูนิต","element":"ดิน","cost":10,"atk":8,"hp":14,"keywords":[],"text_th":"ปลุกเสก: ชุบชีวิตยูนิตเราทั้งหมดในสุสานที่ต้นทุน ≤5 HP เต็ม; สี่พักตร์: เห็นไพ่ในมือศัตรูตลอดเกม","max_supply":1},{"id":"SD004","name_th":"PlayCH • วัชระสายฟ้าแยกฟ้า","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":10,"atk":10,"hp":10,"keywords":[],"text_th":"ปลุกเสก: 5 ดาเมจแก่ศัตรูทุกตัว และ 5 ดาเมจที่ดวงชะตาศัตรู","max_supply":1},{"id":"SD005","name_th":"PlayCH • ปู่ผู้สร้างเกม ช่างปั้นวิญญาณ","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":10,"atk":8,"hp":12,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: เลือก 1 ใน 3 การ์ดสุ่มระดับ Legendary+ ใส่มือ ต้นทุน 0; ทุกครั้งที่ชุบชีวิต การ์ดนี้ +2/+2","max_supply":1},{"id":"SD006","name_th":"พระอินทร์","rarity_code":"creator","type":"ยูนิต","element":"ลม","cost":9,"atk":10,"hp":10,"keywords":["เหาะเหิน","ฮึกเหิม"],"text_th":"ปลุกเสก: วัชระสายฟ้า 6 ดาเมจแก่เป้าหมาย 1 ตัว และ 2 ดาเมจแก่ศัตรูที่เหลือ; ช้างเอราวัณฝ่ายเรา +3/+3","max_supply":1},{"id":"SD007","name_th":"PlayCH • ท้าวจตุรทิศจอยแดง","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":9,"atk":9,"hp":9,"keywords":["ฮึกเหิม","ลิ้มเลือด"],"text_th":"ปลุกเสก D-Pad เลือก 1 ใน 4 ทิศ: ↑ +3 ATK / ↓ ทวารบาล+คงกระพัน / ← ทำลายของขลังหรือกับดักศัตรู / → โจมตีได้ 2 ครั้ง","max_supply":1},{"id":"SD008","name_th":"PlayCH • ฤๅษีสี่มนตร์จอยคราม","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":9,"atk":6,"hp":10,"keywords":["คงกระพัน"],"text_th":"ต้นเทิร์นได้มนตร์สุ่ม 1 ใน 4: ดิน ให้ทวารบาลยูนิตเรา / น้ำ ฟื้น 4 / ลม ศัตรู 1 ตัวโจมตีไม่ได้ / ไฟ 3 ดาเมจ","max_supply":1},{"id":"SD009","name_th":"PlayCH • พรานเป้าเล็งมรณะ","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":8,"atk":8,"hp":6,"keywords":["กำบัง"],"text_th":"ทุกเทิร์นเล็งเป้า 1 ตัว ครบ 2 เทิร์นทำลายและส่งวิญญาณ (ไม่สนทวารบาล/คงกระพัน/อมตะ) — ยกเว้นเทพเจ้า Super Limited","max_supply":1},{"id":"SD010","name_th":"PlayCH • ศาลหมื่นวิญญาณ","rarity_code":"creator","type":"ของขลัง","element":"อากาศ","cost":6,"atk":null,"hp":null,"keywords":[],"text_th":"ยูนิตใดตาย = 1 วิญญาณผู้ติดตาม; ครบ 5: ชุบชีวิตยูนิตใดก็ได้จากสุสานทั้งสองฝ่าย (ยกเว้นเทพเจ้า) มาเป็นของเรา และจั่ว 2","max_supply":1},{"id":"SD011","name_th":"สมเด็จพระเจ้าตากสินมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":9,"atk":9,"hp":9,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ทุบหม้อข้าว — ทิ้งไพ่ในมือทั้งหมด ยูนิตเราทุกตัว +1/+1 ต่อใบที่ทิ้ง และได้ฮึกเหิม; ดวงชะตาเรา ≤10 ต้นทุน -4","max_supply":null},{"id":"SD012","name_th":"สมเด็จพระนเรศวรมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":9,"atk":9,"hp":8,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ยุทธหัตถี — ดวลกับยูนิตศัตรูที่แรงที่สุด 1 ตัว ผู้แพ้ถูกส่งวิญญาณ ชนะได้ +2/+2 ถาวร; ล้างสายสิญจน์/คุณไสยบนยูนิตเรา","max_supply":null},{"id":"SD013","name_th":"ทศกัณฐ์","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":9,"atk":10,"hp":10,"keywords":["อมตะ"],"text_th":"ถอดดวงใจ: ปลุกเสก วางกล่องดวงใจ 0/6 ในช่องกับดัก — ตราบที่กล่องยังอยู่ ทศกัณฐ์ตายแล้วฟื้น HP เต็ม","max_supply":null},{"id":"SD014","name_th":"พ่อขุนรามคำแหงมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":8,"atk":7,"hp":10,"keywords":["ทวารบาล"],"text_th":"ต้นเทิร์น: ในน้ำมีปลา ในนามีข้าว — ฟื้นดวงชะตา 2; ระฆังหน้าประตู: ยกเลิกคาถาเป้าหมายที่ใส่ยูนิตเรา 1 ครั้งต่อเทิร์น","max_supply":null},{"id":"SD015","name_th":"ปู่สังกะสา ย่าสังกะสี","rarity_code":"divine","type":"ยูนิต","element":"ดิน","cost":8,"atk":6,"hp":12,"keywords":[],"text_th":"ปลุกเสก: ปั้นดินเป็นคน — เรียกมนุษย์ดินปั้น 2/2 สามตัว; เมื่อยูนิตมนุษย์เราตาย ปั้นมนุษย์ดินปั้น 1/1 แทน","max_supply":3},{"id":"SD016","name_th":"พระราหู","rarity_code":"divine","type":"ยูนิต","element":"อากาศ","cost":8,"atk":8,"hp":8,"keywords":["ราหูจร","ดูดชีพ"],"text_th":"ปลุกเสก: เริ่มราหูอมจันทร์ทันที 2 เทิร์น; ระหว่างนั้นกลืนยูนิตศัตรูต้นทุน ≤4 เทิร์นละ 1 ตัว","max_supply":3},{"id":"SD017","name_th":"ท้าวเวสสุวรรณ","rarity_code":"divine","type":"ยูนิต","element":"ดิน","cost":8,"atk":7,"hp":10,"keywords":["ทวารบาล"],"text_th":"ผีฝ่ายศัตรูทุกตัว -2 ATK; ผีที่ศัตรูลงใหม่ถูกสายสิญจน์ 1 เทิร์น","max_supply":3},{"id":"SD018","name_th":"พญาครุฑ","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":8,"atk":9,"hp":8,"keywords":["เหาะเหิน","ฮึกเหิม"],"text_th":"ทำดาเมจ x2 กับนาค; ปลุกเสก: ทำลายยูนิตนาคศัตรู 1 ตัว","max_supply":null},{"id":"SD019","name_th":"พญาศรีสุทโธนาค","rarity_code":"legend","type":"ยูนิต","element":"น้ำ","cost":8,"atk":7,"hp":11,"keywords":["ทวารบาล","ดูดชีพ"],"text_th":"ปลุกเสก: ฟื้นดวงชะตา 6; ต้นเทิร์นเรียกนาคบริวาร 2/2; ยูนิตไฟศัตรู -2 ATK","max_supply":null},{"id":"SD020","name_th":"แม่นาคพระโขนง","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":8,"atk":8,"hp":9,"keywords":["อมตะ","ราหูจร","เหาะเหิน"],"text_th":"ยืดแขนได้ไกล โจมตีข้ามทวารบาล; ราหูอมจันทร์: +4/+4 และศัตรูทุกตัว -1 ATK","max_supply":null},{"id":"SD021","name_th":"สมเด็จพระศรีสุริโยทัย","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":7,"atk":6,"hp":7,"keywords":["ทวารบาล","คงกระพัน"],"text_th":"รับการโจมตีแทนผู้ปกครองฝ่ายเรา; สิ้นใจ: ผู้ปกครองฝ่ายเราทุกตัว +3/+3 ถาวร","max_supply":null},{"id":"SD022","name_th":"พระแม่ธรณี","rarity_code":"divine","type":"ยูนิต","element":"น้ำ","cost":7,"atk":4,"hp":10,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: บีบมวยผม — สายน้ำกวาดอสูรและผีฝ่ายศัตรูทุกตัว 4 ดาเมจ","max_supply":3},{"id":"SD023","name_th":"กุมภกรรณ","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":8,"atk":9,"hp":9,"keywords":["ทวารบาล"],"text_th":"ไม่โจมตีในเทิร์นที่ลง (หลับ); ปลุกเสก: หอกโมกขศักดิ์ — ยูนิตศัตรู 1 ตัวสลบจนกว่าจะได้ยาสังกรณีตรีชวา","max_supply":null},{"id":"SD024","name_th":"น้ำอมฤต","rarity_code":"legend","type":"คาถา","element":"อากาศ","cost":8,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตยูนิต 3 ตัวที่แรงที่สุดในสุสานเรา HP เต็ม; ใช้ได้ 1 ครั้งต่อเกม","max_supply":null},{"id":"SD025","name_th":"สมเด็จพระเจ้าอู่ทอง","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":6,"hp":8,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: สถาปนากรุง — สร้างของขลังกำแพงเมือง ยูนิตเราทุกตัว +0/+2","max_supply":null},{"id":"SD026","name_th":"ขุนแผนแสนสะท้าน","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":7,"atk":7,"hp":7,"keywords":["กำบัง","เมตตามหานิยม"],"text_th":"ปลุกเสก: เรียกกุมารทอง 2/2 กำบัง; ถือดาบฟ้าฟื้นได้ +4/+4 เพิ่ม; ม้าสีหมอกให้ฮึกเหิม","max_supply":null},{"id":"SD027","name_th":"พระอภัยมณี","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":7,"atk":4,"hp":8,"keywords":[],"text_th":"ปลุกเสก: เป่าปี่ — ศัตรูทุกตัวหลับ (โจมตีไม่ได้) 1 เทิร์น ผีและอสูรหลับ 2 เทิร์น","max_supply":null},{"id":"SD028","name_th":"นางผีเสื้อสมุทร","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":8,"hp":8,"keywords":["ราหูจร"],"text_th":"แปลงกาย: สลับร่างทุกเทิร์น หญิงงาม (4/8 ดูดชีพ) กับยักษ์ (8/8 ฮึกเหิม)","max_supply":null},{"id":"SD029","name_th":"ช้างเอราวัณ","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":7,"atk":6,"hp":10,"keywords":["ทวารบาล"],"text_th":"ยูนิตเราทุกตัวรับดาเมจ -1; ถ้ามีพระอินทร์ ได้ +3/+3","max_supply":null},{"id":"SD030","name_th":"ชาละวัน","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":8,"hp":8,"keywords":["ดูดชีพ"],"text_th":"ยูนิตน้ำเรา +1/+1; ลากลงน้ำ: ยูนิตที่ถูกโจมตีถ้า HP เหลือ ≤3 ถูกทำลาย","max_supply":null},{"id":"SD031","name_th":"ท้าวสุรนารี (ย่าโม)","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":6,"atk":6,"hp":6,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ทุ่งสัมฤทธิ์ — เรียกชาวโคราช 2/1 ฮึกเหิม 3 ตัว","max_supply":null},{"id":"SD032","name_th":"พระยาพิชัยดาบหัก","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":6,"atk":7,"hp":5,"keywords":["ฮึกเหิม","ลิ้มเลือด"],"text_th":"โจมตีได้ 2 ครั้งต่อเทิร์น; HP ≤2 ATK x2 (ดาบหัก)","max_supply":null},{"id":"SD033","name_th":"ท้าวเทพกระษัตรี และท้าวศรีสุนทร","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":6,"atk":5,"hp":7,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: กลลวงข้าศึก — ยูนิตศัตรูทุกตัวโจมตีไม่ได้ 1 เทิร์น","max_supply":null},{"id":"SD034","name_th":"หนุมาน","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":6,"atk":6,"hp":6,"keywords":["เหาะเหิน","อมตะ"],"text_th":"อมตะ: ลมพระพายพัดฟื้น HP เต็ม 1 ครั้ง; ปลุกเสก: หาวเป็นดาวเป็นเดือน ทำลายของขลังหรือกับดักศัตรู 1 ชิ้น","max_supply":null},{"id":"SD035","name_th":"ไกรสรราชสีห์","rarity_code":"legend","type":"ยูนิต","element":"ไฟ","cost":6,"atk":7,"hp":6,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: คำรามสะท้านไพร — ทำลายยูนิตศัตรูต้นทุน ≤2 ทั้งหมด","max_supply":null},{"id":"SD036","name_th":"ดาบฟ้าฟื้น","rarity_code":"epic","type":"ของขลัง","element":"ไฟ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต +4 ATK และโจมตีทะลุคงกระพัน; ขุนแผนถือ +4/+4 เพิ่ม","max_supply":null},{"id":"SD037","name_th":"เปรตยักษ์","rarity_code":"rare","type":"ยูนิต","element":"อากาศ","cost":6,"atk":6,"hp":9,"keywords":["ราหูจร"],"text_th":"ต้นเทิร์นกลืนการ์ด 1 ใบจากสุสานใดก็ได้ +1/+1; ราหูอมจันทร์: ศัตรูทุกตัว -1 ATK","max_supply":null},{"id":"SD038","name_th":"ควาญช้างศึก","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":5,"atk":5,"hp":7,"keywords":["ทวารบาล","ฮึกเหิม"],"text_th":"ดาเมจเกินจากการฆ่ายูนิตทะลุไปที่ดวงชะตาศัตรู","max_supply":null},{"id":"SD039","name_th":"ปอบเจ้าแม่หมู่บ้าน","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":5,"atk":5,"hp":5,"keywords":["ดูดชีพ","ลิ้มเลือด"],"text_th":"ฆ่ายูนิตได้ ดวงชะตาศัตรู -2; สิ้นใจ: สิงยูนิตศัตรูต้นทุนต่ำสุดมาเป็นของเรา (ยกเว้นผู้ปกครอง/เทพ)","max_supply":null},{"id":"SD040","name_th":"กระสือร้อยปี","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":5,"atk":4,"hp":4,"keywords":["เหาะเหิน","ราหูจร"],"text_th":"ราหูอมจันทร์: +3 ATK และได้ดูดชีพ; ตายทันทีถ้าศัตรูมีกับดักหนามพุทรา","max_supply":null},{"id":"SD041","name_th":"นางไม้ตะเคียน","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":5,"atk":3,"hp":8,"keywords":["ทวารบาล","พิษ 2"],"text_th":"ยูนิตที่โจมตีการ์ดนี้ติดพิษ 2","max_supply":null},{"id":"SD042","name_th":"ยาสังกรณีตรีชวา","rarity_code":"rare","type":"คาถา","element":"น้ำ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตยูนิตใดก็ได้ในสุสานเรา HP เต็ม และล้างสลบ (แก้หอกโมกขศักดิ์ได้)","max_supply":null},{"id":"SD043","name_th":"น้ำมันพราย","rarity_code":"rare","type":"คาถา","element":"ไฟ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"เมตตามหานิยม: ขโมยยูนิตศัตรูต้นทุน ≤5 มาเป็นของเรา (ยกเว้นผู้ปกครองและเทพ)","max_supply":null},{"id":"SD044","name_th":"ทหารดาบสองมือ","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":4,"atk":5,"hp":4,"keywords":["ฮึกเหิม"],"text_th":"โจมตียูนิตที่ต้นทุนต่ำกว่า ได้ 2 ครั้ง","max_supply":null},{"id":"SD045","name_th":"หมอผีปราบวิญญาณ","rarity_code":"rare","type":"ยูนิต","element":"ลม","cost":4,"atk":3,"hp":5,"keywords":["สายสิญจน์"],"text_th":"ปลุกเสก: จับผีศัตรู 1 ตัวใส่หม้อดิน (ส่งวิญญาณ)","max_supply":null},{"id":"SD046","name_th":"ฤๅษีตาไฟ","rarity_code":"rare","type":"ยูนิต","element":"อากาศ","cost":4,"atk":2,"hp":6,"keywords":[],"text_th":"ปลุกเสก เลือก: ชุบชีวิตยูนิตต้นทุน ≤3 หรือ สาปศัตรู 1 ตัวเป็นหิน (สายสิญจน์ 2 เทิร์น)","max_supply":null},{"id":"SD047","name_th":"เสือร้ายคาถาอาคม","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":4,"atk":4,"hp":4,"keywords":["กำบัง","คงกระพัน"],"text_th":"ปลุกเสก: ขโมยของขลัง 1 ชิ้นจากศัตรู","max_supply":null},{"id":"SD048","name_th":"นางวันทอง","rarity_code":"rare","type":"ยูนิต","element":"น้ำ","cost":4,"atk":2,"hp":5,"keywords":["เมตตามหานิยม"],"text_th":"ปลุกเสก: ขุนแผนหรือขุนช้างฝ่ายเรา +3/+3; ถ้ามีทั้งคู่ ศัตรูเป็นผู้เลือก (สองใจ)","max_supply":null},{"id":"SD049","name_th":"พิธีบูชาราหู","rarity_code":"rare","type":"คาถา","element":"อากาศ","cost":4,"atk":null,"hp":null,"keywords":[],"text_th":"เริ่มราหูอมจันทร์ทันที; ผีฝ่ายเราฟื้น HP เต็ม","max_supply":null},{"id":"SD050","name_th":"นักมวยคาดเชือก","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":3,"atk":4,"hp":4,"keywords":["ทวารบาล"],"text_th":"ชกสวน: ถูกโจมตีแล้วตอบโต้ +2 ดาเมจ","max_supply":null},{"id":"SD051","name_th":"หมอยาว่านร้อยแปด","rarity_code":"rare","type":"ยูนิต","element":"น้ำ","cost":3,"atk":1,"hp":5,"keywords":["ฟื้นฟู"],"text_th":"ปลุกเสก: ฟื้น 4 HP และล้างพิษ/คุณไสยทั้งหมดฝ่ายเรา","max_supply":null},{"id":"SD052","name_th":"พรานไพรหน้าไม้อาบยาง","rarity_code":"rare","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["เหาะเหิน","พิษ 1"],"text_th":"ยิงข้ามทวารบาล และใส่พิษ 1","max_supply":null},{"id":"SD053","name_th":"ผีพรายตายโหง","rarity_code":"standard","type":"ยูนิต","element":"น้ำ","cost":4,"atk":4,"hp":3,"keywords":["อมตะ"],"text_th":"เมื่อยูนิตใดตายบนสนาม +1 ATK","max_supply":null},{"id":"SD054","name_th":"คชสีห์","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":4,"atk":4,"hp":5,"keywords":["ทวารบาล"],"text_th":"ผู้ปกครองฝ่ายเรา +1 ATK","max_supply":null},{"id":"SD055","name_th":"ไกรทอง","rarity_code":"standard","type":"ยูนิต","element":"น้ำ","cost":4,"atk":4,"hp":4,"keywords":["ฮึกเหิม"],"text_th":"ทำดาเมจ x2 กับชาละวันและยูนิตจระเข้; สู้ใต้น้ำได้ (ไม่โดนลากลงน้ำ)","max_supply":null},{"id":"SD056","name_th":"พลายงาม","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":4,"atk":4,"hp":4,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ถ้ามีขุนแผนฝ่ายเรา ทั้งคู่ +2 ATK; ไม่ถูกเมตตามหานิยม","max_supply":null},{"id":"SD057","name_th":"ผีตาโขน","rarity_code":"standard","type":"ยูนิต","element":"อากาศ","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ขบวนแห่ เรียกผีตาโขนน้อย 1/1 อีก 2 ตัว; ผีตาโขนทุกตัว +1 ATK","max_supply":null},{"id":"SD058","name_th":"ผีกะ","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":3,"keywords":["ดูดชีพ"],"text_th":"ปลุกเสก: สิงคน — ยูนิตมนุษย์ศัตรู 1 ตัว -2 ATK และติดพิษ 1","max_supply":null},{"id":"SD059","name_th":"ผีตานี","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":5,"keywords":["กำบัง"],"text_th":"ยูนิตเราข้างเคียง +0/+2; สิ้นใจ: ฟื้นดวงชะตา 4","max_supply":null},{"id":"SD060","name_th":"ผีโพง","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":2,"keywords":["เหาะเหิน","ราหูจร"],"text_th":"ราหูอมจันทร์: ได้กำบัง","max_supply":null},{"id":"SD061","name_th":"ผีกระหัง","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["เหาะเหิน"],"text_th":"โจมตีข้ามทวารบาล; ราหูอมจันทร์ +2 ATK","max_supply":null},{"id":"SD062","name_th":"ผีบ้านผีเรือน","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":1,"hp":6,"keywords":["ทวารบาล","ฟื้นฟู"],"text_th":"ยูนิตเราไม่ถูกขโมย; ผีศัตรูโจมตีดวงชะตาเราโดยตรงไม่ได้","max_supply":null},{"id":"SD063","name_th":"กินรี","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":2,"hp":4,"keywords":["เหาะเหิน"],"text_th":"ต้นเทิร์นฟื้น 2 HP ยูนิตเราทุกตัว","max_supply":null},{"id":"SD064","name_th":"ม้าสีหมอก","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"ขุนแผนฝ่ายเราได้ฮึกเหิม","max_supply":null},{"id":"SD065","name_th":"เจ้าเงาะ (สังข์ทอง)","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":4,"keywords":["กำบัง"],"text_th":"ถอดรูป: ครั้งแรกที่ถูกเลือกเป็นเป้า กลายเป็นสังข์ทอง 5/5 คงกระพัน","max_supply":null},{"id":"SD066","name_th":"ปลุกพราย","rarity_code":"standard","type":"คาถา","element":"น้ำ","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตผีต้นทุน ≤4 จากสุสานเรา และ +1 ATK","max_supply":null},{"id":"SD067","name_th":"หม้อดินขังผี","rarity_code":"standard","type":"กับดัก","element":"ดิน","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"เมื่อศัตรูชุบชีวิต: ยกเลิก และส่งวิญญาณ 3 ใบในสุสานศัตรู","max_supply":null},{"id":"SD068","name_th":"น้ำมนต์ทิพย์","rarity_code":"standard","type":"คาถา","element":"น้ำ","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"ล้างพิษ/สายสิญจน์ทั้งหมดฝ่ายเรา และฟื้น 3 HP ทุกตัว","max_supply":null},{"id":"SD069","name_th":"กุมารทอง","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":2,"keywords":["กำบัง"],"text_th":"ปลุกเสก: แอบดูไพ่ในมือศัตรู 1 ใบ; มีขุนแผนฝ่ายเรา +2/+2","max_supply":null},{"id":"SD070","name_th":"ยักษ์ทวารบาล","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":4,"atk":3,"hp":6,"keywords":["ทวารบาล"],"text_th":"รับดาเมจจากคาถา -1","max_supply":null},{"id":"SD071","name_th":"ไมยราพ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":4,"atk":3,"hp":4,"keywords":["กำบัง"],"text_th":"ปลุกเสก: สะกดทัพ — ยูนิตศัตรู 2 ตัวหลับ 1 เทิร์น","max_supply":null},{"id":"SD072","name_th":"ปู่โสมเฝ้าทรัพย์","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":3,"atk":1,"hp":6,"keywords":["ทวารบาล"],"text_th":"ศัตรูที่ฆ่าการ์ดนี้ต้องทิ้งไพ่ 1 ใบ","max_supply":null},{"id":"SD073","name_th":"ผีแม่ม่าย","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ดูดชีพ"],"text_th":"ยูนิตศัตรูที่หลับหรือถูกสายสิญจน์ ถูกการ์ดนี้โจมตีตายทันที","max_supply":null},{"id":"SD074","name_th":"ยักษ์กุมภัณฑ์","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":3,"atk":4,"hp":3,"keywords":["ลิ้มเลือด"],"text_th":"ฆ่ายูนิตได้ +1/+1 ถาวร","max_supply":null},{"id":"SD075","name_th":"นางสำมนักขา","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":3,"keywords":[],"text_th":"ปลุกเสก: ยุแยง — ยูนิตศัตรู 2 ตัวโจมตีกันเอง 1 ครั้ง","max_supply":null},{"id":"SD076","name_th":"วานรสิบแปดมงกุฎ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"มีหนุมานฝ่ายเรา +1/+1","max_supply":null},{"id":"SD077","name_th":"ขุนช้าง","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":5,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: ร่ำรวย — จั่ว 1 ใบ; มีนางวันทองฝ่ายเรา +2/+2","max_supply":null},{"id":"SD078","name_th":"ผีกองกอย","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":2,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ศัตรู 1 ตัว -1 ATK","max_supply":null},{"id":"SD079","name_th":"ผีโขมด","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":2,"keywords":["ราหูจร"],"text_th":"แสงหลอกทาง: ยูนิตศัตรู 1 ตัวโจมตีเป้าสุ่ม","max_supply":null},{"id":"SD080","name_th":"ผีพุ่งไต้","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":3,"hp":1,"keywords":["เหาะเหิน"],"text_th":"สิ้นใจ: 2 ดาเมจแก่ศัตรูสุ่ม 1 ตัว","max_supply":null},{"id":"SD081","name_th":"ผีพรายน้ำ","rarity_code":"common","type":"ยูนิต","element":"น้ำ","cost":2,"atk":2,"hp":3,"keywords":["กำบัง"],"text_th":"ยูนิตไฟที่ถูกโจมตี -1 ATK ถาวร","max_supply":null},{"id":"SD082","name_th":"นาคบริวาร","rarity_code":"common","type":"ยูนิต","element":"น้ำ","cost":2,"atk":2,"hp":3,"keywords":["ดูดชีพ"],"text_th":"มีพญานาคฝ่ายเรา +1/+1","max_supply":null},{"id":"SD083","name_th":"ศรีธนญชัย","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":1,"hp":3,"keywords":["กำบัง"],"text_th":"ปลุกเสก: สลับ ATK/HP ของยูนิตใดก็ได้ 1 ตัว","max_supply":null},{"id":"SD084","name_th":"ตะกรุดโทน","rarity_code":"common","type":"ของขลัง","element":"ดิน","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต: ได้คงกระพัน","max_supply":null},{"id":"SD085","name_th":"ผ้ายันต์","rarity_code":"common","type":"ของขลัง","element":"ไฟ","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต +1/+1 และไม่โดนพิษ/คุณไสย","max_supply":null},{"id":"SD086","name_th":"หนามพุทรา","rarity_code":"common","type":"กับดัก","element":"ดิน","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ผีที่โจมตีถูกทำลายทันทีถ้าต้นทุน ≤4 (กระสือแพ้ทุกระดับ)","max_supply":null},{"id":"SD087","name_th":"ผีปะกำ","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":3,"keywords":[],"text_th":"ช้างฝ่ายเรา +1 ATK","max_supply":null},{"id":"SD088","name_th":"ผีโป่ง","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":1,"hp":3,"keywords":["พิษ 1"],"text_th":"ยูนิตที่โจมตีติดพิษ 1","max_supply":null},{"id":"SD089","name_th":"ผีนางรำ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":2,"hp":2,"keywords":[],"text_th":"ปลุกเสก: ศัตรู 1 ตัว -1 ATK เทิร์นนี้","max_supply":null},{"id":"SD090","name_th":"ชาวบ้านบางระจัน","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":2,"keywords":["ทวารบาล"],"text_th":"มีชาวบ้านบางระจันตัวอื่น +1/+1 (สามัคคี)","max_supply":null},{"id":"SD091","name_th":"นายขนมต้ม","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":3,"hp":2,"keywords":["ฮึกเหิม"],"text_th":"ชนะการต่อสู้ได้ +1 ATK ถาวร","max_supply":null},{"id":"SD092","name_th":"ทหารหน้าไม้","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":2,"hp":1,"keywords":["เหาะเหิน"],"text_th":"ยิงข้ามทวารบาล","max_supply":null},{"id":"SD093","name_th":"สิงห์หิมพานต์","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":3,"keywords":["ทวารบาล"],"text_th":"","max_supply":null},{"id":"SD094","name_th":"เปรตน้อย","rarity_code":"common","type":"ยูนิต","element":"อากาศ","cost":1,"atk":1,"hp":2,"keywords":[],"text_th":"ต้นเทิร์นกลืนการ์ด 1 ใบในสุสานศัตรู +1/+1 (ครั้งเดียว)","max_supply":null},{"id":"SD095","name_th":"แม่ซื้อ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":1,"atk":1,"hp":1,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ยูนิตศัตรูต้นทุน 1 ตัว -1 HP","max_supply":null},{"id":"SD096","name_th":"ผีตาแฮก","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":1,"atk":0,"hp":3,"keywords":["ทวารบาล"],"text_th":"ต้นเทิร์นฟื้นดวงชะตา 1","max_supply":null},{"id":"SD097","name_th":"ไพร่พลดาบ","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":1,"atk":2,"hp":1,"keywords":["ฮึกเหิม"],"text_th":"โจมตีได้ทันที","max_supply":null},{"id":"SD098","name_th":"สายสิญจน์","rarity_code":"common","type":"คาถา","element":"อากาศ","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"สายสิญจน์ยูนิตศัตรู 1 ตัว 1 เทิร์น (ผี 2 เทิร์น)","max_supply":null},{"id":"SD099","name_th":"ใบหนาด","rarity_code":"common","type":"คาถา","element":"ลม","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"2 ดาเมจแก่ผี 1 ตัว; ยูนิตเราไม่ถูกผีเลือกเป็นเป้า 1 เทิร์น","max_supply":null},{"id":"SD100","name_th":"น้ำมนต์","rarity_code":"common","type":"คาถา","element":"น้ำ","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"ฟื้น 3 HP หรือ 2 ดาเมจแก่ผี/อสูร 1 ตัว","max_supply":null}];
 const A = 'game_assets/';
@@ -543,7 +1562,7 @@ const toast=(m,ms=3200)=>{const t=document.getElementById('toast');t.textContent
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
   if(id==='home')renderHome(); if(id==='gacha')renderGacha(true); if(id==='coll')renderColl(); if(id==='room')renderRoom(); if(id==='market')renderMarket(); if(id==='guild')guide('guGuide','guild'); if(id==='login')buildShowcase();}
 document.addEventListener('click',e=>{if(e.target.closest('[data-soon]'))return toast('ระบบกิลด์ต้องเชื่อมเซิร์ฟเวอร์ จะเปิดในเวอร์ชันออนไลน์');const g=e.target.closest('[data-go]'); if(!g)return; const to=g.dataset.go;
-  if(to==='duel') return toast('โหมดดวลกำลังสร้าง จะมาในขั้นถัดไป');
+  if(to==='duel') return openDuelSetup();
   show(to);});
 
 /* ---------- ล็อกอิน / สมัคร ---------- */
@@ -700,16 +1719,14 @@ function reveal(list){const layer=document.getElementById('gLayer'), box=documen
 
 /* ---------- ห้องพักและเด็ค 3 เซ็ต (เก็บในเครื่อง) ---------- */
 const MODES=[['ai','ดวล AI'],['arena','อารีน่า'],['p2p','ดวลเพื่อน P2P'],['guild','ศึกกิลด์'],['team','ทีม 2v2'],['event','กิจกรรม']];
-function deckCheck(ids,team){const n=ids.length, cnt={}; ids.forEach(i=>cnt[i]=(cnt[i]||0)+1);
-  const errs=[]; if(n!==30) errs.push(`ต้องมี 30 ใบ (ตอนนี้ ${n})`);
-  if(Object.values(cnt).some(v=>v>3)) errs.push('การ์ดชื่อเดียวกันเกิน 3 ใบ');
-  const hi=ids.filter(i=>['legend','divine','creator'].includes(BY[i].rarity_code)).length; if(hi>3) errs.push(`ตำนานขึ้นไปเกิน 3 ใบ (${hi})`);
-  if(ids.filter(i=>BY[i].rarity_code==='creator').length>1) errs.push('ผู้สรรสร้างได้ไม่เกิน 1 ใบ'); return errs;}
+function deckCheck(ids,team){return DE.deckErrors(ids);}
 function autoDeck(u){const own={}; u.cards.forEach(c=>own[c.id]=(own[c.id]||0)+1);
   const order=Object.keys(own).sort((a,b)=>TIER_RANK.indexOf(BY[b].rarity_code)-TIER_RANK.indexOf(BY[a].rarity_code)||BY[a].cost-BY[b].cost);
   const out=[]; let hi=0;
   for(const id of order){const isHi=['legend','divine','creator'].includes(BY[id].rarity_code);
-    for(let k=0;k<Math.min(3,own[id]);k++){ if(out.length>=30)break; if(isHi&&hi>=3)break; out.push(id); if(isHi)hi++; }}
+    const lim={common:3,standard:3,rare:2,epic:2,legend:1,divine:1,creator:1}[BY[id].rarity_code], d=DE.D(id), gr=['เทพเจ้า','ผู้ปกครอง'].includes(d.category);
+    if(BY[id].rarity_code==='creator'&&out.some(x=>BY[x].rarity_code==='creator')) continue;
+    for(let k=0;k<Math.min(lim,own[id]);k++){ if(out.length>=30)break; if(isHi&&hi>=3)break; if(gr&&out.filter(x=>['เทพเจ้า','ผู้ปกครอง'].includes(DE.D(x).category)).length>=3)break; out.push(id); if(isHi)hi++; }}
   return out;}
 let curDeck=0, poolFilter={q:'',tier:'',type:''};
 function ownedCount(u){const own={}; u.cards.forEach(c=>own[c.id]=(own[c.id]||0)+1); return own;}
@@ -844,7 +1861,7 @@ function openCbt(){const m=document.getElementById('modal'),b=document.getElemen
   b.innerHTML=`<h3>ช่วงทดสอบปิด (CBT) รอบที่ ${CBT_ROUND}</h3>
    <ul><li>บัญชี โกลด์ แต้มบุญ การ์ด และเด็คทั้งหมดเป็นข้อมูลทดสอบ <b>จะถูกรีเซต${CBT_END}</b></li>
    <li>${ONLINE?'ข้อมูลเก็บบนเซิร์ฟเวอร์ ล็อกอินเครื่องไหนก็เล่นต่อได้':'โหมดออฟไลน์: ข้อมูลเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น'}</li>
-   <li>ช่วงนี้เล่นได้: ตู้สุ่ม คลังการ์ด ห้องพัก (จัดเด็ค) ตลาดกลาง${ONLINE?'ซื้อขายกับผู้เล่นจริง':''} · ระบบดวลและกิลด์ตามมาในรอบถัดไป</li>
+   <li>ช่วงนี้เล่นได้: ตู้สุ่ม คลังการ์ด ห้องพัก (จัดเด็ค) ตลาดกลาง${ONLINE?'ซื้อขายกับผู้เล่นจริง':''} ดวลกับ AI · ดวลกับผู้เล่นและกิลด์ตามมาในรอบถัดไป</li>
    <li>อัตราสุ่ม ค่าพลังการ์ด และภาพ อาจเปลี่ยนระหว่างทดสอบ</li></ul>
    <h4>ช่วยเราพัฒนาเกม</h4><p>แจ้งปัญหาหรือส่งความเห็นผ่าน GitHub (ต้องมีบัญชี GitHub) ระบบจะแนบข้อมูลหน้าจอและเบราว์เซอร์ให้อัตโนมัติ</p>
    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px">
@@ -1058,6 +2075,276 @@ async function onlineMarket(){const u=me(); if(mkLoading) return; mkLoading=true
       Lst.appendChild(d);});
   }
   drawNews(); guide('mGuide','market');}
+
+/* ---------- หน้าดวลกระดานชนวน (ผู้เล่น = 0, AI = 1) ---------- */
+const DUEL_DATA = {"cards":[{"id":"SD001","name_th":"พระอิศวร","tribe":"เทพ","category":"เทพเจ้า","rarity":"ผู้สรรสร้าง","element":"ไฟ","type":"ยูนิต","cost":10,"atk":10,"hp":12,"keywords":["คงกระพัน"],"ability_code":[{"on":"play","do":[{"destroy":{"target":"all_enemy_units","filter":{"cost_lte":6},"purge":true}}]},{"on":"turn_start","do":[{"damage":{"target":"all_enemy_units","amount":2}}]}],"is_ruler":false,"is_deity":true},{"id":"SD002","name_th":"พระนารายณ์","tribe":"เทพ","category":"เทพเจ้า","rarity":"ผู้สรรสร้าง","element":"น้ำ","type":"ยูนิต","cost":10,"atk":9,"hp":12,"keywords":["คงกระพัน","อวตาร"],"ability_code":[{"on":"play","do":[{"summon":{"token":"TK_GARUDA","count":1}}]},{"special":"avatar","uses":2,"buff":{"atk":2,"hp":2},"desc":"ตายแล้วกลับขึ้นช่องเดิม HP เต็ม +2/+2 ใช้ได้ 2 ครั้งต่อเกม แม้ถูกส่งวิญญาณ"}],"is_ruler":false,"is_deity":true},{"id":"SD003","name_th":"พระพรหม","tribe":"เทพ","category":"เทพเจ้า","rarity":"ผู้สรรสร้าง","element":"ดิน","type":"ยูนิต","cost":10,"atk":8,"hp":14,"keywords":[],"ability_code":[{"on":"play","do":[{"revive":{"from":"my_crypt","filter":{"cost_lte":5},"count":"all","hp":"full"}}]},{"aura":{"target":"enemy_player","rule":"reveal_enemy_hand"}}],"is_ruler":false,"is_deity":true},{"id":"SD004","name_th":"PlayCH • วัชระสายฟ้าแยกฟ้า","tribe":"อากาศ","category":"PlayCH","rarity":"ผู้สรรสร้าง","element":"อากาศ","type":"ยูนิต","cost":10,"atk":10,"hp":10,"keywords":[],"ability_code":[{"on":"play","do":[{"damage":{"target":"all_enemy_units","amount":5}},{"damage":{"target":"enemy_player","amount":5}}]}],"is_ruler":false,"is_deity":false},{"id":"SD005","name_th":"PlayCH • ปู่ผู้สร้างเกม ช่างปั้นวิญญาณ","tribe":"อากาศ","category":"PlayCH","rarity":"ผู้สรรสร้าง","element":"อากาศ","type":"ยูนิต","cost":10,"atk":8,"hp":12,"keywords":["คงกระพัน"],"ability_code":[{"on":"play","do":[{"discover":{"pool":{"rarity_gte":"ตำนาน"},"choices":3,"cost_set":0}}]},{"on":"ally_revived","do":[{"buff":{"target":"self","atk":2,"hp":2,"duration":"perm"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD006","name_th":"พระอินทร์","tribe":"เทพ","category":"เทพเจ้า","rarity":"ผู้สรรสร้าง","element":"ลม","type":"ยูนิต","cost":9,"atk":10,"hp":10,"keywords":["เหาะเหิน","ฮึกเหิม"],"ability_code":[{"on":"play","do":[{"damage":{"target":"chosen_enemy_unit","amount":6,"splash_others":2}}]},{"aura":{"target":"other_ally_units","filter":{"name":"ช้างเอราวัณ"},"atk":3,"hp":3}}],"is_ruler":false,"is_deity":true},{"id":"SD007","name_th":"PlayCH • ท้าวจตุรทิศจอยแดง","tribe":"อากาศ","category":"PlayCH","rarity":"ผู้สรรสร้าง","element":"อากาศ","type":"ยูนิต","cost":9,"atk":9,"hp":9,"keywords":["ฮึกเหิม","ลิ้มเลือด"],"ability_code":[{"on":"play","do":[{"choose":{"options":[[{"buff":{"target":"self","atk":3,"hp":0,"duration":"perm"}}],[{"grant":{"target":"self","keywords":["ทวารบาล","คงกระพัน"],"duration":"perm"}}],[{"destroy":{"target":"chosen_enemy_slot_card"}}],[{"grant":{"target":"self","keywords":["โจมตี 2 ครั้ง"],"duration":"perm"}}]],"chooser":"me"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD008","name_th":"PlayCH • ฤๅษีสี่มนตร์จอยคราม","tribe":"อากาศ","category":"PlayCH","rarity":"ผู้สรรสร้าง","element":"อากาศ","type":"ยูนิต","cost":9,"atk":6,"hp":10,"keywords":["คงกระพัน"],"ability_code":[{"on":"turn_start","do":[{"random_of":{"options":[[{"grant":{"target":"all_ally_units","keywords":["ทวารบาล"],"duration":"turn"}}],[{"heal":{"target":"self_player","amount":4}}],[{"disable_attack":{"target":"random_enemy_unit","turns":1}}],[{"damage":{"target":"random_enemy_unit","amount":3}}]]}}]}],"is_ruler":false,"is_deity":false},{"id":"SD009","name_th":"PlayCH • พรานเป้าเล็งมรณะ","tribe":"อากาศ","category":"PlayCH","rarity":"ผู้สรรสร้าง","element":"อากาศ","type":"ยูนิต","cost":8,"atk":8,"hp":6,"keywords":["กำบัง"],"ability_code":[{"special":"lock_on","turns":2,"purge":true,"ignores":["ทวารบาล","คงกระพัน","อมตะ"],"exempt":{"tribe":"เทพ","rarity":"ผู้สรรสร้าง"},"desc":"ยามเช้าเลือกยูนิตศัตรู 1 ตัวเป็นเป้า ถ้าเป้ายังอยู่ครบ 2 ยามเช้า ทำลายและส่งวิญญาณ"}],"is_ruler":false,"is_deity":false},{"id":"SD010","name_th":"PlayCH • ศาลหมื่นวิญญาณ","tribe":"อากาศ","category":"PlayCH","rarity":"ผู้สรรสร้าง","element":"อากาศ","type":"ของขลัง","cost":6,"atk":null,"hp":null,"keywords":[],"ability_code":[{"special":"soul_counter","per":"any_death","threshold":5,"do":[{"revive":{"from":"any_crypt","filter":{"not_category":"เทพเจ้า"},"count":1,"pick":"choose","hp":"full","side":"me"}},{"draw":{"count":2}}],"desc":"ยูนิตใดตาย +1 วิญญาณ ครบ 5 ทำผลแล้วรีเซ็ตเป็น 0"}],"is_ruler":false,"is_deity":false},{"id":"SD011","name_th":"สมเด็จพระเจ้าตากสินมหาราช","tribe":"มนุษย์","category":"ผู้ปกครอง","rarity":"มหากาพย์","element":"ไฟ","type":"ยูนิต","cost":9,"atk":9,"hp":9,"keywords":["ฮึกเหิม"],"ability_code":[{"special":"discard_hand_buff","on":"play","per_card":{"atk":1,"hp":1},"grant":["ฮึกเหิม"],"target":"all_ally_units","desc":"ทิ้งไพ่ในมือทั้งหมด ยูนิตเราทุกตัว +1/+1 ถาวรต่อใบที่ทิ้ง และได้ฮึกเหิม"},{"special":"cost_mod","if":{"self_fate_lte":10},"amount":-4}],"is_ruler":true,"is_deity":false},{"id":"SD012","name_th":"สมเด็จพระนเรศวรมหาราช","tribe":"มนุษย์","category":"ผู้ปกครอง","rarity":"มหากาพย์","element":"ดิน","type":"ยูนิต","cost":9,"atk":9,"hp":8,"keywords":["ฮึกเหิม"],"ability_code":[{"on":"play","do":[{"cleanse":{"target":"all_ally_units"}}]},{"special":"duel","on":"play","target":"enemy_strongest","loser":"purge","winner_buff":{"atk":2,"hp":2},"desc":"ยุทธหัตถี: ปะทะกับเป้าซ้ำจนฝ่ายหนึ่งตาย ฝ่ายตายถูกส่งวิญญาณ ถ้าการ์ดนี้ชนะ +2/+2 ถาวร"}],"is_ruler":true,"is_deity":false},{"id":"SD013","name_th":"ทศกัณฐ์","tribe":"อสูร","category":"อสูร","rarity":"มหากาพย์","element":"ไฟ","type":"ยูนิต","cost":9,"atk":10,"hp":10,"keywords":["อมตะ"],"ability_code":[{"on":"play","do":[{"summon":{"token":"TK_HEARTBOX","count":1,"zone":"slot"}}]},{"special":"heart_box","desc":"ตราบที่กล่องดวงใจของเราอยู่ในช่อง ทศกัณฐ์ตายแล้วกลับขึ้นช่องเดิม HP เต็ม (ส่งวิญญาณก็กันไม่ได้)"}],"is_ruler":false,"is_deity":false},{"id":"SD014","name_th":"พ่อขุนรามคำแหงมหาราช","tribe":"มนุษย์","category":"ผู้ปกครอง","rarity":"มหากาพย์","element":"ดิน","type":"ยูนิต","cost":8,"atk":7,"hp":10,"keywords":["ทวารบาล"],"ability_code":[{"on":"turn_start","do":[{"heal":{"target":"self_player","amount":2}}]},{"special":"spell_shield","per_turn":1,"protects":"all_ally_units","desc":"ยกเลิกคาถาศัตรูที่เลือกยูนิตเราเป็นเป้า 1 ครั้งต่อเทิร์น"}],"is_ruler":true,"is_deity":false},{"id":"SD015","name_th":"ปู่สังกะสา ย่าสังกะสี","tribe":"เทพ","category":"เทพเจ้า","rarity":"พระเจ้า","element":"ดิน","type":"ยูนิต","cost":8,"atk":6,"hp":12,"keywords":[],"ability_code":[{"on":"play","do":[{"summon":{"token":"TK_CLAY2","count":3}}]},{"on":"ally_death","if":{"tribe":"มนุษย์"},"do":[{"summon":{"token":"TK_CLAY1","count":1}}]}],"is_ruler":false,"is_deity":true},{"id":"SD016","name_th":"พระราหู","tribe":"อสูร","category":"เทพเจ้า","rarity":"พระเจ้า","element":"อากาศ","type":"ยูนิต","cost":8,"atk":8,"hp":8,"keywords":["ราหูจร","ดูดชีพ"],"ability_code":[{"on":"play","do":[{"start_rahu":{"rounds":2}}]},{"on":"turn_start","if":{"rahu_active":true},"do":[{"destroy":{"target":"random_enemy_unit","filter":{"cost_lte":4}}}]}],"is_ruler":false,"is_deity":true},{"id":"SD017","name_th":"ท้าวเวสสุวรรณ","tribe":"อสูร","category":"เทพเจ้า","rarity":"พระเจ้า","element":"ดิน","type":"ยูนิต","cost":8,"atk":7,"hp":10,"keywords":["ทวารบาล"],"ability_code":[{"aura":{"target":"all_enemy_units","filter":{"tribe":"ผี"},"atk":-2}},{"on":"enemy_play","if":{"tribe":"ผี"},"do":[{"seal":{"target":"event_unit","turns":1}}]}],"is_ruler":false,"is_deity":true},{"id":"SD018","name_th":"พญาครุฑ","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ตำนาน","element":"ลม","type":"ยูนิต","cost":8,"atk":9,"hp":8,"keywords":["เหาะเหิน","ฮึกเหิม"],"ability_code":[{"special":"damage_mult","vs":{"name_contains":"นาค"},"mult":2},{"on":"play","do":[{"destroy":{"target":"chosen_enemy_unit","filter":{"name_contains":"นาค"}}}]}],"is_ruler":false,"is_deity":false},{"id":"SD019","name_th":"พญาศรีสุทโธนาค","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ตำนาน","element":"น้ำ","type":"ยูนิต","cost":8,"atk":7,"hp":11,"keywords":["ทวารบาล","ดูดชีพ"],"ability_code":[{"on":"play","do":[{"heal":{"target":"self_player","amount":6}}]},{"on":"turn_start","do":[{"summon":{"token":"TK_NAGA","count":1}}]},{"aura":{"target":"all_enemy_units","filter":{"element":"ไฟ"},"atk":-2}}],"is_ruler":false,"is_deity":false},{"id":"SD020","name_th":"แม่นาคพระโขนง","tribe":"ผี","category":"ผี","rarity":"มหากาพย์","element":"น้ำ","type":"ยูนิต","cost":8,"atk":8,"hp":9,"keywords":["อมตะ","ราหูจร","เหาะเหิน"],"ability_code":[{"on":"rahu","do":[{"buff":{"target":"self","atk":4,"hp":4,"duration":"rahu"}},{"buff":{"target":"all_enemy_units","atk":-1,"hp":0,"duration":"rahu"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD021","name_th":"สมเด็จพระศรีสุริโยทัย","tribe":"มนุษย์","category":"ผู้ปกครอง","rarity":"มหากาพย์","element":"ลม","type":"ยูนิต","cost":7,"atk":6,"hp":7,"keywords":["ทวารบาล","คงกระพัน"],"ability_code":[{"special":"protect_ruler","filter":{"category":"ผู้ปกครอง","exclude_self":true},"desc":"การโจมตีที่เล็งผู้ปกครองฝ่ายเราเปลี่ยนมาที่การ์ดนี้"},{"on":"death","do":[{"buff":{"target":"all_ally_units","filter":{"category":"ผู้ปกครอง"},"atk":3,"hp":3,"duration":"perm"}}]}],"is_ruler":true,"is_deity":false},{"id":"SD022","name_th":"พระแม่ธรณี","tribe":"เทพ","category":"เทพเจ้า","rarity":"พระเจ้า","element":"น้ำ","type":"ยูนิต","cost":7,"atk":4,"hp":10,"keywords":["คงกระพัน"],"ability_code":[{"on":"play","do":[{"damage":{"target":"all_enemy_units","filter":{"tribe":["อสูร","ผี"]},"amount":4}}]}],"is_ruler":false,"is_deity":true},{"id":"SD023","name_th":"กุมภกรรณ","tribe":"อสูร","category":"อสูร","rarity":"มหากาพย์","element":"ดิน","type":"ยูนิต","cost":8,"atk":9,"hp":9,"keywords":["ทวารบาล"],"ability_code":[{"aura":{"target":"self","rule":"cannot_attack_turn_played"}},{"special":"stun","on":"play","target":"chosen_enemy_unit","cured_by":"ยาสังกรณีตรีชวา","desc":"หอกโมกขศักดิ์: เป้าโจมตีไม่ได้และไม่มีความสามารถ จนกว่าจะถูก cleanse ด้วยยาสังกรณีตรีชวา"}],"is_ruler":false,"is_deity":false},{"id":"SD024","name_th":"น้ำอมฤต","tribe":"-","category":"คาถา/ของขลัง","rarity":"ตำนาน","element":"อากาศ","type":"คาถา","cost":8,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","once_per_game":true,"do":[{"revive":{"from":"my_crypt","count":3,"pick":"strongest","hp":"full"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD025","name_th":"สมเด็จพระเจ้าอู่ทอง","tribe":"มนุษย์","category":"ผู้ปกครอง","rarity":"มหากาพย์","element":"น้ำ","type":"ยูนิต","cost":7,"atk":6,"hp":8,"keywords":["ทวารบาล"],"ability_code":[{"on":"play","do":[{"summon":{"token":"TK_WALL","count":1,"zone":"slot"}}]}],"is_ruler":true,"is_deity":false},{"id":"SD026","name_th":"ขุนแผนแสนสะท้าน","tribe":"มนุษย์","category":"วรรณคดี","rarity":"มหากาพย์","element":"ไฟ","type":"ยูนิต","cost":7,"atk":7,"hp":7,"keywords":["กำบัง","เมตตามหานิยม"],"ability_code":[{"on":"play","do":[{"summon":{"token":"TK_KUMAN","count":1}}]},{"aura":{"target":"self","if":{"equipped":"ดาบฟ้าฟื้น"},"atk":4,"hp":4}}],"is_ruler":false,"is_deity":false},{"id":"SD027","name_th":"พระอภัยมณี","tribe":"มนุษย์","category":"วรรณคดี","rarity":"มหากาพย์","element":"ลม","type":"ยูนิต","cost":7,"atk":4,"hp":8,"keywords":[],"ability_code":[{"on":"play","do":[{"sleep":{"target":"all_enemy_units","turns":1}},{"sleep":{"target":"all_enemy_units","filter":{"tribe":["ผี","อสูร"]},"turns":2}}]}],"is_ruler":false,"is_deity":false},{"id":"SD028","name_th":"นางผีเสื้อสมุทร","tribe":"อสูร","category":"วรรณคดี","rarity":"มหากาพย์","element":"น้ำ","type":"ยูนิต","cost":7,"atk":8,"hp":8,"keywords":["ราหูจร"],"ability_code":[{"special":"dual_form","toggle":"turn_start","forms":[{"atk":4,"hp":8,"grant":["ดูดชีพ"]},{"atk":8,"hp":8,"grant":["ฮึกเหิม"]}],"desc":"เริ่มเป็นร่างหญิงงาม สลับร่างทุกยามเช้าของเจ้าของ ดาเมจที่ได้รับคงอยู่"}],"is_ruler":false,"is_deity":false},{"id":"SD029","name_th":"ช้างเอราวัณ","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ตำนาน","element":"ลม","type":"ยูนิต","cost":7,"atk":6,"hp":10,"keywords":["ทวารบาล"],"ability_code":[{"aura":{"target":"all_ally_units","rule":"damage_taken_minus_1"}},{"aura":{"target":"self","if":{"ally_name":"พระอินทร์"},"atk":3,"hp":3}}],"is_ruler":false,"is_deity":false},{"id":"SD030","name_th":"ชาละวัน","tribe":"หิมพานต์","category":"วรรณคดี","rarity":"มหากาพย์","element":"น้ำ","type":"ยูนิต","cost":7,"atk":8,"hp":8,"keywords":["ดูดชีพ"],"ability_code":[{"aura":{"target":"other_ally_units","filter":{"element":"น้ำ"},"atk":1,"hp":1}},{"on":"after_hit","if":{"target_hp_lte":3},"do":[{"destroy":{"target":"attack_target"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD031","name_th":"ท้าวสุรนารี (ย่าโม)","tribe":"มนุษย์","category":"ผู้ปกครอง","rarity":"มหากาพย์","element":"ดิน","type":"ยูนิต","cost":6,"atk":6,"hp":6,"keywords":["ฮึกเหิม"],"ability_code":[{"on":"play","do":[{"summon":{"token":"TK_KORAT","count":3}}]}],"is_ruler":true,"is_deity":false},{"id":"SD032","name_th":"พระยาพิชัยดาบหัก","tribe":"มนุษย์","category":"ผู้ปกครอง","rarity":"มหากาพย์","element":"ไฟ","type":"ยูนิต","cost":6,"atk":7,"hp":5,"keywords":["ฮึกเหิม","ลิ้มเลือด"],"ability_code":[{"special":"extra_attack","attacks_per_turn":2},{"aura":{"target":"self","if":{"self_hp_lte":2},"rule":"atk_x2"}}],"is_ruler":true,"is_deity":false},{"id":"SD033","name_th":"ท้าวเทพกระษัตรี และท้าวศรีสุนทร","tribe":"มนุษย์","category":"ผู้ปกครอง","rarity":"มหากาพย์","element":"ลม","type":"ยูนิต","cost":6,"atk":5,"hp":7,"keywords":["ทวารบาล"],"ability_code":[{"on":"play","do":[{"disable_attack":{"target":"all_enemy_units","turns":1}}]}],"is_ruler":true,"is_deity":false},{"id":"SD034","name_th":"หนุมาน","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ตำนาน","element":"ลม","type":"ยูนิต","cost":6,"atk":6,"hp":6,"keywords":["เหาะเหิน","อมตะ"],"ability_code":[{"special":"undying_full","desc":"อมตะแบบพิเศษ: กลับมาด้วย HP เต็มแทน HP 1"},{"on":"play","do":[{"destroy":{"target":"chosen_enemy_slot_card"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD035","name_th":"ไกรสรราชสีห์","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ตำนาน","element":"ไฟ","type":"ยูนิต","cost":6,"atk":7,"hp":6,"keywords":["ฮึกเหิม"],"ability_code":[{"on":"play","do":[{"destroy":{"target":"all_enemy_units","filter":{"cost_lte":2}}}]}],"is_ruler":false,"is_deity":false},{"id":"SD036","name_th":"ดาบฟ้าฟื้น","tribe":"-","category":"คาถา/ของขลัง","rarity":"มหากาพย์","element":"ไฟ","type":"ของขลัง","cost":5,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"equip":{"target":"chosen_ally_unit","atk":4,"hp":0,"rule":"pierce_barrier"}}]},{"aura":{"target":"bearer","if":{"bearer_name":"ขุนแผนแสนสะท้าน"},"atk":4,"hp":4}}],"is_ruler":false,"is_deity":false},{"id":"SD037","name_th":"เปรตยักษ์","tribe":"ผี","category":"ผี","rarity":"หายาก","element":"อากาศ","type":"ยูนิต","cost":6,"atk":6,"hp":9,"keywords":["ราหูจร"],"ability_code":[{"on":"turn_start","do":[{"consume_crypt":{"side":"any","count":1,"then":[{"buff":{"target":"self","atk":1,"hp":1,"duration":"perm"}}]}}]},{"on":"rahu","do":[{"buff":{"target":"all_enemy_units","atk":-1,"hp":0,"duration":"rahu"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD038","name_th":"ควาญช้างศึก","tribe":"มนุษย์","category":"8 อาชีพ","rarity":"หายาก","element":"ดิน","type":"ยูนิต","cost":5,"atk":5,"hp":7,"keywords":["ทวารบาล","ฮึกเหิม"],"ability_code":[{"special":"trample","desc":"ดาเมจเกิน HP ของยูนิตที่ฆ่า ทะลุไปที่ดวงชะตาศัตรู"}],"is_ruler":false,"is_deity":false},{"id":"SD039","name_th":"ปอบเจ้าแม่หมู่บ้าน","tribe":"ผี","category":"ผี","rarity":"หายาก","element":"ไฟ","type":"ยูนิต","cost":5,"atk":5,"hp":5,"keywords":["ดูดชีพ","ลิ้มเลือด"],"ability_code":[{"on":"kill","do":[{"damage":{"target":"enemy_player","amount":2}}]},{"on":"death","do":[{"steal":{"target":"enemy_lowest_cost","filter":{"not_category":["ผู้ปกครอง","เทพเจ้า"]}}}]}],"is_ruler":false,"is_deity":false},{"id":"SD040","name_th":"กระสือร้อยปี","tribe":"ผี","category":"ผี","rarity":"หายาก","element":"ไฟ","type":"ยูนิต","cost":5,"atk":4,"hp":4,"keywords":["เหาะเหิน","ราหูจร"],"ability_code":[{"on":"rahu","do":[{"buff":{"target":"self","atk":3,"hp":0,"duration":"rahu"}},{"grant":{"target":"self","keywords":["ดูดชีพ"],"duration":"rahu"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD041","name_th":"นางไม้ตะเคียน","tribe":"ผี","category":"ผี","rarity":"หายาก","element":"ดิน","type":"ยูนิต","cost":5,"atk":3,"hp":8,"keywords":["ทวารบาล","พิษ 2"],"ability_code":[],"is_ruler":false,"is_deity":false},{"id":"SD042","name_th":"ยาสังกรณีตรีชวา","tribe":"-","category":"คาถา/ของขลัง","rarity":"หายาก","element":"น้ำ","type":"คาถา","cost":5,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"choose":{"options":[[{"revive":{"from":"my_crypt","count":1,"pick":"choose","hp":"full"}}],[{"cleanse":{"target":"chosen_ally_unit"}}]],"chooser":"me"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD043","name_th":"น้ำมันพราย","tribe":"-","category":"คาถา/ของขลัง","rarity":"หายาก","element":"ไฟ","type":"คาถา","cost":5,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"steal":{"target":"chosen_enemy_unit","filter":{"cost_lte":5,"not_category":["ผู้ปกครอง","เทพเจ้า"]}}}]}],"is_ruler":false,"is_deity":false},{"id":"SD044","name_th":"ทหารดาบสองมือ","tribe":"มนุษย์","category":"8 อาชีพ","rarity":"หายาก","element":"ไฟ","type":"ยูนิต","cost":4,"atk":5,"hp":4,"keywords":["ฮึกเหิม"],"ability_code":[{"special":"extra_attack","attacks_per_turn":2,"only_vs":{"cost_lt_self":true}}],"is_ruler":false,"is_deity":false},{"id":"SD045","name_th":"หมอผีปราบวิญญาณ","tribe":"มนุษย์","category":"8 อาชีพ","rarity":"หายาก","element":"ลม","type":"ยูนิต","cost":4,"atk":3,"hp":5,"keywords":["สายสิญจน์"],"ability_code":[{"on":"play","do":[{"destroy":{"target":"chosen_enemy_unit","filter":{"tribe":"ผี"},"purge":true}}]}],"is_ruler":false,"is_deity":false},{"id":"SD046","name_th":"ฤๅษีตาไฟ","tribe":"มนุษย์","category":"8 อาชีพ","rarity":"หายาก","element":"อากาศ","type":"ยูนิต","cost":4,"atk":2,"hp":6,"keywords":[],"ability_code":[{"on":"play","do":[{"choose":{"options":[[{"revive":{"from":"my_crypt","filter":{"cost_lte":3},"count":1,"pick":"choose","hp":"full"}}],[{"seal":{"target":"chosen_enemy_unit","turns":2}},{"disable_attack":{"target":"chosen_enemy_unit","turns":2}}]],"chooser":"me"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD047","name_th":"เสือร้ายคาถาอาคม","tribe":"มนุษย์","category":"8 อาชีพ","rarity":"หายาก","element":"ไฟ","type":"ยูนิต","cost":4,"atk":4,"hp":4,"keywords":["กำบัง","คงกระพัน"],"ability_code":[{"on":"play","do":[{"steal":{"target":"chosen_enemy_slot_card","filter":{"type":"ของขลัง"}}}]}],"is_ruler":false,"is_deity":false},{"id":"SD048","name_th":"นางวันทอง","tribe":"มนุษย์","category":"วรรณคดี","rarity":"หายาก","element":"น้ำ","type":"ยูนิต","cost":4,"atk":2,"hp":5,"keywords":["เมตตามหานิยม"],"ability_code":[{"on":"play","do":[{"buff":{"target":"chosen_ally_unit","filter":{"name":["ขุนแผนแสนสะท้าน","ขุนช้าง"]},"atk":3,"hp":3,"duration":"perm","chooser_if_both":"opponent"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD049","name_th":"พิธีบูชาราหู","tribe":"-","category":"คาถา/ของขลัง","rarity":"หายาก","element":"อากาศ","type":"คาถา","cost":4,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"start_rahu":{"rounds":1}},{"heal":{"target":"all_ally_units","filter":{"tribe":"ผี"},"amount":"full"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD050","name_th":"นักมวยคาดเชือก","tribe":"มนุษย์","category":"8 อาชีพ","rarity":"หายาก","element":"ดิน","type":"ยูนิต","cost":3,"atk":4,"hp":4,"keywords":["ทวารบาล"],"ability_code":[{"on":"attacked","do":[{"damage":{"target":"attacker","amount":2}}]}],"is_ruler":false,"is_deity":false},{"id":"SD051","name_th":"หมอยาว่านร้อยแปด","tribe":"มนุษย์","category":"8 อาชีพ","rarity":"หายาก","element":"น้ำ","type":"ยูนิต","cost":3,"atk":1,"hp":5,"keywords":["ฟื้นฟู"],"ability_code":[{"on":"play","do":[{"heal":{"target":"all_ally_units","amount":4}},{"cleanse":{"target":"all_ally_units"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD052","name_th":"พรานไพรหน้าไม้อาบยาง","tribe":"มนุษย์","category":"8 อาชีพ","rarity":"หายาก","element":"ลม","type":"ยูนิต","cost":3,"atk":3,"hp":3,"keywords":["เหาะเหิน","พิษ 1"],"ability_code":[],"is_ruler":false,"is_deity":false},{"id":"SD053","name_th":"ผีพรายตายโหง","tribe":"ผี","category":"ผี","rarity":"ทั่วไป","element":"น้ำ","type":"ยูนิต","cost":4,"atk":4,"hp":3,"keywords":["อมตะ"],"ability_code":[{"on":"any_death","do":[{"buff":{"target":"self","atk":1,"hp":0,"duration":"perm"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD054","name_th":"คชสีห์","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ทั่วไป","element":"ดิน","type":"ยูนิต","cost":4,"atk":4,"hp":5,"keywords":["ทวารบาล"],"ability_code":[{"aura":{"target":"all_ally_units","filter":{"category":"ผู้ปกครอง"},"atk":1}}],"is_ruler":false,"is_deity":false},{"id":"SD055","name_th":"ไกรทอง","tribe":"มนุษย์","category":"วรรณคดี","rarity":"ทั่วไป","element":"น้ำ","type":"ยูนิต","cost":4,"atk":4,"hp":4,"keywords":["ฮึกเหิม"],"ability_code":[{"special":"damage_mult","vs":{"name":"ชาละวัน"},"mult":2},{"special":"immune_steal","target":"self","also":"ignore_chalawan_drag"}],"is_ruler":false,"is_deity":false},{"id":"SD056","name_th":"พลายงาม","tribe":"มนุษย์","category":"วรรณคดี","rarity":"ทั่วไป","element":"ลม","type":"ยูนิต","cost":4,"atk":4,"hp":4,"keywords":["กำบัง"],"ability_code":[{"on":"play","if":{"ally_name":"ขุนแผนแสนสะท้าน"},"do":[{"buff":{"target":"self","atk":2,"hp":0,"duration":"perm"}},{"buff":{"target":"all_ally_units","filter":{"name":"ขุนแผนแสนสะท้าน"},"atk":2,"hp":0,"duration":"perm"}}]},{"special":"immune_steal","target":"self"}],"is_ruler":false,"is_deity":false},{"id":"SD057","name_th":"ผีตาโขน","tribe":"ผี","category":"ผี","rarity":"ทั่วไป","element":"อากาศ","type":"ยูนิต","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"ability_code":[{"on":"play","do":[{"summon":{"token":"TK_TAKHON","count":2}}]},{"aura":{"target":"all_ally_units","filter":{"name_contains":"ผีตาโขน"},"atk":1}}],"is_ruler":false,"is_deity":false},{"id":"SD058","name_th":"ผีกะ","tribe":"ผี","category":"ผี","rarity":"ทั่วไป","element":"ไฟ","type":"ยูนิต","cost":3,"atk":3,"hp":3,"keywords":["ดูดชีพ"],"ability_code":[{"on":"play","do":[{"buff":{"target":"chosen_enemy_unit","filter":{"tribe":"มนุษย์"},"atk":-2,"hp":0,"duration":"perm"}},{"poison":{"target":"chosen_enemy_unit","amount":1}}]}],"is_ruler":false,"is_deity":false},{"id":"SD059","name_th":"ผีตานี","tribe":"ผี","category":"ผี","rarity":"ทั่วไป","element":"ดิน","type":"ยูนิต","cost":3,"atk":2,"hp":5,"keywords":["กำบัง"],"ability_code":[{"aura":{"target":"adjacent_allies","hp":2}},{"on":"death","do":[{"heal":{"target":"self_player","amount":4}}]}],"is_ruler":false,"is_deity":false},{"id":"SD060","name_th":"ผีโพง","tribe":"ผี","category":"ผี","rarity":"ทั่วไป","element":"ไฟ","type":"ยูนิต","cost":3,"atk":3,"hp":2,"keywords":["เหาะเหิน","ราหูจร"],"ability_code":[{"on":"rahu","do":[{"grant":{"target":"self","keywords":["กำบัง"],"duration":"rahu"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD061","name_th":"ผีกระหัง","tribe":"ผี","category":"ผี","rarity":"ทั่วไป","element":"ลม","type":"ยูนิต","cost":3,"atk":3,"hp":3,"keywords":["เหาะเหิน"],"ability_code":[{"on":"rahu","do":[{"buff":{"target":"self","atk":2,"hp":0,"duration":"rahu"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD062","name_th":"ผีบ้านผีเรือน","tribe":"ผี","category":"ผี","rarity":"ทั่วไป","element":"ดิน","type":"ยูนิต","cost":3,"atk":1,"hp":6,"keywords":["ทวารบาล","ฟื้นฟู"],"ability_code":[{"special":"immune_steal","target":"all_ally_units"},{"special":"ghosts_cannot_hit_player","desc":"ยูนิตผีศัตรูโจมตีดวงชะตาเราโดยตรงไม่ได้"}],"is_ruler":false,"is_deity":false},{"id":"SD063","name_th":"กินรี","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ทั่วไป","element":"ลม","type":"ยูนิต","cost":3,"atk":2,"hp":4,"keywords":["เหาะเหิน"],"ability_code":[{"on":"turn_start","do":[{"heal":{"target":"all_ally_units","amount":2}}]}],"is_ruler":false,"is_deity":false},{"id":"SD064","name_th":"ม้าสีหมอก","tribe":"หิมพานต์","category":"วรรณคดี","rarity":"ทั่วไป","element":"ลม","type":"ยูนิต","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"ability_code":[{"aura":{"target":"all_ally_units","filter":{"name":"ขุนแผนแสนสะท้าน"},"grant":["ฮึกเหิม"]}}],"is_ruler":false,"is_deity":false},{"id":"SD065","name_th":"เจ้าเงาะ (สังข์ทอง)","tribe":"มนุษย์","category":"วรรณคดี","rarity":"ทั่วไป","element":"ดิน","type":"ยูนิต","cost":3,"atk":2,"hp":4,"keywords":["กำบัง"],"ability_code":[{"special":"transform_once","on":"first_targeted","into":"TK_SANGTHONG"}],"is_ruler":false,"is_deity":false},{"id":"SD066","name_th":"ปลุกพราย","tribe":"-","category":"คาถา/ของขลัง","rarity":"ทั่วไป","element":"น้ำ","type":"คาถา","cost":3,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"revive":{"from":"my_crypt","filter":{"tribe":"ผี","cost_lte":4},"count":1,"pick":"choose","hp":"full","then":[{"buff":{"target":"event_unit","atk":1,"hp":0,"duration":"perm"}}]}}]}],"is_ruler":false,"is_deity":false},{"id":"SD067","name_th":"หม้อดินขังผี","tribe":"-","category":"คาถา/ของขลัง","rarity":"ทั่วไป","element":"ดิน","type":"กับดัก","cost":3,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"enemy_revive","do":[{"counter":{}},{"purge_crypt":{"side":"enemy","count":3}}]}],"is_ruler":false,"is_deity":false},{"id":"SD068","name_th":"น้ำมนต์ทิพย์","tribe":"-","category":"คาถา/ของขลัง","rarity":"ทั่วไป","element":"น้ำ","type":"คาถา","cost":3,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"cleanse":{"target":"all_ally_units"}},{"heal":{"target":"all_ally_units","amount":3}}]}],"is_ruler":false,"is_deity":false},{"id":"SD069","name_th":"กุมารทอง","tribe":"ผี","category":"วรรณคดี","rarity":"ทั่วไป","element":"ไฟ","type":"ยูนิต","cost":2,"atk":2,"hp":2,"keywords":["กำบัง"],"ability_code":[{"on":"play","do":[{"reveal_hand":{"count":1}}]},{"aura":{"target":"self","if":{"ally_name":"ขุนแผนแสนสะท้าน"},"atk":2,"hp":2}}],"is_ruler":false,"is_deity":false},{"id":"SD070","name_th":"ยักษ์ทวารบาล","tribe":"อสูร","category":"อสูร","rarity":"ธรรมดา","element":"ดิน","type":"ยูนิต","cost":4,"atk":3,"hp":6,"keywords":["ทวารบาล"],"ability_code":[{"aura":{"target":"self","rule":"spell_damage_taken_minus_1"}}],"is_ruler":false,"is_deity":false},{"id":"SD071","name_th":"ไมยราพ","tribe":"อสูร","category":"อสูร","rarity":"ธรรมดา","element":"ลม","type":"ยูนิต","cost":4,"atk":3,"hp":4,"keywords":["กำบัง"],"ability_code":[{"on":"play","do":[{"sleep":{"target":"chosen_enemy_units","count":2,"turns":1}}]}],"is_ruler":false,"is_deity":false},{"id":"SD072","name_th":"ปู่โสมเฝ้าทรัพย์","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ดิน","type":"ยูนิต","cost":3,"atk":1,"hp":6,"keywords":["ทวารบาล"],"ability_code":[{"on":"death","if":{"killed_by_enemy":true},"do":[{"discard":{"side":"enemy","count":1,"random":true}}]}],"is_ruler":false,"is_deity":false},{"id":"SD073","name_th":"ผีแม่ม่าย","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ลม","type":"ยูนิต","cost":3,"atk":3,"hp":3,"keywords":["ดูดชีพ"],"ability_code":[{"on":"attack","if":{"target_status":["asleep","sealed"]},"do":[{"destroy":{"target":"attack_target"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD074","name_th":"ยักษ์กุมภัณฑ์","tribe":"อสูร","category":"อสูร","rarity":"ธรรมดา","element":"ไฟ","type":"ยูนิต","cost":3,"atk":4,"hp":3,"keywords":["ลิ้มเลือด"],"ability_code":[],"is_ruler":false,"is_deity":false},{"id":"SD075","name_th":"นางสำมนักขา","tribe":"อสูร","category":"อสูร","rarity":"ธรรมดา","element":"ไฟ","type":"ยูนิต","cost":3,"atk":3,"hp":3,"keywords":[],"ability_code":[{"on":"play","do":[{"fight":{"target":"chosen_enemy_units","count":2}}]}],"is_ruler":false,"is_deity":false},{"id":"SD076","name_th":"วานรสิบแปดมงกุฎ","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ธรรมดา","element":"ลม","type":"ยูนิต","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"ability_code":[{"aura":{"target":"self","if":{"ally_name":"หนุมาน"},"atk":1,"hp":1}}],"is_ruler":false,"is_deity":false},{"id":"SD077","name_th":"ขุนช้าง","tribe":"มนุษย์","category":"วรรณคดี","rarity":"ธรรมดา","element":"ดิน","type":"ยูนิต","cost":3,"atk":2,"hp":5,"keywords":["ทวารบาล"],"ability_code":[{"on":"play","do":[{"draw":{"count":1}}]},{"aura":{"target":"self","if":{"ally_name":"นางวันทอง"},"atk":2,"hp":2}}],"is_ruler":false,"is_deity":false},{"id":"SD078","name_th":"ผีกองกอย","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ดิน","type":"ยูนิต","cost":2,"atk":2,"hp":2,"keywords":["กำบัง"],"ability_code":[{"on":"play","do":[{"buff":{"target":"chosen_enemy_unit","atk":-1,"hp":0,"duration":"perm"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD079","name_th":"ผีโขมด","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ไฟ","type":"ยูนิต","cost":2,"atk":2,"hp":2,"keywords":["ราหูจร"],"ability_code":[{"special":"misdirect","on":"play","target":"chosen_enemy_unit","desc":"การโจมตีครั้งถัดไปของเป้า เปลี่ยนเป้าแบบสุ่ม (รวมพวกเดียวกันได้ ยกเว้นตัวเอง)"}],"is_ruler":false,"is_deity":false},{"id":"SD080","name_th":"ผีพุ่งไต้","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ไฟ","type":"ยูนิต","cost":2,"atk":3,"hp":1,"keywords":["เหาะเหิน"],"ability_code":[{"on":"death","do":[{"damage":{"target":"random_enemy_unit","amount":2}}]}],"is_ruler":false,"is_deity":false},{"id":"SD081","name_th":"ผีพรายน้ำ","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"น้ำ","type":"ยูนิต","cost":2,"atk":2,"hp":3,"keywords":["กำบัง"],"ability_code":[{"on":"after_hit","if":{"target_element":"ไฟ"},"do":[{"buff":{"target":"attack_target","atk":-1,"hp":0,"duration":"perm"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD082","name_th":"นาคบริวาร","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ธรรมดา","element":"น้ำ","type":"ยูนิต","cost":2,"atk":2,"hp":3,"keywords":["ดูดชีพ"],"ability_code":[{"aura":{"target":"self","if":{"ally_name":"พญาศรีสุทโธนาค"},"atk":1,"hp":1}}],"is_ruler":false,"is_deity":false},{"id":"SD083","name_th":"ศรีธนญชัย","tribe":"มนุษย์","category":"วรรณคดี","rarity":"ธรรมดา","element":"ลม","type":"ยูนิต","cost":2,"atk":1,"hp":3,"keywords":["กำบัง"],"ability_code":[{"on":"play","do":[{"swap_stats":{"target":"chosen_unit"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD084","name_th":"ตะกรุดโทน","tribe":"-","category":"คาถา/ของขลัง","rarity":"ธรรมดา","element":"ดิน","type":"ของขลัง","cost":2,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"equip":{"target":"chosen_ally_unit","atk":0,"hp":0,"grant":["คงกระพัน"]}}]}],"is_ruler":false,"is_deity":false},{"id":"SD085","name_th":"ผ้ายันต์","tribe":"-","category":"คาถา/ของขลัง","rarity":"ธรรมดา","element":"ไฟ","type":"ของขลัง","cost":2,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"equip":{"target":"chosen_ally_unit","atk":1,"hp":1,"rule":"immune_poison"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD086","name_th":"หนามพุทรา","tribe":"-","category":"คาถา/ของขลัง","rarity":"ธรรมดา","element":"ดิน","type":"กับดัก","cost":2,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"enemy_attack","if":{"attacker_tribe":"ผี","attacker_cost_lte":4,"or_attacker_name":"กระสือร้อยปี"},"do":[{"counter":{}},{"destroy":{"target":"attacker"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD087","name_th":"ผีปะกำ","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ดิน","type":"ยูนิต","cost":2,"atk":2,"hp":3,"keywords":[],"ability_code":[{"aura":{"target":"all_ally_units","filter":{"name_contains":"ช้าง"},"atk":1}}],"is_ruler":false,"is_deity":false},{"id":"SD088","name_th":"ผีโป่ง","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ดิน","type":"ยูนิต","cost":2,"atk":1,"hp":3,"keywords":["พิษ 1"],"ability_code":[],"is_ruler":false,"is_deity":false},{"id":"SD089","name_th":"ผีนางรำ","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ลม","type":"ยูนิต","cost":2,"atk":2,"hp":2,"keywords":[],"ability_code":[{"on":"play","do":[{"buff":{"target":"chosen_enemy_unit","atk":-1,"hp":0,"duration":"turn"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD090","name_th":"ชาวบ้านบางระจัน","tribe":"มนุษย์","category":"มนุษย์","rarity":"ธรรมดา","element":"ดิน","type":"ยูนิต","cost":2,"atk":2,"hp":2,"keywords":["ทวารบาล"],"ability_code":[{"aura":{"target":"self","if":{"ally_name":"ชาวบ้านบางระจัน","exclude_self":true},"atk":1,"hp":1}}],"is_ruler":false,"is_deity":false},{"id":"SD091","name_th":"นายขนมต้ม","tribe":"มนุษย์","category":"มนุษย์","rarity":"ธรรมดา","element":"ไฟ","type":"ยูนิต","cost":2,"atk":3,"hp":2,"keywords":["ฮึกเหิม"],"ability_code":[{"on":"kill","do":[{"buff":{"target":"self","atk":1,"hp":0,"duration":"perm"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD092","name_th":"ทหารหน้าไม้","tribe":"มนุษย์","category":"มนุษย์","rarity":"ธรรมดา","element":"ลม","type":"ยูนิต","cost":2,"atk":2,"hp":1,"keywords":["เหาะเหิน"],"ability_code":[],"is_ruler":false,"is_deity":false},{"id":"SD093","name_th":"สิงห์หิมพานต์","tribe":"หิมพานต์","category":"สัตว์หิมพานต์","rarity":"ธรรมดา","element":"ไฟ","type":"ยูนิต","cost":2,"atk":2,"hp":3,"keywords":["ทวารบาล"],"ability_code":[],"is_ruler":false,"is_deity":false},{"id":"SD094","name_th":"เปรตน้อย","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"อากาศ","type":"ยูนิต","cost":1,"atk":1,"hp":2,"keywords":[],"ability_code":[{"on":"turn_start","once":true,"do":[{"consume_crypt":{"side":"enemy","count":1,"then":[{"buff":{"target":"self","atk":1,"hp":1,"duration":"perm"}}]}}]}],"is_ruler":false,"is_deity":false},{"id":"SD095","name_th":"แม่ซื้อ","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ลม","type":"ยูนิต","cost":1,"atk":1,"hp":1,"keywords":["กำบัง"],"ability_code":[{"on":"play","do":[{"damage":{"target":"chosen_enemy_unit","filter":{"cost_eq":1},"amount":1}}]}],"is_ruler":false,"is_deity":false},{"id":"SD096","name_th":"ผีตาแฮก","tribe":"ผี","category":"ผี","rarity":"ธรรมดา","element":"ดิน","type":"ยูนิต","cost":1,"atk":0,"hp":3,"keywords":["ทวารบาล"],"ability_code":[{"on":"turn_start","do":[{"heal":{"target":"self_player","amount":1}}]}],"is_ruler":false,"is_deity":false},{"id":"SD097","name_th":"ไพร่พลดาบ","tribe":"มนุษย์","category":"มนุษย์","rarity":"ธรรมดา","element":"ไฟ","type":"ยูนิต","cost":1,"atk":2,"hp":1,"keywords":["ฮึกเหิม"],"ability_code":[],"is_ruler":false,"is_deity":false},{"id":"SD098","name_th":"สายสิญจน์","tribe":"-","category":"คาถา/ของขลัง","rarity":"ธรรมดา","element":"อากาศ","type":"คาถา","cost":1,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"seal":{"target":"chosen_enemy_unit","turns":1,"turns_if_ghost":2}}]}],"is_ruler":false,"is_deity":false},{"id":"SD099","name_th":"ใบหนาด","tribe":"-","category":"คาถา/ของขลัง","rarity":"ธรรมดา","element":"ลม","type":"คาถา","cost":1,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"damage":{"target":"chosen_enemy_unit","filter":{"tribe":"ผี"},"amount":2}},{"grant":{"target":"all_ally_units","keywords":["untargetable_by_ghosts"],"duration":"turn"}}]}],"is_ruler":false,"is_deity":false},{"id":"SD100","name_th":"น้ำมนต์","tribe":"-","category":"คาถา/ของขลัง","rarity":"ธรรมดา","element":"น้ำ","type":"คาถา","cost":1,"atk":null,"hp":null,"keywords":[],"ability_code":[{"on":"play","do":[{"choose":{"options":[[{"heal":{"target":"chosen_ally_unit","amount":3}}],[{"damage":{"target":"chosen_enemy_unit","filter":{"tribe":["ผี","อสูร"]},"amount":2}}]],"chooser":"me"}}]}],"is_ruler":false,"is_deity":false}],"tokens":[{"id":"TK_GARUDA","name_th":"ครุฑพาหนะ","tribe":"หิมพานต์","element":"ลม","atk":5,"hp":5,"keywords":["เหาะเหิน"]},{"id":"TK_CLAY2","name_th":"มนุษย์ดินปั้น","tribe":"มนุษย์","element":"ดิน","atk":2,"hp":2,"keywords":[]},{"id":"TK_CLAY1","name_th":"มนุษย์ดินปั้นน้อย","tribe":"มนุษย์","element":"ดิน","atk":1,"hp":1,"keywords":[]},{"id":"TK_NAGA","name_th":"นาคบริวาร (โทเคน)","tribe":"หิมพานต์","element":"น้ำ","atk":2,"hp":2,"keywords":[]},{"id":"TK_HEARTBOX","name_th":"กล่องดวงใจทศกัณฐ์","type":"ของขลัง","hp":6,"keywords":[],"note":"อยู่ในช่องกับดัก/ของขลัง ศัตรูเลือกโจมตีได้เหมือนยูนิต (ATK 0) ทำลายได้ด้วยดาเมจหรือเอฟเฟกต์ destroy"},{"id":"TK_WALL","name_th":"กำแพงเมือง","type":"ของขลัง","keywords":[],"aura":{"target":"all_ally_units","hp":2}},{"id":"TK_KORAT","name_th":"ชาวโคราช","tribe":"มนุษย์","element":"ดิน","atk":2,"hp":1,"keywords":["ฮึกเหิม"]},{"id":"TK_KUMAN","name_th":"กุมารทอง (โทเคน)","tribe":"ผี","element":"ไฟ","atk":2,"hp":2,"keywords":["กำบัง"]},{"id":"TK_TAKHON","name_th":"ผีตาโขนน้อย","tribe":"ผี","element":"อากาศ","atk":1,"hp":1,"keywords":[]},{"id":"TK_SANGTHONG","name_th":"พระสังข์ทอง","tribe":"มนุษย์","element":"ดิน","atk":5,"hp":5,"keywords":["คงกระพัน"]},{"id":"TK_COIN","name_th":"เบี้ยหอยเสี่ยงทาย","type":"คาถา","cost":0,"ability_code":[{"on":"play","do":[{"gain_akhom":{"amount":1}}]}]}]};
+const DE = SiamEngine.create(DUEL_DATA), DAI = SiamAI.create(DE);
+DUEL_DATA.tokens.forEach(t => { if (!BY[t.id]) BY[t.id] = { id: t.id, name_th: t.name_th, rarity_code: 'common', type: t.type || 'ยูนิต', element: t.element || 'อากาศ', tribe: t.tribe || '',
+  cost: t.cost || 0, atk: t.atk ?? null, hp: t.hp ?? null, keywords: t.keywords || [], text_th: t.note || (t.id === 'TK_COIN' ? 'ได้อาคม +1 เทิร์นนี้' : 'โทเคน: ตายแล้วหายไป ไม่ลงสุสาน') }; });
+const SLOT_X = [9.4, 26.2, 42.8, 59.4, 76.0], TRAP_X = [35.4, 54.9];
+const AI_LV = { easy: 'ง่าย', normal: 'ปกติ', hard: 'ยาก' };
+const KW_SHORT = { 'ทวารบาล': 'ทวาร', 'กำบัง': 'กำบัง', 'คงกระพัน': 'คงกระพัน', 'อมตะ': 'อมตะ', 'เหาะเหิน': 'เหาะ', 'ฮึกเหิม': 'ฮึก', 'ดูดชีพ': 'ดูดชีพ', 'ลิ้มเลือด': 'ลิ้มเลือด', 'ฟื้นฟู': 'ฟื้นฟู' };
+let DS = null, DSET = { deck: 'starter:ayutthaya', level: 'normal' }, dSel = null, dBusy = false, dLogOpen = false;
+
+function duelDecks() {
+  const u = me(), out = [];
+  (u && u.decks || []).forEach((d, i) => { const errs = DE.deckErrors(d.cards); out.push({ key: 'my:' + i, name: d.name, sub: errs.length ? errs[0] : `เด็คของคุณ · ${d.cards.length} ใบ`, ok: !errs.length, ids: d.cards }); });
+  Object.entries(SiamAI.DECKS).forEach(([k, d]) => out.push({ key: 'starter:' + k, name: d.name, sub: 'เด็คสำเร็จรูป (ยืมเล่น)', ok: true, ids: d.ids }));
+  return out;
+}
+function openDuelSetup() {
+  const m = document.getElementById('modal'), b = document.getElementById('modalBox'); m.classList.remove('ev');
+  const decks = duelDecks(); if (!decks.some(d => d.key === DSET.deck && d.ok)) DSET.deck = (decks.find(d => d.ok && d.key.startsWith('my:')) || decks.find(d => d.ok)).key;
+  const draw = () => {
+    b.innerHTML = `<div class="dsetup"><h3>ดวลกับหมอผีเฒ่า (AI)</h3>
+      <h4>เลือกเด็ค</h4><div class="opts">${decks.map(d => `<button class="opt ${d.key === DSET.deck ? 'on' : ''}" data-deck="${d.key}" ${d.ok ? '' : 'disabled'}>${d.name}<small>${d.sub}</small></button>`).join('')}</div>
+      <h4>ระดับฝีมือ</h4><div class="opts">${Object.entries(AI_LV).map(([k, t]) => `<button class="opt ${k === DSET.level ? 'on' : ''}" data-lv="${k}">${t}<small>${k === 'easy' ? 'เหมาะกับการหัดเล่น' : k === 'normal' ? 'เล่นตามสถานการณ์' : 'คิดล่วงหน้า 1 เทิร์น'}</small></button>`).join('')}</div>
+      <p style="font-size:13px;color:var(--muted)">เด็คที่จะใช้ได้ต้องครบ 30 ใบและผ่านกติกาจัดเด็ค ถ้าการ์ดยังไม่พอ เลือกเด็คสำเร็จรูปไปก่อนได้ · ช่วง CBT การดวลกับ AI ยังไม่มีรางวัล</p>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:12px"><button class="btn ghost" id="dsX">ยกเลิก</button><button class="btn" id="dsGo">เริ่มดวล</button></div></div>`;
+    b.querySelectorAll('[data-deck]').forEach(x => x.onclick = () => { DSET.deck = x.dataset.deck; draw(); });
+    b.querySelectorAll('[data-lv]').forEach(x => x.onclick = () => { DSET.level = x.dataset.lv; draw(); });
+    b.querySelector('#dsX').onclick = () => m.classList.remove('on');
+    b.querySelector('#dsGo').onclick = () => { m.classList.remove('on'); startDuel(decks.find(d => d.key === DSET.deck).ids); };
+  };
+  draw(); m.classList.add('on');
+}
+function startDuel(myIds) {
+  const keys = Object.keys(SiamAI.DECKS), aiKey = keys[Math.floor(Math.random() * keys.length)];
+  const u = me();
+  DS = { st: DE.newGame({ seed: (Math.random() * 2 ** 32) >>> 0, names: [u.name || 'ผู้เล่น', 'หมอผีเฒ่า'], decks: [myIds, SiamAI.DECKS[aiKey].ids] }), level: DSET.level, aiDeck: SiamAI.DECKS[aiKey].name, mull: new Set() };
+  dSel = null; dBusy = false;
+  DE.apply(DS.st, { t: 'mulligan', pid: 1, uids: DAI.mulliganPick(DS.st, 1) });
+  show('duel'); document.getElementById('dOver').classList.remove('on');
+  renderDuel(); showMulligan();
+}
+function showMulligan() {
+  const m = document.getElementById('modal'), b = document.getElementById('modalBox'), P = DS.st.players[0];
+  const first = DS.st.cur === 0;
+  const draw = () => {
+    b.innerHTML = `<h3>เปลี่ยนไพ่เริ่มเกม</h3><p>${first ? 'คุณได้เริ่มก่อน' : 'คู่ดวลเริ่มก่อน คุณได้ <b>เบี้ยหอยเสี่ยงทาย</b> (อาคม +1 หนึ่งครั้ง)'} · แตะการ์ดที่ไม่อยากได้เพื่อเปลี่ยน ทำได้ครั้งเดียว</p><div class="mull" id="mullBox"></div>
+      <div style="display:flex;justify-content:flex-end"><button class="btn" id="mOkM">${DS.mull.size ? `เปลี่ยน ${DS.mull.size} ใบแล้วเริ่ม` : 'เก็บทั้งหมด เริ่มดวล'}</button></div>`;
+    const box = b.querySelector('#mullBox');
+    P.hand.forEach(c => { const el = handCardEl(c, { w: Math.min(130, (innerWidth - 80) / 5) }); if (DS.mull.has(c.uid)) el.classList.add('x');
+      el.onclick = () => { if (c.id === 'TK_COIN') return; DS.mull.has(c.uid) ? DS.mull.delete(c.uid) : DS.mull.add(c.uid); draw(); }; box.appendChild(el); });
+    b.querySelector('#mOkM').onclick = () => { m.classList.remove('on'); DE.apply(DS.st, { t: 'mulligan', pid: 0, uids: [...DS.mull] }); afterAction(); };
+  };
+  draw(); m.classList.add('on');
+}
+function handCardEl(c, opt) {
+  const base = BY[c.id], cost = DS && c.uid ? DE.costOf(DS.st, 0, c) : base.cost;
+  const w = document.createElement('div'); w.className = 'hcard';
+  w.appendChild(cardEl(Object.assign({}, base, { cost }), { w: opt.w }));
+  if (opt.w >= 90) { const z = document.createElement('button'); z.className = 'zz'; z.type = 'button'; z.textContent = '⌕'; z.title = 'ดูขยาย'; z.onclick = e => { e.stopPropagation(); zoomCard({ id: c.id, at: 3 }); }; w.appendChild(z); }
+  longPress(w, () => zoomCard({ id: c.id, at: 3 }));
+  return w;
+}
+function longPress(el, fn) { let t = null, fired = false;
+  el.addEventListener('pointerdown', () => { fired = false; clearTimeout(t); t = setTimeout(() => { fired = true; fn(); }, 520); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(k => el.addEventListener(k, () => clearTimeout(t)));
+  el.addEventListener('click', e => { if (fired) { e.stopImmediatePropagation(); e.preventDefault(); fired = false; } }, true);
+  el.addEventListener('contextmenu', e => { e.preventDefault(); fn(); }); }
+function dCurNeed() { if (!dSel || dSel.kind !== 'play') return null; return DE.need(DS.st, 0, dSel.card, dSel.slot, dSel.picks); }
+function prompt(text) { const p = document.getElementById('dPrompt'); if (!text) { p.classList.remove('on'); return; }
+  p.innerHTML = `<span>${text}</span><button id="dpX">ยกเลิก</button>`; p.classList.add('on'); p.querySelector('#dpX').onclick = () => { dSel = null; renderDuel(); }; }
+
+function renderDuel() {
+  const st = DS.st, B = document.getElementById('dBoard');
+  B.innerHTML = `<div class="dmoon ${DE.rahuActive(st) ? 'on' : ''}"></div><div class="dturn"><span>เทิร์น ${TH(st.turn)}</span><span>${DE.rahuActive(st) ? '🌘 ราหูอมจันทร์' : ''}</span></div>`;
+  const L = DE.legal(st, 0), ready = new Set(L.attacks.map(a => a.unit));
+  const need = dCurNeed();
+  // เป้าที่เลือกได้ตอนนี้
+  let tgtUnits = new Set(), tgtPlayer = false, tgtSlots = new Set(), canSlots = new Set();
+  if (dSel && dSel.kind === 'atk') { const a = L.attacks.find(x => x.unit === dSel.unit); if (a) a.targets.forEach(t => { if (t.uid) tgtUnits.add(t.uid); if (t.player != null) tgtPlayer = true; if (t.slot) tgtSlots.add(t.slot); }); }
+  if (dSel && dSel.kind === 'play') {
+    const d = DE.D(st.players[0].hand.find(c => c.uid === dSel.card).id);
+    if (d.type === 'ยูนิต' && dSel.slot == null) st.players[0].units.forEach((u, i) => { if (!u) canSlots.add(i); });
+    else if (need && (need.kind === 'unit' || need.kind === 'units')) need.options.forEach(x => tgtUnits.add(x));
+    else if (need && need.kind === 'slotcard') need.options.forEach(x => tgtSlots.add(x));
+  }
+  for (const side of [1, 0]) {
+    const P = st.players[side], top = side === 1 ? 24.9 : 60.0, ttop = side === 1 ? 12.8 : 77.5;
+    P.units.forEach((u, i) => {
+      const s = document.createElement('div'); s.className = 'dslot u'; s.style.left = SLOT_X[i] + '%'; s.style.top = top + '%'; s.dataset.side = side; s.dataset.i = i;
+      if (side === 0 && canSlots.has(i)) { s.classList.add('can'); s.onclick = () => { dSel.slot = i; continuePlay(); }; }
+      if (u) {
+        const el = unitEl(u, side === 0 && ready.has(u.uid)); s.appendChild(el);
+        if (tgtUnits.has(u.uid)) { s.classList.add('tgt'); el.onclick = e => { e.stopPropagation(); pickTarget(u.uid); }; }
+        else el.onclick = () => clickUnit(u);
+      }
+      B.appendChild(s);
+    });
+    P.slots.forEach((c, i) => {
+      const s = document.createElement('div'); s.className = 'dslot t'; s.style.left = TRAP_X[i] + '%'; s.style.top = ttop + '%';
+      if (c) { const t = document.createElement('div'); t.className = 'dtrap';
+        const showFace = !c.facedown || side === 0;
+        if (showFace) { t.classList.add('up'); const ce = cardEl(BY[c.id], { w: 60 }); if (c.facedown) ce.style.filter = 'brightness(.6)'; t.appendChild(ce);
+          if (c.id === 'TK_HEARTBOX') t.insertAdjacentHTML('beforeend', `<small>HP ${Math.max(0, (DE.D(c.id).hp || 6) - c.dmg)}</small>`);
+          else if (c.facedown) t.insertAdjacentHTML('beforeend', '<small>คว่ำอยู่</small>');
+          else if (c.souls != null && DE.specials(DE.D(c.id), 'soul_counter').length) t.insertAdjacentHTML('beforeend', `<small>วิญญาณ ${c.souls}/5</small>`); }
+        s.appendChild(t);
+        if (tgtSlots.has(c.uid)) { s.classList.add('tgt'); t.onclick = () => dSel.kind === 'atk' ? doAttack({ slot: c.uid }) : pickTarget(c.uid); }
+        else t.onclick = () => { if (showFace) zoomCard({ id: c.id, at: 4 }); else toast('กับดักคว่ำของศัตรู ทำงานเองเมื่อเงื่อนไขเกิด'); };
+      }
+      B.appendChild(s);
+    });
+  }
+  renderPBox(1, tgtPlayer); renderPBox(0, false); renderHand(L); renderLog(); renderMid(L);
+  if (dSel && dSel.kind === 'atk') prompt('เลือกเป้าที่จะโจมตี');
+  else if (dSel && dSel.kind === 'play') { const d = DE.D(st.players[0].hand.find(c => c.uid === dSel.card).id);
+    prompt(d.type === 'ยูนิต' && dSel.slot == null ? `เลือกช่องวาง ${d.name_th}` : need ? need.label || 'เลือกเป้าหมาย' : ''); }
+  else prompt('');
+}
+function unitEl(u, ready) {
+  const st = DS.st, el = document.createElement('div'); el.className = 'dunit' + (ready ? ' ready' : '') + (dSel && dSel.unit === u.uid ? ' sel' : '');
+  el.dataset.uid = u.uid;
+  if (u.status.sleep > 0 || u.status.stun || u.status.noatk > 0) el.classList.add('sleep');
+  el.appendChild(cardEl(BY[u.id], { w: 90 }));
+  const a = DE.atkOf(st, u), h = DE.hpOf(st, u), d = DE.D(u.id);
+  const st2 = document.createElement('div'); st2.className = 'dstat';
+  st2.innerHTML = `<b class="a ${a > (d.atk || 0) ? 'up' : a < (d.atk || 0) ? 'down' : ''}">${a}</b><b class="h ${u.dmg > 0 ? 'down' : h > (d.hp || 0) ? 'up' : ''}">${h}</b>`;
+  el.appendChild(st2);
+  const kws = DE.kwOf(st, u).filter((k, i, arr) => arr.indexOf(k) === i).map(k => (k === 'กำบัง' && u.shroudOff) ? null : (KW_SHORT[k] || (/^พิษ/.test(k) ? k : null))).filter(Boolean);
+  const bad = []; if (u.status.sleep > 0) bad.push('หลับ'); if (DE.sealed(u)) bad.push(u.status.stun ? 'ต้องหอก' : 'สายสิญจน์'); if (u.status.poison) bad.push('ติดพิษ'); if (u.status.noatk > 0) bad.push('ห้ามตี');
+  if (kws.length || bad.length) { const k = document.createElement('div'); k.className = 'dkw'; k.innerHTML = kws.slice(0, 3).map(x => `<i>${x}</i>`).join('') + bad.map(x => `<i class="bad">${x}</i>`).join(''); el.appendChild(k); }
+  return el;
+}
+function renderPBox(side, tgt) {
+  const st = DS.st, P = st.players[side], box = document.getElementById(side ? 'dOpp' : 'dMe');
+  box.className = 'pbox' + (st.cur === side && st.phase === 'main' ? ' cur' : '') + (tgt ? ' tgt' : '');
+  const res = `<span class="res">${Array.from({ length: Math.max(P.akhomMax, P.akhom) }, (_, i) => `<i class="${i < P.akhom ? 'on' : ''}"></i>`).join('')}&nbsp;${Array.from({ length: 3 }, (_, i) => `<u class="${i < P.barami ? 'on' : ''}"></u>`).join('')}</span>`;
+  box.innerHTML = `<div class="pic"></div><div class="nm">${P.name}${side ? ` · ${AI_LV[DS.level]}` : ''}</div><div class="fate">${P.fate}<small>ดวงชะตา</small></div>${res}
+    <div class="meta"><span>เด็ค ${P.deck.length}</span>${side ? `<span class="backs">${P.hand.map(() => '<span></span>').join('')}</span>` : ''}<button data-crypt="${side}">สุสาน ${P.crypt.length}</button>${side === 0 ? '<button class="logbtn" data-log="1">บันทึก</button>' : ''}</div>`;
+  box.querySelector('.pic').appendChild(side ? charImg('npc_shaman', 'bust', 'หมอผีเฒ่า') : charImg(me().gender, 'bust_talk_right', P.name));
+  box.querySelector('[data-crypt]').onclick = e => { e.stopPropagation(); showCrypt(side); };
+  const lb = box.querySelector('[data-log]'); if (lb) lb.onclick = e => { e.stopPropagation(); dLogOpen = !dLogOpen; document.getElementById('dLog').classList.toggle('on', dLogOpen); };
+  box.onclick = tgt ? () => doAttack({ player: 1 }) : null;
+}
+function renderHand(L) {
+  const st = DS.st, P = st.players[0], H = document.getElementById('dHand');
+  const mobile = matchMedia('(max-width:900px),(orientation:portrait)').matches;
+  H.innerHTML = `<div class="ttl">ไพ่ในมือ <small>${P.hand.length} / 5 · แตะการ์ดเพื่อลง</small></div><div class="hgrid"></div>`;
+  const g = H.querySelector('.hgrid'), playable = new Set(L.plays);
+  const hh = H.getBoundingClientRect().height; const w = mobile ? Math.max(50, Math.min(96, (hh - 28) / 1.5)) : 118;
+  P.hand.forEach(c => {
+    const el = handCardEl(c, { w }); const can = playable.has(c.uid) && st.cur === 0 && !dBusy;
+    el.classList.add(can ? 'play' : 'dim'); if (dSel && dSel.card === c.uid) el.classList.add('sel');
+    el.onclick = () => {
+      if (st.cur !== 0 || dBusy) return toast('รอเทิร์นของคุณ');
+      if (!can) { const d = DE.D(c.id); const why = !DE.canPay(st, 0, c) ? (d.type === 'ยูนิต' ? 'อาคมไม่พอ' : 'อาคมและบารมีไม่พอ') : d.type === 'ยูนิต' ? 'สนามเต็ม' : 'ไม่มีเป้าหมายหรือช่องว่างที่ใช้ได้'; return toast(why); }
+      if (dSel && dSel.card === c.uid) { dSel = null; return renderDuel(); }
+      dSel = { kind: 'play', card: c.uid, slot: null, picks: [] };
+      const d = DE.D(c.id); if (d.type !== 'ยูนิต') continuePlay(); else renderDuel();
+    };
+    g.appendChild(el);
+  });
+}
+function renderMid(L) {
+  const st = DS.st, M = document.getElementById('dMid'), mine = st.cur === 0 && !st.over;
+  const anyMove = L.plays.length || L.attacks.length;
+  M.innerHTML = `<button class="btn" id="dEnd" ${mine && !dBusy ? '' : 'disabled'}>${mine ? (anyMove ? 'จบเทิร์น' : 'จบเทิร์น ✓') : 'เทิร์นคู่ดวล…'}</button>
+    <div class="info">ลงการ์ด: แตะการ์ดในมือ แล้วแตะช่องหรือเป้า<br>โจมตี: แตะยูนิตที่<b>เรืองเขียว</b> แล้วแตะเป้า<br>ดูการ์ด: แตะยูนิตบนกระดาน · กดค้างหรือคลิกขวาที่การ์ดในมือ<br>อาคม ◆ ใช้ลงการ์ด · บารมี ● เก็บอาคมที่เหลือไว้ใช้กับคาถา/กับดัก/ของขลัง</div>
+    <button class="btn ghost" id="dQuit" style="height:38px">ยอมแพ้</button>`;
+  M.querySelector('#dEnd').onclick = () => { if (st.cur !== 0 || dBusy) return; dSel = null; DE.apply(st, { t: 'end', pid: 0 }); afterAction(); };
+  M.querySelector('#dQuit').onclick = () => { if (!confirmQuit()) return; };
+}
+function confirmQuit() {
+  const m = document.getElementById('modal'), b = document.getElementById('modalBox');
+  b.innerHTML = `<h3>ยอมแพ้?</h3><p>การดวลนี้จะนับเป็นแพ้</p><div style="display:flex;justify-content:flex-end;gap:10px"><button class="btn ghost" id="qN">เล่นต่อ</button><button class="btn" id="qY">ยอมแพ้</button></div>`;
+  m.classList.add('on'); b.querySelector('#qN').onclick = () => m.classList.remove('on');
+  b.querySelector('#qY').onclick = () => { m.classList.remove('on'); DE.apply(DS.st, { t: 'concede', pid: 0 }); afterAction(); };
+}
+function renderLog() { const g = document.getElementById('dLog'); g.innerHTML = DS.st.log.slice(-80).map(l => `<div class="${l.kind}">${l.text}</div>`).join(''); g.scrollTop = g.scrollHeight; }
+function showCrypt(side) {
+  const P = DS.st.players[side], m = document.getElementById('modal'), b = document.getElementById('modalBox');
+  b.innerHTML = `<h3>สุสานของ${side ? 'คู่ดวล' : 'เรา'} (${P.crypt.length})</h3><div class="mull" id="cr"></div>${P.purged.length ? `<h4>เขตส่งวิญญาณ (${P.purged.length})</h4><div class="mull" id="pg"></div>` : ''}<div style="display:flex;justify-content:flex-end"><button class="btn" id="crX">ปิด</button></div>`;
+  const put = (id, list) => { const box = b.querySelector(id); if (!box) return; if (!list.length) box.innerHTML = '<p style="color:var(--muted)">ว่าง</p>'; list.forEach(c => { const e = handCardEl({ id: c.id }, { w: 96 }); e.onclick = () => zoomCard({ id: c.id, at: 5 }); box.appendChild(e); }); };
+  put('#cr', P.crypt.slice().reverse()); put('#pg', P.purged.slice().reverse());
+  m.classList.add('on'); b.querySelector('#crX').onclick = () => m.classList.remove('on');
+}
+function clickUnit(u) {
+  const st = DS.st;
+  if (u.owner === 0 && st.cur === 0 && !dBusy && !(dSel && dSel.kind === 'play')) {
+    const why = DE.canAttack(st, u);
+    if (!why) { dSel = dSel && dSel.unit === u.uid ? null : { kind: 'atk', unit: u.uid }; return renderDuel(); }
+    if (dSel) { dSel = null; renderDuel(); }
+    toast(why); return;
+  }
+  zoomCard({ id: u.id, at: 6 });
+}
+function pickTarget(id) {
+  if (!dSel) return;
+  if (dSel.kind === 'atk') return doAttack({ uid: id });
+  const n = dCurNeed(); if (!n) return;
+  if (n.kind === 'units') { dSel.multi = (dSel.multi || []).concat([id]); if (dSel.multi.length < Math.min(n.count, n.options.length)) { toast(`เลือกอีก ${Math.min(n.count, n.options.length) - dSel.multi.length} ตัว`); return; } dSel.picks.push(dSel.multi); dSel.multi = null; }
+  else dSel.picks.push(id);
+  continuePlay();
+}
+function continuePlay() {
+  const st = DS.st; const n = dCurNeed();
+  if (!n || !n.options.length) {
+    const a = { t: 'play', pid: 0, card: dSel.card, slot: dSel.slot, picks: dSel.picks }; const r = DE.apply(st, a);
+    dSel = null; if (!r.ok) toast(r.err); return afterAction();
+  }
+  if (n.kind === 'option' || n.kind === 'crypt' || n.kind === 'discover') return choiceModal(n);
+  renderDuel();
+}
+function choiceModal(n) {
+  const m = document.getElementById('modal'), b = document.getElementById('modalBox');
+  b.innerHTML = `<h3>${n.label}</h3><div class="pickrow" id="pk"></div><div style="display:flex;justify-content:flex-end"><button class="btn ghost" id="pkX">ยกเลิก</button></div>`;
+  const box = b.querySelector('#pk');
+  if (n.kind === 'option') n.options.forEach(i => { const bt = document.createElement('button'); bt.className = 'opt'; bt.textContent = n.labels[i]; bt.onclick = () => { m.classList.remove('on'); dSel.picks.push(i); continuePlay(); }; box.appendChild(bt); });
+  else n.options.forEach(o => { const id = n.kind === 'crypt' ? o.id : o, val = n.kind === 'crypt' ? o.idx : o; const e = handCardEl({ id }, { w: 120 }); e.onclick = () => { m.classList.remove('on'); dSel.picks.push(val); continuePlay(); }; box.appendChild(e); });
+  b.querySelector('#pkX').onclick = () => { m.classList.remove('on'); dSel = null; renderDuel(); };
+  m.classList.add('on');
+}
+function doAttack(target) {
+  const st = DS.st, a = { t: 'attack', pid: 0, unit: dSel.unit, target }; dSel = null;
+  lunge(a.unit, 0, () => { const r = DE.apply(st, a); if (!r.ok) toast(r.err); afterAction(); });
+}
+function lunge(uid, side, cb) { const el = document.querySelector(`#dBoard .dunit[data-uid="${uid}"]`); if (!el) return cb(); el.classList.add('lunge'); if (side === 1) el.classList.add('down'); setTimeout(cb, 300); }
+function slotIndexMap() { const m = {}; DS.st.players.forEach((P, side) => P.units.forEach((u, i) => { if (u) m[u.uid] = { side, i }; })); return m; }
+let dPrevMap = {};
+function afterAction() {
+  const st = DS.st, fxs = st.fx || [], prev = dPrevMap;
+  renderDuel(); dPrevMap = slotIndexMap();
+  for (const f of fxs) {
+    if (f.k === 'dmg' || f.k === 'heal' || f.k === 'block') {
+      const host = f.player != null ? document.getElementById(f.player ? 'dOpp' : 'dMe') : document.querySelector(`#dBoard .dunit[data-uid="${f.uid}"]`) || (prev[f.uid] && document.querySelector(`#dBoard .dslot.u[data-side="${prev[f.uid].side}"][data-i="${prev[f.uid].i}"]`));
+      if (!host) continue; const s = document.createElement('span'); s.className = 'float ' + (f.k === 'dmg' ? 'dmg' : f.k === 'heal' ? 'heal' : 'blk');
+      s.textContent = f.k === 'dmg' ? '-' + f.n : f.k === 'heal' ? (f.n ? '+' + f.n : '✓') : 'กันได้'; host.appendChild(s); setTimeout(() => s.remove(), 1200);
+      if (f.k === 'dmg') { host.classList.remove('hit'); void host.offsetWidth; host.classList.add('hit'); }
+    }
+    if (f.k === 'die') { const p = prev[f.uid]; if (!p) continue; const s = document.querySelector(`#dBoard .dslot.u[data-side="${p.side}"][data-i="${p.i}"]`); if (!s) continue;
+      const d = document.createElement('div'); d.className = 'poof' + (f.purge ? ' purge' : ''); d.textContent = f.purge ? 'ส่งวิญญาณ' : 'ตาย'; s.appendChild(d); setTimeout(() => d.remove(), 950); }
+  }
+  if (st.over) return duelOver();
+  if (st.phase === 'main' && st.cur === 1) { if (!dBusy) { dBusy = true; renderDuel(); banner('เทิร์นคู่ดวล'); setTimeout(aiStep, 900); } }
+}
+function banner(t) { const b = document.getElementById('dBanner'); b.textContent = t; b.classList.add('on'); clearTimeout(b._t); b._t = setTimeout(() => b.classList.remove('on'), 1100); }
+function aiStep() {
+  const st = DS.st;
+  if (!document.getElementById('duel').classList.contains('on') || st.over) { dBusy = false; return; }
+  if (st.cur !== 1) { dBusy = false; renderDuel(); banner('เทิร์นของคุณ'); return; }
+  const a = DAI.decide(st, 1, DS.level);
+  const go = () => { const r = DE.apply(st, a); if (!r.ok) DE.apply(st, { t: 'end', pid: 1 }); afterAction(); if (st.over) { dBusy = false; return; }
+    if (st.cur === 1) setTimeout(aiStep, 700); else { dBusy = false; renderDuel(); banner('เทิร์นของคุณ'); } };
+  if (a.t === 'attack') lunge(a.unit, 1, go); else go();
+}
+function duelOver() {
+  const st = DS.st, o = document.getElementById('dOver'), w = st.over.winner;
+  dBusy = false; prompt('');
+  const title = w === 0 ? 'ชนะ!' : w === 1 ? 'พ่ายแพ้' : 'เสมอ';
+  const why = st.over.reason === 'concede' ? 'ยอมแพ้' : st.over.reason === 'turns' ? `ครบ ${TH(40)} เทิร์น ตัดสินด้วยดวงชะตา` : 'ดวงชะตาของฝ่ายหนึ่งหมดลง';
+  const line = w === 0 ? `"ฝีมือไม่เลวเลย ${st.players[0].name} เอ๋ย มาดวลกับข้าอีกเมื่อไรก็ได้"` : w === 1 ? '"ยังอ่อนนัก กลับไปจัดเด็คแล้วมาใหม่"' : '"ฝีมือสูสีนัก"';
+  o.innerHTML = `<h2>${title}</h2><p>${why} · ${TH(st.turn)} เทิร์น<br>${line}</p><p style="font-size:13px;color:var(--muted)">คู่ดวลใช้เด็ค ${DS.aiDeck} · ระดับ${AI_LV[DS.level]}</p>
+    <div class="row"><button class="btn" id="oAgain">ดวลอีกครั้ง</button><button class="btn ghost" id="oSet">เปลี่ยนเด็ค/ระดับ</button><button class="btn ghost" id="oHome">กลับหน้าแรก</button></div>`;
+  o.classList.add('on');
+  o.querySelector('#oAgain').onclick = () => { o.classList.remove('on'); startDuel(duelDecks().find(d => d.key === DSET.deck).ids); };
+  o.querySelector('#oSet').onclick = () => { o.classList.remove('on'); openDuelSetup(); };
+  o.querySelector('#oHome').onclick = () => { o.classList.remove('on'); show('home'); };
+}
+addEventListener('resize', () => { if (DS && document.getElementById('duel').classList.contains('on')) renderDuel(); });
+
 
 /* เริ่ม */
 (function boot(){const imgs=['ui_art_web/lobby_bg.webp','ui_art_web/gacha_bg.webp','ui_art_web/room_bg.webp',A+'ui/thumb/card_back.webp']; let n=0;
