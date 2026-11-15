@@ -304,7 +304,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
   <div class="showcase" id="showcase"></div>
   <form class="loginbox" id="loginForm" novalidate>
     <h2 id="loginTitle" style="margin:0;font-size:22px;color:var(--gold2)">เข้าสู่ระบบ</h2>
-    <div class="field"><label for="u">ชื่อผู้ใช้</label><input id="u" autocomplete="username" required></div>
+    <div class="field"><label for="u">ชื่อผู้ใช้</label><input id="u" autocomplete="username" required placeholder="a-z 0-9 _ (3–20 ตัว)" autocapitalize="none" spellcheck="false"></div>
     <div class="field"><label for="p">รหัสผ่าน</label><input id="p" type="password" autocomplete="current-password" required></div>
     <div class="err" id="loginErr" role="alert"></div>
     <button class="btn" type="submit" id="loginBtn">เข้าเล่น</button>
@@ -395,7 +395,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
   <div class="guide" id="cGuide" style="position:fixed"></div>
 </section>
 <section id="market" class="screen" aria-label="ตลาดกลาง">
-  <div class="topbar"><button class="btn ghost" style="height:36px" data-go="home">← กลับ</button><span class="who" style="margin-left:8px">ตลาดกลาง</span><span class="chip" style="color:#FFE7A0;border-color:#8E1B1B">จำลอง · CBT</span><span class="spacer"></span>
+  <div class="topbar"><button class="btn ghost" style="height:36px" data-go="home">← กลับ</button><span class="who" style="margin-left:8px">ตลาดกลาง</span><span class="chip" style="color:#FFE7A0;border-color:#8E1B1B" id="mkChip">จำลอง · CBT</span><span class="spacer"></span>
     <span class="chip"><img alt="โกลด์" src="ui_art_web/cur_gold.webp"><i id="mGold"></i></span></div>
   <div class="mk">
     <div class="col"><div class="tpanel" id="mkMain"></div></div>
@@ -409,7 +409,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 <div class="toast" id="toast" role="status"></div>
 
 <div id="admin" aria-label="หลังบ้านจำลอง">
-  <div style="display:flex;justify-content:space-between;align-items:center"><h4>หลังบ้านจำลอง (ทดสอบ)</h4><button id="aX" aria-label="ปิดแผง" style="width:32px;height:32px;margin:0">×</button></div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><h4>หลังบ้าน (แอดมิน)</h4><button id="aX" aria-label="ปิดแผง" style="width:32px;height:32px;margin:0">×</button></div>
   <label>การ์ดผู้สรรสร้างของรอบ</label><select id="aCard"></select>
   <label>ชื่อรอบ / เทศกาล</label><input id="aName" value="เทศกาลลอยกระทง">
   <button id="aOpen">เปิดตู้ Event</button><button id="aClose">ปิดตู้ Event</button>
@@ -417,6 +417,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
   <button id="aGold">+100,000 โกลด์</button><button id="aReset">ล้างข้อมูลทดสอบทั้งหมด</button>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 const CARDS = [{"id":"SD001","name_th":"พระอิศวร","rarity_code":"creator","type":"ยูนิต","element":"ไฟ","cost":10,"atk":10,"hp":12,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: ร่ายรำศิวนาฏราช ทำลายยูนิตศัตรูทุกตัวที่ต้นทุน ≤6 แล้วส่งวิญญาณ; ต้นเทิร์น 2 ดาเมจไฟแก่ศัตรูทุกตัว","max_supply":1},{"id":"SD002","name_th":"พระนารายณ์","rarity_code":"creator","type":"ยูนิต","element":"น้ำ","cost":10,"atk":9,"hp":12,"keywords":["คงกระพัน","อวตาร"],"text_th":"อวตาร: ตายแล้วกลับมาในร่างใหม่ HP เต็ม +2/+2 (ได้ 2 ครั้งต่อเกม); ปลุกเสก: เรียกครุฑพาหนะ 5/5 เหาะเหิน","max_supply":1},{"id":"SD003","name_th":"พระพรหม","rarity_code":"creator","type":"ยูนิต","element":"ดิน","cost":10,"atk":8,"hp":14,"keywords":[],"text_th":"ปลุกเสก: ชุบชีวิตยูนิตเราทั้งหมดในสุสานที่ต้นทุน ≤5 HP เต็ม; สี่พักตร์: เห็นไพ่ในมือศัตรูตลอดเกม","max_supply":1},{"id":"SD004","name_th":"PlayCH • วัชระสายฟ้าแยกฟ้า","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":10,"atk":10,"hp":10,"keywords":[],"text_th":"ปลุกเสก: 5 ดาเมจแก่ศัตรูทุกตัว และ 5 ดาเมจที่ดวงชะตาศัตรู","max_supply":1},{"id":"SD005","name_th":"PlayCH • ปู่ผู้สร้างเกม ช่างปั้นวิญญาณ","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":10,"atk":8,"hp":12,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: เลือก 1 ใน 3 การ์ดสุ่มระดับ Legendary+ ใส่มือ ต้นทุน 0; ทุกครั้งที่ชุบชีวิต การ์ดนี้ +2/+2","max_supply":1},{"id":"SD006","name_th":"พระอินทร์","rarity_code":"creator","type":"ยูนิต","element":"ลม","cost":9,"atk":10,"hp":10,"keywords":["เหาะเหิน","ฮึกเหิม"],"text_th":"ปลุกเสก: วัชระสายฟ้า 6 ดาเมจแก่เป้าหมาย 1 ตัว และ 2 ดาเมจแก่ศัตรูที่เหลือ; ช้างเอราวัณฝ่ายเรา +3/+3","max_supply":1},{"id":"SD007","name_th":"PlayCH • ท้าวจตุรทิศจอยแดง","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":9,"atk":9,"hp":9,"keywords":["ฮึกเหิม","ลิ้มเลือด"],"text_th":"ปลุกเสก D-Pad เลือก 1 ใน 4 ทิศ: ↑ +3 ATK / ↓ ทวารบาล+คงกระพัน / ← ทำลายของขลังหรือกับดักศัตรู / → โจมตีได้ 2 ครั้ง","max_supply":1},{"id":"SD008","name_th":"PlayCH • ฤๅษีสี่มนตร์จอยคราม","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":9,"atk":6,"hp":10,"keywords":["คงกระพัน"],"text_th":"ต้นเทิร์นได้มนตร์สุ่ม 1 ใน 4: ดิน ให้ทวารบาลยูนิตเรา / น้ำ ฟื้น 4 / ลม ศัตรู 1 ตัวโจมตีไม่ได้ / ไฟ 3 ดาเมจ","max_supply":1},{"id":"SD009","name_th":"PlayCH • พรานเป้าเล็งมรณะ","rarity_code":"creator","type":"ยูนิต","element":"อากาศ","cost":8,"atk":8,"hp":6,"keywords":["กำบัง"],"text_th":"ทุกเทิร์นเล็งเป้า 1 ตัว ครบ 2 เทิร์นทำลายและส่งวิญญาณ (ไม่สนทวารบาล/คงกระพัน/อมตะ) — ยกเว้นเทพเจ้า Super Limited","max_supply":1},{"id":"SD010","name_th":"PlayCH • ศาลหมื่นวิญญาณ","rarity_code":"creator","type":"ของขลัง","element":"อากาศ","cost":6,"atk":null,"hp":null,"keywords":[],"text_th":"ยูนิตใดตาย = 1 วิญญาณผู้ติดตาม; ครบ 5: ชุบชีวิตยูนิตใดก็ได้จากสุสานทั้งสองฝ่าย (ยกเว้นเทพเจ้า) มาเป็นของเรา และจั่ว 2","max_supply":1},{"id":"SD011","name_th":"สมเด็จพระเจ้าตากสินมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":9,"atk":9,"hp":9,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ทุบหม้อข้าว — ทิ้งไพ่ในมือทั้งหมด ยูนิตเราทุกตัว +1/+1 ต่อใบที่ทิ้ง และได้ฮึกเหิม; ดวงชะตาเรา ≤10 ต้นทุน -4","max_supply":null},{"id":"SD012","name_th":"สมเด็จพระนเรศวรมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":9,"atk":9,"hp":8,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ยุทธหัตถี — ดวลกับยูนิตศัตรูที่แรงที่สุด 1 ตัว ผู้แพ้ถูกส่งวิญญาณ ชนะได้ +2/+2 ถาวร; ล้างสายสิญจน์/คุณไสยบนยูนิตเรา","max_supply":null},{"id":"SD013","name_th":"ทศกัณฐ์","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":9,"atk":10,"hp":10,"keywords":["อมตะ"],"text_th":"ถอดดวงใจ: ปลุกเสก วางกล่องดวงใจ 0/6 ในช่องกับดัก — ตราบที่กล่องยังอยู่ ทศกัณฐ์ตายแล้วฟื้น HP เต็ม","max_supply":null},{"id":"SD014","name_th":"พ่อขุนรามคำแหงมหาราช","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":8,"atk":7,"hp":10,"keywords":["ทวารบาล"],"text_th":"ต้นเทิร์น: ในน้ำมีปลา ในนามีข้าว — ฟื้นดวงชะตา 2; ระฆังหน้าประตู: ยกเลิกคาถาเป้าหมายที่ใส่ยูนิตเรา 1 ครั้งต่อเทิร์น","max_supply":null},{"id":"SD015","name_th":"ปู่สังกะสา ย่าสังกะสี","rarity_code":"divine","type":"ยูนิต","element":"ดิน","cost":8,"atk":6,"hp":12,"keywords":[],"text_th":"ปลุกเสก: ปั้นดินเป็นคน — เรียกมนุษย์ดินปั้น 2/2 สามตัว; เมื่อยูนิตมนุษย์เราตาย ปั้นมนุษย์ดินปั้น 1/1 แทน","max_supply":3},{"id":"SD016","name_th":"พระราหู","rarity_code":"divine","type":"ยูนิต","element":"อากาศ","cost":8,"atk":8,"hp":8,"keywords":["ราหูจร","ดูดชีพ"],"text_th":"ปลุกเสก: เริ่มราหูอมจันทร์ทันที 2 เทิร์น; ระหว่างนั้นกลืนยูนิตศัตรูต้นทุน ≤4 เทิร์นละ 1 ตัว","max_supply":3},{"id":"SD017","name_th":"ท้าวเวสสุวรรณ","rarity_code":"divine","type":"ยูนิต","element":"ดิน","cost":8,"atk":7,"hp":10,"keywords":["ทวารบาล"],"text_th":"ผีฝ่ายศัตรูทุกตัว -2 ATK; ผีที่ศัตรูลงใหม่ถูกสายสิญจน์ 1 เทิร์น","max_supply":3},{"id":"SD018","name_th":"พญาครุฑ","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":8,"atk":9,"hp":8,"keywords":["เหาะเหิน","ฮึกเหิม"],"text_th":"ทำดาเมจ x2 กับนาค; ปลุกเสก: ทำลายยูนิตนาคศัตรู 1 ตัว","max_supply":null},{"id":"SD019","name_th":"พญาศรีสุทโธนาค","rarity_code":"legend","type":"ยูนิต","element":"น้ำ","cost":8,"atk":7,"hp":11,"keywords":["ทวารบาล","ดูดชีพ"],"text_th":"ปลุกเสก: ฟื้นดวงชะตา 6; ต้นเทิร์นเรียกนาคบริวาร 2/2; ยูนิตไฟศัตรู -2 ATK","max_supply":null},{"id":"SD020","name_th":"แม่นาคพระโขนง","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":8,"atk":8,"hp":9,"keywords":["อมตะ","ราหูจร","เหาะเหิน"],"text_th":"ยืดแขนได้ไกล โจมตีข้ามทวารบาล; ราหูอมจันทร์: +4/+4 และศัตรูทุกตัว -1 ATK","max_supply":null},{"id":"SD021","name_th":"สมเด็จพระศรีสุริโยทัย","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":7,"atk":6,"hp":7,"keywords":["ทวารบาล","คงกระพัน"],"text_th":"รับการโจมตีแทนผู้ปกครองฝ่ายเรา; สิ้นใจ: ผู้ปกครองฝ่ายเราทุกตัว +3/+3 ถาวร","max_supply":null},{"id":"SD022","name_th":"พระแม่ธรณี","rarity_code":"divine","type":"ยูนิต","element":"น้ำ","cost":7,"atk":4,"hp":10,"keywords":["คงกระพัน"],"text_th":"ปลุกเสก: บีบมวยผม — สายน้ำกวาดอสูรและผีฝ่ายศัตรูทุกตัว 4 ดาเมจ","max_supply":3},{"id":"SD023","name_th":"กุมภกรรณ","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":8,"atk":9,"hp":9,"keywords":["ทวารบาล"],"text_th":"ไม่โจมตีในเทิร์นที่ลง (หลับ); ปลุกเสก: หอกโมกขศักดิ์ — ยูนิตศัตรู 1 ตัวสลบจนกว่าจะได้ยาสังกรณีตรีชวา","max_supply":null},{"id":"SD024","name_th":"น้ำอมฤต","rarity_code":"legend","type":"คาถา","element":"อากาศ","cost":8,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตยูนิต 3 ตัวที่แรงที่สุดในสุสานเรา HP เต็ม; ใช้ได้ 1 ครั้งต่อเกม","max_supply":null},{"id":"SD025","name_th":"สมเด็จพระเจ้าอู่ทอง","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":6,"hp":8,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: สถาปนากรุง — สร้างของขลังกำแพงเมือง ยูนิตเราทุกตัว +0/+2","max_supply":null},{"id":"SD026","name_th":"ขุนแผนแสนสะท้าน","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":7,"atk":7,"hp":7,"keywords":["กำบัง","เมตตามหานิยม"],"text_th":"ปลุกเสก: เรียกกุมารทอง 2/2 กำบัง; ถือดาบฟ้าฟื้นได้ +4/+4 เพิ่ม; ม้าสีหมอกให้ฮึกเหิม","max_supply":null},{"id":"SD027","name_th":"พระอภัยมณี","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":7,"atk":4,"hp":8,"keywords":[],"text_th":"ปลุกเสก: เป่าปี่ — ศัตรูทุกตัวหลับ (โจมตีไม่ได้) 1 เทิร์น ผีและอสูรหลับ 2 เทิร์น","max_supply":null},{"id":"SD028","name_th":"นางผีเสื้อสมุทร","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":8,"hp":8,"keywords":["ราหูจร"],"text_th":"แปลงกาย: สลับร่างทุกเทิร์น หญิงงาม (4/8 ดูดชีพ) กับยักษ์ (8/8 ฮึกเหิม)","max_supply":null},{"id":"SD029","name_th":"ช้างเอราวัณ","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":7,"atk":6,"hp":10,"keywords":["ทวารบาล"],"text_th":"ยูนิตเราทุกตัวรับดาเมจ -1; ถ้ามีพระอินทร์ ได้ +3/+3","max_supply":null},{"id":"SD030","name_th":"ชาละวัน","rarity_code":"epic","type":"ยูนิต","element":"น้ำ","cost":7,"atk":8,"hp":8,"keywords":["ดูดชีพ"],"text_th":"ยูนิตน้ำเรา +1/+1; ลากลงน้ำ: ยูนิตที่ถูกโจมตีถ้า HP เหลือ ≤3 ถูกทำลาย","max_supply":null},{"id":"SD031","name_th":"ท้าวสุรนารี (ย่าโม)","rarity_code":"epic","type":"ยูนิต","element":"ดิน","cost":6,"atk":6,"hp":6,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ทุ่งสัมฤทธิ์ — เรียกชาวโคราช 2/1 ฮึกเหิม 3 ตัว","max_supply":null},{"id":"SD032","name_th":"พระยาพิชัยดาบหัก","rarity_code":"epic","type":"ยูนิต","element":"ไฟ","cost":6,"atk":7,"hp":5,"keywords":["ฮึกเหิม","ลิ้มเลือด"],"text_th":"โจมตีได้ 2 ครั้งต่อเทิร์น; HP ≤2 ATK x2 (ดาบหัก)","max_supply":null},{"id":"SD033","name_th":"ท้าวเทพกระษัตรี และท้าวศรีสุนทร","rarity_code":"epic","type":"ยูนิต","element":"ลม","cost":6,"atk":5,"hp":7,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: กลลวงข้าศึก — ยูนิตศัตรูทุกตัวโจมตีไม่ได้ 1 เทิร์น","max_supply":null},{"id":"SD034","name_th":"หนุมาน","rarity_code":"legend","type":"ยูนิต","element":"ลม","cost":6,"atk":6,"hp":6,"keywords":["เหาะเหิน","อมตะ"],"text_th":"อมตะ: ลมพระพายพัดฟื้น HP เต็ม 1 ครั้ง; ปลุกเสก: หาวเป็นดาวเป็นเดือน ทำลายของขลังหรือกับดักศัตรู 1 ชิ้น","max_supply":null},{"id":"SD035","name_th":"ไกรสรราชสีห์","rarity_code":"legend","type":"ยูนิต","element":"ไฟ","cost":6,"atk":7,"hp":6,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: คำรามสะท้านไพร — ทำลายยูนิตศัตรูต้นทุน ≤2 ทั้งหมด","max_supply":null},{"id":"SD036","name_th":"ดาบฟ้าฟื้น","rarity_code":"epic","type":"ของขลัง","element":"ไฟ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต +4 ATK และโจมตีทะลุคงกระพัน; ขุนแผนถือ +4/+4 เพิ่ม","max_supply":null},{"id":"SD037","name_th":"เปรตยักษ์","rarity_code":"rare","type":"ยูนิต","element":"อากาศ","cost":6,"atk":6,"hp":9,"keywords":["ราหูจร"],"text_th":"ต้นเทิร์นกลืนการ์ด 1 ใบจากสุสานใดก็ได้ +1/+1; ราหูอมจันทร์: ศัตรูทุกตัว -1 ATK","max_supply":null},{"id":"SD038","name_th":"ควาญช้างศึก","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":5,"atk":5,"hp":7,"keywords":["ทวารบาล","ฮึกเหิม"],"text_th":"ดาเมจเกินจากการฆ่ายูนิตทะลุไปที่ดวงชะตาศัตรู","max_supply":null},{"id":"SD039","name_th":"ปอบเจ้าแม่หมู่บ้าน","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":5,"atk":5,"hp":5,"keywords":["ดูดชีพ","ลิ้มเลือด"],"text_th":"ฆ่ายูนิตได้ ดวงชะตาศัตรู -2; สิ้นใจ: สิงยูนิตศัตรูต้นทุนต่ำสุดมาเป็นของเรา (ยกเว้นผู้ปกครอง/เทพ)","max_supply":null},{"id":"SD040","name_th":"กระสือร้อยปี","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":5,"atk":4,"hp":4,"keywords":["เหาะเหิน","ราหูจร"],"text_th":"ราหูอมจันทร์: +3 ATK และได้ดูดชีพ; ตายทันทีถ้าศัตรูมีกับดักหนามพุทรา","max_supply":null},{"id":"SD041","name_th":"นางไม้ตะเคียน","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":5,"atk":3,"hp":8,"keywords":["ทวารบาล","พิษ 2"],"text_th":"ยูนิตที่โจมตีการ์ดนี้ติดพิษ 2","max_supply":null},{"id":"SD042","name_th":"ยาสังกรณีตรีชวา","rarity_code":"rare","type":"คาถา","element":"น้ำ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตยูนิตใดก็ได้ในสุสานเรา HP เต็ม และล้างสลบ (แก้หอกโมกขศักดิ์ได้)","max_supply":null},{"id":"SD043","name_th":"น้ำมันพราย","rarity_code":"rare","type":"คาถา","element":"ไฟ","cost":5,"atk":null,"hp":null,"keywords":[],"text_th":"เมตตามหานิยม: ขโมยยูนิตศัตรูต้นทุน ≤5 มาเป็นของเรา (ยกเว้นผู้ปกครองและเทพ)","max_supply":null},{"id":"SD044","name_th":"ทหารดาบสองมือ","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":4,"atk":5,"hp":4,"keywords":["ฮึกเหิม"],"text_th":"โจมตียูนิตที่ต้นทุนต่ำกว่า ได้ 2 ครั้ง","max_supply":null},{"id":"SD045","name_th":"หมอผีปราบวิญญาณ","rarity_code":"rare","type":"ยูนิต","element":"ลม","cost":4,"atk":3,"hp":5,"keywords":["สายสิญจน์"],"text_th":"ปลุกเสก: จับผีศัตรู 1 ตัวใส่หม้อดิน (ส่งวิญญาณ)","max_supply":null},{"id":"SD046","name_th":"ฤๅษีตาไฟ","rarity_code":"rare","type":"ยูนิต","element":"อากาศ","cost":4,"atk":2,"hp":6,"keywords":[],"text_th":"ปลุกเสก เลือก: ชุบชีวิตยูนิตต้นทุน ≤3 หรือ สาปศัตรู 1 ตัวเป็นหิน (สายสิญจน์ 2 เทิร์น)","max_supply":null},{"id":"SD047","name_th":"เสือร้ายคาถาอาคม","rarity_code":"rare","type":"ยูนิต","element":"ไฟ","cost":4,"atk":4,"hp":4,"keywords":["กำบัง","คงกระพัน"],"text_th":"ปลุกเสก: ขโมยของขลัง 1 ชิ้นจากศัตรู","max_supply":null},{"id":"SD048","name_th":"นางวันทอง","rarity_code":"rare","type":"ยูนิต","element":"น้ำ","cost":4,"atk":2,"hp":5,"keywords":["เมตตามหานิยม"],"text_th":"ปลุกเสก: ขุนแผนหรือขุนช้างฝ่ายเรา +3/+3; ถ้ามีทั้งคู่ ศัตรูเป็นผู้เลือก (สองใจ)","max_supply":null},{"id":"SD049","name_th":"พิธีบูชาราหู","rarity_code":"rare","type":"คาถา","element":"อากาศ","cost":4,"atk":null,"hp":null,"keywords":[],"text_th":"เริ่มราหูอมจันทร์ทันที; ผีฝ่ายเราฟื้น HP เต็ม","max_supply":null},{"id":"SD050","name_th":"นักมวยคาดเชือก","rarity_code":"rare","type":"ยูนิต","element":"ดิน","cost":3,"atk":4,"hp":4,"keywords":["ทวารบาล"],"text_th":"ชกสวน: ถูกโจมตีแล้วตอบโต้ +2 ดาเมจ","max_supply":null},{"id":"SD051","name_th":"หมอยาว่านร้อยแปด","rarity_code":"rare","type":"ยูนิต","element":"น้ำ","cost":3,"atk":1,"hp":5,"keywords":["ฟื้นฟู"],"text_th":"ปลุกเสก: ฟื้น 4 HP และล้างพิษ/คุณไสยทั้งหมดฝ่ายเรา","max_supply":null},{"id":"SD052","name_th":"พรานไพรหน้าไม้อาบยาง","rarity_code":"rare","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["เหาะเหิน","พิษ 1"],"text_th":"ยิงข้ามทวารบาล และใส่พิษ 1","max_supply":null},{"id":"SD053","name_th":"ผีพรายตายโหง","rarity_code":"standard","type":"ยูนิต","element":"น้ำ","cost":4,"atk":4,"hp":3,"keywords":["อมตะ"],"text_th":"เมื่อยูนิตใดตายบนสนาม +1 ATK","max_supply":null},{"id":"SD054","name_th":"คชสีห์","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":4,"atk":4,"hp":5,"keywords":["ทวารบาล"],"text_th":"ผู้ปกครองฝ่ายเรา +1 ATK","max_supply":null},{"id":"SD055","name_th":"ไกรทอง","rarity_code":"standard","type":"ยูนิต","element":"น้ำ","cost":4,"atk":4,"hp":4,"keywords":["ฮึกเหิม"],"text_th":"ทำดาเมจ x2 กับชาละวันและยูนิตจระเข้; สู้ใต้น้ำได้ (ไม่โดนลากลงน้ำ)","max_supply":null},{"id":"SD056","name_th":"พลายงาม","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":4,"atk":4,"hp":4,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ถ้ามีขุนแผนฝ่ายเรา ทั้งคู่ +2 ATK; ไม่ถูกเมตตามหานิยม","max_supply":null},{"id":"SD057","name_th":"ผีตาโขน","rarity_code":"standard","type":"ยูนิต","element":"อากาศ","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"ปลุกเสก: ขบวนแห่ เรียกผีตาโขนน้อย 1/1 อีก 2 ตัว; ผีตาโขนทุกตัว +1 ATK","max_supply":null},{"id":"SD058","name_th":"ผีกะ","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":3,"keywords":["ดูดชีพ"],"text_th":"ปลุกเสก: สิงคน — ยูนิตมนุษย์ศัตรู 1 ตัว -2 ATK และติดพิษ 1","max_supply":null},{"id":"SD059","name_th":"ผีตานี","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":5,"keywords":["กำบัง"],"text_th":"ยูนิตเราข้างเคียง +0/+2; สิ้นใจ: ฟื้นดวงชะตา 4","max_supply":null},{"id":"SD060","name_th":"ผีโพง","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":2,"keywords":["เหาะเหิน","ราหูจร"],"text_th":"ราหูอมจันทร์: ได้กำบัง","max_supply":null},{"id":"SD061","name_th":"ผีกระหัง","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["เหาะเหิน"],"text_th":"โจมตีข้ามทวารบาล; ราหูอมจันทร์ +2 ATK","max_supply":null},{"id":"SD062","name_th":"ผีบ้านผีเรือน","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":1,"hp":6,"keywords":["ทวารบาล","ฟื้นฟู"],"text_th":"ยูนิตเราไม่ถูกขโมย; ผีศัตรูโจมตีดวงชะตาเราโดยตรงไม่ได้","max_supply":null},{"id":"SD063","name_th":"กินรี","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":2,"hp":4,"keywords":["เหาะเหิน"],"text_th":"ต้นเทิร์นฟื้น 2 HP ยูนิตเราทุกตัว","max_supply":null},{"id":"SD064","name_th":"ม้าสีหมอก","rarity_code":"standard","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"ขุนแผนฝ่ายเราได้ฮึกเหิม","max_supply":null},{"id":"SD065","name_th":"เจ้าเงาะ (สังข์ทอง)","rarity_code":"standard","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":4,"keywords":["กำบัง"],"text_th":"ถอดรูป: ครั้งแรกที่ถูกเลือกเป็นเป้า กลายเป็นสังข์ทอง 5/5 คงกระพัน","max_supply":null},{"id":"SD066","name_th":"ปลุกพราย","rarity_code":"standard","type":"คาถา","element":"น้ำ","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"ชุบชีวิตผีต้นทุน ≤4 จากสุสานเรา และ +1 ATK","max_supply":null},{"id":"SD067","name_th":"หม้อดินขังผี","rarity_code":"standard","type":"กับดัก","element":"ดิน","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"เมื่อศัตรูชุบชีวิต: ยกเลิก และส่งวิญญาณ 3 ใบในสุสานศัตรู","max_supply":null},{"id":"SD068","name_th":"น้ำมนต์ทิพย์","rarity_code":"standard","type":"คาถา","element":"น้ำ","cost":3,"atk":null,"hp":null,"keywords":[],"text_th":"ล้างพิษ/สายสิญจน์ทั้งหมดฝ่ายเรา และฟื้น 3 HP ทุกตัว","max_supply":null},{"id":"SD069","name_th":"กุมารทอง","rarity_code":"standard","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":2,"keywords":["กำบัง"],"text_th":"ปลุกเสก: แอบดูไพ่ในมือศัตรู 1 ใบ; มีขุนแผนฝ่ายเรา +2/+2","max_supply":null},{"id":"SD070","name_th":"ยักษ์ทวารบาล","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":4,"atk":3,"hp":6,"keywords":["ทวารบาล"],"text_th":"รับดาเมจจากคาถา -1","max_supply":null},{"id":"SD071","name_th":"ไมยราพ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":4,"atk":3,"hp":4,"keywords":["กำบัง"],"text_th":"ปลุกเสก: สะกดทัพ — ยูนิตศัตรู 2 ตัวหลับ 1 เทิร์น","max_supply":null},{"id":"SD072","name_th":"ปู่โสมเฝ้าทรัพย์","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":3,"atk":1,"hp":6,"keywords":["ทวารบาล"],"text_th":"ศัตรูที่ฆ่าการ์ดนี้ต้องทิ้งไพ่ 1 ใบ","max_supply":null},{"id":"SD073","name_th":"ผีแม่ม่าย","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ดูดชีพ"],"text_th":"ยูนิตศัตรูที่หลับหรือถูกสายสิญจน์ ถูกการ์ดนี้โจมตีตายทันที","max_supply":null},{"id":"SD074","name_th":"ยักษ์กุมภัณฑ์","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":3,"atk":4,"hp":3,"keywords":["ลิ้มเลือด"],"text_th":"ฆ่ายูนิตได้ +1/+1 ถาวร","max_supply":null},{"id":"SD075","name_th":"นางสำมนักขา","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":3,"atk":3,"hp":3,"keywords":[],"text_th":"ปลุกเสก: ยุแยง — ยูนิตศัตรู 2 ตัวโจมตีกันเอง 1 ครั้ง","max_supply":null},{"id":"SD076","name_th":"วานรสิบแปดมงกุฎ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":3,"atk":3,"hp":3,"keywords":["ฮึกเหิม"],"text_th":"มีหนุมานฝ่ายเรา +1/+1","max_supply":null},{"id":"SD077","name_th":"ขุนช้าง","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":3,"atk":2,"hp":5,"keywords":["ทวารบาล"],"text_th":"ปลุกเสก: ร่ำรวย — จั่ว 1 ใบ; มีนางวันทองฝ่ายเรา +2/+2","max_supply":null},{"id":"SD078","name_th":"ผีกองกอย","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":2,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ศัตรู 1 ตัว -1 ATK","max_supply":null},{"id":"SD079","name_th":"ผีโขมด","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":2,"keywords":["ราหูจร"],"text_th":"แสงหลอกทาง: ยูนิตศัตรู 1 ตัวโจมตีเป้าสุ่ม","max_supply":null},{"id":"SD080","name_th":"ผีพุ่งไต้","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":3,"hp":1,"keywords":["เหาะเหิน"],"text_th":"สิ้นใจ: 2 ดาเมจแก่ศัตรูสุ่ม 1 ตัว","max_supply":null},{"id":"SD081","name_th":"ผีพรายน้ำ","rarity_code":"common","type":"ยูนิต","element":"น้ำ","cost":2,"atk":2,"hp":3,"keywords":["กำบัง"],"text_th":"ยูนิตไฟที่ถูกโจมตี -1 ATK ถาวร","max_supply":null},{"id":"SD082","name_th":"นาคบริวาร","rarity_code":"common","type":"ยูนิต","element":"น้ำ","cost":2,"atk":2,"hp":3,"keywords":["ดูดชีพ"],"text_th":"มีพญานาคฝ่ายเรา +1/+1","max_supply":null},{"id":"SD083","name_th":"ศรีธนญชัย","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":1,"hp":3,"keywords":["กำบัง"],"text_th":"ปลุกเสก: สลับ ATK/HP ของยูนิตใดก็ได้ 1 ตัว","max_supply":null},{"id":"SD084","name_th":"ตะกรุดโทน","rarity_code":"common","type":"ของขลัง","element":"ดิน","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต: ได้คงกระพัน","max_supply":null},{"id":"SD085","name_th":"ผ้ายันต์","rarity_code":"common","type":"ของขลัง","element":"ไฟ","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ติดยูนิต +1/+1 และไม่โดนพิษ/คุณไสย","max_supply":null},{"id":"SD086","name_th":"หนามพุทรา","rarity_code":"common","type":"กับดัก","element":"ดิน","cost":2,"atk":null,"hp":null,"keywords":[],"text_th":"ผีที่โจมตีถูกทำลายทันทีถ้าต้นทุน ≤4 (กระสือแพ้ทุกระดับ)","max_supply":null},{"id":"SD087","name_th":"ผีปะกำ","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":3,"keywords":[],"text_th":"ช้างฝ่ายเรา +1 ATK","max_supply":null},{"id":"SD088","name_th":"ผีโป่ง","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":1,"hp":3,"keywords":["พิษ 1"],"text_th":"ยูนิตที่โจมตีติดพิษ 1","max_supply":null},{"id":"SD089","name_th":"ผีนางรำ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":2,"hp":2,"keywords":[],"text_th":"ปลุกเสก: ศัตรู 1 ตัว -1 ATK เทิร์นนี้","max_supply":null},{"id":"SD090","name_th":"ชาวบ้านบางระจัน","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":2,"atk":2,"hp":2,"keywords":["ทวารบาล"],"text_th":"มีชาวบ้านบางระจันตัวอื่น +1/+1 (สามัคคี)","max_supply":null},{"id":"SD091","name_th":"นายขนมต้ม","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":3,"hp":2,"keywords":["ฮึกเหิม"],"text_th":"ชนะการต่อสู้ได้ +1 ATK ถาวร","max_supply":null},{"id":"SD092","name_th":"ทหารหน้าไม้","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":2,"atk":2,"hp":1,"keywords":["เหาะเหิน"],"text_th":"ยิงข้ามทวารบาล","max_supply":null},{"id":"SD093","name_th":"สิงห์หิมพานต์","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":2,"atk":2,"hp":3,"keywords":["ทวารบาล"],"text_th":"","max_supply":null},{"id":"SD094","name_th":"เปรตน้อย","rarity_code":"common","type":"ยูนิต","element":"อากาศ","cost":1,"atk":1,"hp":2,"keywords":[],"text_th":"ต้นเทิร์นกลืนการ์ด 1 ใบในสุสานศัตรู +1/+1 (ครั้งเดียว)","max_supply":null},{"id":"SD095","name_th":"แม่ซื้อ","rarity_code":"common","type":"ยูนิต","element":"ลม","cost":1,"atk":1,"hp":1,"keywords":["กำบัง"],"text_th":"ปลุกเสก: ยูนิตศัตรูต้นทุน 1 ตัว -1 HP","max_supply":null},{"id":"SD096","name_th":"ผีตาแฮก","rarity_code":"common","type":"ยูนิต","element":"ดิน","cost":1,"atk":0,"hp":3,"keywords":["ทวารบาล"],"text_th":"ต้นเทิร์นฟื้นดวงชะตา 1","max_supply":null},{"id":"SD097","name_th":"ไพร่พลดาบ","rarity_code":"common","type":"ยูนิต","element":"ไฟ","cost":1,"atk":2,"hp":1,"keywords":["ฮึกเหิม"],"text_th":"โจมตีได้ทันที","max_supply":null},{"id":"SD098","name_th":"สายสิญจน์","rarity_code":"common","type":"คาถา","element":"อากาศ","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"สายสิญจน์ยูนิตศัตรู 1 ตัว 1 เทิร์น (ผี 2 เทิร์น)","max_supply":null},{"id":"SD099","name_th":"ใบหนาด","rarity_code":"common","type":"คาถา","element":"ลม","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"2 ดาเมจแก่ผี 1 ตัว; ยูนิตเราไม่ถูกผีเลือกเป็นเป้า 1 เทิร์น","max_supply":null},{"id":"SD100","name_th":"น้ำมนต์","rarity_code":"common","type":"คาถา","element":"น้ำ","cost":1,"atk":null,"hp":null,"keywords":[],"text_th":"ฟื้น 3 HP หรือ 2 ดาเมจแก่ผี/อสูร 1 ตัว","max_supply":null}];
 const A = 'game_assets/';
@@ -527,7 +528,14 @@ const KEY='siamDuel.cbt'+CBT_ROUND;
 try{Object.keys(localStorage).filter(k=>k.startsWith('siamProto')||(k.startsWith('siamDuel.cbt')&&k!==KEY)).forEach(k=>localStorage.removeItem(k))}catch(e){}
 let DB={users:{},cur:null,event:{open:false,cardId:'SD001',name:'เทศกาลลอยกระทง'},minted:{},threshold:10000};
 try{const s=localStorage.getItem(KEY); if(s) DB=Object.assign(DB,JSON.parse(s));}catch(e){}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}};
+/* ---------- เซิร์ฟเวอร์ Supabase (ถ้าโหลดไลบรารีไม่ได้ หรือเปิด ?offline=1 จะเล่นแบบเก็บในเครื่อง) ---------- */
+const SB_URL='https://pnhulxgznbiolxphypdp.supabase.co', SB_KEY='sb_publishable_ZPuU2jlCXi-imu8ttcc95A_g1jWbBqi';
+const sb=(window.supabase&&!new URLSearchParams(location.search).has('offline'))?window.supabase.createClient(SB_URL,SB_KEY):null;
+const ONLINE=!!sb; let IS_ADMIN=false, NEWS=[], lastPush='';
+if(ONLINE){document.getElementById('mkChip').textContent='ออนไลน์ · CBT';}
+if(ONLINE){DB.users={};DB.cur=null;}
+const save=()=>{ if(!ONLINE){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){} return;}
+  clearTimeout(save._t); save._t=setTimeout(pushProfile,600);};
 const me=()=>DB.users[DB.cur];
 async function hash(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('siam:'+s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return 'x'+s.length+s}}
 
@@ -549,6 +557,7 @@ document.getElementById('loginForm').onsubmit=async ev=>{ev.preventDefault();
   const u=document.getElementById('u').value.trim(), p=document.getElementById('p').value, err=document.getElementById('loginErr');
   if(u.length<3) return err.textContent='ชื่อผู้ใช้ต้องมีอย่างน้อย 3 ตัวอักษร';
   if(p.length<6) return err.textContent='รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร';
+  if(ONLINE) return onlineLogin(u,p,err);
   const h=await hash(u+':'+p);
   if(regMode){ if(DB.users[u]) return err.textContent='ชื่อนี้มีผู้ใช้แล้ว';
     DB.users[u]={pw:h,gender:null,name:'',gold:20000,merit:0,pulls:0,sinceLegend:0,cards:[]};
@@ -590,7 +599,7 @@ function renderHome(){const u=me(); if(!u) return show('login');
     : `ยินดีต้อนรับ ${u.name} ลองไปที่ตู้สุ่มการ์ดเพื่อเริ่มสะสมการ์ดใบแรกของเจ้า`;
   document.getElementById('dlg').style.display='';}
 document.getElementById('dlgClose').onclick=()=>document.getElementById('dlg').style.display='none';
-document.getElementById('logout').onclick=()=>{DB.cur=null;save();show('login')};
+document.getElementById('logout').onclick=async()=>{if(ONLINE){await pushProfile(); await sb.auth.signOut();DB.users={};} DB.cur=null;save();show('login')};
 
 /* ---------- ตู้สุ่ม ---------- */
 const RATES=[['common',60.109],['standard',27],['rare',9],['epic',2.89],['legend',1],['divine',0.001]];
@@ -649,14 +658,14 @@ function pickCard(tier){
   if(tier==='divine'){const left=POOL.divine.filter(c=>(DB.minted[c.id]||0)<3); if(!left.length) tier='legend'; else return left[Math.floor(Math.random()*left.length)];}
   const p=POOL[tier]; return p[Math.floor(Math.random()*p.length)];
 }
-function pullNormal(n,cost){const u=me(); if(u.gold<cost) return;
+function pullNormal(n,cost){const u=me(); if(u.gold<cost||busy) return; if(ONLINE) return onlinePull(n);
   u.gold-=cost; const out=[];
   for(let i=0;i<n;i++){u.pulls++;u.merit++;let t=rollTier(u); const c=pickCard(t); if(c.rarity_code==='legend'||c.rarity_code==='divine') u.sinceLegend=0;
     const inst={id:c.id,at:Date.now()}; if(c.rarity_code==='divine'){DB.minted[c.id]=(DB.minted[c.id]||0)+1;inst.serial=`${TH(DB.minted[c.id])}/${TH(3)}`;
       toast(`ประกาศทั้งเซิร์ฟเวอร์: การ์ด ${c.name_th} ระดับพระเจ้า ${inst.serial} ถูกค้นพบแล้ว`,5000);}
     u.cards.push(inst); out.push(inst);}
   save(); refreshStat(); bloom(out);}
-function pullEvent(){const u=me(), c=BY[DB.event.cardId]; if(u.gold<5000||!eligible()||DB.minted[c.id]>=1) return;
+function pullEvent(){const u=me(), c=BY[DB.event.cardId]; if(u.gold<5000||!eligible()||DB.minted[c.id]>=1) return; if(ONLINE) return onlineEventPull();
   u.gold-=5000; const win=Math.random()<0.005; save();
   if(win){DB.minted[c.id]=1; const inst={id:c.id,at:Date.now(),serial:'๑/๑'}; u.cards.push(inst); save(); renderGacha(); reveal([inst]);
     toast(`การ์ด ${c.name_th} ระดับผู้สรรสร้าง มีผู้ได้รับไปดูแลต่อแล้ว`,6000);}
@@ -762,7 +771,7 @@ const GUIDE={
  event:'ตู้ผู้สรรสร้างเปิดเฉพาะช่วงเทศกาล รอบละ 1 ใบในเซิร์ฟเวอร์ ต้องสุ่มตู้ปกติสะสมครบตามเกณฑ์ก่อนจึงจะมีสิทธิ์ ครั้งละ 5,000 โกลด์',
  coll:'นี่คือคลังการ์ดของเรา การ์ดสีจางคือแบบที่ยังไม่มี แตะการ์ดที่มีเพื่อดูขยาย ซูม และเอียงดูประกายได้',
  room:'ที่นี่คือเรือนพักของเรา จัดเด็คได้ 3 เซ็ต แตะการ์ดในคลังเพื่อเพิ่ม แตะการ์ดในเซ็ตเพื่อเอาออก แล้วเลือกว่าเซ็ตนี้ใช้ในโหมดไหน ครบ 30 ใบก็พร้อมดวล',
- market:'ตลาดกลางซื้อขายการ์ดกับผู้เล่นอื่นด้วยโกลด์ ค่าธรรมเนียม 5% ถูกเผาออกจากระบบ ช่วง CBT นี้เป็นตลาดจำลองกับพ่อค้า NPC',
+ market:'ตลาดกลางซื้อขายการ์ดกับผู้เล่นอื่นด้วยโกลด์ ค่าธรรมเนียม 5% ถูกเผาออกจากระบบ ลงขายแล้วผู้เล่นทุกคนเห็นทันที และมีพ่อค้า NPC วางของให้ด้วย',
  guild:'หอกิลด์ รวมพลฝึกฝีมือ ท้าบอส AI และแชร์เด็คกับสมาชิก ระบบนี้จะเปิดเมื่อเชื่อมเซิร์ฟเวอร์ออนไลน์'};
 function guide(elId,key){const g=document.getElementById(elId), u=me(); if(!g||!u) return;
   const right=g.classList.contains('right');
@@ -782,7 +791,7 @@ function mkSeed(){const lots=[]; const pick=a=>a[Math.floor(Math.random()*a.leng
   for(let i=0;i<18;i++){const t=Math.random()<.5?'common':Math.random()<.5?'standard':Math.random()<.6?'rare':Math.random()<.7?'epic':'legend';
     const c=pick(POOL[t]); lots.push({lid:'n'+Date.now()+i,id:c.id,price:Math.round(REF_PRICE[t]*(0.8+Math.random()*0.6)/10)*10,seller:pick(NPC)});}
   return lots;}
-function renderMarket(){const u=me(); if(!DB.market) DB.market={lots:mkSeed(),news:[],mine:[]};
+function renderMarket(){if(ONLINE) return onlineMarket(); const u=me(); if(!DB.market) DB.market={lots:mkSeed(),news:[],mine:[]};
   const M=DB.market; settleMine(); document.getElementById('mGold').textContent=fmt(u.gold);
   const main=document.getElementById('mkMain'); main.innerHTML=`<div class="mtabs"><button data-k="buy" class="${mkTab==='buy'?'on':''}">ซื้อการ์ด</button><button data-k="sell" class="${mkTab==='sell'?'on':''}">ลงขายการ์ดของฉัน</button><button data-k="mine" class="${mkTab==='mine'?'on':''}">รายการที่ฉันลงขาย (${(M.mine||[]).filter(x=>!x.sold).length})</button></div>`;
   main.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{mkTab=b.dataset.k;renderMarket()});
@@ -825,7 +834,7 @@ function settleMine(){const M=DB.market; if(!M||!M.mine) return; const now=Date.
     if(ok&&now-x.at>wait){x.sold=true; const owner=DB.users[x.owner]; if(owner) owner.gold+=Math.round(x.price*0.95);
       M.news.unshift(['divine','creator'].includes(c.rarity_code)?`📢 การ์ด ${c.name_th} ระดับ${RARE_TH[c.rarity_code]} มีผู้ได้รับไปดูแลต่อแล้ว`:`ขาย ${c.name_th} ได้ ${fmt(x.price)} โกลด์ (ค่าธรรมเนียม 5% ถูกเผา)`);}});
   save();}
-setInterval(()=>{if(document.getElementById('market').classList.contains('on')&&DB.market){const b=JSON.stringify(DB.market.mine);settleMine();if(JSON.stringify(DB.market.mine)!==b)renderMarket();}},5000);
+setInterval(()=>{if(!ONLINE&&document.getElementById('market').classList.contains('on')&&DB.market){const b=JSON.stringify(DB.market.mine);settleMine();if(JSON.stringify(DB.market.mine)!==b)renderMarket();}},5000);
 
 /* ---------- CBT: ข้อมูลช่วงทดสอบ + แจ้งปัญหา ---------- */
 function issueUrl(kind){const u=me(); const env=`\n\n---\nรอบทดสอบ: CBT ${CBT_ROUND}\nหน้าจอ: ${innerWidth}x${innerHeight}\nเบราว์เซอร์: ${navigator.userAgent}${u?`\nสุ่มสะสม: ${u.pulls} ครั้ง`:''}`;
@@ -834,8 +843,8 @@ function issueUrl(kind){const u=me(); const env=`\n\n---\nรอบทดสอ�
 function openCbt(){const m=document.getElementById('modal'),b=document.getElementById('modalBox'); m.classList.remove('ev');
   b.innerHTML=`<h3>ช่วงทดสอบปิด (CBT) รอบที่ ${CBT_ROUND}</h3>
    <ul><li>บัญชี โกลด์ แต้มบุญ การ์ด และเด็คทั้งหมดเป็นข้อมูลทดสอบ <b>จะถูกรีเซต${CBT_END}</b></li>
-   <li>ข้อมูลเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น เปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์แล้วจะหาย</li>
-   <li>ช่วงนี้ยังเล่นได้: ตู้สุ่ม คลังการ์ด ห้องพัก (จัดเด็ค) · ระบบดวล ตลาดกลาง และกิลด์ ตามมาในรอบถัดไป</li>
+   <li>${ONLINE?'ข้อมูลเก็บบนเซิร์ฟเวอร์ ล็อกอินเครื่องไหนก็เล่นต่อได้':'โหมดออฟไลน์: ข้อมูลเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น'}</li>
+   <li>ช่วงนี้เล่นได้: ตู้สุ่ม คลังการ์ด ห้องพัก (จัดเด็ค) ตลาดกลาง${ONLINE?'ซื้อขายกับผู้เล่นจริง':''} · ระบบดวลและกิลด์ตามมาในรอบถัดไป</li>
    <li>อัตราสุ่ม ค่าพลังการ์ด และภาพ อาจเปลี่ยนระหว่างทดสอบ</li></ul>
    <h4>ช่วยเราพัฒนาเกม</h4><p>แจ้งปัญหาหรือส่งความเห็นผ่าน GitHub (ต้องมีบัญชี GitHub) ระบบจะแนบข้อมูลหน้าจอและเบราว์เซอร์ให้อัตโนมัติ</p>
    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px">
@@ -914,20 +923,148 @@ POOL.creator.forEach(c=>aCard.add(new Option(`${c.id} · ${c.name_th}${DB.minted
 aCard.value=DB.event.cardId; document.getElementById('aTh').value=DB.threshold; document.getElementById('aName').value=DB.event.name;
 if(new URLSearchParams(location.search).has('admin')) adm.classList.add('on');
 addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==='a')adm.classList.toggle('on')});
-document.getElementById('aOpen').onclick=()=>{if(DB.minted[aCard.value])return toast('การ์ดใบนี้มีเจ้าของแล้ว เลือกใบอื่น');
+document.getElementById('aOpen').onclick=()=>{if(ONLINE) return adminEvent(true); if(DB.minted[aCard.value])return toast('การ์ดใบนี้มีเจ้าของแล้ว เลือกใบอื่น');
   DB.event={open:true,cardId:aCard.value,name:document.getElementById('aName').value||'กิจกรรมพิเศษ'}; DB.threshold=Math.max(1,+document.getElementById('aTh').value||10000);
   Object.values(DB.users).forEach(x=>delete x.seenEv); save(); toast(`เปิดตู้ผู้สรรสร้าง: ${DB.event.name}`); refresh();};
 document.getElementById('aX').onclick=()=>adm.classList.remove('on');
-document.getElementById('aClose').onclick=()=>{DB.event.open=false;save();toast('ปิดตู้ Event แล้ว');refresh();};
-document.getElementById('aTh').onchange=e=>{DB.threshold=Math.max(1,+e.target.value||10000);save();refresh()};
-document.getElementById('aGold').onclick=()=>{if(!me())return;me().gold+=100000;save();refresh();};
-document.getElementById('aReset').onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){} location.reload();};
-function refresh(){const on=document.querySelector('.screen.on').id; if(on==='home')renderHome(); if(on==='gacha')renderGacha();}
+document.getElementById('aClose').onclick=()=>{if(ONLINE) return adminEvent(false);DB.event.open=false;save();toast('ปิดตู้ Event แล้ว');refresh();};
+document.getElementById('aTh').onchange=e=>{if(ONLINE) return;DB.threshold=Math.max(1,+e.target.value||10000);save();refresh()};
+document.getElementById('aGold').onclick=()=>{if(!me())return; if(ONLINE) return rpc('admin_add_gold',{p_amount:100000}).then(g=>{if(g!=null){me().gold=g;refresh();toast('เติม 100,000 โกลด์แล้ว')}});me().gold+=100000;save();refresh();};
+document.getElementById('aReset').onclick=()=>{if(ONLINE) return toast('ข้อมูลบนเซิร์ฟเวอร์รีเซตได้โดยรัน schema.sql ใหม่ใน Supabase',5000);try{localStorage.removeItem(KEY)}catch(e){} location.reload();};
+function refresh(){const on=document.querySelector('.screen.on').id; if(on==='home')renderHome(); if(on==='gacha'&&!busy&&!document.getElementById('gLayer').classList.contains('on'))renderGacha(); if(on==='market')renderMarket();}
+
+/* ---------- โหมดออนไลน์: ล็อกอินจริง ตู้สุ่มจริง ตลาดกลางจริง (Supabase) ---------- */
+const ERR_TH={'Invalid login credentials':'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง','User already registered':'ชื่อนี้มีผู้ใช้แล้ว',
+  'Email not confirmed':'บัญชียังไม่ยืนยัน (แอดมินต้องปิด Confirm email ใน Supabase)','Failed to fetch':'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ ลองใหม่อีกครั้ง'};
+const thErr=e=>{const m=(e&&e.message)||String(e); for(const k in ERR_TH) if(m.includes(k)) return ERR_TH[k]; return m;};
+async function rpc(fn,args){const {data,error}=await sb.rpc(fn,args||{}); if(error){toast(thErr(error),4500); return null;} return data;}
+const inst=r=>({id:r.card_id,at:r.id,row:r.id,serial:r.serial||undefined});
+
+async function onlineLogin(name,p,err){
+  const u=name.toLowerCase();
+  if(!/^[a-z0-9_]{3,20}$/.test(u)) return err.textContent='ชื่อผู้ใช้ใช้ได้เฉพาะ a-z 0-9 และ _ ยาว 3–20 ตัว';
+  err.textContent='กำลังเชื่อมต่อ…'; const email=u+'@siamduel.game';
+  const r=regMode? await sb.auth.signUp({email,password:p,options:{data:{username:u}}}) : await sb.auth.signInWithPassword({email,password:p});
+  if(r.error) return err.textContent=thErr(r.error);
+  if(!r.data.session) return err.textContent='สมัครแล้ว แต่ระบบรอยืนยันอีเมล (แอดมินต้องปิด Confirm email ใน Supabase)';
+  if(!await loadMe(r.data.user)) return err.textContent='โหลดข้อมูลผู้เล่นไม่ได้ (ตรวจว่ารัน schema.sql แล้ว)';
+  err.textContent=''; show(me().gender?'home':'pick');}
+
+async function loadMe(user){
+  const [pr,cs,cf,sp]=await Promise.all([
+    sb.from('profiles').select('*').eq('id',user.id).maybeSingle(),
+    sb.from('cards').select('id,card_id,serial,listed').eq('owner',user.id).order('id'),
+    sb.from('game_config').select('*'), sb.from('card_supply').select('*')]);
+  if(pr.error||!pr.data){console.warn(pr.error); return false;}
+  const p=pr.data, g=p.guide||{};
+  DB.users={[user.id]:{id:user.id,username:p.username,name:p.name,gender:p.gender,gold:p.gold,merit:p.merit,pulls:p.pulls,sinceLegend:p.since_legend,
+    decks:(p.decks&&p.decks.length)?p.decks:null,guideMin:g.guideMin||{},seenNormal:!!g.seenNormal,seenEv:g.seenEv||null,
+    cards:(cs.data||[]).filter(r=>!r.listed).map(inst)}};
+  DB.cur=user.id; mkTab='buy'; curDeck=0; gTab='normal'; applyConfig(cf.data||[]); DB.minted={}; (sp.data||[]).forEach(r=>DB.minted[r.card_id]=r.minted);
+  lastPush=profJson(me()); IS_ADMIN=!!(await rpc('is_admin'));
+  document.getElementById('aGold').textContent=IS_ADMIN?'+100,000 โกลด์ (แอดมิน)':'+100,000 โกลด์';
+  if(new URLSearchParams(location.search).has('admin')&&!IS_ADMIN) toast('บัญชีนี้ไม่ใช่แอดมิน ปุ่มหลังบ้านจะใช้ไม่ได้');
+  subscribe(user.id); return true;}
+function applyConfig(rows){rows.forEach(r=>{ if(r.key==='event') DB.event={open:!!r.value.open,cardId:r.value.card_id,name:r.value.name};
+  if(r.key==='threshold') DB.threshold=+r.value;});
+  aCard.value=DB.event.cardId; document.getElementById('aTh').value=DB.threshold; document.getElementById('aName').value=DB.event.name;}
+const profJson=u=>JSON.stringify({name:u.name,gender:u.gender,decks:u.decks||[],guide:{guideMin:u.guideMin||{},seenNormal:!!u.seenNormal,seenEv:u.seenEv||null}});
+async function pushProfile(){const u=me(); if(!ONLINE||!u) return; const j=profJson(u); if(j===lastPush) return;
+  const {error}=await sb.from('profiles').update(JSON.parse(j)).eq('id',u.id); if(error) toast('บันทึกไม่สำเร็จ: '+thErr(error)); else lastPush=j;}
+addEventListener('pagehide',()=>{if(ONLINE) pushProfile();});
+
+let CH=null;
+function subscribe(uid){ if(CH) sb.removeChannel(CH);
+  CH=sb.channel('siam-'+uid)
+   .on('postgres_changes',{event:'INSERT',schema:'public',table:'news'},({new:n})=>{NEWS.unshift(n);
+      if(['divine','creator','event'].includes(n.kind)) toast('📢 '+n.text,6000);
+      if(document.getElementById('market').classList.contains('on')) drawNews();})
+   .on('postgres_changes',{event:'*',schema:'public',table:'game_config'},({new:r})=>{if(r&&r.key){applyConfig([r]); refresh();}})
+   .on('postgres_changes',{event:'UPDATE',schema:'public',table:'profiles',filter:'id=eq.'+uid},({new:p})=>{const u=me(); if(!u) return;
+      const sold=p.gold>u.gold&&!busy; u.gold=p.gold; u.merit=p.merit; u.pulls=p.pulls; u.sinceLegend=p.since_legend;
+      ['hGold','gGold','mGold'].forEach(id=>{const e=document.getElementById(id); if(e) e.textContent=fmt(u.gold)});
+      if(sold&&document.getElementById('market').classList.contains('on')) renderMarket();})
+   .subscribe();}
+
+async function onlinePull(n){const u=me(); busy=true; document.querySelectorAll('#gBar button').forEach(b=>b.disabled=true);
+  const r=await rpc('gacha_pull',{n}); busy=false;
+  if(!r){renderGacha(); return;}
+  Object.assign(u,{gold:r.gold,pulls:r.pulls,merit:r.merit,sinceLegend:r.since_legend});
+  const out=r.cards.map(c=>inst({id:c.row,card_id:c.id,serial:c.serial})); u.cards.push(...out);
+  document.getElementById('gGold').textContent=fmt(u.gold); document.getElementById('gMerit').textContent=fmt(u.merit); bloom(out);}
+async function onlineEventPull(){const u=me(), c=BY[DB.event.cardId]; const r=await rpc('gacha_event_pull'); if(!r) return renderGacha();
+  u.gold=r.gold;
+  if(r.won){DB.minted[c.id]=1; const it=inst({id:r.row,card_id:r.id,serial:'๑/๑'}); u.cards.push(it); renderGacha(); reveal([it]);}
+  else {renderGacha(); toast('ยังไม่ใช่วาสนาของท่าน · 5,000 โกลด์ถูกเผาเป็นเครื่องบูชา');}}
+
+async function adminEvent(open){if(!IS_ADMIN) return toast('เฉพาะบัญชีแอดมิน (เพิ่มในตาราง admins ของ Supabase)');
+  const th=Math.max(1,+document.getElementById('aTh').value||10000), nm=document.getElementById('aName').value||'กิจกรรมพิเศษ';
+  const ok=await sb.rpc('admin_set_event',{p_open:open,p_card:aCard.value,p_name:nm,p_threshold:th});
+  if(ok.error) return toast(thErr(ok.error));
+  if(open) me().seenEv=null; DB.event={open,cardId:aCard.value,name:nm}; DB.threshold=th; save();
+  toast(open?`เปิดตู้ผู้สรรสร้าง: ${nm}`:'ปิดตู้ Event แล้ว'); refresh();}
+
+/* ตลาดกลางจริง */
+let MK={lots:[],mine:[]}, mkLoading=false;
+async function loadMarket(){const u=me();
+  const [a,b,c]=await Promise.all([
+    sb.from('market_listings').select('*').eq('status','open').order('created_at',{ascending:false}).limit(80),
+    sb.from('market_listings').select('*').eq('seller',u.id).order('created_at',{ascending:false}).limit(40),
+    sb.from('news').select('*').order('id',{ascending:false}).limit(40)]);
+  MK.lots=a.data||[]; MK.mine=b.data||[]; NEWS=c.data||[];}
+function drawNews(){const side=document.getElementById('mkSide'); if(!side) return;
+  side.innerHTML=`<div class="ttl">ประกาศตลาด</div><div class="news">${NEWS.slice(0,40).map(n=>`<div class="${['divine','creator','event'].includes(n.kind)?'hot':''}">${n.text}</div>`).join('')||'<div>ยังไม่มีความเคลื่อนไหว</div>'}</div>
+   <div class="tip" style="font-size:12px;color:var(--muted);line-height:1.6">ตลาดกลางจริงบนเซิร์ฟเวอร์ ผู้เล่นทุกคนเห็นรายการเดียวกัน ค่าธรรมเนียม 5% หักจากผู้ขายและถูกเผาออกจากระบบ พ่อค้า NPC เติมของให้เมื่อของในตลาดเหลือน้อย</div>`;}
+async function onlineMarket(){const u=me(); if(mkLoading) return; mkLoading=true;
+  const main=document.getElementById('mkMain'); if(!main.children.length) main.innerHTML='<div class="empty">กำลังโหลดตลาด…</div>';
+  try{await loadMarket();}finally{mkLoading=false;}
+  document.getElementById('mGold').textContent=fmt(u.gold);
+  const openMine=MK.mine.filter(x=>x.status==='open');
+  main.innerHTML=`<div class="mtabs"><button data-k="buy" class="${mkTab==='buy'?'on':''}">ซื้อการ์ด</button><button data-k="sell" class="${mkTab==='sell'?'on':''}">ลงขายการ์ดของฉัน</button><button data-k="mine" class="${mkTab==='mine'?'on':''}">รายการที่ฉันลงขาย (${openMine.length})</button><button data-k="re" title="โหลดใหม่">⟳</button></div>`;
+  main.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{if(b.dataset.k!=='re')mkTab=b.dataset.k; renderMarket()});
+  const Lst=document.createElement('div'); Lst.className='lst'; main.appendChild(Lst);
+  const gold='<img alt="" src="ui_art_web/cur_gold.webp">';
+  const lotEl=(c,inner,serial)=>{const d=document.createElement('div');d.className='lot';d.appendChild(cardEl(c,{w:130,serial}));d.insertAdjacentHTML('beforeend',inner);
+    const z=document.createElement('button');z.className='ghost';z.textContent='ดูขยาย';z.onclick=()=>zoomCard({id:c.id,at:2,serial});d.appendChild(z);return d;};
+  const act=async(b,fn)=>{b.disabled=true; const r=await fn(); b.disabled=false; return r;};
+  if(mkTab==='buy'){
+    const lots=MK.lots.filter(l=>l.seller!==u.id);
+    if(!lots.length) Lst.innerHTML='<div class="empty">ยังไม่มีการ์ดวางขาย</div>';
+    lots.forEach(l=>{const c=BY[l.card_id]; if(!c) return;
+      const d=lotEl(c,`<div class="price">${gold}${fmt(l.price)}</div><div class="seller">ผู้ขาย: ${l.seller?'ผู้เล่น':l.seller_name}</div><button>ซื้อ</button>`,l.serial||undefined);
+      d.querySelector('button:not(.ghost)').onclick=e=>act(e.target,async()=>{if(u.gold<l.price) return toast('โกลด์ไม่พอ');
+        const r=await rpc('market_buy',{p_listing:l.id}); if(!r) return renderMarket();
+        u.gold=r.gold; u.cards.push(inst({id:r.row,card_id:r.id,serial:r.serial})); toast(`ได้รับ ${c.name_th} แล้ว`); renderMarket();});
+      Lst.appendChild(d);});
+  } else if(mkTab==='sell'){
+    const own=ownedCount(u); const ids=Object.keys(own).sort((a,b)=>TIER_RANK.indexOf(BY[b].rarity_code)-TIER_RANK.indexOf(BY[a].rarity_code));
+    if(!ids.length) Lst.innerHTML='<div class="empty">ยังไม่มีการ์ดให้ขาย</div>';
+    ids.forEach(id=>{const c=BY[id], ref=REF_PRICE[c.rarity_code];
+      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="number" min="10" step="10" value="${ref}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
+      d.querySelector('button:not(.ghost)').onclick=e=>act(e.target,async()=>{const price=Math.max(10,Math.round(+d.querySelector('input').value||ref));
+        const it=u.cards.filter(x=>x.id===id).sort((a,b)=>(a.serial?1:0)-(b.serial?1:0))[0];
+        const lid=await rpc('market_list',{p_card_row:it.row,p_price:price}); if(lid==null) return;
+        u.cards=u.cards.filter(x=>x!==it);
+        (u.decks||[]).forEach(dk=>{const k=dk.cards.indexOf(id); if(k>=0&&dk.cards.filter(x=>x===id).length>u.cards.filter(x=>x.id===id).length) dk.cards.splice(k,1);});
+        save(); toast('ลงขายแล้ว ผู้เล่นทุกคนเห็นรายการนี้'); renderMarket();});
+      Lst.appendChild(d);});
+  } else {
+    if(!MK.mine.length) Lst.innerHTML='<div class="empty">ยังไม่มีรายการที่ลงขาย</div>';
+    MK.mine.forEach(x=>{const c=BY[x.card_id]; if(!c) return;
+      const st=x.status==='sold'?'ขายแล้ว · ได้รับ '+fmt(x.price-Math.floor(x.price*0.05))+' โกลด์':x.status==='cancelled'?'ยกเลิกแล้ว':'รอผู้ซื้อ…';
+      const d=lotEl(c,`<div class="price">${gold}${fmt(x.price)}</div><div class="seller">${st}</div>${x.status==='open'?'<button>ยกเลิก</button>':''}`,x.serial||undefined);
+      const cb=d.querySelector('button:not(.ghost)'); if(cb) cb.onclick=e=>act(e.target,async()=>{const {error}=await sb.rpc('market_cancel',{p_listing:x.id});
+        if(error) return toast(thErr(error)); u.cards.push(inst({id:x.card_row,card_id:x.card_id,serial:x.serial})); toast('ยกเลิกแล้ว การ์ดกลับเข้าคลัง'); renderMarket();});
+      Lst.appendChild(d);});
+  }
+  drawNews(); guide('mGuide','market');}
 
 /* เริ่ม */
 (function boot(){const imgs=['ui_art_web/lobby_bg.webp','ui_art_web/gacha_bg.webp','ui_art_web/room_bg.webp',A+'ui/thumb/card_back.webp']; let n=0;
   const step=()=>{n++;document.getElementById('ldBar').style.width=(n/imgs.length*100)+'%'; if(n===imgs.length) setTimeout(go,350)};
-  const go=()=>{if(DB.cur && me()) show(me().gender?'home':'pick'); else show('login');};
+  let gone=false; const go=async()=>{if(gone)return; gone=true;
+    if(ONLINE){ try{const {data}=await sb.auth.getSession(); if(data.session&&await loadMe(data.session.user)) return show(me().gender?'home':'pick');}catch(e){console.warn(e)} return show('login'); }
+    if(DB.cur && me()) show(me().gender?'home':'pick'); else show('login');};
   imgs.forEach(src=>{const i=new Image();i.onload=i.onerror=step;i.src=src}); setTimeout(()=>{if(document.getElementById('loading').classList.contains('on'))go()},4000);})();
 </script>
 </body>
