@@ -61,6 +61,9 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 @keyframes float{0%,100%{translate:0 0}50%{translate:0 -16px}}
 .loginbox{position:absolute;left:50%;bottom:4vh;transform:translateX(-50%);width:min(420px,calc(100% - 32px));background:#15100Dee;border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px;backdrop-filter:blur(6px);box-shadow:0 20px 60px #000c}
 .logo{position:absolute;top:3vh;left:0;right:0;text-align:center}
+.cbt{position:fixed;top:0;left:0;right:0;z-index:5;border:none;border-bottom:1px solid #E8C766;background:#8E1B1Bee;color:#FFF3D0;font-size:12px;letter-spacing:.05em;padding:6px 14px;cursor:pointer;font-family:inherit}
+#login .logo{top:calc(3vh + 30px)}
+.cbtchip{color:#FFE7A0;border-color:#8E1B1B;background:#3A1010;cursor:pointer}
 .logo h1{margin:0;font-size:clamp(30px,5vw,56px);color:var(--gold2);text-shadow:0 2px 0 #5a3a10,0 0 30px #c9a24a66}
 .logo div{color:var(--muted);letter-spacing:.3em;font-size:13px}
 .note{font-size:12px;color:var(--muted);text-align:center}
@@ -204,7 +207,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 <section id="login" class="screen" aria-label="เข้าสู่ระบบ">
   <video id="bgVideo" muted loop autoplay playsinline src="login/bg.mp4" onerror="this.remove()"></video>
   <canvas id="fxCanvas"></canvas>
-  <div class="logo"><h1>สยามินทร์ดุเอล</h1><div>SIAM DUEL</div></div>
+  <div class="logo"><h1>สยามินทร์ดุเอล</h1><div>SIAM DUEL</div><button class="cbt" data-cbt="1">CLOSED BETA · ข้อมูลทั้งหมดจะถูกรีเซตเมื่อสิ้นสุดการทดสอบ</button></div>
   <div class="showcase" id="showcase"></div>
   <form class="loginbox" id="loginForm" novalidate>
     <h2 id="loginTitle" style="margin:0;font-size:22px;color:var(--gold2)">เข้าสู่ระบบ</h2>
@@ -213,7 +216,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
     <div class="err" id="loginErr" role="alert"></div>
     <button class="btn" type="submit" id="loginBtn">เข้าเล่น</button>
     <button class="btn ghost" type="button" id="toggleReg">ยังไม่มีบัญชี? สมัครสมาชิก</button>
-    <div class="note">ตัวต้นแบบ: บัญชีเก็บในเบราว์เซอร์นี้เท่านั้น ระบบจริงใช้เซิร์ฟเวอร์</div>
+    <div class="note">ช่วงทดสอบ (CBT): บัญชีเก็บในเบราว์เซอร์นี้เท่านั้น และจะถูกรีเซตเมื่อจบการทดสอบ</div>
   </form>
 </section>
 
@@ -238,6 +241,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
     <span class="who" id="hWho"></span><span class="spacer"></span>
     <span class="chip"><img alt="โกลด์" src="ui_art_web/cur_gold.webp"><i id="hGold"></i></span>
     <span class="chip"><img alt="แต้มบุญ" src="ui_art_web/cur_merit.webp"><i id="hMerit"></i></span>
+    <button class="chip cbtchip" data-cbt="1" aria-label="ข้อมูลช่วงทดสอบและแจ้งปัญหา">CBT · แจ้งปัญหา</button>
     <button class="btn ghost" style="height:36px" id="logout">ออก</button>
   </div>
   <div class="hero" id="hero"></div>
@@ -406,7 +410,10 @@ function buildShowcase(){
 })();
 
 /* ---------- ข้อมูลผู้เล่น (ต้นแบบ: เก็บในเบราว์เซอร์) ---------- */
-const KEY='siamProto.v1';
+/* รีเซตข้อมูลผู้ทดสอบทั้งหมด: เปลี่ยน CBT_ROUND แล้วอัปขึ้นใหม่ */
+const CBT_ROUND=1, CBT_END='เมื่อสิ้นสุดการทดสอบ', REPO='https://github.com/erkawit/siamduel';
+const KEY='siamDuel.cbt'+CBT_ROUND;
+try{Object.keys(localStorage).filter(k=>k.startsWith('siamProto')||(k.startsWith('siamDuel.cbt')&&k!==KEY)).forEach(k=>localStorage.removeItem(k))}catch(e){}
 let DB={users:{},cur:null,event:{open:false,cardId:'SD001',name:'เทศกาลลอยกระทง'},minted:{},threshold:10000};
 try{const s=localStorage.getItem(KEY); if(s) DB=Object.assign(DB,JSON.parse(s));}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}};
@@ -573,6 +580,24 @@ function renderRoom(){const u=me(); if(!u.decks) u.decks=[1,2,3].map(i=>({name:'
     el.querySelector('[data-a=clear]').onclick=()=>{d.cards=[];save();renderRoom()};
     box.appendChild(el);});
   const note=document.createElement('div'); note.className='note'; note.textContent='เซ็ตการ์ดเก็บในเครื่องนี้เท่านั้น เซิร์ฟเวอร์ไม่รู้ว่าคุณจัดเด็คอะไร'; box.appendChild(note); save();}
+
+/* ---------- CBT: ข้อมูลช่วงทดสอบ + แจ้งปัญหา ---------- */
+function issueUrl(kind){const u=me(); const env=`\n\n---\nรอบทดสอบ: CBT ${CBT_ROUND}\nหน้าจอ: ${innerWidth}x${innerHeight}\nเบราว์เซอร์: ${navigator.userAgent}${u?`\nสุ่มสะสม: ${u.pulls} ครั้ง`:''}`;
+  const t=kind==='bug'?'[บั๊ก] ':'[ความเห็น] ', b=kind==='bug'?'เกิดอะไรขึ้น:\n\nทำอะไรก่อนเกิดปัญหา (ทีละขั้น):\n1.\n2.\n\nควรจะเป็นอย่างไร:'+env:'อยากบอกอะไรเกี่ยวกับเกม:'+env;
+  return `${REPO}/issues/new?title=${encodeURIComponent(t)}&body=${encodeURIComponent(b)}&labels=${kind==='bug'?'bug':'feedback'}`;}
+function openCbt(){const m=document.getElementById('modal'),b=document.getElementById('modalBox'); m.classList.remove('ev');
+  b.innerHTML=`<h3>ช่วงทดสอบปิด (CBT) รอบที่ ${CBT_ROUND}</h3>
+   <ul><li>บัญชี โกลด์ แต้มบุญ การ์ด และเด็คทั้งหมดเป็นข้อมูลทดสอบ <b>จะถูกรีเซต${CBT_END}</b></li>
+   <li>ข้อมูลเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น เปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์แล้วจะหาย</li>
+   <li>ช่วงนี้ยังเล่นได้: ตู้สุ่ม คลังการ์ด ห้องพัก (จัดเด็ค) · ระบบดวล ตลาดกลาง และกิลด์ ตามมาในรอบถัดไป</li>
+   <li>อัตราสุ่ม ค่าพลังการ์ด และภาพ อาจเปลี่ยนระหว่างทดสอบ</li></ul>
+   <h4>ช่วยเราพัฒนาเกม</h4><p>แจ้งปัญหาหรือส่งความเห็นผ่าน GitHub (ต้องมีบัญชี GitHub) ระบบจะแนบข้อมูลหน้าจอและเบราว์เซอร์ให้อัตโนมัติ</p>
+   <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px">
+    <a class="btn ghost" style="display:inline-flex;align-items:center;text-decoration:none" target="_blank" rel="noopener" href="${issueUrl('feedback')}">ส่งความเห็น</a>
+    <a class="btn" style="display:inline-flex;align-items:center;text-decoration:none" target="_blank" rel="noopener" href="${issueUrl('bug')}">แจ้งบั๊ก</a>
+    <button class="btn ghost" id="mOk">ปิด</button></div>`;
+  m.classList.add('on'); document.getElementById('mOk').onclick=()=>m.classList.remove('on');}
+document.addEventListener('click',e=>{if(e.target.closest('[data-cbt]'))openCbt();});
 
 /* ---------- ป๊อปอัปกติกา ---------- */
 function openInfo(kind){const m=document.getElementById('modal'),b=document.getElementById('modalBox'); m.classList.toggle('ev',kind==='event');
