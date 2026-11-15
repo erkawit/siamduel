@@ -106,8 +106,8 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .menu button small{display:block;font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
 .menu .ic{width:36px;height:36px;border-radius:50%;background:#2A1A12;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold2);flex:none}
 .dialog{position:absolute;left:3%;right:3%;bottom:3%;min-height:120px;background:#120C0Af0;border:28px solid transparent;border-image:url(ui_art_web/dialog_frame.webp) 30% 12% fill / 28px stretch;border-radius:0;display:flex;gap:14px;padding:12px 16px;align-items:flex-end;z-index:6}
-.dialog .bust{width:110px;height:130px;margin-top:-50px;border-radius:12px;overflow:hidden;flex:none;background:#0E0B0A;border:1px solid var(--line)}
-.dialog .bust img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.dialog .bust{width:130px;height:160px;margin-top:-90px;flex:none}
+.dialog .bust img{width:100%;height:100%;object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 6px 12px #000)}
 .dialog .bust.me{background:transparent;border:none;width:120px;height:150px;margin-top:-80px}
 .dialog .bust.me img{object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 6px 12px #000)}
 .dialog .who{font-family:Chonburi,serif;color:var(--gold2)}
@@ -165,6 +165,87 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .flip.r-divine.open{filter:drop-shadow(0 0 18px #ffd86a)}
 .flip.r-creator.open{filter:drop-shadow(0 0 22px #b48cff)}
 .flip.r-epic.open{filter:drop-shadow(0 0 10px #9a6ad6)}
+
+/* ---------- แผงลายไทย + ผู้นำทาง ---------- */
+.tpanel{border:22px solid transparent;border-image:url(ui_art_web/dialog_frame.webp) 30% 12% fill / 22px 26px stretch;background-clip:padding-box}
+.tpanel .ttl{font-family:Chonburi,serif;color:var(--gold2);font-size:18px;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+.tpanel .ttl small{font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
+.guide{position:absolute;left:12px;bottom:12px;display:flex;align-items:flex-end;gap:0;z-index:7;max-width:min(460px,calc(100% - 24px));pointer-events:none}
+.guide .gb{width:150px;height:190px;flex:none;margin-right:-18px;position:relative;z-index:2;pointer-events:auto;cursor:pointer}
+.guide .gb img,.guide .gb svg{width:100%;height:100%;object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 8px 16px #000)}
+.guide .gt{pointer-events:auto;margin-bottom:18px;font-size:14px;line-height:1.6;color:var(--text);min-width:0}
+.guide .gt b{color:var(--gold2);font-family:Chonburi,serif;font-weight:400;display:block;margin-bottom:2px}
+.guide .gt .x{float:right;border:none;background:none;color:var(--muted);font-size:16px;cursor:pointer;margin:-6px -6px 0 6px}
+.guide.min .gt{display:none}
+.guide.right{left:auto;right:12px;flex-direction:row-reverse}.guide.right .gb{margin-right:0;margin-left:-18px}
+@media (max-width:720px){#gGuide{bottom:auto;top:62px}#gGuide .gt{margin-bottom:0;margin-top:40px}.guide .gb{width:92px;height:116px}.guide .gt{font-size:12.5px}.guide{max-width:calc(100% - 16px);left:8px;bottom:8px}}
+
+/* ---------- ตู้สุ่ม (ใหม่) ---------- */
+.gstat{position:absolute;top:120px;left:16px;width:280px;z-index:4;font-size:13.5px}
+.gstat .row{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed #3A2E22}
+.gstat .row i{font-style:normal;color:var(--gold2)}
+.gstat .progress{width:100%;margin-top:8px}
+.gstat .tip{color:var(--muted);font-size:12px;margin-top:6px}
+.reslayer{position:absolute;top:64px;bottom:96px;left:0;right:0;z-index:6;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:radial-gradient(ellipse at center,#0E0B0Acc 30%,#0E0B0Af0 80%);overflow:auto;padding:12px 0}
+.reslayer.on{display:flex}
+.reslayer .results{max-width:none;gap:12px;padding:0 12px}
+.reslayer .rhead{font-family:Chonburi,serif;color:var(--gold2);font-size:20px;text-shadow:0 2px 4px #000}
+.reslayer .rnote{color:var(--muted);font-size:12.5px}
+#gacha.showing .stage,#gacha.showing .gstat{opacity:0;pointer-events:none}
+@media (max-width:900px){.gstat{position:absolute;top:auto;bottom:100px;left:8px;right:8px;width:auto;font-size:12px}.gstat .ttl{font-size:15px}.gstat .row{padding:1px 0}#gacha .stage{top:110px;bottom:270px}#gacha .stage .lotus{width:min(220px,50vw)}}
+
+/* ---------- ห้องพัก (ใหม่) ---------- */
+.room2{position:absolute;top:64px;bottom:0;left:0;right:0;display:grid;grid-template-columns:260px minmax(0,1.05fr) minmax(0,1fr);gap:10px;padding:8px 12px 12px}
+.room2 .hero2{position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:0}
+.room2 .hero2>img,.room2 .hero2>svg{max-height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 20px 40px #000)}
+.room2 .say{position:absolute;top:0;left:0;right:0;font-size:13.5px;line-height:1.6}
+.room2 .col{min-height:0;display:flex;flex-direction:column}
+.room2 .col>.tpanel{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;background-color:transparent}
+.dtabs{display:flex;gap:6px}
+.dtabs button{flex:1;height:40px;border-radius:10px 10px 4px 4px;border:1px solid #6B4A2A;background:linear-gradient(#2A1A12,#15100D);color:var(--muted);font-family:Chonburi,serif;font-size:14px}
+.dtabs button.on{color:#1A120C;background:linear-gradient(#F6E3A0,#C9A24A);border-color:#F6E3A0}
+.dname{display:flex;gap:8px;align-items:center}
+.dname input{flex:1;min-width:0;height:38px;border-radius:8px;border:1px solid #6B4A2A;background:#0E0B0A;color:var(--gold2);padding:0 10px;font-family:Chonburi,serif;font-size:16px}
+.modes{display:flex;gap:6px;flex-wrap:wrap}
+.curve{display:flex;align-items:flex-end;gap:6px;height:64px;padding:0 2px}
+.curve div{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--muted)}
+.curve i{display:block;width:100%;background:linear-gradient(#F6E3A0,#C9A24A);border-radius:3px 3px 0 0;min-height:2px}
+.dstat{display:flex;gap:6px;flex-wrap:wrap;font-size:12px}
+.dstat span{padding:2px 8px;border-radius:10px;background:#0E0B0A;border:1px solid var(--line)}
+.dstat .bad{color:#E07A6A;border-color:#8E1B1B}.dstat .ok{color:#8FD19E;border-color:#3E8E52}
+.mgrid{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;align-content:start;padding:4px 2px}
+.mcard{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;transition:transform .12s}
+.mcard:hover{transform:translateY(-3px)}
+.mcard .cnt{position:absolute;top:-4px;right:2px;min-width:22px;height:22px;border-radius:11px;background:#8E1B1B;border:1px solid var(--gold2);color:#FFF3D0;font-size:12px;display:flex;align-items:center;justify-content:center;padding:0 5px;z-index:3}
+.mcard .lab{font-size:11px;color:var(--muted)}
+.mcard .zz{position:absolute;top:-4px;left:2px;width:22px;height:22px;border-radius:50%;border:1px solid var(--gold);background:#0E0B0Ae0;color:var(--gold2);font-size:12px;z-index:3;display:flex;align-items:center;justify-content:center;opacity:.85}
+.mcard.dim{opacity:.45}
+.filt{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.filt select,.filt input{height:32px;border-radius:8px;border:1px solid #6B4A2A;background:#0E0B0A;color:var(--text);font-family:inherit;font-size:13px;padding:0 8px}
+.filt input{flex:1;min-width:100px}
+.empty{color:var(--muted);font-size:13px;padding:20px;text-align:center;grid-column:1/-1}
+@media (max-width:1100px){.room2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.room2 .hero2{display:none}}
+@media (max-width:720px){.room2{grid-template-columns:1fr;grid-template-rows:auto auto;overflow:auto;bottom:0;display:block}.room2 .col{margin-bottom:10px}.room2 .col>.tpanel{min-height:0}.room2 .mgrid{flex:none;overflow:visible;grid-template-columns:repeat(auto-fill,minmax(76px,1fr))}}
+@media (max-width:720px){.pullbar{gap:8px;bottom:14px}.imgbtn{min-width:0;flex:1;max-width:190px;height:52px;padding:0 14px;font-size:13.5px}.reslayer{bottom:80px}}
+
+/* ---------- ตลาดกลาง ---------- */
+#market{background:linear-gradient(#0E0B0A88,#0E0B0Aee),url(ui_art_web/lobby_bg.webp) center/cover,#0E0B0A}
+.mk{position:absolute;top:64px;bottom:0;left:0;right:0;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:10px;padding:8px 12px 12px}
+.mk .col>.tpanel{height:100%;display:flex;flex-direction:column;gap:8px}
+.mtabs{display:flex;gap:6px}
+.mtabs button{height:36px;padding:0 14px;border-radius:18px;border:1px solid var(--line);background:#0E0B0A;color:var(--muted);font-size:13px}
+.mtabs button.on{border-color:var(--gold);color:var(--gold2);background:#2A1A12}
+.lst{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;align-content:start;padding:4px 2px}
+.lot{display:flex;flex-direction:column;align-items:center;gap:4px;background:#0E0B0Acc;border:1px solid var(--line);border-radius:12px;padding:8px}
+.lot .price{display:flex;align-items:center;gap:4px;color:var(--gold2);font-family:Chonburi,serif;font-size:15px}
+.lot .price img{width:18px;height:18px}
+.lot .seller{font-size:11px;color:var(--muted)}
+.lot button{height:32px;width:100%;border-radius:16px;border:1px solid var(--gold);background:#8E1B1B;color:#FFF3D0;font-size:13px}
+.lot button.ghost{background:#0E0B0A;border-color:var(--line);color:var(--text)}
+.news{flex:1;min-height:0;overflow:auto;font-size:13px;line-height:1.6;display:flex;flex-direction:column;gap:6px}
+.news div{padding:6px 8px;border-radius:8px;background:#0E0B0Acc;border-left:3px solid var(--gold)}
+.news .hot{border-left-color:#E8C766;color:#FFE7A0}
+@media (max-width:900px){.mk{grid-template-columns:1fr;overflow:auto}.mk .col>.tpanel{height:auto;min-height:420px}}
 
 /* ---------- ป๊อปอัป ---------- */
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
@@ -263,7 +344,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
     <button data-go="gacha"><img class="mic" alt="" src="ui_art_web/ic_gacha.webp"><span>ตู้สุ่มการ์ด<small id="evHint">ตู้ปกติ</small></span></button>
     <button data-go="coll"><img class="mic" alt="" src="ui_art_web/ic_collection.webp"><span>คลังการ์ด<small id="collHint"></small></span></button>
     <button data-go="guild"><img class="mic" alt="" src="ui_art_web/ic_guild.webp"><span>กิลด์<small>ลานฝึก · ด่านฝึก AI</small></span></button>
-    <button data-go="market"><img class="mic" alt="" src="ui_art_web/ic_market.webp"><span>ตลาดกลาง<small>เปิดเมื่อมีเซิร์ฟเวอร์</small></span></button>
+    <button data-go="market"><img class="mic" alt="" src="ui_art_web/ic_market.webp"><span>ตลาดกลาง<small>ซื้อขายการ์ด (จำลองช่วง CBT)</small></span></button>
   </nav>
   <div class="dialog" id="dlg">
     <div class="bust" id="dlgBust"></div>
@@ -281,14 +362,21 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
     <button class="btn ghost" style="height:36px" id="gInfo" aria-label="ดูกติกาตู้">กติกา ?</button>
   </div>
   <div class="tabs" id="gTabs"></div>
+  <div class="gstat tpanel" id="gStat"></div>
   <div class="stage" id="gStage"></div>
+  <div class="reslayer" id="gLayer"><div class="rhead" id="gHead"></div><div class="results" id="gRes"></div><div class="rnote">แตะการ์ดเพื่อดูขยาย · แตะพื้นที่ว่างเพื่อปิด</div></div>
   <div class="pullbar" id="gBar"></div>
+  <div class="guide right" id="gGuide"></div>
 </section>
 
 <!-- ========== คลัง ========== -->
 <section id="room" class="screen" aria-label="ห้องพักส่วนตัว">
   <div class="topbar"><button class="btn ghost" style="height:36px" data-go="home">← กลับ</button><span class="who" style="margin-left:8px">ห้องพักส่วนตัว</span><span class="spacer"></span></div>
-  <div class="roomwrap"><div class="roomhero" id="roomHero"></div><div class="decks" id="decks"></div></div>
+  <div class="room2">
+    <div class="hero2" id="roomHero"></div>
+    <div class="col"><div class="tpanel" id="deckPanel"></div></div>
+    <div class="col"><div class="tpanel" id="poolPanel"></div></div>
+  </div>
 </section>
 <section id="guild" class="screen" aria-label="กิลด์">
   <div class="topbar"><button class="btn ghost" style="height:36px" data-go="home">← กลับ</button><span class="who" style="margin-left:8px">หอกิลด์</span><span class="spacer"></span></div>
@@ -298,11 +386,22 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
     <div class="gcard"><h3>โจทย์ประจำสัปดาห์</h3><p>สถานการณ์กลางเกม ต้องชนะให้ได้ภายใน 1 เทิร์น</p><button class="btn ghost" data-soon="1">ดูโจทย์</button></div>
     <div class="gcard"><h3>เด็คต้นแบบกิลด์</h3><p>แชร์รายชื่อการ์ดให้สมาชิกคัดลอกไปจัดเด็คของตัวเอง</p><button class="btn ghost" data-soon="1">ดูเด็คต้นแบบ</button></div>
   </div>
+  <div class="guide" id="guGuide"></div>
 </section>
 <section id="loading" class="screen on" aria-label="กำลังโหลด"><div class="bar"><div id="ldBar"></div></div></section>
 <section id="coll" class="screen" aria-label="คลังการ์ด">
   <div class="topbar"><button class="btn ghost" style="height:36px" data-go="home">← กลับ</button><span class="who" style="margin-left:8px">คลังการ์ด</span><span class="spacer"></span><span class="chip" id="cCount"></span></div>
   <div class="grid" id="cGrid"></div>
+  <div class="guide" id="cGuide" style="position:fixed"></div>
+</section>
+<section id="market" class="screen" aria-label="ตลาดกลาง">
+  <div class="topbar"><button class="btn ghost" style="height:36px" data-go="home">← กลับ</button><span class="who" style="margin-left:8px">ตลาดกลาง</span><span class="chip" style="color:#FFE7A0;border-color:#8E1B1B">จำลอง · CBT</span><span class="spacer"></span>
+    <span class="chip"><img alt="โกลด์" src="ui_art_web/cur_gold.webp"><i id="mGold"></i></span></div>
+  <div class="mk">
+    <div class="col"><div class="tpanel" id="mkMain"></div></div>
+    <div class="col"><div class="tpanel" id="mkSide"></div></div>
+  </div>
+  <div class="guide" id="mGuide"></div>
 </section>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modalBox"></div></div>
@@ -434,9 +533,9 @@ async function hash(s){try{const b=await crypto.subtle.digest('SHA-256',new Text
 
 const toast=(m,ms=3200)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),ms)};
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
-  if(id==='home')renderHome(); if(id==='gacha')renderGacha(true); if(id==='coll')renderColl(); if(id==='room')renderRoom(); if(id==='login')buildShowcase();}
+  if(id==='home')renderHome(); if(id==='gacha')renderGacha(true); if(id==='coll')renderColl(); if(id==='room')renderRoom(); if(id==='market')renderMarket(); if(id==='guild')guide('guGuide','guild'); if(id==='login')buildShowcase();}
 document.addEventListener('click',e=>{if(e.target.closest('[data-soon]'))return toast('ระบบกิลด์ต้องเชื่อมเซิร์ฟเวอร์ จะเปิดในเวอร์ชันออนไลน์');const g=e.target.closest('[data-go]'); if(!g)return; const to=g.dataset.go;
-  if(to==='duel'||to==='market') return toast(to==='duel'?'โหมดดวลกำลังสร้าง จะมาในขั้นถัดไป':'ตลาดกลางเปิดเมื่อมีระบบเซิร์ฟเวอร์');
+  if(to==='duel') return toast('โหมดดวลกำลังสร้าง จะมาในขั้นถัดไป');
   show(to);});
 
 /* ---------- ล็อกอิน / สมัคร ---------- */
@@ -505,22 +604,36 @@ function renderGacha(first){const u=me(); const gs=document.getElementById('gach
   const tabs=document.getElementById('gTabs'); tabs.innerHTML='';
   const t1=document.createElement('button');t1.textContent='ตู้ปกติ';t1.className=gTab==='normal'?'on':'';t1.onclick=()=>{gTab='normal';renderGacha()};tabs.appendChild(t1);
   if(DB.event.open){const t2=document.createElement('button');t2.textContent='✦ ตู้ผู้สรรสร้าง';t2.className='ev '+(gTab==='event'?'on':'');t2.onclick=()=>{gTab='event';renderGacha();if(!u.seenEv){u.seenEv=DB.event.name;save();openInfo('event')}};tabs.appendChild(t2);}
-  const st=document.getElementById('gStage'), bar=document.getElementById('gBar');
+  const st=document.getElementById('gStage'), bar=document.getElementById('gBar'), gs2=document.getElementById('gStat');
+  document.getElementById('gLayer').classList.remove('on'); gs.classList.remove('showing');
   if(gTab==='normal'){
-    st.innerHTML=`<div class="info"><h2>ตู้สุ่มการ์ดสยาม</h2><div class="sub">ครั้งละ 100 โกลด์ · 10 ครั้ง 1,000 โกลด์ · ได้แต้มบุญ +1 ทุกครั้ง</div>
-      <div class="sub">ตำนานการันตีภายใน ${fmt(200-u.sinceLegend)} ครั้ง · สุ่มสะสม ${fmt(u.pulls)} / ${fmt(DB.threshold)} ครั้ง (สิทธิ์ตู้ผู้สรรสร้าง)</div>
-      <div class="progress" aria-label="ความคืบหน้าสิทธิ์"><div style="width:${Math.min(100,u.pulls/DB.threshold*100)}%"></div></div></div>
-      <div class="lotus" id="lotus"><img class="closed" alt="" src="ui_art_web/gacha_lotus_closed.webp"><img class="open" alt="" src="ui_art_web/gacha_lotus_open.webp"><img class="burst" id="burst" alt="" src="ui_art_web/burst_common.webp"></div>
-      <div class="results over" id="gRes"></div>`;
+    gs2.style.display='';
+    gs2.innerHTML=`<div class="ttl">บันทึกการสุ่ม</div>
+      <div class="row"><span>สุ่มสะสมทั้งหมด</span><i>${fmt(u.pulls)} ครั้ง</i></div>
+      <div class="row"><span>การันตีตำนานภายใน</span><i>${fmt(200-u.sinceLegend)} ครั้ง</i></div>
+      <div class="row"><span>แต้มบุญ</span><i>${fmt(u.merit)}</i></div>
+      <div class="row"><span>สิทธิ์ตู้ผู้สรรสร้าง</span><i>${fmt(Math.min(u.pulls,DB.threshold))} / ${fmt(DB.threshold)}</i></div>
+      <div class="progress" aria-label="ความคืบหน้าสิทธิ์ตู้ผู้สรรสร้าง"><div style="width:${Math.min(100,u.pulls/DB.threshold*100)}%"></div></div>
+      <div class="tip">ครั้งละ 100 โกลด์ · 10 ครั้ง 1,000 โกลด์ · ได้แต้มบุญ +1 ทุกครั้ง</div>`;
+    st.innerHTML=`<div class="lotus" id="lotus"><img class="closed" alt="" src="ui_art_web/gacha_lotus_closed.webp"><img class="open" alt="" src="ui_art_web/gacha_lotus_open.webp"><img class="burst" id="burst" alt="" src="ui_art_web/burst_common.webp"></div>`;
     bar.innerHTML=''; [[1,100],[10,1000]].forEach(([n,cost])=>{const b=document.createElement('button');b.className='imgbtn';b.style.backgroundImage=`url(ui_art_web/btn_pull${n}.webp)`;b.textContent=`สุ่ม ${n} ครั้ง · ${fmt(cost)} โกลด์`;b.dataset.cost=cost;b.disabled=u.gold<cost;b.onclick=()=>pullNormal(n,cost);bar.appendChild(b)});
+    guide('gGuide','gacha');
   } else {
     const c=BY[DB.event.cardId], taken=DB.minted[c.id]>=1;
-    st.innerHTML=`<div class="info"><h2 style="color:#D9CEFF">${DB.event.name}</h2><div class="sub">รอบนี้ปล่อยการ์ดผู้สรรสร้างเพียง 1 ใบในเซิร์ฟเวอร์</div></div>
-      <div id="evCard"></div><div class="sub">${taken?'การ์ดใบนี้มีผู้ได้รับไปดูแลต่อแล้ว รอบนี้ปิดแล้ว':`ครั้งละ 5,000 โกลด์ · โอกาส 0.5% · ${eligible()?'คุณมีสิทธิ์สุ่มตู้นี้':`ต้องสุ่มตู้ปกติอีก ${fmt(DB.threshold-u.pulls)} ครั้งจึงจะมีสิทธิ์`}`}</div><div class="results" id="gRes"></div>`;
-    const ec=cardEl(c,{w:Math.min(220,innerWidth*0.4),tilt:true,sparkle:true,seed:7,serial:'๑/๑'}); if(taken) ec.style.filter='grayscale(1) brightness(.5)';
+    gs2.style.display='';
+    gs2.innerHTML=`<div class="ttl" style="color:#D9CEFF">${DB.event.name}</div>
+      <div class="row"><span>การ์ดของรอบ</span><i>${c.name_th}</i></div>
+      <div class="row"><span>จำนวนในเซิร์ฟเวอร์</span><i>๑ ใบ</i></div>
+      <div class="row"><span>ค่าสุ่ม / โอกาส</span><i>5,000 โกลด์ · 0.5%</i></div>
+      <div class="row"><span>สิทธิ์ของคุณ</span><i>${eligible()?'มีสิทธิ์':`ขาดอีก ${fmt(DB.threshold-u.pulls)} ครั้ง`}</i></div>
+      <div class="progress"><div style="width:${Math.min(100,u.pulls/DB.threshold*100)}%"></div></div>
+      <div class="tip">${taken?'การ์ดใบนี้มีผู้ได้รับไปดูแลต่อแล้ว รอบนี้ปิดแล้ว':'โกลด์ที่ใช้ถูกเผาเป็นเครื่องบูชา ไม่คืนทุกกรณี'}</div>`;
+    st.innerHTML=`<div id="evCard"></div>`;
+    const ec=cardEl(c,{w:Math.min(260,innerWidth*0.45,(innerHeight-300)/1.5),tilt:true,sparkle:true,seed:7,serial:'๑/๑'}); if(taken) ec.style.filter='grayscale(1) brightness(.5)';
     document.getElementById('evCard').appendChild(ec);
     bar.innerHTML=''; const b=document.createElement('button');b.className='btn';b.style.background='#3A2A6A';b.style.borderColor='#B7A6F0';
     b.textContent='สุ่มตู้ผู้สรรสร้าง · 5,000 โกลด์'; b.disabled=taken||!eligible()||u.gold<5000; b.onclick=pullEvent; bar.appendChild(b);
+    guide('gGuide','event');
   }
   if(first && !u.seenNormal){u.seenNormal=true;save();openInfo('normal')}
 }
@@ -542,7 +655,7 @@ function pullNormal(n,cost){const u=me(); if(u.gold<cost) return;
     const inst={id:c.id,at:Date.now()}; if(c.rarity_code==='divine'){DB.minted[c.id]=(DB.minted[c.id]||0)+1;inst.serial=`${TH(DB.minted[c.id])}/${TH(3)}`;
       toast(`ประกาศทั้งเซิร์ฟเวอร์: การ์ด ${c.name_th} ระดับพระเจ้า ${inst.serial} ถูกค้นพบแล้ว`,5000);}
     u.cards.push(inst); out.push(inst);}
-  save(); renderGacha(); bloom(out);}
+  save(); refreshStat(); bloom(out);}
 function pullEvent(){const u=me(), c=BY[DB.event.cardId]; if(u.gold<5000||!eligible()||DB.minted[c.id]>=1) return;
   u.gold-=5000; const win=Math.random()<0.005; save();
   if(win){DB.minted[c.id]=1; const inst={id:c.id,at:Date.now(),serial:'๑/๑'}; u.cards.push(inst); save(); renderGacha(); reveal([inst]);
@@ -550,20 +663,31 @@ function pullEvent(){const u=me(), c=BY[DB.event.cardId]; if(u.gold<5000||!eligi
   else {renderGacha(); toast('ยังไม่ใช่วาสนาของท่าน · 5,000 โกลด์ถูกเผาเป็นเครื่องบูชา');}}
 const TIER_RANK=['common','standard','rare','epic','legend','divine','creator'];
 let busy=false;
+function refreshStat(){const u=me(); document.getElementById('gGold').textContent=fmt(u.gold); document.getElementById('gMerit').textContent=fmt(u.merit);
+  const keep=gTab; const lo=document.getElementById('lotus'); const html=lo&&lo.outerHTML; renderGacha(); }
 function bloom(list){const lo=document.getElementById('lotus'); if(!lo){reveal(list);return}
   const top=list.map(i=>BY[i.id].rarity_code).sort((a,b)=>TIER_RANK.indexOf(b)-TIER_RANK.indexOf(a))[0];
   document.getElementById('burst').src=`ui_art_web/burst_${top==='creator'?'divine':top}.webp`;
   busy=true; document.querySelectorAll('#gBar button').forEach(b=>b.disabled=true);
   lo.classList.add('charge');
   setTimeout(()=>{lo.classList.remove('charge');lo.classList.add('bloom');},900);
-  setTimeout(()=>{lo.style.opacity=.25;reveal(list);busy=false;document.querySelectorAll('#gBar button').forEach(b=>b.disabled=me().gold<(+b.dataset.cost||0));},1500);}
-function reveal(list){const box=document.getElementById('gRes'); box.innerHTML='';
-  const w=list.length>1?Math.min(120,(Math.min(innerWidth,1100)-60)/5):Math.min(220,innerWidth*0.45);
+  setTimeout(()=>{reveal(list);busy=false;document.querySelectorAll('#gBar button').forEach(b=>b.disabled=me().gold<(+b.dataset.cost||0));},1500);}
+function revealSize(n){const vw=innerWidth, vh=innerHeight-64-96-80;
+  if(n===1) return Math.min(300,vw*0.62,vh/1.5);
+  const cols=vw<720?4:5, rows=Math.ceil(n/cols);
+  return Math.max(70,Math.min(230,(vw-24-(cols-1)*12)/cols,(vh-(rows-1)*12)/rows/1.5));}
+function reveal(list){const layer=document.getElementById('gLayer'), box=document.getElementById('gRes'); box.innerHTML='';
+  const best=list.map(i=>BY[i.id].rarity_code).sort((a,b)=>TIER_RANK.indexOf(b)-TIER_RANK.indexOf(a))[0];
+  document.getElementById('gHead').textContent=`ได้รับการ์ด ${list.length} ใบ · สูงสุดระดับ${RARE_TH[best]}`;
+  const w=revealSize(list.length); const cols=innerWidth<720?4:5;
+  box.style.maxWidth=(list.length>1?cols*(w+12)+36:w+48)+'px';
+  layer.classList.add('on'); document.getElementById('gacha').classList.add('showing');
+  layer.onclick=e=>{if(e.target===layer||e.target===box){layer.classList.remove('on');document.getElementById('gacha').classList.remove('showing');}};
   list.forEach((inst,i)=>{const c=BY[inst.id]; const f=document.createElement('div'); f.className='flip r-'+c.rarity_code; f.style.setProperty('--w',w+'px');
     const back=document.createElement('div'); back.className='back'; back.style.backgroundImage=`url(${A}ui/thumb/card_back.webp)`;
     const front=document.createElement('div'); front.className='front'; front.appendChild(cardEl(c,{w,serial:inst.serial,sparkle:true,seed:inst.at%997}));
     f.append(back,front); f.onclick=()=>zoomCard(inst); box.appendChild(f);
-    setTimeout(()=>f.classList.add('open'),300+i*160);});}
+    setTimeout(()=>f.classList.add('open'),250+i*140);});}
 
 /* ---------- ห้องพักและเด็ค 3 เซ็ต (เก็บในเครื่อง) ---------- */
 const MODES=[['ai','ดวล AI'],['arena','อารีน่า'],['p2p','ดวลเพื่อน P2P'],['guild','ศึกกิลด์'],['team','ทีม 2v2'],['event','กิจกรรม']];
@@ -578,20 +702,130 @@ function autoDeck(u){const own={}; u.cards.forEach(c=>own[c.id]=(own[c.id]||0)+1
   for(const id of order){const isHi=['legend','divine','creator'].includes(BY[id].rarity_code);
     for(let k=0;k<Math.min(3,own[id]);k++){ if(out.length>=30)break; if(isHi&&hi>=3)break; out.push(id); if(isHi)hi++; }}
   return out;}
+let curDeck=0, poolFilter={q:'',tier:'',type:''};
+function ownedCount(u){const own={}; u.cards.forEach(c=>own[c.id]=(own[c.id]||0)+1); return own;}
+function miniCard(c,opt){const m=document.createElement('div'); m.className='mcard'+(opt.dim?' dim':'');
+  m.appendChild(cardEl(c,{w:opt.w||88})); if(opt.cnt) m.insertAdjacentHTML('beforeend',`<span class="cnt">${opt.cnt}</span>`);
+  const z=document.createElement('button'); z.className='zz'; z.type='button'; z.title='ดูขยาย'; z.textContent='⌕'; z.onclick=e=>{e.stopPropagation();zoomCard({id:c.id,at:1})}; m.appendChild(z);
+  if(opt.lab) m.insertAdjacentHTML('beforeend',`<span class="lab">${opt.lab}</span>`);
+  if(opt.on) m.onclick=opt.on; return m;}
 function renderRoom(){const u=me(); if(!u.decks) u.decks=[1,2,3].map(i=>({name:'เซ็ตที่ '+i,modes:i===1?['ai']:[],cards:[]}));
-  const h=document.getElementById('roomHero'); h.innerHTML=''; h.appendChild(charImg(u.gender,'full_idle_right',u.name));
-  const box=document.getElementById('decks'); box.innerHTML='';
-  u.decks.forEach((d,i)=>{const errs=deckCheck(d.cards); const el=document.createElement('div'); el.className='deck'+(errs.length?'':' ok');
-    el.innerHTML=`<div class="row"><input aria-label="ชื่อเซ็ต ${i+1}" value="${d.name}" maxlength="20"><span class="chip">${d.cards.length} / 30 ใบ</span></div>
-      <div class="row">${MODES.map(([k,t])=>`<button class="mode ${d.modes.includes(k)?'on':''}" data-m="${k}">${t}</button>`).join('')}</div>
-      <div class="msg ${errs.length?'bad':''}">${errs.length?errs.join(' · '):'พร้อมใช้ในโหมดที่เลือก ✓'}</div>
-      <div class="row"><button class="btn ghost" style="height:38px" data-a="auto">จัดอัตโนมัติจากการ์ดที่มี</button><button class="btn ghost" style="height:38px" data-a="clear">ล้างเซ็ต</button></div>`;
-    el.querySelector('input').onchange=e=>{d.name=e.target.value.trim()||('เซ็ตที่ '+(i+1));save()};
-    el.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{const m=b.dataset.m; d.modes=d.modes.includes(m)?d.modes.filter(x=>x!==m):[...d.modes,m]; save(); renderRoom();});
-    el.querySelector('[data-a=auto]').onclick=()=>{d.cards=autoDeck(u); save(); renderRoom(); if(d.cards.length<30) toast('การ์ดยังไม่พอ 30 ใบ ลองไปสุ่มเพิ่มที่ตู้สุ่ม');};
-    el.querySelector('[data-a=clear]').onclick=()=>{d.cards=[];save();renderRoom()};
-    box.appendChild(el);});
-  const note=document.createElement('div'); note.className='note'; note.textContent='เซ็ตการ์ดเก็บในเครื่องนี้เท่านั้น เซิร์ฟเวอร์ไม่รู้ว่าคุณจัดเด็คอะไร'; box.appendChild(note); save();}
+  const h=document.getElementById('roomHero'); h.innerHTML='';
+  const say=document.createElement('div'); say.className='say tpanel';
+  say.innerHTML=`<b style="color:var(--gold2);font-family:Chonburi,serif;font-weight:400">${u.name}</b><br>${GUIDE.room}`;
+  h.append(say, charImg(u.gender,'full_talk_right',u.name));
+  const d=u.decks[curDeck], own=ownedCount(u), inDeck={}; d.cards.forEach(i=>inDeck[i]=(inDeck[i]||0)+1);
+  const errs=deckCheck(d.cards);
+  /* แผงเด็ค */
+  const P=document.getElementById('deckPanel'); P.innerHTML='';
+  P.insertAdjacentHTML('beforeend',`<div class="dtabs">${u.decks.map((x,i)=>`<button data-t="${i}" class="${i===curDeck?'on':''}">${x.name}</button>`).join('')}</div>
+   <div class="dname"><input aria-label="ชื่อเซ็ต" maxlength="20" value="${d.name}"><span class="chip">${d.cards.length} / 30</span></div>
+   <div class="modes">${MODES.map(([k,t])=>`<button class="mode ${d.modes.includes(k)?'on':''}" data-m="${k}">${t}</button>`).join('')}</div>`);
+  const counts=[0,0,0,0,0,0,0]; d.cards.forEach(i=>counts[Math.min(6,Math.max(1,BY[i].cost)-1)]++); const mx=Math.max(1,...counts);
+  const units=d.cards.filter(i=>BY[i].atk!==null&&BY[i].atk!==''&&BY[i].atk!==undefined).length;
+  P.insertAdjacentHTML('beforeend',`<div class="curve" aria-label="กราฟต้นทุน">${counts.map((n,i)=>`<div><span>${n||''}</span><i style="height:${n/mx*40}px"></i>${i===6?'7+':i+1}</div>`).join('')}</div>
+   <div class="dstat"><span>ยูนิต ${units}</span><span>คาถา/ของขลัง/กับดัก ${d.cards.length-units}</span>${errs.length?errs.map(e=>`<span class="bad">${e}</span>`).join(''):'<span class="ok">พร้อมใช้ในโหมดที่เลือก ✓</span>'}</div>`);
+  const g=document.createElement('div'); g.className='mgrid';
+  const ids=Object.keys(inDeck).sort((a,b)=>BY[a].cost-BY[b].cost||TIER_RANK.indexOf(BY[b].rarity_code)-TIER_RANK.indexOf(BY[a].rarity_code));
+  if(!ids.length) g.innerHTML='<div class="empty">เซ็ตนี้ยังว่าง · แตะการ์ดในคลังด้านขวาเพื่อเพิ่ม หรือกด "จัดอัตโนมัติ"</div>';
+  ids.forEach(id=>g.appendChild(miniCard(BY[id],{cnt:'×'+inDeck[id],lab:'แตะเพื่อเอาออก',on:()=>{d.cards.splice(d.cards.indexOf(id),1);save();renderRoom();}})));
+  P.appendChild(g);
+  P.insertAdjacentHTML('beforeend',`<div class="modes"><button class="btn ghost" style="height:36px" data-a="auto">จัดอัตโนมัติ</button><button class="btn ghost" style="height:36px" data-a="clear">ล้างเซ็ต</button></div>`);
+  P.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{curDeck=+b.dataset.t;renderRoom()});
+  P.querySelector('input').onchange=e=>{d.name=e.target.value.trim()||('เซ็ตที่ '+(curDeck+1));save();renderRoom()};
+  P.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{const m=b.dataset.m; d.modes=d.modes.includes(m)?d.modes.filter(x=>x!==m):[...d.modes,m]; save(); renderRoom();});
+  P.querySelector('[data-a=auto]').onclick=()=>{d.cards=autoDeck(u); save(); renderRoom(); if(d.cards.length<30) toast('การ์ดยังไม่พอ 30 ใบ ลองไปสุ่มเพิ่มที่ตู้สุ่ม');};
+  P.querySelector('[data-a=clear]').onclick=()=>{d.cards=[];save();renderRoom()};
+  /* แผงคลัง */
+  const Q=document.getElementById('poolPanel'); Q.innerHTML=`<div class="ttl">คลังการ์ดของคุณ <small>แตะเพื่อเพิ่มเข้าเซ็ต</small></div>
+   <div class="filt"><input placeholder="ค้นหาชื่อการ์ด" aria-label="ค้นหาชื่อการ์ด" value="${poolFilter.q}">
+    <select aria-label="ระดับ"><option value="">ทุกระดับ</option>${TIER_RANK.map(t=>`<option value="${t}" ${poolFilter.tier===t?'selected':''}>${RARE_TH[t]}</option>`).join('')}</select>
+    <select aria-label="ประเภท"><option value="">ทุกประเภท</option>${['ยูนิต','คาถา','ของขลัง','กับดัก'].map(t=>`<option ${poolFilter.type===t?'selected':''}>${t}</option>`).join('')}</select></div>`;
+  const [qi,ts,ty]=Q.querySelectorAll('input,select');
+  qi.oninput=e=>{poolFilter.q=e.target.value;drawPool()}; ts.onchange=e=>{poolFilter.tier=e.target.value;drawPool()}; ty.onchange=e=>{poolFilter.type=e.target.value;drawPool()};
+  const pg=document.createElement('div'); pg.className='mgrid'; Q.appendChild(pg);
+  function drawPool(){pg.innerHTML='';
+    const list=Object.keys(own).map(i=>BY[i]).filter(c=>(!poolFilter.q||c.name_th.includes(poolFilter.q))&&(!poolFilter.tier||c.rarity_code===poolFilter.tier)&&(!poolFilter.type||c.type===poolFilter.type))
+      .sort((a,b)=>TIER_RANK.indexOf(b.rarity_code)-TIER_RANK.indexOf(a.rarity_code)||a.cost-b.cost);
+    if(!list.length) pg.innerHTML='<div class="empty">ยังไม่มีการ์ดที่ตรงเงื่อนไข · ไปสุ่มการ์ดที่ตู้สุ่มก่อนนะ</div>';
+    list.forEach(c=>{const left=own[c.id]-(inDeck[c.id]||0);
+      pg.appendChild(miniCard(c,{cnt:left+'/'+own[c.id],dim:left<=0||(inDeck[c.id]||0)>=3,lab:`ใช้แล้ว ${inDeck[c.id]||0}`,on:()=>{
+        if(d.cards.length>=30) return toast('เซ็ตครบ 30 ใบแล้ว');
+        if(left<=0) return toast('การ์ดใบนี้ใส่ครบตามจำนวนที่มีแล้ว');
+        if((inDeck[c.id]||0)>=3) return toast('การ์ดชื่อเดียวกันใส่ได้ไม่เกิน 3 ใบ');
+        d.cards.push(c.id); save(); renderRoom();}}));});}
+  drawPool(); save();}
+
+/* ---------- ผู้นำทาง: ตัวละครผู้เล่น + คำอธิบายในทุกหน้า ---------- */
+const GUIDE={
+ gacha:'ตู้สุ่มบุษบกทอง ใช้โกลด์สุ่มการ์ด ทุกครั้งได้แต้มบุญ +1 และนับเข้าการันตีตำนาน (ครบ 200 ครั้งได้แน่นอน) ดอกบัวจะเรืองแสงตามระดับการ์ดสูงสุดที่ได้ แตะการ์ดเพื่อดูขยาย',
+ event:'ตู้ผู้สรรสร้างเปิดเฉพาะช่วงเทศกาล รอบละ 1 ใบในเซิร์ฟเวอร์ ต้องสุ่มตู้ปกติสะสมครบตามเกณฑ์ก่อนจึงจะมีสิทธิ์ ครั้งละ 5,000 โกลด์',
+ coll:'นี่คือคลังการ์ดของเรา การ์ดสีจางคือแบบที่ยังไม่มี แตะการ์ดที่มีเพื่อดูขยาย ซูม และเอียงดูประกายได้',
+ room:'ที่นี่คือเรือนพักของเรา จัดเด็คได้ 3 เซ็ต แตะการ์ดในคลังเพื่อเพิ่ม แตะการ์ดในเซ็ตเพื่อเอาออก แล้วเลือกว่าเซ็ตนี้ใช้ในโหมดไหน ครบ 30 ใบก็พร้อมดวล',
+ market:'ตลาดกลางซื้อขายการ์ดกับผู้เล่นอื่นด้วยโกลด์ ค่าธรรมเนียม 5% ถูกเผาออกจากระบบ ช่วง CBT นี้เป็นตลาดจำลองกับพ่อค้า NPC',
+ guild:'หอกิลด์ รวมพลฝึกฝีมือ ท้าบอส AI และแชร์เด็คกับสมาชิก ระบบนี้จะเปิดเมื่อเชื่อมเซิร์ฟเวอร์ออนไลน์'};
+function guide(elId,key){const g=document.getElementById(elId), u=me(); if(!g||!u) return;
+  const right=g.classList.contains('right');
+  if(!u.guideMin) u.guideMin={};
+  if(u.guideMin[key]===undefined && innerWidth<720) u.guideMin[key]=true;
+  g.classList.toggle('min',!!u.guideMin[key]);
+  g.innerHTML=`<div class="gb" title="แตะเพื่อแสดง/ซ่อนคำแนะนำ"></div><div class="gt tpanel"><button class="x" aria-label="ซ่อนคำแนะนำ">✕</button><b>${u.name}</b>${GUIDE[key]}</div>`;
+  g.querySelector('.gb').appendChild(charImg(u.gender,right?'bust_talk_left':'bust_talk_right',u.name));
+  const tog=()=>{u.guideMin[key]=!u.guideMin[key];save();g.classList.toggle('min',u.guideMin[key])};
+  g.querySelector('.gb').onclick=tog; g.querySelector('.x').onclick=tog;}
+
+/* ---------- ตลาดกลาง (จำลองช่วง CBT: พ่อค้า NPC) ---------- */
+const REF_PRICE={common:50,standard:120,rare:400,epic:1500,legend:8000,divine:150000,creator:3000000};
+const NPC=['พ่อค้าเรือสำเภา','แม่ค้าตลาดน้ำ','นายฮ้อยอีสาน','พรานป่าเมืองเหนือ','เถ้าแก่ท่าเตียน','ยายแก่หน้าวัด'];
+let mkTab='buy';
+function mkSeed(){const lots=[]; const pick=a=>a[Math.floor(Math.random()*a.length)];
+  for(let i=0;i<18;i++){const t=Math.random()<.5?'common':Math.random()<.5?'standard':Math.random()<.6?'rare':Math.random()<.7?'epic':'legend';
+    const c=pick(POOL[t]); lots.push({lid:'n'+Date.now()+i,id:c.id,price:Math.round(REF_PRICE[t]*(0.8+Math.random()*0.6)/10)*10,seller:pick(NPC)});}
+  return lots;}
+function renderMarket(){const u=me(); if(!DB.market) DB.market={lots:mkSeed(),news:[],mine:[]};
+  const M=DB.market; settleMine(); document.getElementById('mGold').textContent=fmt(u.gold);
+  const main=document.getElementById('mkMain'); main.innerHTML=`<div class="mtabs"><button data-k="buy" class="${mkTab==='buy'?'on':''}">ซื้อการ์ด</button><button data-k="sell" class="${mkTab==='sell'?'on':''}">ลงขายการ์ดของฉัน</button><button data-k="mine" class="${mkTab==='mine'?'on':''}">รายการที่ฉันลงขาย (${(M.mine||[]).filter(x=>!x.sold).length})</button></div>`;
+  main.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{mkTab=b.dataset.k;renderMarket()});
+  const L=document.createElement('div'); L.className='lst'; main.appendChild(L);
+  const gold='<img alt="" src="ui_art_web/cur_gold.webp">';
+  const lotEl=(c,inner)=>{const d=document.createElement('div');d.className='lot';d.appendChild(cardEl(c,{w:130}));d.insertAdjacentHTML('beforeend',inner);
+    const z=document.createElement('button');z.className='ghost';z.textContent='ดูขยาย';z.onclick=()=>zoomCard({id:c.id,at:2});d.appendChild(z);return d;};
+  if(mkTab==='buy'){
+    M.lots.forEach(l=>{const c=BY[l.id]; const d=lotEl(c,`<div class="price">${gold}${fmt(l.price)}</div><div class="seller">ผู้ขาย: ${l.seller}</div><button>ซื้อ</button>`);
+      d.querySelector('button:not(.ghost)').onclick=()=>{if(u.gold<l.price) return toast('โกลด์ไม่พอ');
+        u.gold-=l.price; u.cards.push({id:l.id,at:Date.now()}); M.lots=M.lots.filter(x=>x!==l);
+        M.news.unshift(`ซื้อ ${c.name_th} (${RARE_TH[c.rarity_code]}) ราคา ${fmt(l.price)} โกลด์ · ค่าธรรมเนียม ${fmt(Math.round(l.price*0.05))} ถูกเผา`);
+        if(M.lots.length<8) M.lots.push(...mkSeed().slice(0,8)); save(); toast(`ได้รับ ${c.name_th} แล้ว`); renderMarket();};
+      L.appendChild(d);});
+  } else if(mkTab==='sell'){
+    const own=ownedCount(u); const ids=Object.keys(own).sort((a,b)=>TIER_RANK.indexOf(BY[b].rarity_code)-TIER_RANK.indexOf(BY[a].rarity_code));
+    if(!ids.length) L.innerHTML='<div class="empty">ยังไม่มีการ์ดให้ขาย</div>';
+    ids.forEach(id=>{const c=BY[id], ref=REF_PRICE[c.rarity_code];
+      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="number" min="10" step="10" value="${ref}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
+      d.querySelector('button:not(.ghost)').onclick=()=>{const price=Math.max(10,Math.round(+d.querySelector('input').value||ref));
+        const idx=u.cards.findIndex(x=>x.id===id); const inst=u.cards.splice(idx,1)[0];
+        (u.decks||[]).forEach(dk=>{const k=dk.cards.indexOf(id); if(k>=0&&dk.cards.filter(x=>x===id).length>u.cards.filter(x=>x.id===id).length) dk.cards.splice(k,1);});
+        M.mine=M.mine||[]; M.mine.push({id,inst,price,at:Date.now(),sold:false,owner:DB.cur});
+        if(['divine','creator'].includes(c.rarity_code)) M.news.unshift(`📢 ประกาศทั้งเซิร์ฟเวอร์: การ์ด ${c.name_th} ระดับ${RARE_TH[c.rarity_code]} ${inst.serial||''} ถูกวางขายในตลาดกลาง`);
+        save(); toast('ลงขายแล้ว รอผู้ซื้อ'); renderMarket();};
+      L.appendChild(d);});
+  } else {
+    const mine=(M.mine||[]).filter(x=>x.owner===DB.cur);
+    if(!mine.length) L.innerHTML='<div class="empty">ยังไม่มีรายการที่ลงขาย</div>';
+    mine.slice().reverse().forEach(x=>{const c=BY[x.id];
+      const d=lotEl(c,`<div class="price">${gold}${fmt(x.price)}</div><div class="seller">${x.sold?'ขายแล้ว · ได้รับ '+fmt(Math.round(x.price*0.95))+' โกลด์':'รอผู้ซื้อ…'}</div>${x.sold?'':'<button>ยกเลิก</button>'}`);
+      const cb=d.querySelector('button:not(.ghost)'); if(cb) cb.onclick=()=>{u.cards.push(x.inst); M.mine=M.mine.filter(y=>y!==x); save(); renderMarket();};
+      L.appendChild(d);});
+  }
+  const side=document.getElementById('mkSide'); side.innerHTML=`<div class="ttl">ประกาศตลาด</div><div class="news">${(M.news||[]).slice(0,30).map(n=>`<div class="${n.startsWith('📢')?'hot':''}">${n}</div>`).join('')||'<div>ยังไม่มีความเคลื่อนไหว</div>'}</div>
+    <div class="tip" style="font-size:12px;color:var(--muted);line-height:1.6">ช่วง CBT: ตลาดนี้จำลองในเครื่องคุณ พ่อค้าเป็น NPC และผู้ซื้อจำลองจะซื้อการ์ดที่ตั้งราคาไม่เกิน 1.5 เท่าของราคาตลาดภายในไม่กี่นาที ตลาดจริงระหว่างผู้เล่นจะเปิดเมื่อเชื่อมเซิร์ฟเวอร์</div>`;
+  guide('mGuide','market');}
+function settleMine(){const M=DB.market; if(!M||!M.mine) return; const now=Date.now();
+  M.mine.forEach(x=>{if(x.sold) return; const c=BY[x.id]; const ok=x.price<=REF_PRICE[c.rarity_code]*1.5; const wait=30000+((x.at%7)*15000);
+    if(ok&&now-x.at>wait){x.sold=true; const owner=DB.users[x.owner]; if(owner) owner.gold+=Math.round(x.price*0.95);
+      M.news.unshift(['divine','creator'].includes(c.rarity_code)?`📢 การ์ด ${c.name_th} ระดับ${RARE_TH[c.rarity_code]} มีผู้ได้รับไปดูแลต่อแล้ว`:`ขาย ${c.name_th} ได้ ${fmt(x.price)} โกลด์ (ค่าธรรมเนียม 5% ถูกเผา)`);}});
+  save();}
+setInterval(()=>{if(document.getElementById('market').classList.contains('on')&&DB.market){const b=JSON.stringify(DB.market.mine);settleMine();if(JSON.stringify(DB.market.mine)!==b)renderMarket();}},5000);
 
 /* ---------- CBT: ข้อมูลช่วงทดสอบ + แจ้งปัญหา ---------- */
 function issueUrl(kind){const u=me(); const env=`\n\n---\nรอบทดสอบ: CBT ${CBT_ROUND}\nหน้าจอ: ${innerWidth}x${innerHeight}\nเบราว์เซอร์: ${navigator.userAgent}${u?`\nสุ่มสะสม: ${u.pulls} ครั้ง`:''}`;
@@ -640,7 +874,7 @@ document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')e.currentT
 addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('modal').classList.remove('on');document.getElementById('zoom').classList.remove('on')}});
 
 /* ---------- คลังและดูการ์ดขยาย ---------- */
-function renderColl(){const u=me(), g=document.getElementById('cGrid'); g.innerHTML='';
+function renderColl(){const u=me(), g=document.getElementById('cGrid'); g.innerHTML=''; guide('cGuide','coll');
   const cnt={}; u.cards.forEach(c=>cnt[c.id]=(cnt[c.id]||0)+1);
   document.getElementById('cCount').textContent=`มีแล้ว ${Object.keys(cnt).length} / 100 แบบ · ${u.cards.length} ใบ`;
   CARDS.forEach(c=>{const cell=document.createElement('div');cell.className='cell'; const owned=cnt[c.id];
