@@ -53,7 +53,7 @@ var P2P = (() => {
       sig({ k: 'r', to: R.peer, iv: b64(iv), ct: b64(new Uint8Array(ct)) }); }
   }
   async function fromRelay(p) {
-    try { const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(p.iv) }, R.key, unb64(p.ct)); onGame(JSON.parse(dec.decode(pt))); }
+    try { const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(p.iv) }, R.key, unb64(p.ct)); if (!R.link) linkUp('relay'); onGame(JSON.parse(dec.decode(pt))); }
     catch (e) { console.warn('relay decrypt', e); }
   }
 
@@ -69,14 +69,14 @@ var P2P = (() => {
     return pc;
   }
   function closePC() { if (!R) return; clearTimeout(R.fallback); try { R.dc && R.dc.close(); } catch (e) {} try { R.pc && R.pc.close(); } catch (e) {} R.pc = R.dc = null; R.pendingIce = []; }
-  async function addIce(c) { if (!R.pc) return; if (!R.pc.remoteDescription) { R.pendingIce.push(c); return; } try { await R.pc.addIceCandidate(c); } catch (e) {} }
+  async function addIce(c) { if (!R.pc || !R.pc.remoteDescription) { R.pendingIce.push(c); return; } try { await R.pc.addIceCandidate(c); } catch (e) {} }  /* ข้อความ Realtime อาจมาไม่เรียงลำดับ */
   async function flushIce() { for (const c of R.pendingIce.splice(0)) try { await R.pc.addIceCandidate(c); } catch (e) {} }
 
   function linkUp(kind) {
     if (!R || R.link) return; R.link = kind; clearTimeout(R.fallback);
     status(kind === 'p2p' ? 'เชื่อมต่อตรงระหว่างเครื่องแล้ว (P2P)' : 'เชื่อมต่อแล้ว (ส่งต่อผ่านเซิร์ฟเวอร์แบบเข้ารหัส)');
     if (DS && DS.mode === 'p2p') { DS.oppOnline = true; DS.linkKind = kind; if (document.getElementById('duel').classList.contains('on')) renderDuel(); }
-    if (R.host) hostLinked();
+    if (R.host) hostLinked(); else if (!R.start) { clearTimeout(R.startT); R.startT = setTimeout(() => R && !R.start && send({ k: 'needsync' }), 2500); watchStart(); }
   }
   function linkDown() {
     if (!R) return; R.link = null; closePC();
@@ -95,7 +95,6 @@ var P2P = (() => {
         if (p.v !== VER) return reject('เวอร์ชันเกมไม่ตรงกัน ให้ทั้งสองฝ่ายรีเฟรชหน้าเกม');
         if (R.pwHash && p.proof !== R.pwHash) return reject('รหัสผ่านห้องไม่ถูกต้อง');
         if (R.start && R.guest && R.guest.uid !== p.uid) return reject('ห้องนี้มีผู้เล่นครบสองคนแล้ว');
-        if (p.uid === R.uid) return reject('เข้าห้องของตัวเองไม่ได้ ใช้บัญชีอื่นหรืออีกเครื่องหนึ่ง');
         const errs = DE.deckErrors(p.deck || []); if (errs.length) return reject('เด็คของผู้เข้าร่วมไม่ผ่านกติกา: ' + errs[0]);
         closePC();
         R.peer = p.from; R.link = null; R.guest = { uid: p.uid, name: String(p.name || 'ผู้ท้าดวล').slice(0, 24), gender: p.gender === 'female' ? 'female' : 'male', deck: p.deck };
@@ -117,21 +116,21 @@ var P2P = (() => {
       if (p.from !== R.peer) return;
       if (p.k === 'reject') { if (/รหัสผ่าน/.test(p.reason)) { R.pw = null; R.gotInfo = false; status(p.reason); return askPassword(p.reason); } return fail(p.reason); }
       if (p.k === 'accept') { R.joined = true; status('เจ้าของห้องรับแล้ว กำลังเชื่อมต่อ…'); return; }
-      if (p.k === 'offer') { closePC(); R.link = null; const pc = setupPC(false); await pc.setRemoteDescription(p.sdp); await flushIce();
+      if (p.k === 'offer') { const keep = R.pendingIce.slice(); closePC(); R.pendingIce = keep; R.link = null; R.joined = true; const pc = setupPC(false); await pc.setRemoteDescription(p.sdp); await flushIce();
         const ans = await pc.createAnswer(); await pc.setLocalDescription(ans); return sig({ k: 'answer', to: R.peer, sdp: pc.localDescription.toJSON() }); }
       if (p.k === 'ice') return addIce(p.c);
       if (p.k === 'relay') return linkUp('relay');
       if (p.k === 'bye') return hostLeft();
     }
   }
-  function onPresence(ev, key) { if (!R || key !== R.peer) return; if (ev === 'leave') { if (R.host) guestLeft(true); else linkDown(); } }
+  function onPresence(ev, key) { if (!R || key !== R.peer) return; if (ev === 'leave' && R.dc && R.dc.readyState === 'open') return; /* ช่องสัญญาณกระตุก แต่ต่อตรงยังอยู่ */ if (ev === 'leave') { if (R.host) guestLeft(true); else linkDown(); } }
 
   /* ---------- ข้อความเกม ---------- */
   function onGame(m) {
     if (!R) return;
     if (R.host) {
       if (m.k === 'req') return hostApply(m.a, true);
-      if (m.k === 'needsync') return send({ k: 'sync', start: R.start, actions: R.actions });
+      if (m.k === 'needsync') return R.start ? send({ k: 'sync', start: R.start, actions: R.actions }) : (R.guest && hostLinked());
       if (m.k === 'rematch') { R.rematch = (R.rematch || 0) | 2; return rematchCheck(); }
       if (m.k === 'leave') return guestLeft();
     } else {
@@ -200,12 +199,21 @@ var P2P = (() => {
     const go = () => { if (!R || R.gotInfo) return clearInterval(R && R.helloT); if (++n > 8 && !R.start) { clearInterval(R.helloT); return fail('ไม่พบห้องนี้ หรือเจ้าของห้องปิดเกมไปแล้ว'); } sig({ k: 'hello', uid: R.uid }); };
     go(); R.helloT = setInterval(go, 1500);
   }
+  function watchStart() {
+    clearTimeout(R.startT); R.tries = (R.tries || 0) + 1;
+    R.startT = setTimeout(() => {
+      if (!R || R.host || R.start || R.leaving) return;
+      if (R.link) { send({ k: 'needsync' }); if (R.tries < 6) return watchStart(); }
+      if (R.tries >= 6) return fail('เชื่อมต่อกับเจ้าของห้องไม่สำเร็จ ให้เจ้าของห้องเปิดหน้าเกมค้างไว้ (อย่าสลับไปแอปอื่น) แล้วลองเข้าห้องใหม่');
+      status('ยังเชื่อมต่อไม่ได้ กำลังลองใหม่ครั้งที่ ' + TH(R.tries) + '…'); closePC(); R.link = null; guestHello();
+    }, R.link ? 3000 : 14000);
+  }
   async function guestJoin() {
-    status('กำลังขอเข้าห้อง…'); R.key = await deriveKey(R.code, R.pw || '');
+    status('กำลังขอเข้าห้อง…'); watchStart(); R.key = await deriveKey(R.code, R.pw || '');
     sig({ k: 'join', to: R.peer, v: VER, uid: R.uid, name: R.name, gender: R.gender, deck: R.deck, proof: R.pw ? await sha(R.code + '|' + R.pw) : null });
   }
   async function guestStart(start, actions) {
-    R.start = start;
+    R.start = start; clearTimeout(R.startT);
     closeModal(); beginGame(1, start, actions);
   }
   function guestAct(m) {
@@ -271,7 +279,7 @@ var P2P = (() => {
   async function leave(quiet) {
     if (!R) return; const r = R; r.leaving = true;
     try { if (r.link) await send({ k: 'leave' }); sig({ k: 'bye', to: r.peer }); } catch (e) {}
-    clearInterval(r.helloT); closePC();
+    clearInterval(r.helloT); clearTimeout(r.startT); closePC();
     try { r.ch && sb.removeChannel(r.ch); } catch (e) {}
     if (r.host) try { sessionStorage.removeItem(SAVE_KEY); } catch (e) {}
     if (DS && DS.mode === 'p2p') DS.left = true;
@@ -362,6 +370,9 @@ var P2P = (() => {
     toast(`กลับเข้าห้องดวล ${s.code} แล้ว รอคู่ดวลเชื่อมต่อใหม่…`, 4500);
   }
 
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && R && !R.host && !R.link && !R.leaving && R.peer) guestHello();
+  });
   return { lobby, act, after, over, leave, checkUrl, get room() { return R; } };
 })();
 function p2pAfter() { P2P.after(); }
