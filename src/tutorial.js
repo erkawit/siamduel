@@ -113,7 +113,7 @@ function startTutorial(ch) {
   C.setup(S); st.log = []; st.fx = [];
   st.log.push({ t: st.turn, text: `บทที่ ${ch}: ${C.title}`, kind: 'turn' });
   TUT = { ch, i: 0 };
-  DS = { st, level: 'easy', aiDeck: 'บทเรียน', mull: new Set() }; dSel = null; dBusy = false; dPrevMap = {};
+  setSide(0); DS = { mode: 'ai', st, level: 'easy', aiDeck: 'บทเรียน', mull: new Set() }; dSel = null; dBusy = false; dPrevMap = {};
   show('duel'); document.getElementById('dOver').classList.remove('on'); renderDuel();
 }
 const tutStep = () => TUT && !TCH[TUT.ch].full ? TCH[TUT.ch].steps[TUT.i] : null;

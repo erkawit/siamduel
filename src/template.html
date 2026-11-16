@@ -188,6 +188,9 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .gstat .row i{font-style:normal;color:var(--gold2)}
 .gstat .progress{width:100%;margin-top:8px}
 .gstat .tip{color:var(--muted);font-size:12px;margin-top:6px}
+.gstat .cstat{margin-top:10px;border-top:1px solid #3A2E22;padding-top:6px}.gstat .cstat summary{cursor:pointer;color:var(--gold2);font-family:Chonburi,serif;font-size:14px}
+.gstat .cstat .row i{font-size:12.5px}.tdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+@media (max-width:900px){.gstat .cstat[open]{max-height:38vh;overflow:auto}}
 .reslayer{position:absolute;top:64px;bottom:96px;left:0;right:0;z-index:6;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:radial-gradient(ellipse at center,#0E0B0Acc 30%,#0E0B0Af0 80%);overflow:auto;padding:12px 0}
 .reslayer.on{display:flex}
 .reslayer .results{max-width:none;gap:12px;padding:0 12px}
@@ -355,7 +358,7 @@ __DUELCSS__
   <nav class="menu">
     <button data-go="room"><img class="mic" alt="" src="ui_art_web/ic_room.webp"><span>ห้องพักส่วนตัว<small id="roomHint">จัดเด็ค 3 เซ็ต</small></span></button>
     <button data-go="tutorial"><img class="mic round" alt="" src="characters/npc_shaman_bust.webp"><span>สอนเล่น<small id="tutHint">บทเรียน ๘ บทกับหมอผีเฒ่า</small></span></button>
-    <button data-go="duel"><img class="mic" alt="" src="ui_art_web/ic_duel.webp"><span>ดวล<small>ดวลกับหมอผีเฒ่า (AI) · ผู้เล่นจริงตามมา</small></span></button>
+    <button data-go="duel"><img class="mic" alt="" src="ui_art_web/ic_duel.webp"><span>ดวล<small>กับหมอผีเฒ่า (AI) หรือเพื่อน (P2P)</small></span></button>
     <button data-go="gacha"><img class="mic" alt="" src="ui_art_web/ic_gacha.webp"><span>ตู้สุ่มการ์ด<small id="evHint">ตู้ปกติ</small></span></button>
     <button data-go="coll"><img class="mic" alt="" src="ui_art_web/ic_collection.webp"><span>คลังการ์ด<small id="collHint"></small></span></button>
     <button data-go="guild"><img class="mic" alt="" src="ui_art_web/ic_guild.webp"><span>กิลด์<small>ลานฝึก · ด่านฝึก AI</small></span></button>
@@ -591,8 +594,8 @@ const me=()=>DB.users[DB.cur];
 async function hash(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('siam:'+s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return 'x'+s.length+s}}
 
 const toast=(m,ms=3200)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),ms)};
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id)); if(id!=='duel'&&typeof tutPaint==='function'){['tutBox','tutSpot'].forEach(x=>{const e=document.getElementById(x); if(e) e.remove();});}
-  if(id==='home')renderHome(); if(id==='gacha')renderGacha(true); if(id==='coll')renderColl(); if(id==='room')renderRoom(); if(id==='market')renderMarket(); if(id==='guild')guide('guGuide','guild'); if(id==='login')buildShowcase();}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id)); presenceScreen(id); if(id!=='duel'&&typeof tutPaint==='function'){['tutBox','tutSpot'].forEach(x=>{const e=document.getElementById(x); if(e) e.remove();});}
+  if(id==='home')renderHome(); if(id==='gacha')renderGacha(true); if(id==='coll')renderColl(); if(id==='room')renderRoom(); if(id==='market')renderMarket(); if(id==='guild')guide('guGuide','guild'); if(id==='login')buildShowcase(); if(id==='home'&&typeof P2P!=='undefined'&&P2P) P2P.checkUrl();}
 document.addEventListener('click',e=>{if(e.target.closest('[data-soon]'))return toast('ระบบกิลด์ต้องเชื่อมเซิร์ฟเวอร์ จะเปิดในเวอร์ชันออนไลน์');const g=e.target.closest('[data-go]'); if(!g)return; const to=g.dataset.go;
   if(to==='duel') return openDuelSetup();
   if(to==='tutorial') return openTutorialList();
@@ -643,7 +646,7 @@ function renderHome(){const u=me(); if(!u) return show('login');
   const h=document.getElementById('hero'); h.innerHTML=''; h.appendChild(charImg(u.gender,'full_wai_right',u.name));
   clearTimeout(h._t); h._t=setTimeout(()=>{h.innerHTML='';h.appendChild(charImg(u.gender,'full_talk_right',u.name));},2600);
   document.getElementById('evHint').textContent=DB.event.open?`✦ ตู้ Event เปิดอยู่: ${DB.event.name}`:'ตู้ปกติ';
-  document.getElementById('collHint').textContent=`มีแล้ว ${new Set(u.cards.map(c=>c.id)).size} / 100 แบบ`;
+  document.getElementById('collHint').textContent=`มีแล้ว ${new Set(u.cards.map(c=>c.id)).size} / ${CARDS.length} แบบ`;
   document.getElementById('tutHint').textContent=`ผ่านแล้ว ${(u.tut||[]).length} / 8 บท`;
   const b=document.getElementById('dlgBust'); b.innerHTML=''; b.appendChild(charImg('npc_shaman','bust','หมอผีเฒ่า'));
   const mb=document.getElementById('dlgMe'); mb.innerHTML=''; mb.appendChild(charImg(u.gender,'bust_talk_left',u.name));
@@ -654,13 +657,28 @@ function renderHome(){const u=me(); if(!u) return show('login');
     : `ยินดีต้อนรับ ${u.name} ลองไปที่ตู้สุ่มการ์ดเพื่อเริ่มสะสมการ์ดใบแรกของเจ้า`;
   document.getElementById('dlg').style.display='';}
 document.getElementById('dlgClose').onclick=()=>document.getElementById('dlg').style.display='none';
-document.getElementById('logout').onclick=async()=>{if(ONLINE){await pushProfile(); await sb.auth.signOut();DB.users={};} DB.cur=null;save();show('login')};
+document.getElementById('logout').onclick=async()=>{if(ONLINE){await pushProfile(); stopPresence(); await sb.auth.signOut();DB.users={};} DB.cur=null;save();show('login')};
 
 /* ---------- ตู้สุ่ม ---------- */
 const RATES=[['common',60.109],['standard',27],['rare',9],['epic',2.89],['legend',1],['divine',0.001]];
 const POOL={}; CARDS.forEach(c=>{(POOL[c.rarity_code]=POOL[c.rarity_code]||[]).push(c)});
 let gTab='normal';
 function eligible(){return me().pulls>=DB.threshold}
+/* ---------- สถิติการ์ดที่ออกจากระบบ (หน้าตู้ปกติ) · นับถึงเที่ยงคืน ไม่มีข้อมูลผู้ถือ · ผู้สรรสร้างไม่เปิดเผย ---------- */
+const CSTAT={at:0,data:null,open:false,busy:false};
+async function loadCardStats(){ if(CSTAT.busy||Date.now()-CSTAT.at<60000&&CSTAT.data) return paintCardStats(); CSTAT.busy=true;
+  try{ if(ONLINE){const {data,error}=await sb.rpc('card_stats'); if(!error&&data) CSTAT.data=data; else if(error) CSTAT.err=thErr(error).includes('function')?'ยังไม่ได้รัน supabase/005_set2_cards.sql':thErr(error);}
+       else { const t={}; Object.values(DB.users||{}).forEach(u=>(u.cards||[]).forEach(c=>{const r=BY[c.id]&&BY[c.id].rarity_code; if(!r||r==='creator')return; const x=t[r]=t[r]||{issued:0,ids:new Set()}; x.issued++; x.ids.add(c.id);}));
+              CSTAT.data={asof:null,tiers:Object.fromEntries(Object.entries(t).map(([k,v])=>[k,{issued:v.issued,found:v.ids.size}]))}; }
+       CSTAT.at=Date.now(); }finally{CSTAT.busy=false;} paintCardStats();}
+function paintCardStats(){const b=document.getElementById('gCStatBody'); if(b) b.innerHTML=cardStatsHtml();}
+function cardStatsHtml(){ if(CSTAT.err) return `<div class="tip">${CSTAT.err}</div>`; if(!CSTAT.data) return '<div class="tip">กำลังโหลด…</div>';
+  const T=CSTAT.data.tiers||{}, rows=['common','standard','rare','epic','legend','divine'].map(r=>{const x=T[r]||{}, kinds=(POOL[r]||[]).length;
+    if(r==='divine'){const max=(POOL.divine||[]).reduce((a,c)=>a+(c.max_supply||0),0), got=(POOL.divine||[]).reduce((a,c)=>a+(DB.minted[c.id]||0),0);
+      return `<div class="row"><span><b class="tdot" style="background:${RARE_COL[r]}"></b>${RARE_TH[r]}</span><i>${fmt(got)} / ${fmt(max)} ใบ</i></div>`;}
+    return `<div class="row"><span><b class="tdot" style="background:${RARE_COL[r]}"></b>${RARE_TH[r]}</span><i>${fmt(x.issued||0)} ใบ · พบ ${fmt(x.found||0)}/${fmt(kinds)} แบบ</i></div>`;}).join('');
+  return rows+`<div class="row"><span><b class="tdot" style="background:${RARE_COL.creator}"></b>${RARE_TH.creator}</span><i>ไม่เปิดเผยจำนวน</i></div>
+    <div class="tip">นับรวมทุกช่องทาง${CSTAT.data.asof?` ถึงเที่ยงคืนที่ผ่านมา (อัปเดตวันละครั้ง)`:' ในเครื่องนี้'} · ระดับพระเจ้านับสด · ไม่มีข้อมูลว่าใครได้การ์ดใบใด</div>`;}
 function renderGacha(first){const u=me(); const gs=document.getElementById('gacha');
   if(!DB.event.open && gTab==='event') gTab='normal';
   gs.classList.toggle('event',gTab==='event');
@@ -678,7 +696,9 @@ function renderGacha(first){const u=me(); const gs=document.getElementById('gach
       <div class="row"><span>แต้มบุญ</span><i>${fmt(u.merit)}</i></div>
       <div class="row"><span>สิทธิ์ตู้ผู้สรรสร้าง</span><i>${fmt(Math.min(u.pulls,DB.threshold))} / ${fmt(DB.threshold)}</i></div>
       <div class="progress" aria-label="ความคืบหน้าสิทธิ์ตู้ผู้สรรสร้าง"><div style="width:${Math.min(100,u.pulls/DB.threshold*100)}%"></div></div>
-      <div class="tip">ครั้งละ 100 โกลด์ · 10 ครั้ง 1,000 โกลด์ · ได้แต้มบุญ +1 ทุกครั้ง</div>`;
+      <div class="tip">ครั้งละ 100 โกลด์ · 10 ครั้ง 1,000 โกลด์ · ได้แต้มบุญ +1 ทุกครั้ง</div>
+      <details class="cstat" id="gCStat" ${CSTAT.open?'open':''}><summary>การ์ดที่ออกจากระบบ</summary><div id="gCStatBody">${cardStatsHtml()}</div></details>`;
+    const dt=document.getElementById('gCStat'); dt.ontoggle=()=>{CSTAT.open=dt.open; if(dt.open) loadCardStats();}; if(CSTAT.open) loadCardStats();
     st.innerHTML=`<div class="lotus" id="lotus"><img class="closed" alt="" src="ui_art_web/gacha_lotus_closed.webp"><img class="open" alt="" src="ui_art_web/gacha_lotus_open.webp"><img class="burst" id="burst" alt="" src="ui_art_web/burst_common.webp"></div>`;
     bar.innerHTML=''; [[1,100],[10,1000]].forEach(([n,cost])=>{const b=document.createElement('button');b.className='imgbtn';b.style.backgroundImage=`url(ui_art_web/btn_pull${n}.webp)`;b.textContent=`สุ่ม ${n} ครั้ง · ${fmt(cost)} โกลด์`;b.dataset.cost=cost;b.disabled=u.gold<cost;b.onclick=()=>pullNormal(n,cost);bar.appendChild(b)});
     guide('gGuide','gacha');
@@ -938,7 +958,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('mod
 /* ---------- คลังและดูการ์ดขยาย ---------- */
 function renderColl(){const u=me(), g=document.getElementById('cGrid'); g.innerHTML=''; guide('cGuide','coll');
   const cnt={}; u.cards.forEach(c=>cnt[c.id]=(cnt[c.id]||0)+1);
-  document.getElementById('cCount').textContent=`มีแล้ว ${Object.keys(cnt).length} / 100 แบบ · ${u.cards.length} ใบ`;
+  document.getElementById('cCount').textContent=`มีแล้ว ${Object.keys(cnt).length} / ${CARDS.length} แบบ · ${u.cards.length} ใบ`;
   CARDS.forEach(c=>{const cell=document.createElement('div');cell.className='cell'; const owned=cnt[c.id];
     const el=cardEl(c,{w:150}); if(!owned) el.style.filter='grayscale(1) brightness(.35)'; else el.onclick=()=>zoomCard(u.cards.find(x=>x.id===c.id));
     cell.append(el, Object.assign(document.createElement('span'),{textContent:owned?`× ${owned}`:'ยังไม่มี'})); g.appendChild(cell);});}
@@ -1041,7 +1061,7 @@ async function loadMe(user){
   document.getElementById('aGold').textContent=IS_ADMIN?'+100,000 โกลด์ (แอดมิน)':'+100,000 โกลด์';
   if(adm.classList.contains('on')) adminPlayers();
   if(new URLSearchParams(location.search).has('admin')&&!IS_ADMIN) toast('บัญชีนี้ไม่ใช่แอดมิน ปุ่มหลังบ้านจะใช้ไม่ได้');
-  subscribe(user.id); return true;}
+  subscribe(user.id); startPresence(user.id); return true;}
 function applyConfig(rows){rows.forEach(r=>{ if(r.key==='event') DB.event={open:!!r.value.open,cardId:r.value.card_id,name:r.value.name};
   if(r.key==='threshold') DB.threshold=+r.value; if(r.key==='start_gold') document.getElementById('aStart').value=+r.value;});
   aCard.value=DB.event.cardId; document.getElementById('aTh').value=DB.threshold; document.getElementById('aName').value=DB.event.name;}
@@ -1049,6 +1069,17 @@ const profJson=u=>JSON.stringify({name:u.name,gender:u.gender,decks:u.decks||[],
 async function pushProfile(){const u=me(); if(!ONLINE||!u) return; const j=profJson(u); if(j===lastPush) return;
   const {error}=await sb.from('profiles').update(JSON.parse(j)).eq('id',u.id); if(error) toast('บันทึกไม่สำเร็จ: '+thErr(error)); else lastPush=j;}
 addEventListener('pagehide',()=>{if(ONLINE) pushProfile();});
+
+/* ---------- สถานะออนไลน์สำหรับหน้า Monitor (/monitor/) ---------- */
+var PRES=null, PING=null, SCR='home';
+const curScreen=()=>{const e=document.querySelector('.screen.on'); return e?e.id:'home';};
+function startPresence(uid){ stopPresence(); SCR=curScreen();
+  PRES=sb.channel('siam-online',{config:{presence:{key:uid}}});
+  PRES.subscribe(st=>{if(st==='SUBSCRIBED') PRES.track({s:SCR});});
+  const ping=()=>{if(document.visibilityState==='visible') sb.rpc('player_ping',{p_screen:curScreen()}).then(()=>{},()=>{});};
+  ping(); PING=setInterval(ping,60000);}
+function stopPresence(){ if(PING){clearInterval(PING);PING=null;} if(PRES){PRES.untrack().catch(()=>{}); sb.removeChannel(PRES); PRES=null;} }
+function presenceScreen(id){ if(PRES&&id!==SCR){SCR=id; PRES.track({s:id}).catch(()=>{});} }
 
 let CH=null;
 function subscribe(uid){ if(CH) sb.removeChannel(CH);
@@ -1137,6 +1168,8 @@ async function onlineMarket(){const u=me(); if(mkLoading) return; mkLoading=true
   drawNews(); guide('mGuide','market');}
 
 __DUELUI__
+__QR__
+__P2P__
 
 __TUTORIAL__
 

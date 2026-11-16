@@ -748,6 +748,706 @@
    "art": "art/TK_COIN.webp",
    "art_thumb": "art/thumb/TK_COIN.webp",
    "token": true
+  },
+  "SD101": {
+   "tier": "legend",
+   "art": "art/SD101.webp",
+   "art_thumb": "art/thumb/SD101.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD102": {
+   "tier": "legend",
+   "art": "art/SD102.webp",
+   "art_thumb": "art/thumb/SD102.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD103": {
+   "tier": "legend",
+   "art": "art/SD103.webp",
+   "art_thumb": "art/thumb/SD103.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD104": {
+   "tier": "legend",
+   "art": "art/SD104.webp",
+   "art_thumb": "art/thumb/SD104.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD105": {
+   "tier": "legend",
+   "art": "art/SD105.webp",
+   "art_thumb": "art/thumb/SD105.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD106": {
+   "tier": "legend",
+   "art": "art/SD106.webp",
+   "art_thumb": "art/thumb/SD106.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD107": {
+   "tier": "legend",
+   "art": "art/SD107.webp",
+   "art_thumb": "art/thumb/SD107.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD108": {
+   "tier": "legend",
+   "art": "art/SD108.webp",
+   "art_thumb": "art/thumb/SD108.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD109": {
+   "tier": "epic",
+   "art": "art/SD109.webp",
+   "art_thumb": "art/thumb/SD109.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD110": {
+   "tier": "epic",
+   "art": "art/SD110.webp",
+   "art_thumb": "art/thumb/SD110.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD111": {
+   "tier": "epic",
+   "art": "art/SD111.webp",
+   "art_thumb": "art/thumb/SD111.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD112": {
+   "tier": "epic",
+   "art": "art/SD112.webp",
+   "art_thumb": "art/thumb/SD112.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD113": {
+   "tier": "epic",
+   "art": "art/SD113.webp",
+   "art_thumb": "art/thumb/SD113.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD114": {
+   "tier": "epic",
+   "art": "art/SD114.webp",
+   "art_thumb": "art/thumb/SD114.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD115": {
+   "tier": "epic",
+   "art": "art/SD115.webp",
+   "art_thumb": "art/thumb/SD115.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD116": {
+   "tier": "epic",
+   "art": "art/SD116.webp",
+   "art_thumb": "art/thumb/SD116.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD117": {
+   "tier": "epic",
+   "art": "art/SD117.webp",
+   "art_thumb": "art/thumb/SD117.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD118": {
+   "tier": "epic",
+   "art": "art/SD118.webp",
+   "art_thumb": "art/thumb/SD118.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD119": {
+   "tier": "epic",
+   "art": "art/SD119.webp",
+   "art_thumb": "art/thumb/SD119.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD120": {
+   "tier": "epic",
+   "art": "art/SD120.webp",
+   "art_thumb": "art/thumb/SD120.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD121": {
+   "tier": "epic",
+   "art": "art/SD121.webp",
+   "art_thumb": "art/thumb/SD121.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD122": {
+   "tier": "epic",
+   "art": "art/SD122.webp",
+   "art_thumb": "art/thumb/SD122.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD123": {
+   "tier": "rare",
+   "art": "art/SD123.webp",
+   "art_thumb": "art/thumb/SD123.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD124": {
+   "tier": "rare",
+   "art": "art/SD124.webp",
+   "art_thumb": "art/thumb/SD124.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD125": {
+   "tier": "rare",
+   "art": "art/SD125.webp",
+   "art_thumb": "art/thumb/SD125.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD126": {
+   "tier": "rare",
+   "art": "art/SD126.webp",
+   "art_thumb": "art/thumb/SD126.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD127": {
+   "tier": "rare",
+   "art": "art/SD127.webp",
+   "art_thumb": "art/thumb/SD127.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD128": {
+   "tier": "rare",
+   "art": "art/SD128.webp",
+   "art_thumb": "art/thumb/SD128.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD129": {
+   "tier": "rare",
+   "art": "art/SD129.webp",
+   "art_thumb": "art/thumb/SD129.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD130": {
+   "tier": "rare",
+   "art": "art/SD130.webp",
+   "art_thumb": "art/thumb/SD130.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD131": {
+   "tier": "rare",
+   "art": "art/SD131.webp",
+   "art_thumb": "art/thumb/SD131.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD132": {
+   "tier": "rare",
+   "art": "art/SD132.webp",
+   "art_thumb": "art/thumb/SD132.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD133": {
+   "tier": "rare",
+   "art": "art/SD133.webp",
+   "art_thumb": "art/thumb/SD133.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD134": {
+   "tier": "rare",
+   "art": "art/SD134.webp",
+   "art_thumb": "art/thumb/SD134.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD135": {
+   "tier": "rare",
+   "art": "art/SD135.webp",
+   "art_thumb": "art/thumb/SD135.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD136": {
+   "tier": "rare",
+   "art": "art/SD136.webp",
+   "art_thumb": "art/thumb/SD136.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD137": {
+   "tier": "rare",
+   "art": "art/SD137.webp",
+   "art_thumb": "art/thumb/SD137.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD138": {
+   "tier": "rare",
+   "art": "art/SD138.webp",
+   "art_thumb": "art/thumb/SD138.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD139": {
+   "tier": "rare",
+   "art": "art/SD139.webp",
+   "art_thumb": "art/thumb/SD139.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD140": {
+   "tier": "rare",
+   "art": "art/SD140.webp",
+   "art_thumb": "art/thumb/SD140.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD141": {
+   "tier": "rare",
+   "art": "art/SD141.webp",
+   "art_thumb": "art/thumb/SD141.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD142": {
+   "tier": "rare",
+   "art": "art/SD142.webp",
+   "art_thumb": "art/thumb/SD142.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD143": {
+   "tier": "rare",
+   "art": "art/SD143.webp",
+   "art_thumb": "art/thumb/SD143.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD144": {
+   "tier": "rare",
+   "art": "art/SD144.webp",
+   "art_thumb": "art/thumb/SD144.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD145": {
+   "tier": "standard",
+   "art": "art/SD145.webp",
+   "art_thumb": "art/thumb/SD145.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD146": {
+   "tier": "standard",
+   "art": "art/SD146.webp",
+   "art_thumb": "art/thumb/SD146.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD147": {
+   "tier": "standard",
+   "art": "art/SD147.webp",
+   "art_thumb": "art/thumb/SD147.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD148": {
+   "tier": "standard",
+   "art": "art/SD148.webp",
+   "art_thumb": "art/thumb/SD148.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD149": {
+   "tier": "standard",
+   "art": "art/SD149.webp",
+   "art_thumb": "art/thumb/SD149.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD150": {
+   "tier": "standard",
+   "art": "art/SD150.webp",
+   "art_thumb": "art/thumb/SD150.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD151": {
+   "tier": "standard",
+   "art": "art/SD151.webp",
+   "art_thumb": "art/thumb/SD151.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD152": {
+   "tier": "standard",
+   "art": "art/SD152.webp",
+   "art_thumb": "art/thumb/SD152.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD153": {
+   "tier": "standard",
+   "art": "art/SD153.webp",
+   "art_thumb": "art/thumb/SD153.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD154": {
+   "tier": "standard",
+   "art": "art/SD154.webp",
+   "art_thumb": "art/thumb/SD154.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD155": {
+   "tier": "standard",
+   "art": "art/SD155.webp",
+   "art_thumb": "art/thumb/SD155.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD156": {
+   "tier": "standard",
+   "art": "art/SD156.webp",
+   "art_thumb": "art/thumb/SD156.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD157": {
+   "tier": "standard",
+   "art": "art/SD157.webp",
+   "art_thumb": "art/thumb/SD157.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD158": {
+   "tier": "standard",
+   "art": "art/SD158.webp",
+   "art_thumb": "art/thumb/SD158.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD159": {
+   "tier": "standard",
+   "art": "art/SD159.webp",
+   "art_thumb": "art/thumb/SD159.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD160": {
+   "tier": "standard",
+   "art": "art/SD160.webp",
+   "art_thumb": "art/thumb/SD160.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD161": {
+   "tier": "standard",
+   "art": "art/SD161.webp",
+   "art_thumb": "art/thumb/SD161.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD162": {
+   "tier": "standard",
+   "art": "art/SD162.webp",
+   "art_thumb": "art/thumb/SD162.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD163": {
+   "tier": "standard",
+   "art": "art/SD163.webp",
+   "art_thumb": "art/thumb/SD163.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD164": {
+   "tier": "standard",
+   "art": "art/SD164.webp",
+   "art_thumb": "art/thumb/SD164.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD165": {
+   "tier": "standard",
+   "art": "art/SD165.webp",
+   "art_thumb": "art/thumb/SD165.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD166": {
+   "tier": "standard",
+   "art": "art/SD166.webp",
+   "art_thumb": "art/thumb/SD166.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD167": {
+   "tier": "standard",
+   "art": "art/SD167.webp",
+   "art_thumb": "art/thumb/SD167.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD168": {
+   "tier": "standard",
+   "art": "art/SD168.webp",
+   "art_thumb": "art/thumb/SD168.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD169": {
+   "tier": "common",
+   "art": "art/SD169.webp",
+   "art_thumb": "art/thumb/SD169.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD170": {
+   "tier": "common",
+   "art": "art/SD170.webp",
+   "art_thumb": "art/thumb/SD170.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD171": {
+   "tier": "common",
+   "art": "art/SD171.webp",
+   "art_thumb": "art/thumb/SD171.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD172": {
+   "tier": "common",
+   "art": "art/SD172.webp",
+   "art_thumb": "art/thumb/SD172.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD173": {
+   "tier": "common",
+   "art": "art/SD173.webp",
+   "art_thumb": "art/thumb/SD173.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD174": {
+   "tier": "common",
+   "art": "art/SD174.webp",
+   "art_thumb": "art/thumb/SD174.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD175": {
+   "tier": "common",
+   "art": "art/SD175.webp",
+   "art_thumb": "art/thumb/SD175.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD176": {
+   "tier": "common",
+   "art": "art/SD176.webp",
+   "art_thumb": "art/thumb/SD176.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD177": {
+   "tier": "common",
+   "art": "art/SD177.webp",
+   "art_thumb": "art/thumb/SD177.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD178": {
+   "tier": "common",
+   "art": "art/SD178.webp",
+   "art_thumb": "art/thumb/SD178.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD179": {
+   "tier": "common",
+   "art": "art/SD179.webp",
+   "art_thumb": "art/thumb/SD179.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD180": {
+   "tier": "common",
+   "art": "art/SD180.webp",
+   "art_thumb": "art/thumb/SD180.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD181": {
+   "tier": "common",
+   "art": "art/SD181.webp",
+   "art_thumb": "art/thumb/SD181.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD182": {
+   "tier": "common",
+   "art": "art/SD182.webp",
+   "art_thumb": "art/thumb/SD182.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD183": {
+   "tier": "common",
+   "art": "art/SD183.webp",
+   "art_thumb": "art/thumb/SD183.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD184": {
+   "tier": "common",
+   "art": "art/SD184.webp",
+   "art_thumb": "art/thumb/SD184.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD185": {
+   "tier": "common",
+   "art": "art/SD185.webp",
+   "art_thumb": "art/thumb/SD185.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD186": {
+   "tier": "common",
+   "art": "art/SD186.webp",
+   "art_thumb": "art/thumb/SD186.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD187": {
+   "tier": "common",
+   "art": "art/SD187.webp",
+   "art_thumb": "art/thumb/SD187.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD188": {
+   "tier": "common",
+   "art": "art/SD188.webp",
+   "art_thumb": "art/thumb/SD188.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD189": {
+   "tier": "common",
+   "art": "art/SD189.webp",
+   "art_thumb": "art/thumb/SD189.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD190": {
+   "tier": "common",
+   "art": "art/SD190.webp",
+   "art_thumb": "art/thumb/SD190.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD191": {
+   "tier": "common",
+   "art": "art/SD191.webp",
+   "art_thumb": "art/thumb/SD191.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD192": {
+   "tier": "common",
+   "art": "art/SD192.webp",
+   "art_thumb": "art/thumb/SD192.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD193": {
+   "tier": "common",
+   "art": "art/SD193.webp",
+   "art_thumb": "art/thumb/SD193.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD194": {
+   "tier": "common",
+   "art": "art/SD194.webp",
+   "art_thumb": "art/thumb/SD194.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD195": {
+   "tier": "common",
+   "art": "art/SD195.webp",
+   "art_thumb": "art/thumb/SD195.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD196": {
+   "tier": "common",
+   "art": "art/SD196.webp",
+   "art_thumb": "art/thumb/SD196.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD197": {
+   "tier": "common",
+   "art": "art/SD197.webp",
+   "art_thumb": "art/thumb/SD197.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD198": {
+   "tier": "common",
+   "art": "art/SD198.webp",
+   "art_thumb": "art/thumb/SD198.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD199": {
+   "tier": "common",
+   "art": "art/SD199.webp",
+   "art_thumb": "art/thumb/SD199.webp",
+   "token": false,
+   "placeholder": true
+  },
+  "SD200": {
+   "tier": "common",
+   "art": "art/SD200.webp",
+   "art_thumb": "art/thumb/SD200.webp",
+   "token": false,
+   "placeholder": true
   }
  },
  "ui": {

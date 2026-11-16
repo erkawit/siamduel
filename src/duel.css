@@ -153,3 +153,24 @@
   .tutbox p{font-size:13px;line-height:1.55}
   .tutbox .tbtn .btn{height:30px}
 }
+/* ---------- ดวลกับเพื่อน (P2P) ---------- */
+.dsetup .mode{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0 10px}
+.dsetup.p2p .note{font-size:13px;color:var(--muted);margin:6px 0}
+.p2pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+@media(max-width:640px){.p2pgrid{grid-template-columns:1fr}}
+.p2pbox{border:1px solid var(--line);border-radius:12px;padding:12px;background:#0E0B0A}
+.p2pbox h4{margin:0 0 8px}
+.p2pbox label,#rmPwBox label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+.p2pbox input,#rmPwBox input,.room .lnk input{width:100%;height:42px;border-radius:10px;border:1px solid var(--line);background:#1C1612;color:var(--text);padding:0 10px;font-size:15px;margin-bottom:10px}
+#rmCode{letter-spacing:.3em;text-transform:uppercase;font-size:18px}
+.p2pbox .btn,#rmPwBox .btn{width:100%}
+.room{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:10px 0}
+@media(max-width:640px){.room{grid-template-columns:1fr;justify-items:center}}
+.room .qr{width:210px;height:210px;background:#fff;border-radius:12px;padding:6px;border:2px solid var(--gold)}
+.room .qr svg{width:100%;height:100%;display:block}
+.room .rinfo{min-width:0;width:100%;font-size:14px}
+.room .lbl{color:var(--muted);font-size:12.5px;margin-top:8px}
+.room .code{font-family:Chonburi,serif;font-size:32px;color:var(--gold2);letter-spacing:.08em}
+.room .lnk{display:flex;gap:8px;align-items:center}.room .lnk input{margin:0;font-size:13px}.room .lnk .btn{height:42px;padding:0 14px;white-space:nowrap}
+.rstatus{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14px}
+.rstatus.bad{border-color:#e66767;color:#f0b0b0}

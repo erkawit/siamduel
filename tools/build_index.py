@@ -12,6 +12,8 @@ parts = {
   '__AI__': rd('duel/ai.js'),
   '__DUELUI__': rd('src/duel_ui.js').replace('__DUELDATA__', json.dumps(duel, ensure_ascii=False, separators=(',', ':'))),
   '__TUTORIAL__': rd('src/tutorial.js'),
+  '__QR__': rd('src/qr.js'),
+  '__P2P__': rd('src/p2p.js'),
   '__CARDS__': rd('src/cards_min.json'),
 }
 for k, v in parts.items():

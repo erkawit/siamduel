@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ศูนย์เฝ้าระวัง · สยามมินทร์ดูเอล</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0E0B0A; --surface:#15100D; --surface2:#1C1612; --line:#3A2E22; --grid:#2A211A;
+  --text:#F2E9D6; --text2:#C8BBA2; --muted:#8C7F6B;
+  --gold:#C9A24A; --gold2:#E8C766;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;          /* ลำดับสีประจำชุดข้อมูล (ผ่านตัวตรวจ CVD บนพื้นมืด) */
+  --good:#0ca30c; --bad:#e66767;
+  --font:'Sarabun','Noto Sans Thai',system-ui,sans-serif; --head:'Chonburi',serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px}
+button,input,select{font:inherit;color:inherit}
+.hide{display:none!important}
+
+/* ---------- ล็อกอิน ---------- */
+#login{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at top,#2A1A12 0,var(--bg) 60%)}
+#login form{width:min(380px,100%);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px}
+#login h1{font-family:var(--head);color:var(--gold2);font-weight:400;margin:0 0 4px;font-size:24px}
+#login p{color:var(--text2);margin:0 0 20px}
+#login label{display:block;color:var(--text2);margin:12px 0 6px}
+#login input{width:100%;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);padding:0 12px}
+#login input:focus{outline:2px solid var(--gold);outline-offset:1px}
+#login button{width:100%;height:46px;margin-top:20px;border-radius:23px;border:2px solid var(--gold);background:#8E1B1B;font-family:var(--head);font-size:16px;cursor:pointer}
+#lErr{color:var(--bad);min-height:22px;margin-top:10px}
+
+/* ---------- โครงหน้า ---------- */
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 24px;background:#0E0B0Aee;backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header h1{font-family:var(--head);font-weight:400;font-size:20px;color:var(--gold2);margin:0;margin-right:auto}
+header h1 small{font-family:var(--font);font-size:13px;color:var(--muted);margin-left:8px}
+.live{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-size:13px}
+.live i{width:9px;height:9px;border-radius:50%;background:var(--good);box-shadow:0 0 0 0 #0ca30c88;animation:pulse 2s infinite}
+.live.off i{background:var(--bad);animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 8px #0ca30c00}100%{box-shadow:0 0 0 0 #0ca30c00}}
+header select,header button{height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);padding:0 10px;cursor:pointer}
+header button:hover{border-color:var(--gold)}
+main{padding:20px 24px 60px;max-width:1500px;margin:0 auto}
+.demo{background:#3a2a10;border:1px solid var(--gold);color:var(--gold2);border-radius:10px;padding:8px 14px;margin-bottom:16px}
+.errbox{background:#3a1515;border:1px solid var(--bad);border-radius:10px;padding:10px 14px;margin-bottom:16px}
+h2{font-family:var(--head);font-weight:400;font-size:17px;color:var(--gold2);margin:32px 0 12px;display:flex;align-items:baseline;gap:10px}
+h2 small{font-family:var(--font);font-size:13px;color:var(--muted)}
+
+/* ---------- ตัวเลขหลัก ---------- */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-height:104px}
+.kpi .k{color:var(--text2);font-size:13px}
+.kpi .v{font-size:30px;font-weight:700;line-height:1.25;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .s{color:var(--muted);font-size:12.5px;margin-top:2px}
+.kpi.hero{border-color:#4a6a3a}
+.kpi.hero .v::before{content:'';display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--good);margin-right:8px;vertical-align:middle}
+
+/* ---------- การ์ดกราฟ ---------- */
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:2fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g11{grid-template-columns:1fr 1fr}
+@media(max-width:1000px){.g2,.g3,.g11{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.card h3{margin:0 0 2px;font-size:15px;font-weight:600}
+.card .sub{color:var(--muted);font-size:12.5px;margin-bottom:10px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--text2);font-size:13px;margin:4px 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend b{width:12px;height:12px;border-radius:3px;display:inline-block}
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;overflow:visible}
+.chart text{fill:var(--muted);font-size:11.5px;font-family:var(--font)}
+details{margin-top:8px;color:var(--text2);font-size:13px}
+details summary{cursor:pointer;color:var(--muted)}
+#tip{position:fixed;z-index:20;pointer-events:none;background:#241C16;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;box-shadow:0 6px 20px #0008;min-width:140px}
+#tip .t{color:var(--text2);margin-bottom:4px}
+#tip .r{display:flex;align-items:center;gap:8px;justify-content:space-between}
+#tip .r i{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:6px}
+
+/* ---------- แถบแนวนอน ---------- */
+.hb{display:grid;grid-template-columns:minmax(110px,auto) 1fr auto;gap:8px 10px;align-items:center;font-size:13.5px}
+.hb .lb{color:var(--text2);white-space:nowrap}
+.hb .tr{height:14px;background:var(--surface2);border-radius:0 4px 4px 0;overflow:hidden}
+.hb .fl{height:100%;border-radius:0 4px 4px 0;background:var(--s1);min-width:2px}
+.hb .vl{text-align:right;font-variant-numeric:tabular-nums;min-width:40px}
+
+/* ---------- ตาราง ---------- */
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--grid);text-align:left;white-space:nowrap}
+th{color:var(--muted);font-weight:600;position:sticky;top:0;background:var(--surface);cursor:default}
+th[data-k]{cursor:pointer}th[data-k]:hover{color:var(--text)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:hover td{background:#1F1813}
+.scroll{max-height:460px;overflow:auto}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;border:1px solid var(--line);color:var(--text2)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.tools{display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.tools input{height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface2);padding:0 10px;min-width:220px}
+.lock{display:flex;gap:10px;align-items:flex-start;background:#1a1520;border:1px solid #3b3150;border-radius:10px;padding:10px 12px;color:var(--text2);font-size:13px;margin-top:10px}
+.feed li{display:grid;grid-template-columns:92px 1fr auto;gap:10px;padding:7px 0;border-bottom:1px solid var(--grid);font-size:13.5px}
+.feed{list-style:none;margin:0;padding:0;max-height:460px;overflow:auto}
+.feed .tm{color:var(--muted);font-variant-numeric:tabular-nums}
+.feed .am{text-align:right;font-variant-numeric:tabular-nums}
+.anon{color:var(--muted);font-style:italic}
+.mini{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.mini div{background:var(--surface2);border-radius:10px;padding:10px 12px}
+.mini .k{color:var(--muted);font-size:12.5px}.mini .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<section id="login">
+  <form id="lForm" autocomplete="on">
+    <h1>ศูนย์เฝ้าระวัง</h1>
+    <p>สยามมินทร์ดูเอล · เฉพาะบัญชีแอดมิน</p>
+    <label for="lUser">ชื่อผู้ใช้</label><input id="lUser" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+    <label for="lPass">รหัสผ่าน</label><input id="lPass" type="password" autocomplete="current-password" required>
+    <button type="submit">เข้าสู่ระบบ</button>
+    <div id="lErr"></div>
+  </form>
+</section>
+
+<section id="app" class="hide">
+  <header>
+    <h1>ศูนย์เฝ้าระวัง <small>สยามมินทร์ดูเอล · ช่วงทดสอบปิด</small></h1>
+    <span class="live" id="live"><i></i><span id="liveTxt">กำลังเชื่อมต่อ…</span></span>
+    <label class="live">อัปเดตทุก
+      <select id="rate"><option value="3000">๓ วินาที</option><option value="5000" selected>๕ วินาที</option><option value="15000">๑๕ วินาที</option><option value="60000">๑ นาที</option></select></label>
+    <button id="btnNow" type="button">รีเฟรช</button>
+    <button id="btnOut" type="button">ออกจากระบบ</button>
+  </header>
+  <main>
+    <div id="demoNote" class="demo hide">โหมดข้อมูลตัวอย่าง (?demo=1) ตัวเลขทั้งหมดเป็นข้อมูลสมมติ</div>
+    <div id="err" class="errbox hide"></div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <h2>ผู้ใช้งาน <small>สมัครใหม่และการเข้าเล่น ๓๐ วันล่าสุด</small></h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>สมัครใหม่และผู้เล่นที่เข้าเกมรายวัน</h3>
+        <div class="sub">จำนวนคนต่อวัน (เวลาไทย)</div>
+        <div class="legend"><span><b style="background:var(--s1)"></b>ผู้เล่นที่เข้าเกม</span><span><b style="background:var(--s2)"></b>สมัครใหม่</span></div>
+        <div class="chart" id="cDays"></div>
+        <details><summary>ดูเป็นตาราง</summary><div class="scroll"><table id="tDays"></table></div></details>
+      </div>
+      <div class="card">
+        <h3>ออนไลน์ตอนนี้ แยกตามหน้าที่อยู่</h3>
+        <div class="sub">นับจากผู้เล่นที่เปิดเกมค้างไว้ · ไม่แสดงชื่อ</div>
+        <div class="hb" id="hbScreen"></div>
+        <h3 style="margin-top:22px">สถานะบัญชี</h3>
+        <div class="sub">จากผู้ใช้ทั้งหมด</div>
+        <div class="hb" id="hbUsers"></div>
+      </div>
+    </div>
+    <div class="grid g11" style="margin-top:12px">
+      <div class="card">
+        <h3>ผู้เล่นที่เข้าเกมรายชั่วโมง</h3>
+        <div class="sub">๒๔ ชั่วโมงล่าสุด · คนที่เปิดเกมอยู่ในชั่วโมงนั้น</div>
+        <div class="chart" id="cActH"></div>
+      </div>
+      <div class="card">
+        <h3>เวลาเล่นรวมรายวัน</h3>
+        <div class="sub">นาทีรวมของผู้เล่นทุกคน (นับจากสัญญาณทุก ๑ นาทีขณะเปิดเกม)</div>
+        <div class="chart" id="cMins"></div>
+      </div>
+    </div>
+
+    <h2>โกลด์ <small>ที่มาและการใช้จ่ายทั้งหมดในเกม</small></h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>โกลด์เข้าและออกรายชั่วโมง</h3>
+        <div class="sub">๒๔ ชั่วโมงล่าสุด · ด้านบน = โกลด์ที่ผู้เล่นได้รับ · ด้านล่าง = โกลด์ที่ใช้ไป</div>
+        <div class="legend"><span><b style="background:var(--s1)"></b>ได้รับ</span><span><b style="background:var(--s2)"></b>ใช้ไป</span></div>
+        <div class="chart" id="cGoldH"></div>
+      </div>
+      <div class="card">
+        <h3>ภาพรวมโกลด์</h3>
+        <div class="sub" id="goldSince"></div>
+        <div class="mini" id="goldMini"></div>
+        <h3 style="margin-top:18px">จำนวนผู้เล่นตามยอดโกลด์คงเหลือ</h3>
+        <div class="sub">ไม่ระบุชื่อ</div>
+        <div class="hb" id="hbBuckets"></div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3>โกลด์แยกตามที่มา</h3>
+        <div class="sub">ทั้งหมดตั้งแต่เริ่มบันทึก และเฉพาะวันนี้</div>
+        <div class="scroll"><table id="tReason"></table></div>
+      </div>
+      <div class="card">
+        <h3>โกลด์เข้าและออกรายวัน</h3>
+        <div class="sub">๓๐ วันล่าสุด</div>
+        <div class="legend"><span><b style="background:var(--s1)"></b>ได้รับ</span><span><b style="background:var(--s2)"></b>ใช้ไป</span></div>
+        <div class="chart" id="cGoldD"></div>
+      </div>
+    </div>
+
+    <h2>ตู้สุ่มและตลาดกลาง</h2>
+    <div class="grid g11">
+      <div class="card">
+        <h3>ตู้สุ่ม</h3>
+        <div class="sub">นับจากโกลด์ที่ใช้ · ไม่มีข้อมูลการ์ดที่ได้</div>
+        <div class="mini" id="gachaMini"></div>
+        <h3 style="margin-top:18px">จำนวนครั้งสุ่มรายชั่วโมง</h3>
+        <div class="sub">๒๔ ชั่วโมงล่าสุด</div>
+        <div class="chart" id="cPulls"></div>
+      </div>
+      <div class="card">
+        <h3>ตลาดกลาง</h3>
+        <div class="sub">ยอดซื้อขายและค่าธรรมเนียมที่ถูกเผา</div>
+        <div class="mini" id="marketMini"></div>
+      </div>
+    </div>
+
+    <h2>การ์ดที่ออกจากระบบ <small id="cardsAsof"></small></h2>
+    <div class="grid g11">
+      <div class="card">
+        <h3>จำนวนการ์ดที่ออกจากระบบแยกตามระดับ</h3>
+        <div class="sub">รวมทุกช่องทาง: ตู้สุ่ม รางวัลบทเรียน ซื้อจากพ่อค้า NPC</div>
+        <div class="hb" id="hbTiers"></div>
+        <div class="lock"><span>🔒</span><span>การ์ดระดับตำนาน พระเจ้า และผู้สรรสร้าง แสดงได้เฉพาะ<b>จำนวนที่ออกจากระบบ</b>เท่านั้น ระบบไม่มีข้อมูลว่าใครได้รับหรือถือการ์ดเหล่านี้ และตัวเลขทุกระดับนับถึงเที่ยงคืนที่ผ่านมา ไม่อัปเดตแบบเรียลไทม์ เพื่อไม่ให้จับคู่กับผู้ที่กำลังสุ่มได้</span></div>
+      </div>
+      <div class="card">
+        <h3>ความเคลื่อนไหวล่าสุด</h3>
+        <div class="sub">ตู้สุ่มและตลาดกลางแสดงแบบไม่ระบุชื่อ</div>
+        <ul class="feed" id="feed"></ul>
+      </div>
+    </div>
+
+    <h2>ผู้เล่น <small id="pCount"></small></h2>
+    <div class="card">
+      <div class="tools"><input id="pSearch" placeholder="ค้นหาชื่อผู้ใช้หรือชื่อในเกม" autocapitalize="none" spellcheck="false"><span class="sub" style="margin:0">แตะหัวคอลัมน์เพื่อเรียง · ไม่มีข้อมูลการ์ดหรือจำนวนครั้งสุ่มรายคน</span></div>
+      <div class="scroll" style="max-height:620px"><table id="tPlayers"></table></div>
+    </div>
+  </main>
+</section>
+<div id="tip" class="hide"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const SB_URL='https://pnhulxgznbiolxphypdp.supabase.co', SB_KEY='sb_publishable_ZPuU2jlCXi-imu8ttcc95A_g1jWbBqi';
+const QS=new URLSearchParams(location.search), DEMO=QS.has('demo');
+const sb=(!DEMO&&window.supabase)?window.supabase.createClient(SB_URL,SB_KEY,{auth:{storageKey:'siam-monitor-auth'}}):null;
+const $=id=>document.getElementById(id);
+
+/* ---------- เลขไทย ---------- */
+const TD='๐๑๒๓๔๕๖๗๘๙';
+const TH=s=>String(s).replace(/\d/g,d=>TD[d]);
+const N=n=>TH(Math.round(Number(n)||0).toLocaleString('en-US'));
+const short=n=>{n=Number(n)||0; const a=Math.abs(n);
+  if(a>=1e6) return TH((n/1e6).toFixed(a>=1e7?0:1).replace(/\.0$/,''))+' ล.';
+  if(a>=1e4) return TH((n/1e3).toFixed(a>=1e5?0:1).replace(/\.0$/,''))+' พัน';
+  return N(n);};
+const pad=x=>String(x).padStart(2,'0');
+const dTime=s=>{const d=new Date(s); return TH(pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds()));};
+const MON=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const dDay=s=>{const [y,m,d]=s.split('-').map(Number); return TH(d)+' '+MON[m-1];};
+const dDate=s=>{if(!s) return '—'; const d=new Date(s); return TH(d.getDate())+' '+MON[d.getMonth()]+' '+TH((d.getFullYear()+543)%100)+' '+TH(pad(d.getHours())+':'+pad(d.getMinutes()));};
+const ago=s=>{if(!s) return 'ยังไม่เคยเข้าเกม'; const m=(Date.now()-new Date(s))/6e4;
+  if(m<2) return 'ออนไลน์'; if(m<60) return TH(Math.floor(m))+' นาทีที่แล้ว'; if(m<1440) return TH(Math.floor(m/60))+' ชม.ที่แล้ว'; return TH(Math.floor(m/1440))+' วันที่แล้ว';};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const REASON={start:'โกลด์เริ่มต้น (สมัครใหม่)',gacha:'ตู้สุ่มปกติ',event:'ตู้ผู้สรรสร้าง',market_buy:'ซื้อในตลาดกลาง',market_sell:'ขายในตลาดกลาง (รับสุทธิ)',
+  tutorial:'รางวัลบทเรียน',admin:'แอดมินเสก/หักโกลด์',other:'อื่น ๆ (แก้ในฐานข้อมูลโดยตรง)'};
+const SCREEN={home:'หน้าแรก',gacha:'ตู้สุ่ม',room:'ห้องพัก/จัดเด็ค',coll:'คลังการ์ด',market:'ตลาดกลาง',duel:'ดวล',guild:'หอกิลด์',pick:'เลือกตัวละคร',login:'หน้าล็อกอิน',loading:'กำลังโหลด'};
+const TIERS=[['common','ธรรมดา'],['standard','ทั่วไป'],['rare','หายาก'],['epic','มหากาพย์'],['legend','ตำนาน'],['divine','พระเจ้า'],['creator','ผู้สรรสร้าง']];
+
+/* ---------- tooltip ---------- */
+const tip=$('tip');
+function showTip(e,title,rows){tip.innerHTML=`<div class="t">${title}</div>`+rows.map(r=>`<div class="r"><span><i style="background:${r[2]||'transparent'}"></i>${r[0]}</span><b>${r[1]}</b></div>`).join('');
+  tip.classList.remove('hide'); const w=tip.offsetWidth,h=tip.offsetHeight; let x=e.clientX+14,y=e.clientY+14;
+  if(x+w>innerWidth-8) x=e.clientX-w-14; if(y+h>innerHeight-8) y=e.clientY-h-14; tip.style.left=x+'px'; tip.style.top=y+'px';}
+const hideTip=()=>tip.classList.add('hide');
+
+/* ---------- กราฟ (SVG) ---------- */
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function niceMax(v){if(v<=0) return 4; const p=Math.pow(10,Math.floor(Math.log10(v))); for(const m of [1,2,2.5,5,10]) if(m*p>=v) return m*p; return 10*p;}
+function frame(el,H){const W=Math.max(280,el.clientWidth||600); return {W,H,L:52,R:10,T:10,B:28};}
+function yAxis(f,max,min=0,fmtY=short){let s=''; const steps=4;
+  for(let i=0;i<=steps;i++){const v=min+(max-min)*i/steps, y=f.T+(f.H-f.T-f.B)*(1-i/steps);
+    s+=`<line x1="${f.L}" x2="${f.W-f.R}" y1="${y}" y2="${y}" stroke="${css('--grid')}" stroke-width="1"/>`+
+       `<text x="${f.L-8}" y="${y+4}" text-anchor="end">${fmtY(v)}</text>`;}
+  return s;}
+function xLabels(f,labels,every){return labels.map((l,i)=>{if(i%every&&i!==labels.length-1) return ''; const x=f.L+(f.W-f.L-f.R)*(labels.length===1?.5:i/(labels.length-1));
+  return `<text x="${x}" y="${f.H-8}" text-anchor="middle">${l}</text>`;}).join('');}
+
+function lineChart(el,labels,series,H=240,titles){const f=frame(el,H), n=labels.length;
+  const max=niceMax(Math.max(1,...series.flatMap(s=>s.values)));
+  const X=i=>f.L+(f.W-f.L-f.R)*(n===1?.5:i/(n-1)), Y=v=>f.T+(f.H-f.T-f.B)*(1-v/max);
+  let s=yAxis(f,max,0,v=>N(v));
+  s+=xLabels(f,labels,Math.ceil(n/7));
+  series.forEach(se=>{s+=`<path d="${se.values.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join('')}" fill="none" stroke="${se.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const i=n-1; s+=`<circle cx="${X(i)}" cy="${Y(se.values[i])}" r="4" fill="${se.color}" stroke="${css('--surface')}" stroke-width="2"/>`;});
+  s+=`<line class="xh" x1="0" x2="0" y1="${f.T}" y2="${f.H-f.B}" stroke="${css('--muted')}" stroke-dasharray="3 3" visibility="hidden"/>`;
+  s+=series.map((se,k)=>`<circle class="hp${k}" r="5" fill="${se.color}" stroke="${css('--surface')}" stroke-width="2" visibility="hidden"/>`).join('');
+  s+=`<rect x="${f.L}" y="${f.T}" width="${f.W-f.L-f.R}" height="${f.H-f.T-f.B}" fill="transparent"/>`;
+  el.innerHTML=`<svg viewBox="0 0 ${f.W} ${f.H}" height="${f.H}" role="img" aria-label="กราฟเส้น">${s}</svg>`;
+  const svg=el.firstChild, xh=svg.querySelector('.xh');
+  svg.onmousemove=e=>{const r=svg.getBoundingClientRect(), px=(e.clientX-r.left)*f.W/r.width;
+    if(px<f.L-6||px>f.W-f.R+6){xh.setAttribute('visibility','hidden');series.forEach((_,k)=>svg.querySelector('.hp'+k).setAttribute('visibility','hidden'));return hideTip();}
+    const i=Math.max(0,Math.min(n-1,Math.round((px-f.L)/(f.W-f.L-f.R)*(n-1))));
+    xh.setAttribute('x1',X(i)); xh.setAttribute('x2',X(i)); xh.setAttribute('visibility','visible');
+    series.forEach((se,k)=>{const c=svg.querySelector('.hp'+k); c.setAttribute('cx',X(i)); c.setAttribute('cy',Y(se.values[i])); c.setAttribute('visibility','visible');});
+    showTip(e,(titles||labels)[i],series.map(se=>[se.name,N(se.values[i])+(se.unit||''),se.color]));};
+  svg.onmouseleave=()=>{hideTip(); xh.setAttribute('visibility','hidden'); series.forEach((_,k)=>svg.querySelector('.hp'+k).setAttribute('visibility','hidden'));};}
+
+/* แท่งเดียว หรือแท่งเข้า-ออก (บน/ล่างแกนศูนย์) */
+function barChart(el,labels,up,down,opt={}){const f=frame(el,opt.H||220), n=labels.length;
+  const mu=niceMax(Math.max(1,...up)), md=down?niceMax(Math.max(1,...down)):0, m=down?Math.max(mu,md):mu;
+  const top=m, bot=down?-m:0, Y=v=>f.T+(f.H-f.T-f.B)*(top-v)/(top-bot);
+  const slot=(f.W-f.L-f.R)/n, bw=Math.max(3,Math.min(26,slot-2)), X=i=>f.L+slot*i+(slot-bw)/2;
+  let s=yAxis(f,top,bot,v=>short(Math.abs(v)));
+  s+=labels.map((l,i)=>(i%Math.ceil(n/8)&&i!==n-1)?'':`<text x="${X(i)+bw/2}" y="${f.H-8}" text-anchor="middle">${l}</text>`).join('');
+  const r=Math.min(4,bw/2);
+  const bar=(x,y0,y1,c,dir)=>{const h=Math.abs(y1-y0); if(h<.5) return ''; const rr=Math.min(r,h);
+    return dir>0?`<path d="M${x} ${y0}V${y1+rr}Q${x} ${y1} ${x+rr} ${y1}H${x+bw-rr}Q${x+bw} ${y1} ${x+bw} ${y1+rr}V${y0}Z" fill="${c}"/>`
+                :`<path d="M${x} ${y0}V${y1-rr}Q${x} ${y1} ${x+rr} ${y1}H${x+bw-rr}Q${x+bw} ${y1} ${x+bw} ${y1-rr}V${y0}Z" fill="${c}"/>`;};
+  labels.forEach((_,i)=>{s+=bar(X(i),Y(0)-(down?1:0),Y(up[i]),opt.c1||css('--s1'),1); if(down) s+=bar(X(i),Y(0)+1,Y(-down[i]),css('--s2'),-1);
+    s+=`<rect data-i="${i}" x="${f.L+slot*i}" y="${f.T}" width="${slot}" height="${f.H-f.T-f.B}" fill="transparent"/>`;});
+  if(down) s+=`<line x1="${f.L}" x2="${f.W-f.R}" y1="${Y(0)}" y2="${Y(0)}" stroke="${css('--muted')}" stroke-width="1"/>`;
+  el.innerHTML=`<svg viewBox="0 0 ${f.W} ${f.H}" height="${f.H}" role="img" aria-label="กราฟแท่ง">${s}</svg>`;
+  el.firstChild.onmousemove=e=>{const t=e.target.closest('rect[data-i]'); if(!t) return hideTip(); const i=+t.dataset.i;
+    const rows=[[opt.n1||'ได้รับ',N(up[i])+(opt.unit||''),opt.c1||css('--s1')]]; if(down){rows.push(['ใช้ไป',N(down[i])+(opt.unit||''),css('--s2')]); rows.push(['สุทธิ',(up[i]-down[i]>=0?'+':'−')+N(Math.abs(up[i]-down[i])),'']);}
+    showTip(e,(opt.titles||labels)[i],rows);};
+  el.firstChild.onmouseleave=hideTip;}
+
+function hbars(el,rows,color){const max=Math.max(1,...rows.map(r=>r[1]));
+  el.innerHTML=rows.map(r=>`<span class="lb">${r[0]}</span><div class="tr" title="${esc(r[0])}: ${N(r[1])}"><div class="fl" style="width:${r[1]/max*100}%;background:${r[2]||color||'var(--s1)'}"></div></div><span class="vl">${r[3]??N(r[1])}</span>`).join('')||'<span class="lb">ไม่มีข้อมูล</span>';}
+const mini=(el,items)=>el.innerHTML=items.map(([k,v,s])=>`<div><div class="k">${k}</div><div class="v">${v}</div>${s?`<div class="k">${s}</div>`:''}</div>`).join('');
+
+/* ---------- ออนไลน์เรียลไทม์ (Presence) ---------- */
+let ONLINE={}, PRES=null;
+function presenceInit(){ if(!sb) return;
+  PRES=sb.channel('siam-online');
+  const sync=()=>{const st=PRES.presenceState(); ONLINE={}; for(const k in st){const m=st[k][st[k].length-1]||{}; ONLINE[k]=m.s||'home';} drawOnline();};
+  PRES.on('presence',{event:'sync'},sync).on('presence',{event:'join'},sync).on('presence',{event:'leave'},sync)
+      .subscribe(st=>{setLive(st==='SUBSCRIBED');});}
+function drawOnline(){const cnt={}; Object.values(ONLINE).forEach(s=>cnt[s]=(cnt[s]||0)+1);
+  const total=Object.keys(ONLINE).length; const el=$('kOnline'); if(el) el.textContent=N(total);
+  hbars($('hbScreen'),Object.keys(SCREEN).filter(k=>cnt[k]).map(k=>[SCREEN[k],cnt[k]]).concat(Object.keys(cnt).filter(k=>!SCREEN[k]).map(k=>[esc(k),cnt[k]]))
+    .sort((a,b)=>b[1]-a[1]),'var(--s3)');
+  if(!total) $('hbScreen').innerHTML='<span class="lb">ยังไม่มีผู้เล่นออนไลน์</span>';}
+
+/* ---------- วาดทั้งหน้า ---------- */
+let DATA=null, sortK='created_at', sortDir=-1;
+function render(d){DATA=d; const u=d.users,g=d.gold,ga=d.gacha,mk=d.market,today=d.days[d.days.length-1]||{};
+  const online=Object.keys(ONLINE).length;
+  $('kpis').innerHTML=[
+    ['ผู้ใช้ทั้งหมด',N(u.total),`แอดมิน ${N(u.admins)} บัญชี`],
+    ['ออนไลน์ตอนนี้',`<span id="kOnline">${N(online)}</span>`,`ใช้งานใน ๕ นาที ${N(u.m5)} · ๑๕ นาที ${N(u.m15)}`,'hero'],
+    ['สมัครวันนี้',N(u.today),`๗ วัน ${N(u.d7)} · ๓๐ วัน ${N(u.d30)}`],
+    ['ผู้เล่นที่เข้าเกมวันนี้',N(today.dau),`ใน ๒๔ ชม. ${N(u.h24)} คน · เวลาเล่นรวม ${N(today.mins)} นาที`],
+    ['โกลด์หมุนเวียน',short(g.circulating),`เฉลี่ย ${N(g.avg)} ต่อคน`],
+    ['โกลด์ที่ใช้ไปวันนี้',short(g.today_out),`ได้รับวันนี้ ${short(g.today_in)}`],
+    ['สุ่มวันนี้',N(ga.pulls_today)+' ครั้ง',`ผู้สุ่ม ${N(ga.pullers_today)} คน`],
+    ['ซื้อขายในตลาดวันนี้',N(mk.sold_today)+' รายการ',`มูลค่า ${short(mk.volume_today)} โกลด์`],
+  ].map(([k,v,s,c])=>`<div class="kpi ${c||''}"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
+
+  const dl=d.days.map(x=>dDay(x.d));
+  lineChart($('cDays'),dl,[{name:'ผู้เล่นที่เข้าเกม',color:css('--s1'),values:d.days.map(x=>x.dau),unit:' คน'},{name:'สมัครใหม่',color:css('--s2'),values:d.days.map(x=>x.reg),unit:' คน'}]);
+  $('tDays').innerHTML='<thead><tr><th>วันที่</th><th class="n">สมัครใหม่</th><th class="n">เข้าเกม</th><th class="n">นาทีเล่นรวม</th><th class="n">โกลด์ได้รับ</th><th class="n">โกลด์ใช้ไป</th></tr></thead><tbody>'+
+    d.days.slice().reverse().map(x=>`<tr><td>${dDay(x.d)}</td><td class="n">${N(x.reg)}</td><td class="n">${N(x.dau)}</td><td class="n">${N(x.mins)}</td><td class="n">${N(x.gin)}</td><td class="n">${N(x.gout)}</td></tr>`).join('')+'</tbody>';
+  const hl=d.hours.map(x=>TH(x.h.slice(0,2))), ht=d.hours.map(x=>TH(x.h)+' น.');
+  barChart($('cActH'),hl,d.hours.map(x=>x.act),null,{n1:'ผู้เล่น',unit:' คน',titles:ht,c1:css('--s1'),H:200});
+  barChart($('cMins'),dl,d.days.map(x=>x.mins),null,{n1:'เวลาเล่นรวม',unit:' นาที',H:200});
+  hbars($('hbUsers'),[['เลือกตัวละครแล้ว',u.total-u.nogender],['ตัวละครชาย',u.male],['ตัวละครหญิง',u.female],['เริ่มบทเรียนแล้ว',u.tut_any],['จบบทเรียนครบ ๘ บท',u.tut_all],['จัดเด็คแล้ว',u.decks],['สมัครแต่ยังไม่เคยเข้าเกม',u.never]]
+    .map(r=>[r[0],r[1],null,`${N(r[1])} <span style="color:var(--muted)">(${TH(u.total?Math.round(r[1]/u.total*100):0)}%)</span>`]));
+  drawOnline();
+
+  barChart($('cGoldH'),hl,d.hours.map(x=>x.in),d.hours.map(x=>x.out),{titles:ht,unit:' โกลด์',H:240});
+  barChart($('cGoldD'),dl,d.days.map(x=>x.gin),d.days.map(x=>x.gout),{unit:' โกลด์',H:240});
+  $('goldSince').textContent=g.since?'เริ่มบันทึกเมื่อ '+dDate(g.since):'ยังไม่มีการบันทึก';
+  mini($('goldMini'),[['หมุนเวียนในเกม',N(g.circulating)],['ค่ากลาง (มัธยฐาน) ต่อคน',N(g.median)],
+    ['ถูกสร้างเข้าเกมทั้งหมด',N(g.minted),'โกลด์เริ่มต้น บทเรียน แอดมิน ขายของ'],['ถูกใช้/เผาออกทั้งหมด',N(g.burned),'ตู้สุ่ม ซื้อของ']]);
+  hbars($('hbBuckets'),[['๐ โกลด์',g.zero],['ต่ำกว่า ๑,๐๐๐',g.b_lt1k-g.zero],['๑,๐๐๐–๙,๙๙๙',g.b_1k_10k],['๑๐,๐๐๐–๔๙,๙๙๙',g.b_10k_50k],['๕๐,๐๐๐–๑๙๙,๙๙๙',g.b_50k_200k],['๒๐๐,๐๐๐ ขึ้นไป',g.b_200k]].map(r=>[r[0],r[1],null,N(r[1])+' คน']));
+  $('tReason').innerHTML='<thead><tr><th>ที่มา</th><th class="n">ได้รับ</th><th class="n">ใช้ไป</th><th class="n">รายการ</th><th class="n">ผู้เล่น</th><th class="n">วันนี้ ได้รับ</th><th class="n">วันนี้ ใช้ไป</th></tr></thead><tbody>'+
+    (d.reasons.map(r=>`<tr><td>${REASON[r.reason]||esc(r.reason)}</td><td class="n">${r.gin?N(r.gin):'—'}</td><td class="n">${r.gout?N(r.gout):'—'}</td><td class="n">${N(r.n)}</td><td class="n">${N(r.users)}</td><td class="n">${r.tin?N(r.tin):'—'}</td><td class="n">${r.tout?N(r.tout):'—'}</td></tr>`).join('')||'<tr><td colspan="7">ยังไม่มีการใช้โกลด์</td></tr>')+
+    `</tbody><tfoot><tr><th>รวม</th><th class="n">${N(g.minted)}</th><th class="n">${N(g.burned)}</th><th></th><th></th><th class="n">${N(g.today_in)}</th><th class="n">${N(g.today_out)}</th></tr></tfoot>`;
+
+  mini($('gachaMini'),[['สุ่มทั้งหมด',N(ga.pulls)+' ครั้ง',`ทีละ ๑๐: ${N(ga.x10)} รอบ · ทีละ ๑: ${N(ga.x1)} รอบ`],['ผู้เคยสุ่ม',N(ga.pullers)+' คน',`วันนี้ ${N(ga.pullers_today)} คน`],
+    ['โกลด์ที่ใช้กับตู้ปกติ',N(ga.pulls*100)],['ลองตู้ผู้สรรสร้าง',N(ga.event)+' ครั้ง',`วันนี้ ${N(ga.event_today)} ครั้ง · ${d.config.event&&d.config.event.open?'ตู้เปิดอยู่: '+esc(d.config.event.name):'ตู้ปิดอยู่'}`]]);
+  barChart($('cPulls'),hl,d.hours.map(x=>x.pulls),null,{n1:'สุ่ม',unit:' ครั้ง',titles:ht,H:180});
+  mini($('marketMini'),[['วางขายอยู่',N(mk.open)+' รายการ',`ผู้เล่น ${N(mk.open_player)} · พ่อค้า NPC ${N(mk.open_npc)}`],['ขายแล้วทั้งหมด',N(mk.sold)+' รายการ',`ระหว่างผู้เล่น ${N(mk.sold_p2p)} · จาก NPC ${N(mk.sold_npc)}`],
+    ['มูลค่าซื้อขายรวม',N(mk.volume),`วันนี้ ${N(mk.volume_today)}`],['ค่าธรรมเนียม ๕% ที่ถูกเผา',N(mk.fee)],
+    ['โกลด์ที่จ่ายให้พ่อค้า NPC',N(mk.npc_sales),'ออกจากเกมทั้งหมด'],['ผู้เล่นลงขายวันนี้',N(mk.listed_today)+' รายการ',`ยกเลิกทั้งหมด ${N(mk.cancelled)}`]]);
+
+  $('cardsAsof').textContent='นับถึง '+(d.cards.asof?TH(d.cards.asof.slice(11))+' น. วันที่ '+dDay(d.cards.asof.slice(0,10)):'—');
+  hbars($('hbTiers'),TIERS.map(([k,l])=>[l,(d.cards.tiers||{})[k]||0,['legend','divine','creator'].includes(k)?'var(--gold)':null,N((d.cards.tiers||{})[k]||0)+' ใบ']));
+
+  $('feed').innerHTML=d.feed.map(f=>`<li><span class="tm">${dTime(f.at)}</span><span>${REASON[f.reason]||esc(f.reason)} · ${f.username?esc(f.username):'<span class="anon">ไม่ระบุชื่อ</span>'}</span><span class="am">${f.delta>0?'+':'−'}${N(Math.abs(f.delta))}</span></li>`).join('')||'<li>ยังไม่มีความเคลื่อนไหว</li>';
+  drawPlayers();}
+
+const PCOLS=[['username','ชื่อผู้ใช้'],['name','ชื่อในเกม'],['gold','โกลด์คงเหลือ',1],['gin','ได้รับรวม',1],['gout','ใช้ไปรวม',1],['days','วันที่เข้าเล่น',1],['mins','นาทีเล่นรวม',1],['last_seen','เข้าเกมล่าสุด'],['created_at','สมัครเมื่อ']];
+function drawPlayers(){if(!DATA) return; const q=$('pSearch').value.trim().toLowerCase();
+  let rows=DATA.players.filter(p=>!q||p.username.toLowerCase().includes(q)||(p.name||'').toLowerCase().includes(q));
+  rows.sort((a,b)=>{let x=a[sortK],y=b[sortK]; if(x==null) return 1; if(y==null) return -1; return (x>y?1:x<y?-1:0)*sortDir;});
+  $('pCount').textContent=N(rows.length)+' จาก '+N(DATA.players.length)+' คน';
+  $('tPlayers').innerHTML='<thead><tr>'+PCOLS.map(([k,l,n])=>`<th data-k="${k}" class="${n?'n':''}">${l}${sortK===k?(sortDir>0?' ▲':' ▼'):''}</th>`).join('')+'</tr></thead><tbody>'+
+    rows.map(p=>{const on=p.last_seen&&Date.now()-new Date(p.last_seen)<12e4;
+      return `<tr><td><span class="dot" style="background:${on?'var(--good)':'var(--line)'}"></span>${esc(p.username)}${p.is_admin?' <span class="pill">แอดมิน</span>':''}</td><td>${esc(p.name)||'<span class="anon">—</span>'}</td>
+      <td class="n">${N(p.gold)}</td><td class="n">${N(p.gin)}</td><td class="n">${N(p.gout)}</td><td class="n">${N(p.days)}</td><td class="n">${N(p.mins)}</td><td>${ago(p.last_seen)}</td><td>${dDate(p.created_at)}</td></tr>`;}).join('')+'</tbody>';}
+$('tPlayers').onclick=e=>{const th=e.target.closest('th[data-k]'); if(!th) return; const k=th.dataset.k; if(sortK===k) sortDir*=-1; else {sortK=k; sortDir=['username','name'].includes(k)?1:-1;} drawPlayers();};
+$('pSearch').oninput=drawPlayers;
+
+/* ---------- โหลดข้อมูล ---------- */
+let timer=null, loading=false, lastOk=0;
+function setLive(on){$('live').classList.toggle('off',!on);}
+function stamp(){$('liveTxt').textContent=lastOk?'สด · อัปเดต '+dTime(lastOk):'กำลังเชื่อมต่อ…';}
+async function load(){ if(loading) return; loading=true;
+  try{
+    const d=DEMO?demoData():await sb.rpc('admin_monitor').then(r=>{if(r.error) throw r.error; return r.data;});
+    render(d); lastOk=Date.now(); $('err').classList.add('hide'); setLive(true);
+  }catch(e){const m=(e&&e.message)||String(e); setLive(false);
+    $('err').textContent=m.includes('admin_monitor')||m.includes('function')?'ยังไม่ได้รัน supabase/004_monitor.sql บนเซิร์ฟเวอร์':m.includes('เฉพาะแอดมิน')?'บัญชีนี้ไม่ใช่แอดมิน':'โหลดข้อมูลไม่สำเร็จ: '+m;
+    $('err').classList.remove('hide');}
+  loading=false; stamp();}
+function schedule(){clearInterval(timer); timer=setInterval(load,+$('rate').value);}
+$('rate').onchange=schedule; $('btnNow').onclick=load;
+setInterval(stamp,1000);
+let raf=null; addEventListener('resize',()=>{cancelAnimationFrame(raf); raf=requestAnimationFrame(()=>DATA&&render(DATA));});
+
+async function start(){$('login').classList.add('hide'); $('app').classList.remove('hide');
+  if(DEMO){$('demoNote').classList.remove('hide'); demoPresence();}
+  else{presenceInit(); sb.channel('monitor-news').on('postgres_changes',{event:'INSERT',schema:'public',table:'news'},()=>setTimeout(load,400)).subscribe();}
+  await load(); schedule();}
+
+$('lForm').onsubmit=async e=>{e.preventDefault(); const u=$('lUser').value.trim().toLowerCase(), err=$('lErr');
+  if(!sb) return err.textContent='โหลดไลบรารีเชื่อมต่อเซิร์ฟเวอร์ไม่ได้';
+  err.textContent='กำลังตรวจสอบ…';
+  const r=await sb.auth.signInWithPassword({email:u+'@siamduel.game',password:$('lPass').value});
+  if(r.error) return err.textContent='ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+  if(!await checkAdmin()) return; err.textContent=''; start();};
+async function checkAdmin(){const {data}=await sb.rpc('is_admin'); if(data) return true;
+  await sb.auth.signOut(); $('lErr').textContent='บัญชีนี้ไม่มีสิทธิ์แอดมิน'; return false;}
+$('btnOut').onclick=async()=>{if(sb) await sb.auth.signOut(); location.reload();};
+
+(async()=>{ if(DEMO) return start(); if(!sb){$('lErr').textContent='โหลดไลบรารีเชื่อมต่อเซิร์ฟเวอร์ไม่ได้'; return;}
+  const {data}=await sb.auth.getSession(); if(data.session&&await checkAdmin()) start(); })();
+
+/* ---------- ข้อมูลตัวอย่าง (?demo=1) ---------- */
+function demoPresence(){const scr=['home','home','gacha','market','duel','room','coll','home','duel'];
+  const tick=()=>{ONLINE={}; const n=7+Math.floor(Math.random()*6); for(let i=0;i<n;i++) ONLINE['u'+i]=scr[Math.floor(Math.random()*scr.length)]; drawOnline();};
+  tick(); setInterval(tick,4000);}
+function demoData(){const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)), now=new Date(), days=[], hours=[];
+  for(let i=29;i>=0;i--){const d=new Date(now-i*864e5), reg=R(0,9)+(i<10?R(2,8):0), dau=R(8,30)+(29-i);
+    days.push({d:`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`,reg,dau,mins:dau*R(25,60),gin:reg*20000+R(5,40)*500,gout:dau*R(800,2500)});}
+  for(let i=23;i>=0;i--){const h=new Date(now-i*36e5), act=R(2,14)+(h.getHours()>=19?8:0), pulls=act*R(2,9);
+    hours.push({h:pad(h.getHours())+':00',in:R(0,3)*20000+R(0,8)*500,out:pulls*100+R(0,6)*400,pulls,reg:R(0,2),act});}
+  const names=['nok','dam','ploy','mek','fah','tong','ice','bank','beam','mild','pang','toey','kaew','jom','oat'];
+  const players=names.map((u,i)=>({username:u,name:['นกแก้ว','ดำรง','พลอย','เมฆ','ฟ้า','ทอง','ไอซ์','แบงก์','บีม','มายด์','ปั้ง','เตย','แก้ว','จอม','โอ๊ต'][i],gold:R(0,90000),gin:R(20000,120000),gout:R(1000,80000),
+    days:R(1,20),mins:R(20,900),last_seen:new Date(now-R(0,4000)*6e4).toISOString(),created_at:new Date(now-R(1,29)*864e5).toISOString(),is_admin:i===0}));
+  const feed=[], rs=['gacha','gacha','gacha','market_buy','market_sell','admin','tutorial','start','event'];
+  for(let i=0;i<30;i++){const r=rs[R(0,rs.length-1)]; feed.push({id:i,at:new Date(now-i*R(20,90)*1e3).toISOString(),reason:r,
+    delta:{gacha:-[100,1000][R(0,1)],market_buy:-R(5,80)*10,market_sell:R(5,80)*10,admin:5000,tutorial:500,start:20000,event:-5000}[r],username:['admin','tutorial','start'].includes(r)?names[R(0,14)]:null});}
+  return {users:{total:214,today:days[29].reg,d7:41,d30:150,m5:R(6,12),m15:R(10,18),h24:73,never:12,male:120,female:82,nogender:12,tut_any:160,tut_all:88,decks:131,admins:2},
+    days,hours,gold:{circulating:3812400,avg:17815,median:12600,zero:9,b_lt1k:25,b_1k_10k:61,b_10k_50k:98,b_50k_200k:24,b_200k:6,minted:5120000,burned:1307600,today_in:days[29].gin,today_out:days[29].gout,since:new Date(now-30*864e5).toISOString()},
+    reasons:[{reason:'start',gin:4280000,gout:0,n:214,users:214,tin:140000,tout:0},{reason:'gacha',gin:0,gout:1052300,n:3120,users:171,tin:0,tout:48200},{reason:'market_buy',gin:0,gout:212400,n:410,users:96,tin:0,tout:9200},
+      {reason:'market_sell',gin:118300,gout:0,n:210,users:64,tin:4100,tout:0},{reason:'admin',gin:600000,gout:0,n:12,users:214,tin:0,tout:0},{reason:'tutorial',gin:121700,gout:0,n:560,users:160,tin:4500,tout:0},{reason:'event',gin:0,gout:42900,n:9,users:4,tin:0,tout:5000}],
+    gacha:{pulls:10523,pulls_today:hours.reduce((a,b)=>a+b.pulls,0),x10:902,x1:1503,pullers:171,pullers_today:38,event:9,event_today:1,lifetime:10523},
+    cards:{asof:`${days[29].d} 00:00`,tiers:{common:5540,standard:3180,rare:1102,epic:338,legend:97,divine:2,creator:0},high:99},
+    market:{open:64,open_npc:22,open_player:42,sold:410,sold_today:R(5,30),sold_npc:200,sold_p2p:210,cancelled:37,volume:212400,volume_today:R(3000,20000),npc_sales:88100,fee:6200,listed_today:R(3,20)},
+    players,feed,config:{start_gold:20000,event:{open:true,name:'เทศกาลลอยกระทง'},threshold:10000}};}
+</script>
+</body>
+</html>
