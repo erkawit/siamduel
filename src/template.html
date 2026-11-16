@@ -100,10 +100,11 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .hero{position:absolute;left:0;top:64px;bottom:150px;width:52%;display:flex;align-items:flex-end;justify-content:center}
 .hero img,.hero svg{max-height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 20px 40px #000);animation:heroIn .5s ease-out}
 @keyframes heroIn{from{opacity:0;transform:translateY(10px)}}
-.menu{position:absolute;right:4%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;width:min(340px,42%)}
-.menu button{height:58px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(90deg,#1C1612,#15100D);color:var(--text);font-family:Chonburi,serif;font-size:19px;display:flex;align-items:center;gap:14px;padding:0 18px;text-align:left}
-.menu button:hover{border-color:var(--gold)}
-.menu button small{display:block;font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
+.menu{position:absolute;right:4%;top:calc(50% - 50px);transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;width:min(340px,42%)}
+.menu button,.menu a.wikilink{text-decoration:none;height:52px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(90deg,#1C1612,#15100D);color:var(--text);font-family:Chonburi,serif;font-size:19px;display:flex;align-items:center;gap:14px;padding:0 18px;text-align:left}
+.menu button:hover,.menu a.wikilink:hover{border-color:var(--gold)}
+.menu a.wikilink{border-style:dashed}
+.menu button small,.menu a.wikilink small{display:block;font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
 .menu .ic{width:36px;height:36px;border-radius:50%;background:#2A1A12;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold2);flex:none}
 .dialog{position:absolute;left:3%;right:3%;bottom:3%;min-height:120px;background:#120C0Af0;border:28px solid transparent;border-image:url(ui_art_web/dialog_frame.webp) 30% 12% fill / 28px stretch;border-radius:0;display:flex;gap:14px;padding:12px 16px;align-items:flex-end;z-index:6}
 .dialog .bust{width:130px;height:160px;margin-top:-90px;flex:none}
@@ -114,7 +115,8 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .dialog p{margin:4px 0 0;line-height:1.6}
 
 /* ---------- ตู้สุ่ม ---------- */
-.menu .mic{width:46px;height:46px;flex:none;filter:drop-shadow(0 2px 4px #000)}
+.menu .mic{width:42px;height:42px;flex:none;filter:drop-shadow(0 2px 4px #000)}
+.menu .mic.round{border-radius:50%;object-fit:cover;object-position:50% 20%;border:1px solid var(--gold);background:#2A1A12}
 .chip img{width:22px;height:22px}
 .lotus{position:relative;width:min(300px,55vw);aspect-ratio:1.2;margin:0 auto}
 .lotus img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .4s,transform .4s}
@@ -286,11 +288,15 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 
 @media (max-width:720px){
   .showcase{gap:2vw;padding-bottom:34vh}
-  .hero{width:100%;bottom:auto;height:calc(100% - 64px - 470px);min-height:150px}
-  .menu{left:16px;right:16px;width:auto;top:auto;bottom:196px;transform:none;gap:8px}
+  .hero{width:100%;bottom:auto;height:calc(100% - 64px - 400px);min-height:150px}
+  .menu{left:12px;right:12px;width:auto;top:auto;bottom:150px;transform:none;gap:6px;display:grid;grid-template-columns:1fr 1fr}
   .topbar{gap:6px;padding:0 10px}.topbar .who{font-size:15px}.chip{height:32px;padding:0 8px;font-size:12px}
-  .menu button{height:54px;font-size:16px}
-  .dialog .bust{width:80px;height:96px}
+  .menu button,.menu a.wikilink{height:46px;font-size:14px;padding:0 8px;gap:8px}
+  .menu button small,.menu a.wikilink small{display:none}
+  .menu .mic{width:32px;height:32px}
+  .dialog{border-width:16px;border-image-width:16px;min-height:0;padding:4px 6px;left:2%;right:2%;bottom:1.5%;align-items:center}
+  .dialog .bust{width:56px;height:70px;margin-top:-30px}
+  .dialog p{font-size:13px;line-height:1.5}
   .dialog .bust.me{display:none}
   .chars{gap:10px}
 }
@@ -343,11 +349,13 @@ __DUELCSS__
   <div class="hero" id="hero"></div>
   <nav class="menu">
     <button data-go="room"><img class="mic" alt="" src="ui_art_web/ic_room.webp"><span>ห้องพักส่วนตัว<small id="roomHint">จัดเด็ค 3 เซ็ต</small></span></button>
+    <button data-go="tutorial"><img class="mic round" alt="" src="characters/npc_shaman_bust.webp"><span>สอนเล่น<small id="tutHint">บทเรียน ๘ บทกับหมอผีเฒ่า</small></span></button>
     <button data-go="duel"><img class="mic" alt="" src="ui_art_web/ic_duel.webp"><span>ดวล<small>ดวลกับหมอผีเฒ่า (AI) · ผู้เล่นจริงตามมา</small></span></button>
     <button data-go="gacha"><img class="mic" alt="" src="ui_art_web/ic_gacha.webp"><span>ตู้สุ่มการ์ด<small id="evHint">ตู้ปกติ</small></span></button>
     <button data-go="coll"><img class="mic" alt="" src="ui_art_web/ic_collection.webp"><span>คลังการ์ด<small id="collHint"></small></span></button>
     <button data-go="guild"><img class="mic" alt="" src="ui_art_web/ic_guild.webp"><span>กิลด์<small>ลานฝึก · ด่านฝึก AI</small></span></button>
-    <button data-go="market"><img class="mic" alt="" src="ui_art_web/ic_market.webp"><span>ตลาดกลาง<small>ซื้อขายการ์ด (จำลองช่วง CBT)</small></span></button>
+    <button data-go="market"><img class="mic" alt="" src="ui_art_web/ic_market.webp"><span>ตลาดกลาง<small>ซื้อขายการ์ดกับผู้เล่น</small></span></button>
+    <a class="wikilink" href="wiki.html" target="_blank" rel="noopener"><img class="mic" alt="" src="ui_art_web/ic_mail.webp"><span>คู่มือเกม (Wiki)<small>กติกาทั้งหมด · การ์ดทุกใบ · เปิดแท็บใหม่</small></span></a>
   </nav>
   <div class="dialog" id="dlg">
     <div class="bust" id="dlgBust"></div>
@@ -441,7 +449,18 @@ const CARDS = __CARDS__;
 const A = 'game_assets/';
 const BY = Object.fromEntries(CARDS.map(c=>[c.id,c]));
 const TH = n => String(n).replace(/\d/g,d=>'๐๑๒๓๔๕๖๗๘๙'[d]);
-const fmt = n => Number(n).toLocaleString('th-TH');
+const UNTH = s => String(s).replace(/[๐-๙]/g,d=>'๐๑๒๓๔๕๖๗๘๙'.indexOf(d));
+/* ตัวเลขทั้งเกมแสดงเป็นเลขไทย: แปลงทุกข้อความบนหน้าจออัตโนมัติ (ยกเว้นช่องกรอก และส่วนที่ติด data-arabic) */
+const NO_TH='script,style,textarea,[data-arabic]';
+function thaiText(n){ if(n.nodeType!==3||!/[0-9]/.test(n.data)) return; const p=n.parentElement; if(!p||p.closest(NO_TH)) return; n.data=TH(n.data); }
+function thaiTree(root){ if(root.nodeType===3) return thaiText(root); if(root.nodeType!==1||root.closest&&root.closest(NO_TH)) return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT), list=[]; let n; while((n=w.nextNode())) if(/[0-9]/.test(n.data)) list.push(n); list.forEach(thaiText); }
+new MutationObserver(ms=>{ for(const m of ms){ if(m.type==='characterData') thaiText(m.target); else m.addedNodes.forEach(thaiTree); } })
+  .observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+thaiTree(document.body);
+document.addEventListener('input',e=>{const el=e.target; if(el.matches&&el.matches('input[inputmode=numeric]')){const p=el.selectionStart; el.value=TH(el.value); try{el.setSelectionRange(p,p)}catch(_){}}});
+function thaiInput(el){ el.value=TH(el.value); el.addEventListener('input',()=>{const p=el.selectionStart; el.value=TH(el.value); try{el.setSelectionRange(p,p)}catch(e){}}); }
+const fmt = n => TH(Number(n).toLocaleString('th-TH'));
 
 /* ตำแหน่งช่องต่าง ๆ บนกรอบแต่ละระดับ (% ของการ์ด) */
 const L = {
@@ -558,10 +577,11 @@ const me=()=>DB.users[DB.cur];
 async function hash(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('siam:'+s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return 'x'+s.length+s}}
 
 const toast=(m,ms=3200)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),ms)};
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id)); if(id!=='duel'&&typeof tutPaint==='function'){['tutBox','tutSpot'].forEach(x=>{const e=document.getElementById(x); if(e) e.remove();});}
   if(id==='home')renderHome(); if(id==='gacha')renderGacha(true); if(id==='coll')renderColl(); if(id==='room')renderRoom(); if(id==='market')renderMarket(); if(id==='guild')guide('guGuide','guild'); if(id==='login')buildShowcase();}
 document.addEventListener('click',e=>{if(e.target.closest('[data-soon]'))return toast('ระบบกิลด์ต้องเชื่อมเซิร์ฟเวอร์ จะเปิดในเวอร์ชันออนไลน์');const g=e.target.closest('[data-go]'); if(!g)return; const to=g.dataset.go;
   if(to==='duel') return openDuelSetup();
+  if(to==='tutorial') return openTutorialList();
   show(to);});
 
 /* ---------- ล็อกอิน / สมัคร ---------- */
@@ -610,10 +630,13 @@ function renderHome(){const u=me(); if(!u) return show('login');
   clearTimeout(h._t); h._t=setTimeout(()=>{h.innerHTML='';h.appendChild(charImg(u.gender,'full_talk_right',u.name));},2600);
   document.getElementById('evHint').textContent=DB.event.open?`✦ ตู้ Event เปิดอยู่: ${DB.event.name}`:'ตู้ปกติ';
   document.getElementById('collHint').textContent=`มีแล้ว ${new Set(u.cards.map(c=>c.id)).size} / 100 แบบ`;
+  document.getElementById('tutHint').textContent=`ผ่านแล้ว ${(u.tut||[]).length} / 8 บท`;
   const b=document.getElementById('dlgBust'); b.innerHTML=''; b.appendChild(charImg('npc_shaman','bust','หมอผีเฒ่า'));
   const mb=document.getElementById('dlgMe'); mb.innerHTML=''; mb.appendChild(charImg(u.gender,'bust_talk_left',u.name));
   document.getElementById('dlgText').textContent=DB.event.open
     ? `${u.name} เอ๋ย ${DB.event.name} มาถึงแล้ว ตู้ผู้สรรสร้างเปิดรับผู้ที่สุ่มครบ ${fmt(DB.threshold)} ครั้ง ไปลองดวงที่ตู้สุ่มการ์ดสิ`
+    : !(u.tut&&u.tut.length) ? `ยินดีต้อนรับ ${u.name} ถ้ายังไม่เคยเล่น แตะ "สอนเล่น" ให้ข้าสอนวิธีดวลบนกระดานชนวนก่อน จบแต่ละบทมีรางวัลให้`
+    : (u.tut.length<8) ? `${u.name} เอ๋ย ยังเหลือบทเรียนอีก ${8-u.tut.length} บท มาเรียนต่อได้ทุกเมื่อ หรือไปตู้สุ่มการ์ดเพื่อสะสมการ์ดก็ได้`
     : `ยินดีต้อนรับ ${u.name} ลองไปที่ตู้สุ่มการ์ดเพื่อเริ่มสะสมการ์ดใบแรกของเจ้า`;
   document.getElementById('dlg').style.display='';}
 document.getElementById('dlgClose').onclick=()=>document.getElementById('dlg').style.display='none';
@@ -826,8 +849,8 @@ function renderMarket(){if(ONLINE) return onlineMarket(); const u=me(); if(!DB.m
     const own=ownedCount(u); const ids=Object.keys(own).sort((a,b)=>TIER_RANK.indexOf(BY[b].rarity_code)-TIER_RANK.indexOf(BY[a].rarity_code));
     if(!ids.length) L.innerHTML='<div class="empty">ยังไม่มีการ์ดให้ขาย</div>';
     ids.forEach(id=>{const c=BY[id], ref=REF_PRICE[c.rarity_code];
-      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="number" min="10" step="10" value="${ref}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
-      d.querySelector('button:not(.ghost)').onclick=()=>{const price=Math.max(10,Math.round(+d.querySelector('input').value||ref));
+      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="text" inputmode="numeric" value="${TH(ref)}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
+      d.querySelector('button:not(.ghost)').onclick=()=>{const price=Math.max(10,Math.round(+UNTH(d.querySelector("input").value)||ref));
         const idx=u.cards.findIndex(x=>x.id===id); const inst=u.cards.splice(idx,1)[0];
         (u.decks||[]).forEach(dk=>{const k=dk.cards.indexOf(id); if(k>=0&&dk.cards.filter(x=>x===id).length>u.cards.filter(x=>x.id===id).length) dk.cards.splice(k,1);});
         M.mine=M.mine||[]; M.mine.push({id,inst,price,at:Date.now(),sold:false,owner:DB.cur});
@@ -958,7 +981,7 @@ const inst=r=>({id:r.card_id,at:r.id,row:r.id,serial:r.serial||undefined});
 
 async function onlineLogin(name,p,err){
   const u=name.toLowerCase();
-  if(!/^[a-z0-9_]{3,20}$/.test(u)) return err.textContent='ชื่อผู้ใช้ใช้ได้เฉพาะ a-z 0-9 และ _ ยาว 3–20 ตัว';
+  if(!/^[a-z0-9_]{3,20}$/.test(u)) return err.textContent='ชื่อผู้ใช้ใช้ได้เฉพาะตัวอักษรอังกฤษพิมพ์เล็ก ตัวเลข และ _ ยาว 3–20 ตัว';
   err.textContent='กำลังเชื่อมต่อ…'; const email=u+'@siamduel.game';
   const r=regMode? await sb.auth.signUp({email,password:p,options:{data:{username:u}}}) : await sb.auth.signInWithPassword({email,password:p});
   if(r.error) return err.textContent=thErr(r.error);
@@ -974,7 +997,7 @@ async function loadMe(user){
   if(pr.error||!pr.data){console.warn(pr.error); return false;}
   const p=pr.data, g=p.guide||{};
   DB.users={[user.id]:{id:user.id,username:p.username,name:p.name,gender:p.gender,gold:p.gold,merit:p.merit,pulls:p.pulls,sinceLegend:p.since_legend,
-    decks:(p.decks&&p.decks.length)?p.decks:null,guideMin:g.guideMin||{},seenNormal:!!g.seenNormal,seenEv:g.seenEv||null,
+    decks:(p.decks&&p.decks.length)?p.decks:null,tut:p.tutorial||[],guideMin:g.guideMin||{},seenNormal:!!g.seenNormal,seenEv:g.seenEv||null,
     cards:(cs.data||[]).filter(r=>!r.listed).map(inst)}};
   DB.cur=user.id; mkTab='buy'; curDeck=0; gTab='normal'; applyConfig(cf.data||[]); DB.minted={}; (sp.data||[]).forEach(r=>DB.minted[r.card_id]=r.minted);
   lastPush=profJson(me()); IS_ADMIN=!!(await rpc('is_admin'));
@@ -1056,8 +1079,8 @@ async function onlineMarket(){const u=me(); if(mkLoading) return; mkLoading=true
     const own=ownedCount(u); const ids=Object.keys(own).sort((a,b)=>TIER_RANK.indexOf(BY[b].rarity_code)-TIER_RANK.indexOf(BY[a].rarity_code));
     if(!ids.length) Lst.innerHTML='<div class="empty">ยังไม่มีการ์ดให้ขาย</div>';
     ids.forEach(id=>{const c=BY[id], ref=REF_PRICE[c.rarity_code];
-      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="number" min="10" step="10" value="${ref}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
-      d.querySelector('button:not(.ghost)').onclick=e=>act(e.target,async()=>{const price=Math.max(10,Math.round(+d.querySelector('input').value||ref));
+      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="text" inputmode="numeric" value="${TH(ref)}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
+      d.querySelector('button:not(.ghost)').onclick=e=>act(e.target,async()=>{const price=Math.max(10,Math.round(+UNTH(d.querySelector("input").value)||ref));
         const it=u.cards.filter(x=>x.id===id).sort((a,b)=>(a.serial?1:0)-(b.serial?1:0))[0];
         const lid=await rpc('market_list',{p_card_row:it.row,p_price:price}); if(lid==null) return;
         u.cards=u.cards.filter(x=>x!==it);
@@ -1076,6 +1099,8 @@ async function onlineMarket(){const u=me(); if(mkLoading) return; mkLoading=true
   drawNews(); guide('mGuide','market');}
 
 __DUELUI__
+
+__TUTORIAL__
 
 /* เริ่ม */
 (function boot(){const imgs=['ui_art_web/lobby_bg.webp','ui_art_web/gacha_bg.webp','ui_art_web/room_bg.webp',A+'ui/thumb/card_back.webp']; let n=0;

@@ -9,7 +9,7 @@
 .dslot.can{box-shadow:0 0 0 2px #E8C766,0 0 18px #E8C766aa;background:#E8C76622;cursor:pointer;animation:pulse 1.2s ease-in-out infinite}
 .dslot.tgt{box-shadow:0 0 0 3px #FF5A3C,0 0 22px #FF5A3Ccc;cursor:crosshair;border-radius:8%;z-index:3;animation:pulse 1s ease-in-out infinite}
 @keyframes pulse{50%{filter:brightness(1.35)}}
-.dunit{position:relative;width:100%;height:100%;cursor:pointer;transition:transform .2s}
+.dunit{position:relative;width:100%;height:100%;cursor:pointer;transition:transform .2s;container-type:inline-size}
 .dunit .card{position:absolute;inset:0;width:100%!important;height:auto}
 .dunit .card .num,.dunit .card .tx{display:none}
 .dunit.ready{filter:drop-shadow(0 0 6px #7CFF8A)}
@@ -21,8 +21,9 @@
 @keyframes lungeDown{50%{transform:translateY(40%) scale(1.1)}}
 .dunit.hit{animation:shake .35s}
 @keyframes shake{20%{translate:-4px 0}40%{translate:4px 0}60%{translate:-3px 0}80%{translate:2px 0}}
-.dstat{position:absolute;bottom:-6%;left:-6%;right:-6%;display:flex;justify-content:space-between;pointer-events:none}
-.dstat b{min-width:34%;height:auto;aspect-ratio:1;max-width:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-weight:400;font-size:clamp(11px,1.6vh,16px);color:#fff;border:2px solid #F1DFA8;box-shadow:0 2px 6px #000}
+.dstat{position:absolute;bottom:-7%;left:-7%;right:-7%;display:flex;justify-content:space-between;pointer-events:none}
+.dstat b{flex:none;box-sizing:border-box;width:36cqw;height:36cqw;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-weight:400;font-size:19cqw;line-height:1;letter-spacing:-.04em;padding-top:1cqw;color:#fff;border:max(1.5px,2.6cqw) solid #F1DFA8;box-shadow:0 1px 4px #000,inset 0 0 0 1px #0006}
+.dstat b.sm{font-size:15cqw}
 .dstat .a{background:#8E1B1B}.dstat .h{background:#1E5A2A}
 .dstat .up{color:#B8FFB0}.dstat .down{color:#FFB0A0}
 .dkw{position:absolute;top:-4%;left:-4%;right:-4%;display:flex;flex-wrap:wrap;gap:2px;justify-content:center;pointer-events:none}
@@ -124,4 +125,31 @@
   #dLog.on{display:block}
   .logbtn{display:inline-flex}
   .dprompt{top:auto;bottom:12px}
+}
+/* ---------- บทเรียน ---------- */
+.tutbox{display:flex;gap:10px;align-items:flex-start;background:#1A120Ef5;border:1px solid var(--gold);border-radius:16px;padding:10px 12px;box-shadow:0 10px 30px #000c;z-index:24}
+.tutbox .tb{flex:none;width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);background:#0E0B0A;display:flex;align-items:flex-end;justify-content:center}
+.tutbox .tb img{width:125%;height:auto}
+.tutbox .tx{flex:1;min-width:0}
+.tutbox .who{font-family:Chonburi,serif;color:var(--gold2);font-size:13px;margin-bottom:4px}
+.tutbox p{margin:0;font-size:14px;line-height:1.65;color:#F1E6CC}
+.tutbox p b{color:#FFE07A;font-weight:600}
+.tutbox p small{display:block;margin-top:6px;color:var(--muted);font-size:12px}
+.tutbox .nope{display:inline-block;background:#8E1B1B;color:#fff;border-radius:8px;padding:0 8px;margin-right:4px;font-weight:600}
+.tutbox .tbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tutbox .tbtn .btn{height:34px;font-size:13px;padding:0 14px}
+.tutbox.bad{animation:shake .4s;border-color:#E05A3C}
+.tutspot{position:fixed;display:none;z-index:15;pointer-events:none;border-radius:14px;border:2px solid #FFE07A;box-shadow:0 0 0 200vmax #0008,0 0 24px #FFE07A;transition:left .25s,top .25s,width .25s,height .25s;animation:pulse 1.2s ease-in-out infinite}
+.tutspot i{position:absolute;left:50%;top:100%;transform:translate(-50%,4px);font-style:normal;font-size:30px;animation:poke 1s ease-in-out infinite;filter:drop-shadow(0 2px 4px #000)}
+.tutspot.up i{top:100%}
+.tutspot:not(.up) i{top:auto;bottom:100%;transform:translate(-50%,-4px) rotate(180deg)}
+@keyframes poke{50%{translate:0 6px}}
+.tutlist .opt b{font-weight:600;color:var(--gold2)}
+.tutlist .opt small+small{color:#C9B27A}
+@media (max-width:900px),(orientation:portrait){
+  .tutbox{position:fixed;left:8px;right:8px;top:8px;padding:8px 10px}
+  .tutbox.low{top:auto;bottom:8px}
+  .tutbox .tb{width:44px;height:44px}
+  .tutbox p{font-size:13px;line-height:1.55}
+  .tutbox .tbtn .btn{height:30px}
 }

@@ -100,10 +100,11 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .hero{position:absolute;left:0;top:64px;bottom:150px;width:52%;display:flex;align-items:flex-end;justify-content:center}
 .hero img,.hero svg{max-height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 20px 40px #000);animation:heroIn .5s ease-out}
 @keyframes heroIn{from{opacity:0;transform:translateY(10px)}}
-.menu{position:absolute;right:4%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;width:min(340px,42%)}
-.menu button{height:58px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(90deg,#1C1612,#15100D);color:var(--text);font-family:Chonburi,serif;font-size:19px;display:flex;align-items:center;gap:14px;padding:0 18px;text-align:left}
-.menu button:hover{border-color:var(--gold)}
-.menu button small{display:block;font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
+.menu{position:absolute;right:4%;top:calc(50% - 50px);transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;width:min(340px,42%)}
+.menu button,.menu a.wikilink{text-decoration:none;height:52px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(90deg,#1C1612,#15100D);color:var(--text);font-family:Chonburi,serif;font-size:19px;display:flex;align-items:center;gap:14px;padding:0 18px;text-align:left}
+.menu button:hover,.menu a.wikilink:hover{border-color:var(--gold)}
+.menu a.wikilink{border-style:dashed}
+.menu button small,.menu a.wikilink small{display:block;font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
 .menu .ic{width:36px;height:36px;border-radius:50%;background:#2A1A12;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold2);flex:none}
 .dialog{position:absolute;left:3%;right:3%;bottom:3%;min-height:120px;background:#120C0Af0;border:28px solid transparent;border-image:url(ui_art_web/dialog_frame.webp) 30% 12% fill / 28px stretch;border-radius:0;display:flex;gap:14px;padding:12px 16px;align-items:flex-end;z-index:6}
 .dialog .bust{width:130px;height:160px;margin-top:-90px;flex:none}
@@ -114,7 +115,8 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .dialog p{margin:4px 0 0;line-height:1.6}
 
 /* ---------- ตู้สุ่ม ---------- */
-.menu .mic{width:46px;height:46px;flex:none;filter:drop-shadow(0 2px 4px #000)}
+.menu .mic{width:42px;height:42px;flex:none;filter:drop-shadow(0 2px 4px #000)}
+.menu .mic.round{border-radius:50%;object-fit:cover;object-position:50% 20%;border:1px solid var(--gold);background:#2A1A12}
 .chip img{width:22px;height:22px}
 .lotus{position:relative;width:min(300px,55vw);aspect-ratio:1.2;margin:0 auto}
 .lotus img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .4s,transform .4s}
@@ -286,11 +288,15 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 
 @media (max-width:720px){
   .showcase{gap:2vw;padding-bottom:34vh}
-  .hero{width:100%;bottom:auto;height:calc(100% - 64px - 470px);min-height:150px}
-  .menu{left:16px;right:16px;width:auto;top:auto;bottom:196px;transform:none;gap:8px}
+  .hero{width:100%;bottom:auto;height:calc(100% - 64px - 400px);min-height:150px}
+  .menu{left:12px;right:12px;width:auto;top:auto;bottom:150px;transform:none;gap:6px;display:grid;grid-template-columns:1fr 1fr}
   .topbar{gap:6px;padding:0 10px}.topbar .who{font-size:15px}.chip{height:32px;padding:0 8px;font-size:12px}
-  .menu button{height:54px;font-size:16px}
-  .dialog .bust{width:80px;height:96px}
+  .menu button,.menu a.wikilink{height:46px;font-size:14px;padding:0 8px;gap:8px}
+  .menu button small,.menu a.wikilink small{display:none}
+  .menu .mic{width:32px;height:32px}
+  .dialog{border-width:16px;border-image-width:16px;min-height:0;padding:4px 6px;left:2%;right:2%;bottom:1.5%;align-items:center}
+  .dialog .bust{width:56px;height:70px;margin-top:-30px}
+  .dialog p{font-size:13px;line-height:1.5}
   .dialog .bust.me{display:none}
   .chars{gap:10px}
 }
@@ -305,7 +311,7 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .dslot.can{box-shadow:0 0 0 2px #E8C766,0 0 18px #E8C766aa;background:#E8C76622;cursor:pointer;animation:pulse 1.2s ease-in-out infinite}
 .dslot.tgt{box-shadow:0 0 0 3px #FF5A3C,0 0 22px #FF5A3Ccc;cursor:crosshair;border-radius:8%;z-index:3;animation:pulse 1s ease-in-out infinite}
 @keyframes pulse{50%{filter:brightness(1.35)}}
-.dunit{position:relative;width:100%;height:100%;cursor:pointer;transition:transform .2s}
+.dunit{position:relative;width:100%;height:100%;cursor:pointer;transition:transform .2s;container-type:inline-size}
 .dunit .card{position:absolute;inset:0;width:100%!important;height:auto}
 .dunit .card .num,.dunit .card .tx{display:none}
 .dunit.ready{filter:drop-shadow(0 0 6px #7CFF8A)}
@@ -317,8 +323,9 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 @keyframes lungeDown{50%{transform:translateY(40%) scale(1.1)}}
 .dunit.hit{animation:shake .35s}
 @keyframes shake{20%{translate:-4px 0}40%{translate:4px 0}60%{translate:-3px 0}80%{translate:2px 0}}
-.dstat{position:absolute;bottom:-6%;left:-6%;right:-6%;display:flex;justify-content:space-between;pointer-events:none}
-.dstat b{min-width:34%;height:auto;aspect-ratio:1;max-width:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-weight:400;font-size:clamp(11px,1.6vh,16px);color:#fff;border:2px solid #F1DFA8;box-shadow:0 2px 6px #000}
+.dstat{position:absolute;bottom:-7%;left:-7%;right:-7%;display:flex;justify-content:space-between;pointer-events:none}
+.dstat b{flex:none;box-sizing:border-box;width:36cqw;height:36cqw;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Chonburi,serif;font-weight:400;font-size:19cqw;line-height:1;letter-spacing:-.04em;padding-top:1cqw;color:#fff;border:max(1.5px,2.6cqw) solid #F1DFA8;box-shadow:0 1px 4px #000,inset 0 0 0 1px #0006}
+.dstat b.sm{font-size:15cqw}
 .dstat .a{background:#8E1B1B}.dstat .h{background:#1E5A2A}
 .dstat .up{color:#B8FFB0}.dstat .down{color:#FFB0A0}
 .dkw{position:absolute;top:-4%;left:-4%;right:-4%;display:flex;flex-wrap:wrap;gap:2px;justify-content:center;pointer-events:none}
@@ -421,6 +428,33 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
   .logbtn{display:inline-flex}
   .dprompt{top:auto;bottom:12px}
 }
+/* ---------- บทเรียน ---------- */
+.tutbox{display:flex;gap:10px;align-items:flex-start;background:#1A120Ef5;border:1px solid var(--gold);border-radius:16px;padding:10px 12px;box-shadow:0 10px 30px #000c;z-index:24}
+.tutbox .tb{flex:none;width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);background:#0E0B0A;display:flex;align-items:flex-end;justify-content:center}
+.tutbox .tb img{width:125%;height:auto}
+.tutbox .tx{flex:1;min-width:0}
+.tutbox .who{font-family:Chonburi,serif;color:var(--gold2);font-size:13px;margin-bottom:4px}
+.tutbox p{margin:0;font-size:14px;line-height:1.65;color:#F1E6CC}
+.tutbox p b{color:#FFE07A;font-weight:600}
+.tutbox p small{display:block;margin-top:6px;color:var(--muted);font-size:12px}
+.tutbox .nope{display:inline-block;background:#8E1B1B;color:#fff;border-radius:8px;padding:0 8px;margin-right:4px;font-weight:600}
+.tutbox .tbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tutbox .tbtn .btn{height:34px;font-size:13px;padding:0 14px}
+.tutbox.bad{animation:shake .4s;border-color:#E05A3C}
+.tutspot{position:fixed;display:none;z-index:15;pointer-events:none;border-radius:14px;border:2px solid #FFE07A;box-shadow:0 0 0 200vmax #0008,0 0 24px #FFE07A;transition:left .25s,top .25s,width .25s,height .25s;animation:pulse 1.2s ease-in-out infinite}
+.tutspot i{position:absolute;left:50%;top:100%;transform:translate(-50%,4px);font-style:normal;font-size:30px;animation:poke 1s ease-in-out infinite;filter:drop-shadow(0 2px 4px #000)}
+.tutspot.up i{top:100%}
+.tutspot:not(.up) i{top:auto;bottom:100%;transform:translate(-50%,-4px) rotate(180deg)}
+@keyframes poke{50%{translate:0 6px}}
+.tutlist .opt b{font-weight:600;color:var(--gold2)}
+.tutlist .opt small+small{color:#C9B27A}
+@media (max-width:900px),(orientation:portrait){
+  .tutbox{position:fixed;left:8px;right:8px;top:8px;padding:8px 10px}
+  .tutbox.low{top:auto;bottom:8px}
+  .tutbox .tb{width:44px;height:44px}
+  .tutbox p{font-size:13px;line-height:1.55}
+  .tutbox .tbtn .btn{height:30px}
+}
 
 </style>
 </head>
@@ -470,11 +504,13 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
   <div class="hero" id="hero"></div>
   <nav class="menu">
     <button data-go="room"><img class="mic" alt="" src="ui_art_web/ic_room.webp"><span>ห้องพักส่วนตัว<small id="roomHint">จัดเด็ค 3 เซ็ต</small></span></button>
+    <button data-go="tutorial"><img class="mic round" alt="" src="characters/npc_shaman_bust.webp"><span>สอนเล่น<small id="tutHint">บทเรียน ๘ บทกับหมอผีเฒ่า</small></span></button>
     <button data-go="duel"><img class="mic" alt="" src="ui_art_web/ic_duel.webp"><span>ดวล<small>ดวลกับหมอผีเฒ่า (AI) · ผู้เล่นจริงตามมา</small></span></button>
     <button data-go="gacha"><img class="mic" alt="" src="ui_art_web/ic_gacha.webp"><span>ตู้สุ่มการ์ด<small id="evHint">ตู้ปกติ</small></span></button>
     <button data-go="coll"><img class="mic" alt="" src="ui_art_web/ic_collection.webp"><span>คลังการ์ด<small id="collHint"></small></span></button>
     <button data-go="guild"><img class="mic" alt="" src="ui_art_web/ic_guild.webp"><span>กิลด์<small>ลานฝึก · ด่านฝึก AI</small></span></button>
-    <button data-go="market"><img class="mic" alt="" src="ui_art_web/ic_market.webp"><span>ตลาดกลาง<small>ซื้อขายการ์ด (จำลองช่วง CBT)</small></span></button>
+    <button data-go="market"><img class="mic" alt="" src="ui_art_web/ic_market.webp"><span>ตลาดกลาง<small>ซื้อขายการ์ดกับผู้เล่น</small></span></button>
+    <a class="wikilink" href="wiki.html" target="_blank" rel="noopener"><img class="mic" alt="" src="ui_art_web/ic_mail.webp"><span>คู่มือเกม (Wiki)<small>กติกาทั้งหมด · การ์ดทุกใบ · เปิดแท็บใหม่</small></span></a>
   </nav>
   <div class="dialog" id="dlg">
     <div class="bust" id="dlgBust"></div>
@@ -1442,7 +1478,18 @@ const CARDS = [{"id":"SD001","name_th":"พระอิศวร","rarity_code":
 const A = 'game_assets/';
 const BY = Object.fromEntries(CARDS.map(c=>[c.id,c]));
 const TH = n => String(n).replace(/\d/g,d=>'๐๑๒๓๔๕๖๗๘๙'[d]);
-const fmt = n => Number(n).toLocaleString('th-TH');
+const UNTH = s => String(s).replace(/[๐-๙]/g,d=>'๐๑๒๓๔๕๖๗๘๙'.indexOf(d));
+/* ตัวเลขทั้งเกมแสดงเป็นเลขไทย: แปลงทุกข้อความบนหน้าจออัตโนมัติ (ยกเว้นช่องกรอก และส่วนที่ติด data-arabic) */
+const NO_TH='script,style,textarea,[data-arabic]';
+function thaiText(n){ if(n.nodeType!==3||!/[0-9]/.test(n.data)) return; const p=n.parentElement; if(!p||p.closest(NO_TH)) return; n.data=TH(n.data); }
+function thaiTree(root){ if(root.nodeType===3) return thaiText(root); if(root.nodeType!==1||root.closest&&root.closest(NO_TH)) return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT), list=[]; let n; while((n=w.nextNode())) if(/[0-9]/.test(n.data)) list.push(n); list.forEach(thaiText); }
+new MutationObserver(ms=>{ for(const m of ms){ if(m.type==='characterData') thaiText(m.target); else m.addedNodes.forEach(thaiTree); } })
+  .observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+thaiTree(document.body);
+document.addEventListener('input',e=>{const el=e.target; if(el.matches&&el.matches('input[inputmode=numeric]')){const p=el.selectionStart; el.value=TH(el.value); try{el.setSelectionRange(p,p)}catch(_){}}});
+function thaiInput(el){ el.value=TH(el.value); el.addEventListener('input',()=>{const p=el.selectionStart; el.value=TH(el.value); try{el.setSelectionRange(p,p)}catch(e){}}); }
+const fmt = n => TH(Number(n).toLocaleString('th-TH'));
 
 /* ตำแหน่งช่องต่าง ๆ บนกรอบแต่ละระดับ (% ของการ์ด) */
 const L = {
@@ -1559,10 +1606,11 @@ const me=()=>DB.users[DB.cur];
 async function hash(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('siam:'+s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return 'x'+s.length+s}}
 
 const toast=(m,ms=3200)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),ms)};
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id)); if(id!=='duel'&&typeof tutPaint==='function'){['tutBox','tutSpot'].forEach(x=>{const e=document.getElementById(x); if(e) e.remove();});}
   if(id==='home')renderHome(); if(id==='gacha')renderGacha(true); if(id==='coll')renderColl(); if(id==='room')renderRoom(); if(id==='market')renderMarket(); if(id==='guild')guide('guGuide','guild'); if(id==='login')buildShowcase();}
 document.addEventListener('click',e=>{if(e.target.closest('[data-soon]'))return toast('ระบบกิลด์ต้องเชื่อมเซิร์ฟเวอร์ จะเปิดในเวอร์ชันออนไลน์');const g=e.target.closest('[data-go]'); if(!g)return; const to=g.dataset.go;
   if(to==='duel') return openDuelSetup();
+  if(to==='tutorial') return openTutorialList();
   show(to);});
 
 /* ---------- ล็อกอิน / สมัคร ---------- */
@@ -1611,10 +1659,13 @@ function renderHome(){const u=me(); if(!u) return show('login');
   clearTimeout(h._t); h._t=setTimeout(()=>{h.innerHTML='';h.appendChild(charImg(u.gender,'full_talk_right',u.name));},2600);
   document.getElementById('evHint').textContent=DB.event.open?`✦ ตู้ Event เปิดอยู่: ${DB.event.name}`:'ตู้ปกติ';
   document.getElementById('collHint').textContent=`มีแล้ว ${new Set(u.cards.map(c=>c.id)).size} / 100 แบบ`;
+  document.getElementById('tutHint').textContent=`ผ่านแล้ว ${(u.tut||[]).length} / 8 บท`;
   const b=document.getElementById('dlgBust'); b.innerHTML=''; b.appendChild(charImg('npc_shaman','bust','หมอผีเฒ่า'));
   const mb=document.getElementById('dlgMe'); mb.innerHTML=''; mb.appendChild(charImg(u.gender,'bust_talk_left',u.name));
   document.getElementById('dlgText').textContent=DB.event.open
     ? `${u.name} เอ๋ย ${DB.event.name} มาถึงแล้ว ตู้ผู้สรรสร้างเปิดรับผู้ที่สุ่มครบ ${fmt(DB.threshold)} ครั้ง ไปลองดวงที่ตู้สุ่มการ์ดสิ`
+    : !(u.tut&&u.tut.length) ? `ยินดีต้อนรับ ${u.name} ถ้ายังไม่เคยเล่น แตะ "สอนเล่น" ให้ข้าสอนวิธีดวลบนกระดานชนวนก่อน จบแต่ละบทมีรางวัลให้`
+    : (u.tut.length<8) ? `${u.name} เอ๋ย ยังเหลือบทเรียนอีก ${8-u.tut.length} บท มาเรียนต่อได้ทุกเมื่อ หรือไปตู้สุ่มการ์ดเพื่อสะสมการ์ดก็ได้`
     : `ยินดีต้อนรับ ${u.name} ลองไปที่ตู้สุ่มการ์ดเพื่อเริ่มสะสมการ์ดใบแรกของเจ้า`;
   document.getElementById('dlg').style.display='';}
 document.getElementById('dlgClose').onclick=()=>document.getElementById('dlg').style.display='none';
@@ -1827,8 +1878,8 @@ function renderMarket(){if(ONLINE) return onlineMarket(); const u=me(); if(!DB.m
     const own=ownedCount(u); const ids=Object.keys(own).sort((a,b)=>TIER_RANK.indexOf(BY[b].rarity_code)-TIER_RANK.indexOf(BY[a].rarity_code));
     if(!ids.length) L.innerHTML='<div class="empty">ยังไม่มีการ์ดให้ขาย</div>';
     ids.forEach(id=>{const c=BY[id], ref=REF_PRICE[c.rarity_code];
-      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="number" min="10" step="10" value="${ref}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
-      d.querySelector('button:not(.ghost)').onclick=()=>{const price=Math.max(10,Math.round(+d.querySelector('input').value||ref));
+      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="text" inputmode="numeric" value="${TH(ref)}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
+      d.querySelector('button:not(.ghost)').onclick=()=>{const price=Math.max(10,Math.round(+UNTH(d.querySelector("input").value)||ref));
         const idx=u.cards.findIndex(x=>x.id===id); const inst=u.cards.splice(idx,1)[0];
         (u.decks||[]).forEach(dk=>{const k=dk.cards.indexOf(id); if(k>=0&&dk.cards.filter(x=>x===id).length>u.cards.filter(x=>x.id===id).length) dk.cards.splice(k,1);});
         M.mine=M.mine||[]; M.mine.push({id,inst,price,at:Date.now(),sold:false,owner:DB.cur});
@@ -1959,7 +2010,7 @@ const inst=r=>({id:r.card_id,at:r.id,row:r.id,serial:r.serial||undefined});
 
 async function onlineLogin(name,p,err){
   const u=name.toLowerCase();
-  if(!/^[a-z0-9_]{3,20}$/.test(u)) return err.textContent='ชื่อผู้ใช้ใช้ได้เฉพาะ a-z 0-9 และ _ ยาว 3–20 ตัว';
+  if(!/^[a-z0-9_]{3,20}$/.test(u)) return err.textContent='ชื่อผู้ใช้ใช้ได้เฉพาะตัวอักษรอังกฤษพิมพ์เล็ก ตัวเลข และ _ ยาว 3–20 ตัว';
   err.textContent='กำลังเชื่อมต่อ…'; const email=u+'@siamduel.game';
   const r=regMode? await sb.auth.signUp({email,password:p,options:{data:{username:u}}}) : await sb.auth.signInWithPassword({email,password:p});
   if(r.error) return err.textContent=thErr(r.error);
@@ -1975,7 +2026,7 @@ async function loadMe(user){
   if(pr.error||!pr.data){console.warn(pr.error); return false;}
   const p=pr.data, g=p.guide||{};
   DB.users={[user.id]:{id:user.id,username:p.username,name:p.name,gender:p.gender,gold:p.gold,merit:p.merit,pulls:p.pulls,sinceLegend:p.since_legend,
-    decks:(p.decks&&p.decks.length)?p.decks:null,guideMin:g.guideMin||{},seenNormal:!!g.seenNormal,seenEv:g.seenEv||null,
+    decks:(p.decks&&p.decks.length)?p.decks:null,tut:p.tutorial||[],guideMin:g.guideMin||{},seenNormal:!!g.seenNormal,seenEv:g.seenEv||null,
     cards:(cs.data||[]).filter(r=>!r.listed).map(inst)}};
   DB.cur=user.id; mkTab='buy'; curDeck=0; gTab='normal'; applyConfig(cf.data||[]); DB.minted={}; (sp.data||[]).forEach(r=>DB.minted[r.card_id]=r.minted);
   lastPush=profJson(me()); IS_ADMIN=!!(await rpc('is_admin'));
@@ -2057,8 +2108,8 @@ async function onlineMarket(){const u=me(); if(mkLoading) return; mkLoading=true
     const own=ownedCount(u); const ids=Object.keys(own).sort((a,b)=>TIER_RANK.indexOf(BY[b].rarity_code)-TIER_RANK.indexOf(BY[a].rarity_code));
     if(!ids.length) Lst.innerHTML='<div class="empty">ยังไม่มีการ์ดให้ขาย</div>';
     ids.forEach(id=>{const c=BY[id], ref=REF_PRICE[c.rarity_code];
-      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="number" min="10" step="10" value="${ref}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
-      d.querySelector('button:not(.ghost)').onclick=e=>act(e.target,async()=>{const price=Math.max(10,Math.round(+d.querySelector('input').value||ref));
+      const d=lotEl(c,`<div class="seller">มี ${own[id]} ใบ · ราคาตลาด ~${fmt(ref)}</div><input type="text" inputmode="numeric" value="${TH(ref)}" aria-label="ราคาขาย" style="width:100%;height:32px;border-radius:8px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);text-align:center"><button>ลงขาย</button>`);
+      d.querySelector('button:not(.ghost)').onclick=e=>act(e.target,async()=>{const price=Math.max(10,Math.round(+UNTH(d.querySelector("input").value)||ref));
         const it=u.cards.filter(x=>x.id===id).sort((a,b)=>(a.serial?1:0)-(b.serial?1:0))[0];
         const lid=await rpc('market_list',{p_card_row:it.row,p_price:price}); if(lid==null) return;
         u.cards=u.cards.filter(x=>x!==it);
@@ -2099,12 +2150,13 @@ function openDuelSetup() {
     b.innerHTML = `<div class="dsetup"><h3>ดวลกับหมอผีเฒ่า (AI)</h3>
       <h4>เลือกเด็ค</h4><div class="opts">${decks.map(d => `<button class="opt ${d.key === DSET.deck ? 'on' : ''}" data-deck="${d.key}" ${d.ok ? '' : 'disabled'}>${d.name}<small>${d.sub}</small></button>`).join('')}</div>
       <h4>ระดับฝีมือ</h4><div class="opts">${Object.entries(AI_LV).map(([k, t]) => `<button class="opt ${k === DSET.level ? 'on' : ''}" data-lv="${k}">${t}<small>${k === 'easy' ? 'เหมาะกับการหัดเล่น' : k === 'normal' ? 'เล่นตามสถานการณ์' : 'คิดล่วงหน้า 1 เทิร์น'}</small></button>`).join('')}</div>
-      <p style="font-size:13px;color:var(--muted)">เด็คที่จะใช้ได้ต้องครบ 30 ใบและผ่านกติกาจัดเด็ค ถ้าการ์ดยังไม่พอ เลือกเด็คสำเร็จรูปไปก่อนได้ · ช่วง CBT การดวลกับ AI ยังไม่มีรางวัล</p>
+      <p style="font-size:13px;color:var(--muted)">ยังไม่เคยเล่น? <a href="#" id="dsTut" style="color:var(--gold2)">เริ่มบทเรียนกับหมอผีเฒ่า</a> · เด็คที่จะใช้ได้ต้องครบ 30 ใบและผ่านกติกาจัดเด็ค ถ้าการ์ดยังไม่พอ เลือกเด็คสำเร็จรูปไปก่อนได้ · ช่วง CBT การดวลกับ AI ยังไม่มีรางวัล</p>
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:12px"><button class="btn ghost" id="dsX">ยกเลิก</button><button class="btn" id="dsGo">เริ่มดวล</button></div></div>`;
     b.querySelectorAll('[data-deck]').forEach(x => x.onclick = () => { DSET.deck = x.dataset.deck; draw(); });
     b.querySelectorAll('[data-lv]').forEach(x => x.onclick = () => { DSET.level = x.dataset.lv; draw(); });
     b.querySelector('#dsX').onclick = () => m.classList.remove('on');
-    b.querySelector('#dsGo').onclick = () => { m.classList.remove('on'); startDuel(decks.find(d => d.key === DSET.deck).ids); };
+    b.querySelector('#dsTut').onclick = e => { e.preventDefault(); openTutorialList(); };
+    b.querySelector('#dsGo').onclick = () => { m.classList.remove('on'); TUT = null; startDuel(decks.find(d => d.key === DSET.deck).ids); };
   };
   draw(); m.classList.add('on');
 }
@@ -2132,7 +2184,7 @@ function showMulligan() {
 }
 function handCardEl(c, opt) {
   const base = BY[c.id], cost = DS && c.uid ? DE.costOf(DS.st, 0, c) : base.cost;
-  const w = document.createElement('div'); w.className = 'hcard';
+  const w = document.createElement('div'); w.className = 'hcard'; w.dataset.cid = c.id;
   w.appendChild(cardEl(Object.assign({}, base, { cost }), { w: opt.w }));
   if (opt.w >= 90) { const z = document.createElement('button'); z.className = 'zz'; z.type = 'button'; z.textContent = '⌕'; z.title = 'ดูขยาย'; z.onclick = e => { e.stopPropagation(); zoomCard({ id: c.id, at: 3 }); }; w.appendChild(z); }
   longPress(w, () => zoomCard({ id: c.id, at: 3 }));
@@ -2193,15 +2245,16 @@ function renderDuel() {
   else if (dSel && dSel.kind === 'play') { const d = DE.D(st.players[0].hand.find(c => c.uid === dSel.card).id);
     prompt(d.type === 'ยูนิต' && dSel.slot == null ? `เลือกช่องวาง ${d.name_th}` : need ? need.label || 'เลือกเป้าหมาย' : ''); }
   else prompt('');
+  tutPaint();
 }
 function unitEl(u, ready) {
   const st = DS.st, el = document.createElement('div'); el.className = 'dunit' + (ready ? ' ready' : '') + (dSel && dSel.unit === u.uid ? ' sel' : '');
-  el.dataset.uid = u.uid;
+  el.dataset.uid = u.uid; el.dataset.cid = u.id;
   if (u.status.sleep > 0 || u.status.stun || u.status.noatk > 0) el.classList.add('sleep');
   el.appendChild(cardEl(BY[u.id], { w: 90 }));
   const a = DE.atkOf(st, u), h = DE.hpOf(st, u), d = DE.D(u.id);
   const st2 = document.createElement('div'); st2.className = 'dstat';
-  st2.innerHTML = `<b class="a ${a > (d.atk || 0) ? 'up' : a < (d.atk || 0) ? 'down' : ''}">${a}</b><b class="h ${u.dmg > 0 ? 'down' : h > (d.hp || 0) ? 'up' : ''}">${h}</b>`;
+  st2.innerHTML = `<b class="a ${a > (d.atk || 0) ? 'up' : a < (d.atk || 0) ? 'down' : ''}${a > 99 ? ' sm' : ''}">${TH(a)}</b><b class="h ${u.dmg > 0 ? 'down' : h > (d.hp || 0) ? 'up' : ''}${h > 99 ? ' sm' : ''}">${TH(h)}</b>`;
   el.appendChild(st2);
   const kws = DE.kwOf(st, u).filter((k, i, arr) => arr.indexOf(k) === i).map(k => (k === 'กำบัง' && u.shroudOff) ? null : (KW_SHORT[k] || (/^พิษ/.test(k) ? k : null))).filter(Boolean);
   const bad = []; if (u.status.sleep > 0) bad.push('หลับ'); if (DE.sealed(u)) bad.push(u.status.stun ? 'ต้องหอก' : 'สายสิญจน์'); if (u.status.poison) bad.push('ติดพิษ'); if (u.status.noatk > 0) bad.push('ห้ามตี');
@@ -2212,7 +2265,7 @@ function renderPBox(side, tgt) {
   const st = DS.st, P = st.players[side], box = document.getElementById(side ? 'dOpp' : 'dMe');
   box.className = 'pbox' + (st.cur === side && st.phase === 'main' ? ' cur' : '') + (tgt ? ' tgt' : '');
   const res = `<span class="res">${Array.from({ length: Math.max(P.akhomMax, P.akhom) }, (_, i) => `<i class="${i < P.akhom ? 'on' : ''}"></i>`).join('')}&nbsp;${Array.from({ length: 3 }, (_, i) => `<u class="${i < P.barami ? 'on' : ''}"></u>`).join('')}</span>`;
-  box.innerHTML = `<div class="pic"></div><div class="nm">${P.name}${side ? ` · ${AI_LV[DS.level]}` : ''}</div><div class="fate">${P.fate}<small>ดวงชะตา</small></div>${res}
+  box.innerHTML = `<div class="pic"></div><div class="nm">${P.name}${side ? ` · ${AI_LV[DS.level]}` : ''}</div><div class="fate">${Math.max(0, P.fate)}<small>ดวงชะตา</small></div>${res}
     <div class="meta"><span>เด็ค ${P.deck.length}</span>${side ? `<span class="backs">${P.hand.map(() => '<span></span>').join('')}</span>` : ''}<button data-crypt="${side}">สุสาน ${P.crypt.length}</button>${side === 0 ? '<button class="logbtn" data-log="1">บันทึก</button>' : ''}</div>`;
   box.querySelector('.pic').appendChild(side ? charImg('npc_shaman', 'bust', 'หมอผีเฒ่า') : charImg(me().gender, 'bust_talk_right', P.name));
   box.querySelector('[data-crypt]').onclick = e => { e.stopPropagation(); showCrypt(side); };
@@ -2230,8 +2283,9 @@ function renderHand(L) {
     el.classList.add(can ? 'play' : 'dim'); if (dSel && dSel.card === c.uid) el.classList.add('sel');
     el.onclick = () => {
       if (st.cur !== 0 || dBusy) return toast('รอเทิร์นของคุณ');
-      if (!can) { const d = DE.D(c.id); const why = !DE.canPay(st, 0, c) ? (d.type === 'ยูนิต' ? 'อาคมไม่พอ' : 'อาคมและบารมีไม่พอ') : d.type === 'ยูนิต' ? 'สนามเต็ม' : 'ไม่มีเป้าหมายหรือช่องว่างที่ใช้ได้'; return toast(why); }
+      if (!can) { if (TUT && !TCH[TUT.ch].full) { tutAllowCard(c); return; } const d = DE.D(c.id); const why = !DE.canPay(st, 0, c) ? (d.type === 'ยูนิต' ? 'อาคมไม่พอ' : 'อาคมและบารมีไม่พอ') : d.type === 'ยูนิต' ? 'สนามเต็ม' : 'ไม่มีเป้าหมายหรือช่องว่างที่ใช้ได้'; return toast(why); }
       if (dSel && dSel.card === c.uid) { dSel = null; return renderDuel(); }
+      if (typeof tutAllowCard === 'function' && !tutAllowCard(c)) return;
       dSel = { kind: 'play', card: c.uid, slot: null, picks: [] };
       const d = DE.D(c.id); if (d.type !== 'ยูนิต') continuePlay(); else renderDuel();
     };
@@ -2242,9 +2296,9 @@ function renderMid(L) {
   const st = DS.st, M = document.getElementById('dMid'), mine = st.cur === 0 && !st.over;
   const anyMove = L.plays.length || L.attacks.length;
   M.innerHTML = `<button class="btn" id="dEnd" ${mine && !dBusy ? '' : 'disabled'}>${mine ? (anyMove ? 'จบเทิร์น' : 'จบเทิร์น ✓') : 'เทิร์นคู่ดวล…'}</button>
-    <div class="info">ลงการ์ด: แตะการ์ดในมือ แล้วแตะช่องหรือเป้า<br>โจมตี: แตะยูนิตที่<b>เรืองเขียว</b> แล้วแตะเป้า<br>ดูการ์ด: แตะยูนิตบนกระดาน · กดค้างหรือคลิกขวาที่การ์ดในมือ<br>อาคม ◆ ใช้ลงการ์ด · บารมี ● เก็บอาคมที่เหลือไว้ใช้กับคาถา/กับดัก/ของขลัง</div>
+    ${TUT ? '' : `<div class="info">ลงการ์ด: แตะการ์ดในมือ แล้วแตะช่องหรือเป้า<br>โจมตี: แตะยูนิตที่<b>เรืองเขียว</b> แล้วแตะเป้า<br>ดูการ์ด: แตะยูนิตบนกระดาน · กดค้างหรือคลิกขวาที่การ์ดในมือ<br>อาคม ◆ ใช้ลงการ์ด · บารมี ● เก็บอาคมที่เหลือไว้ใช้กับคาถา/กับดัก/ของขลัง</div>`}
     <button class="btn ghost" id="dQuit" style="height:38px">ยอมแพ้</button>`;
-  M.querySelector('#dEnd').onclick = () => { if (st.cur !== 0 || dBusy) return; dSel = null; DE.apply(st, { t: 'end', pid: 0 }); afterAction(); };
+  M.querySelector('#dEnd').onclick = () => { if (st.cur !== 0 || dBusy) return; if (!tutAllowEnd()) return; dSel = null; DE.apply(st, { t: 'end', pid: 0 }); tutOnAction({ t: 'end' }); afterAction(); };
   M.querySelector('#dQuit').onclick = () => { if (!confirmQuit()) return; };
 }
 function confirmQuit() {
@@ -2264,7 +2318,9 @@ function showCrypt(side) {
 function clickUnit(u) {
   const st = DS.st;
   if (u.owner === 0 && st.cur === 0 && !dBusy && !(dSel && dSel.kind === 'play')) {
+    if (!tutAllowAttacker(u)) return;
     const why = DE.canAttack(st, u);
+    if (why && tutTry(u, why)) { toast(why); return; }
     if (!why) { dSel = dSel && dSel.unit === u.uid ? null : { kind: 'atk', unit: u.uid }; return renderDuel(); }
     if (dSel) { dSel = null; renderDuel(); }
     toast(why); return;
@@ -2283,7 +2339,7 @@ function continuePlay() {
   const st = DS.st; const n = dCurNeed();
   if (!n || !n.options.length) {
     const a = { t: 'play', pid: 0, card: dSel.card, slot: dSel.slot, picks: dSel.picks }; const r = DE.apply(st, a);
-    dSel = null; if (!r.ok) toast(r.err); return afterAction();
+    dSel = null; if (!r.ok) toast(r.err); else tutOnAction(a); return afterAction();
   }
   if (n.kind === 'option' || n.kind === 'crypt' || n.kind === 'discover') return choiceModal(n);
   renderDuel();
@@ -2298,8 +2354,9 @@ function choiceModal(n) {
   m.classList.add('on');
 }
 function doAttack(target) {
+  if (!tutAllowTarget(dSel.unit, target)) return;
   const st = DS.st, a = { t: 'attack', pid: 0, unit: dSel.unit, target }; dSel = null;
-  lunge(a.unit, 0, () => { const r = DE.apply(st, a); if (!r.ok) toast(r.err); afterAction(); });
+  lunge(a.unit, 0, () => { const r = DE.apply(st, a); if (!r.ok) toast(r.err); else tutOnAction(a); afterAction(); });
 }
 function lunge(uid, side, cb) { const el = document.querySelector(`#dBoard .dunit[data-uid="${uid}"]`); if (!el) return cb(); el.classList.add('lunge'); if (side === 1) el.classList.add('down'); setTimeout(cb, 300); }
 function slotIndexMap() { const m = {}; DS.st.players.forEach((P, side) => P.units.forEach((u, i) => { if (u) m[u.uid] = { side, i }; })); return m; }
@@ -2325,12 +2382,13 @@ function aiStep() {
   const st = DS.st;
   if (!document.getElementById('duel').classList.contains('on') || st.over) { dBusy = false; return; }
   if (st.cur !== 1) { dBusy = false; renderDuel(); banner('เทิร์นของคุณ'); return; }
-  const a = DAI.decide(st, 1, DS.level);
+  const a = (TUT && !TCH[TUT.ch].full) ? { t: 'end', pid: 1 } : DAI.decide(st, 1, DS.level);
   const go = () => { const r = DE.apply(st, a); if (!r.ok) DE.apply(st, { t: 'end', pid: 1 }); afterAction(); if (st.over) { dBusy = false; return; }
-    if (st.cur === 1) setTimeout(aiStep, 700); else { dBusy = false; renderDuel(); banner('เทิร์นของคุณ'); } };
+    if (st.cur === 1) setTimeout(aiStep, 700); else { dBusy = false; tutOppTurnDone(); renderDuel(); banner('เทิร์นของคุณ'); } };
   if (a.t === 'attack') lunge(a.unit, 1, go); else go();
 }
 function duelOver() {
+  if (TUT && TCH[TUT.ch].full && DS.st.over.winner === 0 && !TUT.done) { dBusy = false; prompt(''); return tutComplete(); }
   const st = DS.st, o = document.getElementById('dOver'), w = st.over.winner;
   dBusy = false; prompt('');
   const title = w === 0 ? 'ชนะ!' : w === 1 ? 'พ่ายแพ้' : 'เสมอ';
@@ -2340,10 +2398,226 @@ function duelOver() {
     <div class="row"><button class="btn" id="oAgain">ดวลอีกครั้ง</button><button class="btn ghost" id="oSet">เปลี่ยนเด็ค/ระดับ</button><button class="btn ghost" id="oHome">กลับหน้าแรก</button></div>`;
   o.classList.add('on');
   o.querySelector('#oAgain').onclick = () => { o.classList.remove('on'); startDuel(duelDecks().find(d => d.key === DSET.deck).ids); };
-  o.querySelector('#oSet').onclick = () => { o.classList.remove('on'); openDuelSetup(); };
-  o.querySelector('#oHome').onclick = () => { o.classList.remove('on'); show('home'); };
+  o.querySelector('#oSet').onclick = () => { o.classList.remove('on'); TUT = null; openDuelSetup(); };
+  o.querySelector('#oHome').onclick = () => { o.classList.remove('on'); TUT = null; show('home'); };
 }
 addEventListener('resize', () => { if (DS && document.getElementById('duel').classList.contains('on')) renderDuel(); });
+
+
+/* ---------- สอนเล่นแบบจับมือ 8 บท (หมอผีเฒ่า) ---------- */
+const TUT_REWARD = { 1: 'โกลด์ ๕๐๐', 2: 'โกลด์ ๕๐๐', 3: 'การ์ดหายาก ๑ ใบ', 4: 'โกลด์ ๑,๐๐๐', 5: 'การ์ดมหากาพย์ ๑ ใบ', 6: 'โกลด์ ๑,๐๐๐', 7: 'โกลด์ ๑,๐๐๐', 8: 'โกลด์ ๑,๐๐๐ (เท่าสุ่ม ๑๐ ครั้ง)' };
+const TUT_LOCAL = { 1: { gold: 500 }, 2: { gold: 500 }, 3: { rarity: 'rare' }, 4: { gold: 1000 }, 5: { rarity: 'epic' }, 6: { gold: 1000 }, 7: { gold: 1000 }, 8: { gold: 1000 } };
+const FILL = Array(30).fill('SD093');
+const q = s => document.querySelector(s);
+const F = {
+  hand: id => q(`#dHand .hcard[data-cid="${id}"]`),
+  unit: (side, id) => [...document.querySelectorAll(`#dBoard .dslot.u[data-side="${side}"] .dunit[data-cid="${id}"]`)][0],
+  opp: () => q('#dOpp'), me: () => q('#dMe'), res: () => q('#dMe .res'), end: () => q('#dEnd'), hand0: () => q('#dHand'),
+  moon: () => q('#dBoard .dmoon'), crypt: () => q('#dMe [data-crypt]'), trapRow: () => q('#dBoard .dslot.t:nth-last-of-type(1)'),
+};
+const n2 = id => DE.D(id).name_th;
+const TCH = [
+  null,
+  { title: 'ลงการ์ดใบแรก', learn: 'อาคม ต้นทุน และการลงยูนิต',
+    setup: S => { S.me({ akhomMax: 1, akhom: 1 }); S.hand(['SD097', 'SD093']); },
+    steps: [
+      { say: 'ยินดีต้อนรับสู่กระดานชนวน เจ้าหนู ข้าจะสอนเจ้าทีละขั้น ด้านล่าง (หรือด้านขวา) คือ <b>ไพ่ในมือ</b> ตัวเลขในวงกลมมุมซ้ายบนของการ์ดคือ <b>ต้นทุน</b>', focus: F.hand0, next: 1 },
+      { say: 'เพชรสีฟ้า ◆ คือ <b>อาคม</b> ใช้จ่ายค่าการ์ด ทุกเทิร์นอาคมสูงสุดเพิ่มขึ้น ๑ (สูงสุด ๑๐) และเติมเต็มใหม่ ตอนนี้เจ้ามีอาคม ๑', focus: F.res, next: 1 },
+      { say: `แตะ <b>${n2('SD097')}</b> (ต้นทุน ๑) แล้วแตะช่องว่างบนกระดานแถวล่าง ซึ่งเป็นฝั่งของเจ้า`, focus: () => F.hand('SD097'), expect: { t: 'play', id: 'SD097' },
+        wrong: { SD093: `ยังไม่ได้ — ${n2('SD093')} ต้นทุน ๒ แต่เจ้ามีอาคมแค่ ๑ (อาคมไม่พอ) เลือกใบที่ต้นทุน ๑` } },
+      { say: 'ถูกต้อง! ยูนิตลงสนามแล้ว ปกติยูนิตที่เพิ่งลงต้องรอเทิร์นหน้าจึงโจมตีได้ แต่ใบนี้มีคีย์เวิร์ด <b>ฮึกเหิม</b> จึงโจมตีได้ทันที ไว้บทหน้าข้าจะสอนโจมตี', next: 1 },
+      { say: 'อาคมหมดแล้ว กด <b>จบเทิร์น</b> ได้เลย อาคมที่เหลือตอนจบเทิร์นจะกลายเป็น <b>บารมี</b> ● (เก็บได้สูงสุด ๓) ไว้ใช้กับคาถา กับดัก และของขลัง', focus: F.end, expect: { t: 'end' } },
+    ] },
+  { title: 'โจมตี', learn: 'เลือกผู้โจมตี เลือกเป้า ATK/HP',
+    setup: S => { S.me({ akhomMax: 2, akhom: 2 }); S.unit(0, 'SD050', 1); S.unit(1, 'SD094', 2); S.hand(['SD093']); },
+    steps: [
+      { say: `ยูนิตทุกตัวมีวงกลม<b>แดง = ATK</b> (พลังโจมตี) และ<b>เขียว = HP</b> (พลังชีวิต) ${n2('SD050')} ของเจ้าพร้อมรบแล้ว (เรืองเขียว)`, focus: () => F.unit(0, 'SD050'), next: 1 },
+      { say: `ลง <b>${n2('SD093')}</b> ก่อน`, focus: () => F.hand('SD093'), expect: { t: 'play', id: 'SD093' } },
+      { say: `ลองแตะ ${n2('SD093')} ที่เพิ่งลงเพื่อสั่งโจมตีดูสิ`, focus: () => F.unit(0, 'SD093'), expect: { t: 'try', id: 'SD093' } },
+      { say: 'เห็นไหม — <b>ยูนิตที่เพิ่งลงต้องรอเทิร์นหน้า</b> (ยกเว้นฮึกเหิม) ทีนี้แตะ ' + n2('SD050') + ' แล้วแตะยูนิตศัตรู ' + n2('SD094'), focus: () => F.unit(0, 'SD050'), expect: { t: 'attack', from: 'SD050', to: 'SD094' },
+        wrong: { player: 'ลองตียูนิตศัตรูก่อน เพื่อดูการปะทะกัน' } },
+      { say: 'ถูกต้อง! เมื่อยูนิตปะทะกัน <b>ทั้งสองฝ่ายทำดาเมจใส่กันพร้อมกัน</b> เท่ากับ ATK ของตน HP เหลือ ๐ คือตาย ลงสุสาน ยูนิตแต่ละตัวโจมตีได้เทิร์นละ ๑ ครั้ง', next: 1 },
+      { say: 'กด <b>จบเทิร์น</b>', focus: F.end, expect: { t: 'end' } },
+    ] },
+  { title: 'ทวารบาลและเหาะเหิน', learn: 'ต้องตีทวารบาลก่อน เหาะเหินบินข้ามได้',
+    setup: S => { S.me({ akhomMax: 3, akhom: 0 }); S.unit(0, 'SD091', 1); S.unit(0, 'SD092', 3); S.unit(1, 'SD072', 2); S.opp({ fate: 30 }); },
+    steps: [
+      { say: `ศัตรูมี <b>${n2('SD072')}</b> ที่มีคีย์เวิร์ด <b>ทวารบาล</b> ตราบที่ทวารบาลยังยืนอยู่ เจ้าต้องโจมตีมันก่อน จะข้ามไปตียูนิตอื่นหรือดวงชะตาไม่ได้`, focus: () => F.unit(1, 'SD072'), next: 1 },
+      { say: `แต่ <b>${n2('SD092')}</b> มี <b>เหาะเหิน</b> บินข้ามทวารบาลได้ แตะมัน แล้วแตะ<b>กรอบหมอผีเฒ่าด้านบน</b> เพื่อโจมตีดวงชะตาโดยตรง`, focus: () => F.unit(0, 'SD092'), expect: { t: 'attack', from: 'SD092', to: 'player' },
+        wrong: { SD091: `${n2('SD091')} บินไม่ได้ ต้องตีทวารบาลก่อน ลองใช้ ${n2('SD092')}`, SD072: 'ตีดวงชะตาศัตรูดีกว่า เพราะยูนิตนี้บินข้ามได้' } },
+      { say: `ถูกต้อง! ดวงชะตาของศัตรูลดลง ใครดวงชะตาเหลือ ๐ ก่อนคือแพ้ ทีนี้แตะ ${n2('SD091')} ซึ่งบินไม่ได้ — สังเกตว่ากรอบศัตรูไม่ขึ้นเป็นเป้า มีแค่ทวารบาลให้ตี`, focus: () => F.unit(0, 'SD091'), expect: { t: 'attack', from: 'SD091', to: 'SD072' } },
+      { say: 'นี่แหละทวารบาล กำแพงของทัพ ถ้าจะเจาะเข้าไป ต้องทลายทวารบาลก่อน หรือใช้ตัวที่บินได้ กด <b>จบเทิร์น</b>', focus: F.end, expect: { t: 'end' } },
+    ] },
+  { title: 'ธาตุ', learn: 'น้ำ > ไฟ > ดิน > ลม > น้ำ ×๑.๕',
+    setup: S => { S.me({ akhomMax: 4, akhom: 0 }); S.unit(0, 'SD055', 1); S.unit(0, 'SD054', 3); const e = S.unit(1, 'SD074', 2); e.php = 3; e.patk = -1; },
+    steps: [
+      { say: 'การ์ดทุกใบมี<b>ธาตุ</b> (ไอคอนบนการ์ด) วงจรคือ <b>น้ำ ชนะ ไฟ · ไฟ ชนะ ดิน · ดิน ชนะ ลม · ลม ชนะ น้ำ</b> ฝ่ายที่ชนะทำดาเมจ <b>×๑.๕</b> (ปัดลง) ส่วนธาตุอากาศเป็นกลาง ใช้เฉพาะตอนปะทะกัน', next: 1 },
+      { say: `ศัตรู ${n2('SD074')} เป็นธาตุ<b>ไฟ</b> HP ๖ เจ้ามี ${n2('SD055')} (น้ำ ATK ๔) และ ${n2('SD054')} (ดิน ATK ๔) เลือกตัวที่ฆ่ามันได้ในทีเดียว`, focus: () => F.unit(1, 'SD074'), expect: { t: 'attack', from: 'SD055', to: 'SD074' },
+        wrong: { SD054: `ดินแพ้ไฟ! ${n2('SD054')} จะทำดาเมจแค่ ๔ และโดนสวนแรงขึ้นเป็น ๖ ลองใช้ ${n2('SD055')} ธาตุน้ำ` } },
+      { say: 'ถูกต้อง! น้ำชนะไฟ ATK ๔ × ๑.๕ = <b>๖</b> พอดี HP ศัตรู ฆ่าได้ในทีเดียว ก่อนโจมตีให้ดูธาตุทุกครั้ง', next: 1 },
+      { say: 'กด <b>จบเทิร์น</b>', focus: F.end, expect: { t: 'end' } },
+    ] },
+  { title: 'คาถา ของขลัง กับดัก', learn: 'ใช้คาถา ติดของขลัง คว่ำกับดัก บารมี',
+    setup: S => { S.me({ akhomMax: 6, akhom: 6, barami: 3 }); S.unit(0, 'SD050', 2); S.unit(1, 'SD033', 1); S.unit(1, 'SD070', 3); S.hand(['SD084', 'SD043', 'SD086']); },
+    steps: [
+      { say: 'นอกจากยูนิต ยังมี<b>คาถา</b> (ใช้แล้วลงสุสาน) <b>ของขลัง</b> (ติดยูนิต หรือตั้งในช่องของขลัง) และ<b>กับดัก</b> (คว่ำไว้ ทำงานเองเมื่อเงื่อนไขเกิด) สามแบบนี้จ่ายด้วย<b>บารมี ●</b> ได้ก่อน แล้วค่อยใช้อาคม', focus: F.res, next: 1 },
+      { say: `แตะ <b>${n2('SD084')}</b> แล้วแตะ ${n2('SD050')} เพื่อติดของขลัง ยูนิตจะได้ <b>คงกระพัน</b> (กันดาเมจครั้งแรกได้ ๑ ครั้ง)`, focus: () => F.hand('SD084'), expect: { t: 'play', id: 'SD084' } },
+      { say: `ต่อไป <b>${n2('SD043')}</b> — ขโมยยูนิตศัตรูต้นทุนไม่เกิน ๕ มาเป็นของเรา สังเกตว่า ${n2('SD033')} จะ<b>ไม่เรืองแสงให้เลือก</b> เพราะผู้ปกครองและเทพเป็นเป้าของคาถานี้ไม่ได้ แตะการ์ด แล้วแตะ ${n2('SD070')}`, focus: () => F.hand('SD043'), expect: { t: 'play', id: 'SD043' } },
+      { say: `ถูกต้อง! ${n2('SD070')} ย้ายมาอยู่ฝั่งเจ้าแล้ว สุดท้ายแตะ <b>${n2('SD086')}</b> เพื่อคว่ำกับดักไว้ในช่องกับดักแถวล่างสุด`, focus: () => F.hand('SD086'), expect: { t: 'play', id: 'SD086' } },
+      { say: 'กับดักคว่ำอยู่ ศัตรูมองไม่เห็นว่าเป็นอะไร มันจะทำงานเองในเทิร์นศัตรู (ไม่ทำงานในเทิร์นที่วาง) ใบนี้ทำลายผีต้นทุนไม่เกิน ๔ ที่บุกเข้ามา กด <b>จบเทิร์น</b>', focus: F.end, expect: { t: 'end' } },
+    ] },
+  { title: 'ตายและชุบชีวิต', learn: 'สุสาน ปลุกพราย อมตะ ส่งวิญญาณ',
+    setup: S => { S.me({ akhomMax: 7, akhom: 7, barami: 0 }); S.crypt(0, ['SD078']); S.unit(0, 'SD038', 0); S.unit(1, 'SD053', 2); S.hand(['SD066', 'SD045']); },
+    steps: [
+      { say: 'ยูนิตที่ตายจะไปอยู่ใน<b>สุสาน</b> กดปุ่ม "สุสาน" ดูได้ตลอด และการ์ดบางใบ<b>ชุบชีวิต</b>จากสุสานได้', focus: F.crypt, next: 1 },
+      { say: `ใช้คาถา <b>${n2('SD066')}</b> ชุบชีวิตผีในสุสานของเจ้า แล้วเลือกการ์ดที่จะปลุก`, focus: () => F.hand('SD066'), expect: { t: 'play', id: 'SD066' } },
+      { say: `ผีกลับมาแล้ว! ทีนี้ดูศัตรู <b>${n2('SD053')}</b> มีคีย์เวิร์ด <b>อมตะ</b> — ตายครั้งแรกจะลุกกลับมาด้วย HP ๑ ลองใช้ ${n2('SD038')} ตีมัน`, focus: () => F.unit(0, 'SD038'), expect: { t: 'attack', from: 'SD038', to: 'SD053' } },
+      { say: 'เห็นไหม มันลุกขึ้นมาอีก (อมตะใช้ได้ครั้งเดียว) วิธีกำจัดให้สิ้นซากคือ <b>ส่งวิญญาณ</b> — การ์ดที่ถูกส่งวิญญาณไม่ลงสุสาน ไม่กลับมา และชุบชีวิตไม่ได้อีก', next: 1 },
+      { say: `ลง <b>${n2('SD045')}</b> ปลุกเสกจับผีใส่หม้อดิน (ส่งวิญญาณ) แล้วเลือก ${n2('SD053')}`, focus: () => F.hand('SD045'), expect: { t: 'play', id: 'SD045' } },
+      { say: 'ถูกต้อง! ผีตนนั้นหายไปตลอดกาล จำไว้ว่า <b>คำว่า "ทำลาย" ยังโดนอมตะ ชุบชีวิต และกลไกสิ้นใจได้ แต่ "ส่งวิญญาณ" จบเลย</b> กด <b>จบเทิร์น</b>', focus: F.end, expect: { t: 'end' } },
+    ] },
+  { title: 'ราหูอมจันทร์', learn: 'ทุกเทิร์นที่ ๓ ๖ ๙ … ผีแรงขึ้น เทพอ่อนลง',
+    setup: S => { S.turn(2); S.me({ akhomMax: 2, akhom: 0 }); S.unit(0, 'SD061', 2); S.unit(1, 'SD070', 2); },
+    steps: [
+      { say: 'ดวงจันทร์กลางกระดานคือนาฬิกา<b>ราหูอมจันทร์</b> เริ่มที่เทิร์น ๓ ๖ ๙ … แต่ละครั้งกินเวลา ๒ เทิร์น (ของเราและของศัตรู) ระหว่างนั้น <b>ผี +๑ ATK · เทพ −๑ ATK · ผู้ปกครองไม่เปลี่ยน</b> และการ์ดบางใบมีพลังพิเศษตอนราหู', focus: F.moon, next: 1 },
+      { say: `${n2('SD061')} ของเจ้า ATK ๓ ยังฆ่า ${n2('SD070')} (HP ๖) ไม่ได้ อดใจรอราหูก่อน กด <b>จบเทิร์น</b>`, focus: F.end, expect: { t: 'end' },
+        wrong: { SD061: 'ยังไม่ถึงเวลา รอให้ราหูอมจันทร์ก่อน กดจบเทิร์น' } },
+      { say: `ราหูมาแล้ว! ${n2('SD061')} เป็นผี <b>+๑ ATK</b> และพลังพิเศษตอนราหูอีก <b>+๒</b> รวม ATK ๖ ทีนี้ตี ${n2('SD070')} ได้เลย`, focus: () => F.unit(0, 'SD061'), expect: { t: 'attack', from: 'SD061', to: 'SD070' },
+        wrong: { player: 'ลองกำจัดยูนิตศัตรูด้วยพลังราหู' } },
+      { say: 'ถูกต้อง! การวางแผนรอราหูก่อนบุก คือหัวใจของทัพผี ส่วนทัพเทพควรรีบชิงจังหวะก่อนราหูมา กด <b>จบเทิร์น</b>', focus: F.end, expect: { t: 'end' } },
+    ] },
+  { title: 'ดวลจริงครั้งแรก', learn: 'ดวลเต็มเกมกับ AI ง่าย มีคำแนะนำ', full: true, steps: [] },
+];
+
+let TUT = null;   // { ch, i, hint, done }
+function tutDone() { const u = me(); return (u && u.tut) || []; }
+function openTutorialList() {
+  const m = document.getElementById('modal'), b = document.getElementById('modalBox'), done = tutDone();
+  b.innerHTML = `<div class="dsetup"><h3>บทเรียนกับหมอผีเฒ่า</h3><p style="color:var(--muted);font-size:13px">เรียนทีละบท ดวลจริงบนกระดาน ทำผิดได้ไม่เสียอะไร จบแต่ละบทรับรางวัล (ครั้งแรกครั้งเดียว) · อ่านกติกาละเอียดได้ที่ <a href="wiki.html" target="_blank" rel="noopener" style="color:var(--gold2)">คู่มือ Wiki</a></p>
+    <div class="opts tutlist">${TCH.slice(1).map((c, i) => { const n = i + 1, ok = done.includes(n); return `<button class="opt ${ok ? 'on' : ''}" data-ch="${n}"><b>บทที่ ${TH(n)} ${c.title}</b>${ok ? ' ✓' : ''}<small>${c.learn}</small><small>รางวัล: ${TUT_REWARD[n]}${ok ? ' (รับแล้ว)' : ''}</small></button>`; }).join('')}</div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px"><button class="btn ghost" id="tlX">ปิด</button></div></div>`;
+  b.querySelectorAll('[data-ch]').forEach(x => x.onclick = () => { m.classList.remove('on'); startTutorial(+x.dataset.ch); });
+  b.querySelector('#tlX').onclick = () => m.classList.remove('on');
+  m.classList.add('on');
+}
+function startTutorial(ch) {
+  const C = TCH[ch];
+  if (C.full) { TUT = { ch, i: 0, hint: true }; DSET.level = 'easy'; const st0 = SiamAI.DECKS.ayutthaya.ids; startDuel(st0); return; }
+  const u = me();
+  const st = DE.newGame({ seed: 4242 + ch, names: [u.name || 'ผู้เล่น', 'หมอผีเฒ่า'], decks: [FILL, FILL] });
+  DE.apply(st, { t: 'mulligan', pid: 0, uids: [] }); DE.apply(st, { t: 'mulligan', pid: 1, uids: [] });
+  st.cur = 0; st.turn = 1; st.rahuUntil = 0; st.rahuWas = false; st.over = null;
+  for (const P of st.players) { P.hand = []; P.units = [null, null, null, null, null]; P.slots = [null, null]; P.crypt = []; P.purged = []; P.fate = 30; P.akhom = 0; P.akhomMax = 0; P.barami = 0; P.turnsTaken = 3; }
+  let hu = 0;
+  const S = {
+    me: o => Object.assign(st.players[0], o), opp: o => Object.assign(st.players[1], o), turn: t => { st.turn = t; },
+    hand: ids => { st.players[0].hand = ids.map(id => ({ uid: 'th' + (++hu), id })); },
+    crypt: (p, ids) => { st.players[p].crypt = ids.map(id => ({ id })); },
+    unit: (p, id, slot) => { const P = st.players[p], keep = { akhom: P.akhom, hand: P.hand, cur: st.cur }; st.cur = p; P.akhom = 99; P.hand = [{ uid: 'tu' + (++hu), id }];
+      DE.apply(st, { t: 'play', pid: p, card: P.hand[0].uid, slot, picks: [] }); const un = P.units[slot]; un.played = -1; P.akhom = keep.akhom; P.hand = keep.hand; st.cur = keep.cur; return un; },
+  };
+  C.setup(S); st.log = []; st.fx = [];
+  st.log.push({ t: st.turn, text: `บทที่ ${ch}: ${C.title}`, kind: 'turn' });
+  TUT = { ch, i: 0 };
+  DS = { st, level: 'easy', aiDeck: 'บทเรียน', mull: new Set() }; dSel = null; dBusy = false; dPrevMap = {};
+  show('duel'); document.getElementById('dOver').classList.remove('on'); renderDuel();
+}
+const tutStep = () => TUT && !TCH[TUT.ch].full ? TCH[TUT.ch].steps[TUT.i] : null;
+function tutSay(msg, bad) { const t = document.getElementById('tutText'); if (!t) return; t.innerHTML = msg; const box = document.getElementById('tutBox');
+  if (bad) { box.classList.remove('bad'); void box.offsetWidth; box.classList.add('bad'); clearTimeout(tutSay._t); tutSay._t = setTimeout(() => { box.classList.remove('bad'); }, 4000); } }
+function tutWrong(key, fallback) { const s = tutStep(); if (!s) return; const w = (s.wrong && s.wrong[key]) || fallback || (s.next ? 'กด "ต่อไป" ก่อนนะ' : 'ยังไม่ใช่ ลองทำตามที่ข้าบอก'); tutSay(`<span class="nope">ยังไม่ถูก</span> ${w}<br><small>${s.say}</small>`, true); }
+function tutAdvance() {
+  TUT.i++;
+  if (TUT.i >= TCH[TUT.ch].steps.length) return tutComplete();
+  renderDuel();
+}
+/* hooks จาก duel_ui (คืน true = อนุญาต) */
+function tutAllowCard(c) { if (!TUT || TCH[TUT.ch].full) return true; const s = tutStep(); if (s && s.expect && s.expect.t === 'play' && s.expect.id === c.id) return true; tutWrong(c.id); return false; }
+function tutAllowAttacker(u) { if (!TUT || TCH[TUT.ch].full) return true; const s = tutStep(); if (s && s.expect && s.expect.t === 'attack' && s.expect.from === u.id) return true;
+  if (s && s.expect && s.expect.t === 'try' && s.expect.id === u.id) return true; tutWrong(u.id); return false; }
+function tutTry(u, why) { if (!TUT || TCH[TUT.ch].full) return false; const s = tutStep(); if (s && s.expect && s.expect.t === 'try' && s.expect.id === u.id) { tutAdvance(); return true; } return false; }
+function tutAllowTarget(attUid, target) { if (!TUT || TCH[TUT.ch].full) return true; const s = tutStep(); if (!s || !s.expect || s.expect.t !== 'attack') return false;
+  if (s.expect.to === 'player') { if (target.player != null) return true; const u = findU(target.uid); tutWrong(u ? u.id : 'x'); return false; }
+  const u = target.uid && findU(target.uid); if (u && u.id === s.expect.to) return true; tutWrong(target.player != null ? 'player' : (u ? u.id : 'x')); return false; }
+function tutAllowEnd() { if (!TUT || TCH[TUT.ch].full) return true; const s = tutStep(); if (s && s.expect && s.expect.t === 'end') return true; tutWrong('end', s && s.next ? 'กด "ต่อไป" ก่อนนะ' : 'ยังไม่จบเทิร์น ทำตามขั้นนี้ให้เสร็จก่อน'); return false; }
+function tutOnAction(a) { if (!TUT || TCH[TUT.ch].full) return; const s = tutStep(); if (!s || !s.expect) return; const e = s.expect;
+  if (e.t === 'play' && a.t === 'play') tutAdvance();
+  else if (e.t === 'attack' && a.t === 'attack') tutAdvance();
+  else if (e.t === 'end' && a.t === 'end') { TUT.waitTurn = true; } }
+function tutOppTurnDone() { if (TUT && TUT.waitTurn) { TUT.waitTurn = false; tutAdvance(); } }
+function findU(uid) { for (const P of DS.st.players) for (const u of P.units) if (u && u.uid === uid) return u; return null; }
+async function tutComplete() {
+  const ch = TUT.ch; TUT.done = true; renderDuel();
+  const got = await tutClaim(ch);
+  const m = document.getElementById('modal'), b = document.getElementById('modalBox'), nx = ch < 8 ? ch + 1 : null;
+  b.innerHTML = `<h3>จบบทที่ ${TH(ch)}: ${TCH[ch].title}</h3><p>${got}</p>${nx ? `<p>บทต่อไป: <b>${TCH[nx].title}</b> — ${TCH[nx].learn}</p>` : '<p>เจ้าผ่านบทเรียนครบแล้ว! ไปดวลกับหมอผีเฒ่าระดับปกติ หรือจัดเด็คของตัวเองในห้องพักได้เลย</p>'}
+    <div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap"><button class="btn ghost" id="tcL">รายการบทเรียน</button><button class="btn ghost" id="tcH">กลับหน้าแรก</button>${nx ? '<button class="btn" id="tcN">บทต่อไป</button>' : ''}</div>`;
+  m.classList.add('on');
+  b.querySelector('#tcL').onclick = () => { m.classList.remove('on'); TUT = null; openTutorialList(); };
+  b.querySelector('#tcH').onclick = () => { m.classList.remove('on'); TUT = null; show('home'); };
+  if (nx) b.querySelector('#tcN').onclick = () => { m.classList.remove('on'); startTutorial(nx); };
+}
+async function tutClaim(ch) {
+  const u = me(); u.tut = u.tut || [];
+  if (u.tut.includes(ch)) return 'รางวัลบทนี้รับไปแล้ว';
+  if (ONLINE) {
+    const { data, error } = await sb.rpc('tutorial_claim', { p_ch: ch });
+    if (error) return 'ยังรับรางวัลไม่ได้: ' + thErr(error) + (String(error.message).includes('function') ? ' (แอดมินต้องรัน supabase/002_tutorial.sql)' : '');
+    u.tut.push(ch); if (data.gold != null) u.gold = data.gold; if (data.card) u.cards.push(inst({ id: data.card.row, card_id: data.card.id, serial: null }));
+    return `ได้รับ ${TUT_REWARD[ch]}${data.card ? ': ' + BY[data.card.id].name_th : ''}`;
+  }
+  const r = TUT_LOCAL[ch]; let extra = '';
+  if (r.gold) u.gold += r.gold;
+  if (r.rarity) { const pool = CARDS.filter(c => c.rarity_code === r.rarity); const c = pool[Math.floor(Math.random() * pool.length)]; u.cards.push({ id: c.id, at: Date.now() }); extra = ': ' + c.name_th; }
+  u.tut.push(ch); save(); return `ได้รับ ${TUT_REWARD[ch]}${extra}`;
+}
+/* วาดกล่องคำพูด + สปอตไลต์ */
+let tutHintKey = '';
+function tutPaint() {
+  let box = document.getElementById('tutBox'), spot = document.getElementById('tutSpot');
+  if (!TUT || !document.getElementById('duel').classList.contains('on')) { if (box) box.remove(); if (spot) spot.remove(); return; }
+  const mobile = matchMedia('(max-width:900px),(orientation:portrait)').matches, host = mobile ? document.getElementById('duel') : document.getElementById('dMid');
+  if (!box || box.parentElement !== host) { if (box) box.remove(); box = document.createElement('div'); box.id = 'tutBox'; box.className = 'tutbox';
+    box.innerHTML = `<div class="tb"></div><div class="tx"><div class="who">หมอผีเฒ่า · บทที่ <span id="tutCh"></span></div><p id="tutText"></p><div class="tbtn"></div></div>`;
+    box.querySelector('.tb').appendChild(charImg('npc_shaman', 'bust', 'หมอผีเฒ่า')); host.prepend(box); }
+  if (!spot) { spot = document.createElement('div'); spot.id = 'tutSpot'; spot.className = 'tutspot'; spot.innerHTML = '<i>👆</i>'; document.getElementById('duel').appendChild(spot); }
+  document.getElementById('tutCh').textContent = TH(TUT.ch) + ' ' + TCH[TUT.ch].title;
+  const btns = box.querySelector('.tbtn'); btns.innerHTML = '';
+  const add = (t, fn, cls) => { const b = document.createElement('button'); b.className = 'btn ' + (cls || ''); b.textContent = t; b.onclick = fn; btns.appendChild(b); };
+  let focusEl = null, text = '';
+  if (TCH[TUT.ch].full) {
+    const st = DS.st;
+    if (st.over) text = st.over.winner === 0 ? 'ชนะแล้ว! เจ้าพร้อมออกศึกจริงแล้ว' : 'ไม่เป็นไร ลองใหม่อีกครั้ง ดูคำแนะนำของข้าให้ดี';
+    else if (st.phase !== 'main') text = 'เลือกเปลี่ยนไพ่ที่ต้นทุนสูงเกินไปสำหรับช่วงต้นเกม แล้วเริ่มดวล';
+    else if (st.cur !== 0 || dBusy) text = 'เทิร์นของข้า ดูว่าข้าทำอะไร แล้วคิดหาทางรับมือ';
+    else if (!TUT.hint) text = 'คำแนะนำปิดอยู่ เล่นตามใจเจ้าได้เลย';
+    else { const key = st.log.length + ':' + st.players[0].hand.length + ':' + st.players[0].akhom;
+      if (key !== tutHintKey) { tutHintKey = key; TUT.sug = DAI.decide(DE.clone(st), 0, 'normal'); }
+      const a = TUT.sug; const P = st.players[0];
+      if (a.t === 'play') { const c = P.hand.find(x => x.uid === a.card); text = c ? `คำแนะนำ: ลง <b>${n2(c.id)}</b>` : ''; focusEl = c ? F.hand(c.id) : null; }
+      else if (a.t === 'attack') { const u = findU(a.unit), t = a.target.uid ? findU(a.target.uid) : null; text = u ? `คำแนะนำ: ให้ <b>${n2(u.id)}</b> โจมตี ${t ? '<b>' + n2(t.id) + '</b>' : 'ดวงชะตาศัตรู'}` : ''; focusEl = u ? F.unit(0, u.id) : null; }
+      else { text = 'คำแนะนำ: ทำเท่าที่คุ้มแล้ว กด <b>จบเทิร์น</b>'; focusEl = F.end(); }
+      if (dSel) focusEl = null; }
+    add(TUT.hint ? 'ปิดคำแนะนำ' : 'เปิดคำแนะนำ', () => { TUT.hint = !TUT.hint; renderDuel(); }, 'ghost');
+  } else {
+    const s = tutStep();
+    if (TUT.done) text = 'จบบทเรียนแล้ว';
+    else if (s) {
+      text = s.say;
+      if (TUT.waitTurn) text = 'รอศัตรูเล่นเทิร์นของมันก่อน…';
+      if (s.next) add('ต่อไป', () => tutAdvance());
+      focusEl = s.focus ? s.focus() : null;
+      if (dSel && dSel.kind === 'play') focusEl = q('#dBoard .dslot.can') || q('#dBoard .dslot.tgt') || focusEl;
+      if (dSel && dSel.kind === 'atk' && s.expect && s.expect.t === 'attack') focusEl = s.expect.to === 'player' ? F.opp() : (F.unit(1, s.expect.to) || focusEl);
+    }
+  }
+  add('ออกจากบทเรียน', () => { TUT = null; dSel = null; show('home'); tutPaint(); }, 'ghost');
+  const t = document.getElementById('tutText'); if (!box.classList.contains('bad') || !t.innerHTML) t.innerHTML = text;
+  if (focusEl) { const r = focusEl.getBoundingClientRect(), pad = 6; Object.assign(spot.style, { display: 'block', left: r.left - pad + 'px', top: r.top - pad + 'px', width: r.width + pad * 2 + 'px', height: r.height + pad * 2 + 'px' });
+    spot.classList.toggle('up', r.top < 120); }
+  else spot.style.display = 'none';
+  if (mobile) { const fr = focusEl && focusEl.getBoundingClientRect(); box.classList.toggle('low', !!fr && fr.top < innerHeight * 0.42); }
+}
 
 
 /* เริ่ม */

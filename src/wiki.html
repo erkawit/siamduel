@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>คู่มือสยามมินทร์ดูเอล</title>
+<meta name="description" content="คู่มือฉบับสมบูรณ์ของเกมการ์ดสยามมินทร์ดูเอล ตั้งแต่เริ่มเล่นจนเล่นเป็น กติกา คีย์เวิร์ด ธาตุ ราหู ตู้สุ่ม ตลาดกลาง และการ์ดทุกใบ">
+<link rel="icon" type="image/png" href="ui_logo/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chonburi&family=Charm:wght@400;700&family=Sarabun:wght@400;600&family=Noto+Sans+Thai:wght@400;500;700&display=swap">
+<style>
+@font-face{font-family:'Wasika';src:local('Wasika'),url(fonts/Wasika.woff2) format('woff2'),url(fonts/Wasika.ttf) format('truetype');font-display:swap}
+:root{--cardname:'Wasika','Charm',Chonburi,serif;--cardtext:'Wasika','Sarabun','Noto Sans Thai',sans-serif;
+  --lacquer:#0E0B0A;--panel:#15100D;--panel2:#1C1612;--line:#3A2E22;--gold:#C9A24A;--gold2:#E8C766;--red:#8E1B1B;--violet:#8A79B8;
+  --text:#EDE3CC;--muted:#A79A84;--ink:#2A1A10;--side:280px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--lacquer) url(ui_art_web/lobby_bg.webp) center top/cover fixed;color:var(--text);font-family:'Noto Sans Thai',sans-serif;line-height:1.75;font-size:16px}
+body::before{content:'';position:fixed;inset:0;background:linear-gradient(#0E0B0Ae6,#0E0B0Af5);z-index:-1}
+a{color:var(--gold2)}
+h1,h2,h3,h4{font-family:Chonburi,serif;font-weight:400;line-height:1.35;color:var(--gold2)}
+h2{font-size:28px;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+h2 .no{font-size:15px;color:var(--lacquer);background:var(--gold2);border-radius:10px;padding:2px 10px;font-family:'Noto Sans Thai';font-weight:700}
+h3{font-size:20px;margin:26px 0 8px}
+h4{font-size:17px;margin:18px 0 6px;color:#F1DFA8}
+p{margin:0 0 12px}
+b,strong{color:#FFE7A0;font-weight:600}
+code{background:#000;padding:1px 6px;border-radius:6px;font-size:.92em}
+header.top{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:14px;padding:10px 18px;background:#0E0B0Af2;border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+header.top img.logo{height:46px}
+header.top .t{font-family:Chonburi,serif;color:var(--gold2);font-size:18px;white-space:nowrap}
+header.top .t small{display:block;font-family:'Noto Sans Thai';font-size:12px;color:var(--muted)}
+.search{flex:1;position:relative;max-width:520px;margin-left:auto}
+.search input{width:100%;height:42px;border-radius:21px;border:1px solid var(--line);background:#0E0B0A;color:var(--text);padding:0 16px;font:inherit;font-size:15px}
+.search input:focus{outline:2px solid var(--gold);outline-offset:1px}
+.sres{position:absolute;left:0;right:0;top:48px;background:#15100Df8;border:1px solid var(--gold);border-radius:14px;max-height:60vh;overflow:auto;display:none;box-shadow:0 20px 50px #000c}
+.sres.on{display:block}
+.sres a{display:block;padding:10px 14px;text-decoration:none;color:var(--text);border-bottom:1px solid var(--line)}
+.sres a:hover,.sres a:focus{background:#2A1A12}
+.sres a b{display:block;font-size:14px}
+.sres a span{font-size:13px;color:var(--muted)}
+.play{height:42px;border-radius:21px;border:2px solid var(--gold);background:var(--red);color:#F6ECD4;font-family:Chonburi,serif;padding:0 18px;text-decoration:none;display:inline-flex;align-items:center;white-space:nowrap}
+.navbtn{display:none;height:42px;width:42px;border-radius:12px;border:1px solid var(--line);background:#0E0B0A;color:var(--gold2);font-size:20px}
+.wrap{display:grid;grid-template-columns:var(--side) minmax(0,1fr);gap:28px;max-width:1360px;margin:0 auto;padding:22px 18px 80px}
+nav.side{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;padding-right:6px;scrollbar-width:thin;scrollbar-color:#8E6A3A transparent}
+nav.side a{display:block;padding:6px 12px;border-radius:10px;text-decoration:none;color:var(--muted);font-size:14.5px;border-left:3px solid transparent}
+nav.side a:hover{color:var(--text);background:#1C1612}
+nav.side a.on{color:var(--gold2);background:#2A1A12;border-left-color:var(--gold2)}
+nav.side .grp{font-family:Chonburi,serif;color:#C9B27A;font-size:13px;margin:16px 12px 4px;letter-spacing:.03em}
+main{min-width:0}
+main section{min-width:0;overflow-wrap:break-word;background:#15100Dd9;border:1px solid var(--line);border-radius:20px;padding:26px 28px;margin-bottom:22px}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center}
+.hero h1{font-size:40px;margin:0 0 10px}
+.hero p{font-size:17px}
+.hero .shot{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px #000a}
+.hero .shot img{display:block;width:100%}
+.path{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:16px}
+.path a{display:block;text-decoration:none;color:var(--text);background:#1C1612;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.path a:hover{border-color:var(--gold)}
+.path a b{display:block;font-family:Chonburi,serif;font-weight:400;font-size:16px;color:var(--gold2)}
+.path a span{font-size:13px;color:var(--muted)}
+.note{background:#2A1A12;border:1px solid #6B4A2A;border-left:4px solid var(--gold2);border-radius:12px;padding:12px 16px;margin:14px 0;font-size:15px}
+.note.warn{border-left-color:#E07A6A;background:#2A1414}
+.note.tip{border-left-color:#7CC48A;background:#142A1A}
+.soon{display:inline-block;font-size:12px;font-family:'Noto Sans Thai';font-weight:600;color:#1A120E;background:#C9A0FF;border-radius:8px;padding:0 8px;vertical-align:middle;margin-left:6px}
+.live{display:inline-block;font-size:12px;font-family:'Noto Sans Thai';font-weight:600;color:#0E1A10;background:#7CC48A;border-radius:8px;padding:0 8px;vertical-align:middle;margin-left:6px}
+table{width:100%;border-collapse:collapse;margin:10px 0 16px;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{color:var(--gold2);font-weight:600;background:#1C1612;font-size:14px}
+.tw{overflow-x:auto}
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+ol.steps>li{counter-increment:s;position:relative;padding:4px 0 10px 44px}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:4px;width:30px;height:30px;border-radius:50%;background:var(--red);border:2px solid var(--gold);color:#FFE7A0;font-family:Chonburi,serif;display:flex;align-items:center;justify-content:center;font-size:14px}
+figure{margin:16px 0 20px}
+figure .fig{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 14px 40px #0009;background:#000}
+figure .fig img{display:block;width:100%;height:auto}
+figcaption{font-size:14px;color:var(--muted);margin-top:8px}
+.mk{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:var(--red);border:2px solid #FFE7A0;color:#FFE7A0;font-family:Chonburi,serif;font-size:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px #0008,0 4px 10px #000;cursor:help;z-index:2}
+.box{position:absolute;border:2px dashed #FFE07Acc;border-radius:10px;pointer-events:none}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px 18px;margin-top:10px;font-size:14.5px;padding:0;list-style:none}
+.legend li{display:flex;gap:10px;align-items:flex-start}
+.legend li i{flex:none;width:24px;height:24px;border-radius:50%;background:var(--red);border:2px solid #FFE7A0;color:#FFE7A0;font-style:normal;font-family:Chonburi,serif;font-size:12px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mini{background:#1C1612;border:1px solid var(--line);border-radius:14px;padding:14px}
+.mini h4{margin-top:0}
+.anat{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+.anat .cardwrap{position:relative;width:300px}
+.rar{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.rar .r{text-align:center;font-size:13.5px;color:var(--muted)}
+.rar .r img{width:100%;border-radius:8px;filter:drop-shadow(0 6px 14px #000)}
+.rar .r b{display:block;font-family:Chonburi,serif;font-weight:400;font-size:17px}
+.elem{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:center}
+.elem svg{width:100%;height:auto}
+.rahu{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;margin:12px 0}
+.rahu div{text-align:center;border-radius:10px;padding:8px 2px;background:#1C1612;border:1px solid var(--line);font-size:13px}
+.rahu div b{display:block;font-family:Chonburi,serif;font-weight:400;font-size:18px;color:var(--text)}
+.rahu div.on{background:#2A1640;border-color:#9A6AE0;box-shadow:0 0 14px #7B3FC466}
+.rahu div.on b{color:#D8B8FF}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0}
+.flow .ph{background:#1C1612;border:1px solid var(--line);border-radius:14px;padding:12px 14px;position:relative}
+.flow .ph h4{margin:0 0 6px}
+.flow .ph ul{margin:0;padding-left:18px;font-size:14.5px}
+.flow .ph:not(:last-child)::after{content:'➜';position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--gold2);font-size:20px;z-index:1}
+.combat{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:14px 0}
+.combat .vs{font-family:Chonburi,serif;color:var(--gold2);font-size:22px;text-align:center}
+.combat .vs small{display:block;font-family:'Noto Sans Thai';font-size:13px;color:var(--muted)}
+.kw td:first-child{white-space:nowrap;font-weight:600;color:#FFE7A0}
+.kw td .cs{font-size:13px;color:var(--muted)}
+.decks{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.decks .d{background:#1C1612;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.decks .d h4{margin:0 0 4px}
+.decks .d ul{margin:6px 0 0;padding-left:18px;columns:2;column-gap:14px}
+.gal-f{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.gal-f input,.gal-f select{height:38px;border-radius:12px;border:1px solid var(--line);background:#0E0B0A;color:var(--text);padding:0 12px;font:inherit;font-size:14px}
+.gal-f input{flex:1;min-width:180px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.gal .g{cursor:pointer;justify-self:center;transition:transform .15s}
+.gal .g:hover{transform:translateY(-4px)}
+.count{font-size:14px;color:var(--muted)}
+.dlg{position:fixed;inset:0;z-index:50;background:#000c;display:none;align-items:center;justify-content:center;padding:16px}
+.dlg.on{display:flex}
+.dlg .in{background:#15100D;border:1px solid var(--gold);border-radius:20px;max-width:880px;width:100%;max-height:92vh;overflow:auto;display:grid;grid-template-columns:auto 1fr;gap:22px;padding:22px;position:relative}
+.dlg .x{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#0E0B0A;color:var(--text);font-size:18px;cursor:pointer}
+.dlg dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:10px 0;font-size:15px}
+.dlg dt{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:1px 10px;background:#1C1612}
+.faq details{background:#1C1612;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:8px}
+.faq summary{cursor:pointer;font-weight:600;color:#FFE7A0}
+.faq details p{margin:8px 0 0}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
+.totop{position:fixed;right:16px;bottom:16px;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:#15100Dee;color:var(--gold2);font-size:20px;text-decoration:none;display:flex;align-items:center;justify-content:center;z-index:20}
+
+/* การ์ด (ชุดเดียวกับในเกม) */
+__CARDCSS__
+
+@media (max-width:1000px){
+  .wrap{grid-template-columns:minmax(0,1fr);padding:14px 10px 60px}
+  .path{grid-template-columns:1fr 1fr}
+  nav.side{position:fixed;left:0;top:66px;bottom:0;width:min(300px,86vw);max-height:none;background:#120C0Af8;border-right:1px solid var(--line);padding:10px;z-index:40;transform:translateX(-105%);transition:transform .25s}
+  nav.side.on{transform:none;box-shadow:20px 0 50px #000c}
+  .navbtn{display:inline-flex;align-items:center;justify-content:center}
+  header.top .t{display:none}
+  header.top img.logo{height:38px}
+  .play{padding:0 12px;font-size:14px}
+  main section{padding:18px 16px;border-radius:16px}
+  .hero,.two,.anat,.elem{grid-template-columns:minmax(0,1fr)}
+  .elem svg{max-width:300px;margin:0 auto;display:block}
+  .hero h1{font-size:30px}
+  .cols3,.flow{grid-template-columns:1fr}
+  .flow .ph:not(:last-child)::after{content:'⬇';right:50%;top:auto;bottom:-18px;transform:translateX(50%)}
+  .rahu{grid-template-columns:repeat(6,1fr)}
+  .anat .cardwrap{margin:0 auto;width:260px}
+  .dlg .in{grid-template-columns:1fr;justify-items:center}
+  h2{font-size:23px}
+  .mk{width:24px;height:24px;margin:-12px 0 0 -12px;font-size:11px}
+  .decks .d ul{columns:1}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="navbtn" id="navbtn" aria-label="เมนูหัวข้อ">☰</button>
+  <a href="#start" aria-label="หน้าแรกคู่มือ"><img class="logo" src="ui_logo/logo.webp" alt="สยามมินทร์ดูเอล" onerror="this.style.display='none'"></a>
+  <div class="t">คู่มือสยามมินทร์ดูเอล<small>ฉบับช่วงทดสอบ CBT</small></div>
+  <div class="search"><input id="q" type="search" placeholder="ค้นหาในคู่มือ เช่น ทวารบาล, ราหู, ตู้สุ่ม, ชื่อการ์ด" aria-label="ค้นหาในคู่มือ" autocomplete="off"><div class="sres" id="sres" role="listbox"></div></div>
+  <a class="play" href="index.html">เข้าเล่นเกม</a>
+</header>
+
+<div class="wrap">
+<nav class="side" id="side" aria-label="สารบัญ">
+  <div class="grp">เริ่มต้น</div>
+  <a href="#start">ยินดีต้อนรับ</a><a href="#account">สมัครและเลือกตัวละคร</a><a href="#home">หน้าแรกและเมนู</a><a href="#tutorial">บทเรียนกับหมอผีเฒ่า</a>
+  <div class="grp">การ์ด</div>
+  <a href="#card">ส่วนประกอบของการ์ด</a><a href="#rarity">ระดับการ์ด ๗ ระดับ</a><a href="#types">ชนิด เผ่า และหมวด</a><a href="#elements">ธาตุ</a>
+  <div class="grp">การดวล</div>
+  <a href="#board">กระดานชนวน</a><a href="#begin">เริ่มเกม</a><a href="#turn">ลำดับในหนึ่งเทิร์น</a><a href="#energy">อาคมและบารมี</a><a href="#playcard">การลงการ์ด</a><a href="#attack">การโจมตี</a><a href="#keywords">คีย์เวิร์ดทั้งหมด</a><a href="#status">สถานะผิดปกติ</a><a href="#rahu">ราหูอมจันทร์</a><a href="#death">ความตาย สุสาน ส่งวิญญาณ</a><a href="#great">กฎความยิ่งใหญ่</a><a href="#win">แพ้ ชนะ เสมอ</a><a href="#ai">ดวลกับ AI</a>
+  <div class="grp">จัดทัพ</div>
+  <a href="#deck">กติกาจัดเด็ค</a><a href="#room">ห้องพักและเด็ค ๓ เซ็ต</a><a href="#starter">เด็คสำเร็จรูป</a><a href="#strategy">กลยุทธ์เบื้องต้น</a>
+  <div class="grp">ระบบในเกม</div>
+  <a href="#gold">โกลด์และแต้มบุญ</a><a href="#gacha">ตู้สุ่มการ์ด</a><a href="#limited">การ์ดจำนวนจำกัด</a><a href="#event">ตู้ผู้สรรสร้าง</a><a href="#market">ตลาดกลาง</a><a href="#collection">คลังและฉบับสะสม</a><a href="#news">ประกาศทั้งเซิร์ฟเวอร์</a><a href="#coming">ระบบที่กำลังพัฒนา</a>
+  <div class="grp">อ้างอิง</div>
+  <a href="#cards">การ์ดทุกใบ</a><a href="#tokens">โทเคน</a><a href="#glossary">อภิธานศัพท์</a><a href="#faq">คำถามที่พบบ่อย</a><a href="#cbt">ช่วงทดสอบ CBT</a>
+</nav>
+
+<main id="main">
+<section id="start">
+  <div class="hero">
+    <div>
+      <h1>สยามมินทร์ดูเอล</h1>
+      <p>เกมการ์ดสะสมและดวลแนว<b>ไทยดาร์กแฟนตาซี</b> รวมเทพ ผี อสูร สัตว์หิมพานต์ ตัวละครวรรณคดี และผู้ปกครองไทย มาประลองกันบน<b>กระดานชนวน</b> สะสมการ์ด ๑๐๐ แบบ ๗ ระดับ จัดทัพ ๓๐ ใบของตัวเอง แล้วลดดวงชะตาของคู่ดวลให้เหลือศูนย์</p>
+      <p>คู่มือนี้อธิบาย<b>ทุกอย่างที่ต้องรู้</b> ตั้งแต่สมัครเล่นจนวางแผนเป็น กดหัวข้อทางซ้าย หรือพิมพ์ค้นหาด้านบนได้เลย</p>
+      <div class="path">
+        <a href="#tutorial"><b>๑ เพิ่งเริ่ม</b><span>เรียนบทเรียน ๘ บทในเกม</span></a>
+        <a href="#board"><b>๒ เข้าใจการดวล</b><span>กระดาน เทิร์น โจมตี</span></a>
+        <a href="#deck"><b>๓ จัดทัพเอง</b><span>กติกาเด็คและกลยุทธ์</span></a>
+        <a href="#cards"><b>๔ ดูการ์ดทุกใบ</b><span>ค้นหาและกรองได้</span></a>
+      </div>
+    </div>
+    <div class="shot"><img src="wiki/img/duel.webp" alt="ภาพหน้าดวลกระดานชนวน" loading="lazy"></div>
+  </div>
+</section>
+
+<section id="account"><h2><span class="no">1</span>สมัครและเลือกตัวละคร</h2>
+  <div class="two">
+    <div>
+      <ol class="steps">
+        <li>เปิดเกม กด <b>"ยังไม่มีบัญชี? สมัครสมาชิก"</b></li>
+        <li>ตั้ง<b>ชื่อผู้ใช้</b> ใช้ได้เฉพาะ a–z ตัวเลข และขีดล่าง ยาว 3–20 ตัว และรหัสผ่านอย่างน้อย 6 ตัว</li>
+        <li>เลือก<b>ตัวละคร</b> ชายหรือหญิง แล้วตั้ง<b>ชื่อในเกม</b> (ภาษาไทยได้) ชื่อนี้คือชื่อที่คนอื่นเห็น</li>
+        <li>เข้าสู่<b>หน้าแรก</b> บัญชีใหม่ได้โกลด์เริ่มต้น <b>20,000</b></li>
+      </ol>
+      <div class="note tip">ข้อมูลเก็บบนเซิร์ฟเวอร์ ล็อกอินจากเครื่องไหนก็เล่นต่อได้ ถ้าเกมเชื่อมเซิร์ฟเวอร์ไม่ได้ จะเล่นแบบเก็บข้อมูลไว้ในเบราว์เซอร์เครื่องนั้นแทน</div>
+    </div>
+    <div>
+      <figure><div class="fig"><img src="wiki/img/login.webp" alt="หน้าล็อกอิน" loading="lazy"></div><figcaption>หน้าล็อกอิน การ์ดตัวอย่างลอยเอียงตามเมาส์ได้</figcaption></figure>
+      <figure><div class="fig"><img src="wiki/img/pick.webp" alt="หน้าเลือกตัวละคร" loading="lazy"></div><figcaption>เลือกตัวละครชายหรือหญิง แล้วตั้งชื่อในเกม</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="home"><h2><span class="no">2</span>หน้าแรกและเมนู</h2>
+  <figure><div class="fig" data-ann="home"><img src="wiki/img/home.webp" alt="หน้าแรกของเกม" loading="lazy"></div></figure>
+  <div class="tw"><table>
+    <tr><th>เมนู</th><th>ทำอะไรได้</th></tr>
+    <tr><td>ห้องพักส่วนตัว</td><td>จัดเด็ค ๓ เซ็ต ผูกเด็คกับโหมดดวล ตรวจกติกาอัตโนมัติ (<a href="#room">อ่านต่อ</a>)</td></tr>
+    <tr><td>สอนเล่น</td><td>บทเรียนแบบจับมือ ๘ บท จบบทได้รางวัล (<a href="#tutorial">อ่านต่อ</a>)</td></tr>
+    <tr><td>ดวล</td><td>ดวลกับหมอผีเฒ่า (AI) ๓ ระดับ (<a href="#ai">อ่านต่อ</a>)</td></tr>
+    <tr><td>ตู้สุ่มการ์ด</td><td>สุ่มการ์ดด้วยโกลด์ ตู้ปกติ และตู้ผู้สรรสร้างเมื่อเปิดรอบ (<a href="#gacha">อ่านต่อ</a>)</td></tr>
+    <tr><td>คลังการ์ด</td><td>ดูการ์ดที่มี ขยายดูรายละเอียด (<a href="#collection">อ่านต่อ</a>)</td></tr>
+    <tr><td>กิลด์</td><td>หอกิลด์ (กำลังพัฒนา)</td></tr>
+    <tr><td>ตลาดกลาง</td><td>ซื้อขายการ์ดกับผู้เล่นและพ่อค้า NPC (<a href="#market">อ่านต่อ</a>)</td></tr>
+    <tr><td>คู่มือเกม (Wiki)</td><td>หน้านี้ เปิดในแท็บใหม่</td></tr>
+  </table></div>
+  <p>มุมขวาบนแสดง<b>โกลด์</b> และ<b>แต้มบุญ</b> ปุ่ม "CBT · แจ้งปัญหา" ใช้ดูข้อมูลช่วงทดสอบและส่งรายงานบั๊ก ด้านล่างเป็นกล่องคำพูดของ<b>หมอผีเฒ่าแห่งหมู่บ้าน</b> ผู้นำทางที่จะคอยอธิบายทุกหน้า</p>
+</section>
+
+<section id="tutorial"><h2><span class="no">3</span>บทเรียนกับหมอผีเฒ่า</h2>
+  <p>กดเมนู <b>"สอนเล่น"</b> ที่หน้าแรก บทเรียนคือการดวลจริงบนกระดาน แต่จัดการ์ดไว้ให้แล้ว หมอผีเฒ่าจะ<b>ชี้ด้วยแสงไฟ</b> ว่าต้องแตะตรงไหน ถ้ากดผิด จะบอกว่า<b>ผิดเพราะอะไร</b> ไม่เสียอะไรเลย ลองใหม่ได้ทันที</p>
+  <div class="two">
+    <figure><div class="fig"><img src="wiki/img/tutlist.webp" alt="รายการบทเรียน" loading="lazy"></div><figcaption>รายการบทเรียนและรางวัล</figcaption></figure>
+    <figure><div class="fig"><img src="wiki/img/tutorial.webp" alt="บทเรียนระหว่างเล่น" loading="lazy"></div><figcaption>ระหว่างเรียน จอจะมืดลง เหลือแสงตรงจุดที่ต้องแตะ</figcaption></figure>
+  </div>
+  <div class="tw"><table>
+    <tr><th>บท</th><th>เรียนอะไร</th><th>รางวัล (ครั้งแรก)</th></tr>
+    <tr><td>1 ลงการ์ดใบแรก</td><td>อาคม ต้นทุน ลากการ์ดลงช่อง จบเทิร์น บารมี</td><td>โกลด์ 500</td></tr>
+    <tr><td>2 โจมตี</td><td>ATK/HP เลือกผู้โจมตีและเป้า ยูนิตที่เพิ่งลงต้องรอเทิร์นหน้า</td><td>โกลด์ 500</td></tr>
+    <tr><td>3 ทวารบาลและเหาะเหิน</td><td>ต้องตีทวารบาลก่อน ตัวบินข้ามไปตีดวงชะตาได้</td><td>การ์ดหายาก 1 ใบ</td></tr>
+    <tr><td>4 ธาตุ</td><td>วงจรธาตุ ดาเมจ ×1.5</td><td>โกลด์ 1,000</td></tr>
+    <tr><td>5 คาถา ของขลัง กับดัก</td><td>ใช้คาถา ติดของขลัง คว่ำกับดัก บารมี เป้าที่เลือกไม่ได้</td><td>การ์ดมหากาพย์ 1 ใบ</td></tr>
+    <tr><td>6 ตายและชุบชีวิต</td><td>สุสาน ชุบชีวิต อมตะ ส่งวิญญาณ</td><td>โกลด์ 1,000</td></tr>
+    <tr><td>7 ราหูอมจันทร์</td><td>จังหวะราหู ผีแรงขึ้น วางแผนรอราหู</td><td>โกลด์ 1,000</td></tr>
+    <tr><td>8 ดวลจริงครั้งแรก</td><td>ดวลเต็มเกมกับ AI ง่าย มีคำแนะนำทุกตา (ปิดได้)</td><td>โกลด์ 1,000</td></tr>
+  </table></div>
+  <div class="note tip">เล่นบทเดิมซ้ำได้เสมอเพื่อทบทวน แต่รางวัลได้ครั้งเดียวต่อบท</div>
+</section>
+
+<section id="card"><h2><span class="no">4</span>ส่วนประกอบของการ์ด</h2>
+  <div class="anat"><div class="cardwrap" id="anatCard"></div>
+    <ul class="legend" id="anatLegend" style="grid-template-columns:1fr">
+      <li><i>1</i><span><b>ต้นทุน</b> อาคมที่ต้องจ่ายเพื่อลงการ์ด</span></li>
+      <li><i>2</i><span><b>ภาพการ์ด</b> และ<b>กรอบ</b> สีกรอบบอกระดับการ์ด</span></li>
+      <li><i>3</i><span><b>ชื่อการ์ด</b></span></li>
+      <li><i>4</i><span><b>ชนิด · ธาตุ · เผ่า</b></span></li>
+      <li><i>5</i><span><b>คีย์เวิร์ด</b> (ตัวหนา) และ<b>ความสามารถ</b> ข้อความยาวเลื่อนอ่านในกรอบได้</span></li>
+      <li><i>6</i><span><b>ATK</b> พลังโจมตี (วงซ้ายล่าง) — คาถา/ของขลัง/กับดักจะแสดงไอคอนชนิดแทน</span></li>
+      <li><i>7</i><span><b>HP</b> พลังชีวิต (วงขวาล่าง) — การ์ดไม่ใช่ยูนิตจะแสดงไอคอนธาตุแทน</span></li>
+    </ul>
+  </div>
+  <div class="note">บนกระดาน ตัวเลข ATK/HP ในวงกลมแดง-เขียวคือ<b>ค่าปัจจุบัน</b> ซึ่งรวมบัฟ ดีบัฟ ราหู และดาเมจที่โดนแล้ว ตัวเลข<b>สีเขียวอ่อน</b>แปลว่าสูงกว่าค่าเดิม <b>สีแดงอ่อน</b>แปลว่าลดลงหรือบาดเจ็บ ป้ายเล็กด้านบนการ์ดแสดงคีย์เวิร์ดและสถานะที่มีอยู่ตอนนั้น</div>
+  <h3>คำที่เห็นบ่อยในข้อความการ์ด</h3>
+  <div class="tw"><table>
+    <tr><th>คำ</th><th>ความหมาย</th></tr>
+    <tr><td>ปลุกเสก</td><td>ทำงานทันทีเมื่อลงการ์ดใบนี้</td></tr>
+    <tr><td>สิ้นใจ</td><td>ทำงานเมื่อการ์ดนี้ตายลงสุสาน (ถ้าถูกส่งวิญญาณจะไม่ทำงาน)</td></tr>
+    <tr><td>ต้นเทิร์น</td><td>ทำงานทุกยามเช้าของเจ้าของการ์ด</td></tr>
+    <tr><td>ราหูอมจันทร์:</td><td>ทำงานระหว่างช่วงราหู (<a href="#rahu">อ่าน</a>)</td></tr>
+    <tr><td>ยูนิตเรา / ฝ่ายเรา</td><td>ยูนิตบนสนามของผู้ควบคุมการ์ดนี้</td></tr>
+    <tr><td>ทำลาย</td><td>ส่งลงสุสาน (อมตะและสิ้นใจยังทำงาน)</td></tr>
+    <tr><td>ส่งวิญญาณ</td><td>นำออกจากเกมถาวร ไม่ลงสุสาน ชุบชีวิตไม่ได้</td></tr>
+    <tr><td>+X/+Y</td><td>เพิ่ม ATK X และ HP Y ("ถาวร" = ไม่หมดอายุ, "เทิร์นนี้" = หมดตอนจบเทิร์น)</td></tr>
+  </table></div>
+</section>
+
+<section id="rarity"><h2><span class="no">5</span>ระดับการ์ด ๗ ระดับ</h2>
+  <div class="rar" id="rarGrid"></div>
+  <div class="tw"><table id="rarTable"></table></div>
+  <p>ระดับยิ่งสูง การ์ดยิ่งหายากและความสามารถยิ่งแรง แต่ต้นทุนก็สูงขึ้น ระดับตำนานขึ้นไปมี<b>เอฟเฟกต์ระยิบระยับ</b>เมื่อเอียงการ์ด: ตำนาน = ประกายไฟแดง · พระเจ้า = เกล็ดทอง · ผู้สรรสร้าง = ฟอยล์รุ้ง</p>
+</section>
+
+<section id="types"><h2><span class="no">6</span>ชนิด เผ่า และหมวด</h2>
+  <h3>ชนิดการ์ด ๔ แบบ</h3>
+  <div class="cols3" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))">
+    <div class="mini"><h4>ยูนิต</h4>มี ATK/HP ลงในช่องยูนิต ๕ ช่อง ใช้โจมตีและป้องกัน จ่ายด้วย<b>อาคมเท่านั้น</b></div>
+    <div class="mini"><h4>คาถา</h4>ใช้แล้วเกิดผลทันที แล้วลงสุสาน จ่ายด้วย<b>บารมีก่อน</b> แล้วจึงอาคม</div>
+    <div class="mini"><h4>ของขลัง</h4>มี ๒ แบบ: <b>ติดยูนิต</b> (ผูกกับยูนิต ไม่ใช้ช่อง ตายพร้อมยูนิต) และ<b>แบบตั้งสนาม</b> (ใช้ช่องกับดัก/ของขลัง อยู่ถาวร)</div>
+    <div class="mini"><h4>กับดัก</h4>วาง<b>คว่ำ</b>ในช่องกับดัก ศัตรูเห็นแค่ว่ามีกับดัก ทำงานเองครั้งเดียวเมื่อเงื่อนไขเกิด (ไม่ทำงานในเทิร์นที่วาง)</div>
+  </div>
+  <h3>เผ่า</h3>
+  <p><b>เทพ · มนุษย์ · อสูร · หิมพานต์ · ผี · อากาศ</b> เผ่ามีผลกับราหู (ผีแรงขึ้น เทพอ่อนลง) และเป็นเงื่อนไขของการ์ดหลายใบ เช่น "ชุบชีวิตผี" หรือ "ทำดาเมจแก่ผี/อสูร"</p>
+  <h3>หมวดสำคัญ</h3>
+  <div class="tw"><table>
+    <tr><th>หมวด</th><th>กฎพิเศษ</th></tr>
+    <tr><td>ผู้ปกครอง</td><td>ไม่ได้รับผลจากราหู · ถูกขโมย (เมตตามหานิยม) ไม่ได้ · ถูกฟื้นจากสุสานศัตรูไม่ได้ · ใส่เด็ครวมกับเทพเจ้าได้ไม่เกิน 3 ใบ</td></tr>
+    <tr><td>เทพเจ้า</td><td>ถูกขโมยไม่ได้ · ถูกฟื้นจากสุสานศัตรูไม่ได้ · ใส่เด็ครวมกับผู้ปกครองได้ไม่เกิน 3 ใบ</td></tr>
+    <tr><td>วรรณคดี · 8 อาชีพ · สัตว์หิมพานต์ · ผี · อสูร</td><td>ใช้เป็นเงื่อนไขของการ์ดคู่หู เช่น ขุนแผน–ขุนช้าง–นางวันทอง ได้พลังเพิ่มเมื่ออยู่ด้วยกัน</td></tr>
+  </table></div>
+</section>
+
+<section id="elements"><h2><span class="no">7</span>ธาตุ</h2>
+  <div class="elem">
+    <svg viewBox="0 0 320 320" role="img" aria-label="วงจรธาตุ น้ำชนะไฟ ไฟชนะดิน ดินชนะลม ลมชนะน้ำ อากาศเป็นกลาง">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E8C766"/></marker></defs>
+      <circle cx="160" cy="160" r="112" fill="none" stroke="#3A2E22" stroke-width="2"/>
+      <path d="M196 62 A112 112 0 0 1 258 124" fill="none" stroke="#E8C766" stroke-width="3" marker-end="url(#ar)"/>
+      <path d="M258 196 A112 112 0 0 1 196 258" fill="none" stroke="#E8C766" stroke-width="3" marker-end="url(#ar)"/>
+      <path d="M124 258 A112 112 0 0 1 62 196" fill="none" stroke="#E8C766" stroke-width="3" marker-end="url(#ar)"/>
+      <path d="M62 124 A112 112 0 0 1 124 62" fill="none" stroke="#E8C766" stroke-width="3" marker-end="url(#ar)"/>
+      <image href="ui_icons/el_water.webp" x="128" y="16" width="64" height="64"/><text x="160" y="96" text-anchor="middle" fill="#9CC2FF" font-size="15">น้ำ</text>
+      <image href="ui_icons/el_fire.webp" x="240" y="128" width="64" height="64"/><text x="272" y="210" text-anchor="middle" fill="#FF9A7A" font-size="15">ไฟ</text>
+      <image href="ui_icons/el_earth.webp" x="128" y="240" width="64" height="64"/><text x="160" y="234" text-anchor="middle" fill="#D9B27A" font-size="15">ดิน</text>
+      <image href="ui_icons/el_wind.webp" x="16" y="128" width="64" height="64"/><text x="48" y="122" text-anchor="middle" fill="#B8E8C8" font-size="15">ลม</text>
+      <image href="ui_icons/el_akasha.webp" x="132" y="124" width="56" height="56"/><text x="160" y="198" text-anchor="middle" fill="#D8C8F0" font-size="13">อากาศ (เป็นกลาง)</text>
+    </svg>
+    <div>
+      <p>ลูกศรชี้จาก<b>ผู้ชนะ</b>ไปหา<b>ผู้แพ้</b>: <b>น้ำ ชนะ ไฟ · ไฟ ชนะ ดิน · ดิน ชนะ ลม · ลม ชนะ น้ำ</b> ส่วน<b>อากาศ</b>ไม่ชนะและไม่แพ้ใคร</p>
+      <p>เมื่อยูนิต<b>ปะทะ</b>กัน ฝ่ายที่ธาตุชนะทำดาเมจ <b>×1.5 (ปัดลง)</b> ฝ่ายที่แพ้ทางยังทำดาเมจปกติ</p>
+      <div class="note">ตัวคูณธาตุใช้<b>เฉพาะการปะทะยูนิตต่อยูนิต</b> ไม่ใช้กับการตีดวงชะตา คาถา หรือเอฟเฟกต์ของการ์ด</div>
+      <div class="tw"><table><tr><th>ATK</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+      <tr><th>เมื่อชนะธาตุ</th><td>1</td><td>3</td><td>4</td><td>6</td><td>7</td><td>9</td><td>10</td><td>12</td><td>13</td><td>15</td></tr></table></div>
+    </div>
+  </div>
+</section>
+
+<section id="board"><h2><span class="no">8</span>กระดานชนวน</h2>
+  <figure><div class="fig" data-ann="duel"><img src="wiki/img/duel.webp" alt="หน้าดวลบนคอมพิวเตอร์" loading="lazy"></div>
+  <figcaption>หน้าดวลบนคอมพิวเตอร์ ฝั่งบนคือคู่ดวล ฝั่งล่างคือเรา</figcaption></figure>
+  <ul class="legend" id="duelLegend"></ul>
+  <div class="two" style="margin-top:18px">
+    <figure><div class="fig" style="max-width:300px;margin:0 auto"><img src="wiki/img/m_duel.webp" alt="หน้าดวลบนมือถือ" loading="lazy"></div><figcaption style="text-align:center">บนมือถือ ไพ่ในมืออยู่ล่างสุด ปุ่ม "บันทึก" เปิดประวัติการเล่น</figcaption></figure>
+    <div>
+      <h3 style="margin-top:0">วิธีสั่งงาน</h3>
+      <ul>
+        <li><b>ลงการ์ด:</b> แตะการ์ดในมือที่<b>เรืองเขียว</b> แล้วแตะช่องว่างหรือเป้าที่เรืองแสง</li>
+        <li><b>โจมตี:</b> แตะยูนิตของเราที่เรืองเขียว แล้วแตะเป้าที่ขึ้น<b>กรอบแดง</b> (ยูนิตศัตรู หรือกรอบชื่อคู่ดวลเพื่อตีดวงชะตา)</li>
+        <li><b>ยกเลิก:</b> แตะการ์ดเดิมซ้ำ หรือกดปุ่ม "ยกเลิก" ที่แถบคำสั่ง</li>
+        <li><b>ดูการ์ดขยาย:</b> แตะยูนิตบนกระดาน หรือ<b>กดค้าง/คลิกขวา</b>การ์ดในมือ (บน PC มีปุ่ม ⌕)</li>
+        <li><b>ดูสุสาน:</b> กดปุ่ม "สุสาน" ในกรอบผู้เล่น จะเห็นทั้งสุสานและเขตส่งวิญญาณ</li>
+        <li>การ์ดที่<b>มืดลง</b>ในมือคือยังลงไม่ได้ แตะดูจะบอกเหตุผล เช่น อาคมไม่พอ หรือสนามเต็ม</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="begin"><h2><span class="no">9</span>เริ่มเกม</h2>
+  <ol class="steps">
+    <li>ทั้งสองฝ่ายเริ่มที่<b>ดวงชะตา 30</b> (สูงสุด 30) เด็คถูกสับ</li>
+    <li>สุ่มว่าใครได้<b>เริ่มก่อน</b> ผู้เริ่มก่อนจั่ว <b>3 ใบ</b> ผู้เล่นที่สองจั่ว <b>4 ใบ</b> และได้การ์ดพิเศษ <b>"เบี้ยหอยเสี่ยงทาย"</b> (คาถาต้นทุน 0: อาคม +1 เฉพาะเทิร์นที่ใช้) เพื่อชดเชยที่เริ่มทีหลัง</li>
+    <li><b>เปลี่ยนไพ่ (Mulligan)</b>: แตะการ์ดที่ไม่อยากได้ แล้วยืนยัน การ์ดเหล่านั้นถูกสับกลับเข้าเด็คและจั่วใหม่เท่าจำนวน ทำได้ครั้งเดียว</li>
+    <li><b>เทิร์นแรกของแต่ละฝ่ายไม่จั่ว</b> เทิร์นต่อจากนั้นจั่วยามเช้าทุกเทิร์น</li>
+  </ol>
+  <figure><div class="fig" style="max-width:820px"><img src="wiki/img/mulligan.webp" alt="หน้าจอเปลี่ยนไพ่" loading="lazy"></div><figcaption>หน้าจอเปลี่ยนไพ่ แตะการ์ดที่ต้องการเปลี่ยนจะขึ้นป้าย "เปลี่ยน"</figcaption></figure>
+  <div class="note tip">ช่วงต้นเกมควรมีการ์ดต้นทุน 1–3 ในมือ การ์ดต้นทุน 6 ขึ้นไปมักเปลี่ยนทิ้งได้</div>
+</section>
+
+<section id="turn"><h2><span class="no">10</span>ลำดับในหนึ่งเทิร์น</h2>
+  <p>ตัวนับ <b>"เทิร์นของเกม"</b> เริ่มที่ 1 และเพิ่มทีละ 1 ทุกครั้งที่เปลี่ยนผู้เล่น (เทิร์นเราเป็นเลขหนึ่ง เทิร์นศัตรูเป็นเลขถัดไป) ตัวเลขนี้แสดงซ้ายมือกลางกระดาน และใช้นับราหู</p>
+  <div class="flow">
+    <div class="ph"><h4>ยามเช้า (อัตโนมัติ)</h4><ul><li>อาคมสูงสุด +1 (ไม่เกิน 10) แล้วเติมเต็ม</li><li>ตรวจราหูอมจันทร์</li><li>จั่ว 1 ใบ</li><li>ความสามารถ "ต้นเทิร์น" ทำงาน</li><li>พิษทำดาเมจ · ฟื้นฟูฟื้น HP เต็ม</li></ul></div>
+    <div class="ph"><h4>ยามกลางวัน (ตาเรา)</h4><ul><li>ลงยูนิต ใช้คาถา ติดของขลัง วางกับดัก</li><li>สั่งยูนิตโจมตี</li><li>ทำได้กี่อย่างก็ได้ ลำดับใดก็ได้ ตราบที่อาคมพอ</li></ul></div>
+    <div class="ph"><h4>ยามค่ำ (กดจบเทิร์น)</h4><ul><li>บัฟ/ดีบัฟ "เทิร์นนี้" หมดอายุ</li><li>อาคมที่เหลือ → บารมี (รวมไม่เกิน 3)</li><li>นับถอยหลังสถานะ หลับ สายสิญจน์ ห้ามโจมตี</li></ul></div>
+  </div>
+  <h3>การจั่ว</h3>
+  <ul>
+    <li>ถือไพ่ในมือได้สูงสุด <b>5 ใบ</b> ถ้าจั่วตอนมือเต็ม การ์ดที่จั่วได้จะ<b>ลงสุสานทันที</b> (ถูกเผา)</li>
+    <li>ถ้าเด็คหมดแล้วต้องจั่ว จะ<b>เสียดวงชะตา 1, 2, 3 …</b> เพิ่มขึ้นทุกครั้ง</li>
+  </ul>
+  <div class="note">ในการดวลกับผู้เล่นจะมีเวลาเทิร์นละ <b>75 วินาที</b> (กำลังพัฒนา) การดวลกับ AI ไม่จับเวลา</div>
+</section>
+
+<section id="energy"><h2><span class="no">11</span>อาคมและบารมี</h2>
+  <div class="two">
+    <div>
+      <p><b>อาคม ◆ (เพชรสีฟ้า)</b> คือพลังงานหลัก ใช้ได้ภายในเทิร์นนั้น เทิร์นแรกมี 1 แล้วเพิ่มเทิร์นละ 1 จนสูงสุด 10</p>
+      <p><b>บารมี ● (ลูกปัดทอง)</b> เกิดจากอาคมที่<b>เหลือ</b>ตอนจบเทิร์น สะสมได้สูงสุด 3 ใช้จ่ายได้เฉพาะ<b>คาถา กับดัก และของขลัง</b> (ใช้กับยูนิตไม่ได้) เกมจะหักบารมีก่อนแล้วจึงหักอาคม</p>
+      <div class="note tip">เทิร์นที่ไม่มีการ์ดให้ลงพอดีอาคม อย่ากังวล อาคมที่เหลือกลายเป็นบารมีไว้เปิดคาถาใหญ่ทีหลังได้</div>
+    </div>
+    <div class="tw"><table>
+      <tr><th>เทิร์นของเรา (ครั้งที่)</th><th>อาคมสูงสุด</th></tr>
+      <tr><td>1</td><td>1</td></tr><tr><td>2</td><td>2</td></tr><tr><td>3</td><td>3</td></tr><tr><td>5</td><td>5</td></tr><tr><td>10 ขึ้นไป</td><td>10 (เพดาน)</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<section id="playcard"><h2><span class="no">12</span>การลงการ์ด</h2>
+  <ul>
+    <li>ต้องจ่าย<b>ต้นทุน</b>ครบ บางการ์ดต้นทุนเปลี่ยนได้ เช่น สมเด็จพระเจ้าตากสินลดต้นทุนเมื่อดวงชะตาเราเหลือน้อย</li>
+    <li><b>ยูนิต</b>ลงในช่องว่างที่เลือก สนามเต็ม 5 ตัวแล้วลงยูนิตเพิ่มไม่ได้ (โทเคนที่ถูกเรียกเกินจะไม่เกิด)</li>
+    <li>ยูนิตที่<b>เพิ่งลงโจมตีไม่ได้</b>ในเทิร์นนั้น ยกเว้นมี<b>ฮึกเหิม</b></li>
+    <li>ถ้าการ์ดต้องเลือกเป้า เกมจะให้เลือกหลังวางการ์ด เป้าที่เลือกได้จะ<b>เรืองแสง</b> คาถาที่ไม่มีเป้าถูกต้องเลยจะใช้ไม่ได้ ส่วนยูนิตที่ปลุกเสกแล้วไม่มีเป้า จะลงได้แต่ความสามารถนั้นไม่เกิดผล</li>
+    <li>การ์ดบางใบให้<b>เลือกผล</b> (เช่น +1/+1 หรือได้คีย์เวิร์ด) หรือ<b>เลือกจากสุสาน</b> จะมีหน้าต่างให้เลือก</li>
+    <li><b>กับดัก</b>วางคว่ำในช่องกับดักว่าง ๑ ใน ๒ ช่อง และทำงานได้ตั้งแต่เทิร์นศัตรูถัดไป</li>
+  </ul>
+  <p>ลำดับเมื่อยูนิตลงสนาม: วางบนสนาม → ออร่าเริ่มทำงาน → <b>ปลุกเสก</b> → การ์ดอื่นที่รอเหตุการณ์ "ศัตรูลงยูนิต" ทำงาน</p>
+</section>
+
+<section id="attack"><h2><span class="no">13</span>การโจมตี</h2>
+  <figure><div class="fig" style="max-width:900px"><img src="wiki/img/duel_target.webp" alt="การเลือกเป้าโจมตี" loading="lazy"></div><figcaption>เมื่อเลือกยูนิตที่จะโจมตี เป้าที่ตีได้จะขึ้นกรอบแดง (รวมกรอบคู่ดวลถ้าตีดวงชะตาได้)</figcaption></figure>
+  <h3>กติกาหลัก</h3>
+  <ul>
+    <li>ยูนิตโจมตีได้<b>เทิร์นละ 1 ครั้ง</b> (บางใบได้ 2) เป้าหมายคือ<b>ยูนิตศัตรู</b>หรือ<b>ดวงชะตาศัตรู</b></li>
+    <li>ถ้าศัตรูมี<b>ทวารบาล</b>ที่ยังใช้งานได้ ต้องตีทวารบาลก่อน ยกเว้นผู้โจมตีมี<b>เหาะเหิน</b></li>
+    <li>ยูนิตที่มี<b>กำบัง</b>ถูกเลือกเป็นเป้าไม่ได้ จนกว่ามันจะโจมตีครั้งแรก</li>
+    <li>ยูนิตที่ <b>ATK เป็น 0</b> โจมตีไม่ได้</li>
+  </ul>
+  <h3>ยูนิตปะทะยูนิต</h3>
+  <p>ทั้งคู่ทำดาเมจเท่า ATK ใส่กัน<b>พร้อมกัน</b> ฝ่ายที่ธาตุชนะคูณ 1.5 ยูนิตที่ HP เหลือ 0 หรือน้อยกว่าตาย</p>
+  <div class="combat" id="combatEx"></div>
+  <h3>ตีดวงชะตา</h3>
+  <p>ทำดาเมจเท่า ATK <b>ไม่มีตัวคูณธาตุ</b> และ<b>ไม่มีการตอบโต้</b></p>
+  <h3>ลำดับเหตุการณ์</h3>
+  <ol class="steps">
+    <li>ประกาศโจมตี (กำบังของผู้โจมตีหายถาวร)</li>
+    <li>ความสามารถตอนโจมตีของผู้โจมตีทำงาน</li>
+    <li>กับดักของฝ่ายรับที่รอ "ศัตรูโจมตี" ทำงาน — อาจยกเลิกการโจมตีได้</li>
+    <li>ถ้าผู้โจมตียังอยู่ คิดดาเมจ</li>
+    <li>ดูดชีพ → ตรวจความตาย (อมตะ) → ความสามารถตอนฆ่า/ถูกโจมตีทำงาน</li>
+  </ol>
+</section>
+
+<section id="keywords"><h2><span class="no">14</span>คีย์เวิร์ดทั้งหมด</h2>
+  <p>คีย์เวิร์ดคือคำตัวหนาบนการ์ด แต่ละคำมีกฎตายตัว ตัวเลขท้ายแถวคือจำนวนแบบการ์ดที่มีคีย์เวิร์ดนั้นตั้งแต่ต้น</p>
+  <div class="tw"><table class="kw" id="kwTable"></table></div>
+</section>
+
+<section id="status"><h2><span class="no">15</span>สถานะผิดปกติ</h2>
+  <div class="tw"><table>
+    <tr><th>ป้ายบนการ์ด</th><th>ผล</th><th>หายเมื่อ</th></tr>
+    <tr><td>หลับ</td><td>โจมตีไม่ได้ ความสามารถตอนโจมตีไม่ทำงาน การ์ดจะดูมืดลง</td><td>นับลดตอนยามค่ำของเจ้าของ</td></tr>
+    <tr><td>สายสิญจน์</td><td>ลบคีย์เวิร์ด ออร่า และความสามารถทั้งหมดชั่วคราว (ATK/HP ไม่เปลี่ยน) ทวารบาลที่ถูกสายสิญจน์ไม่ต้องตีก่อน อมตะไม่ทำงาน</td><td>ตามจำนวนเทิร์นที่ระบุ (ไม่ระบุ = ถาวร) หรือถูกล้าง</td></tr>
+    <tr><td>ติดพิษ</td><td>ยามเช้าของเจ้าของเสีย HP เท่าค่าพิษ 2 ครั้งแล้วหาย พิษไม่ซ้อนกัน ใช้ค่าที่มากกว่าและเริ่มนับใหม่</td><td>ครบ 2 ครั้ง หรือถูกล้าง</td></tr>
+    <tr><td>ห้ามตี</td><td>โจมตีไม่ได้</td><td>ตามจำนวนเทิร์นที่ระบุ</td></tr>
+    <tr><td>ต้องหอก</td><td>หอกโมกขศักดิ์ของกุมภกรรณ: โจมตีไม่ได้และไม่มีความสามารถ</td><td>รักษาได้ด้วยยาสังกรณีตรีชวาเท่านั้น</td></tr>
+  </table></div>
+  <p>การ์ดที่<b>ล้าง</b>สถานะ (เช่น ยาวาสนา หมอยาว่านร้อยแปด) ลบพิษ สายสิญจน์ หลับ และห้ามตี ได้พร้อมกัน</p>
+</section>
+
+<section id="rahu"><h2><span class="no">16</span>ราหูอมจันทร์</h2>
+  <p>ดวงจันทร์กลางกระดานคือนาฬิกาของราหู ช่วงราหูเริ่มที่<b>เทิร์นของเกม 3, 6, 9 …</b> และกินเวลา <b>2 เทิร์น</b> (ของทั้งสองฝ่าย) ระหว่างนั้นดวงจันทร์จะเรืองแสงม่วงและมีข้อความ "ราหูอมจันทร์"</p>
+  <div class="rahu" id="rahuRow"></div>
+  <div class="tw"><table>
+    <tr><th>ระหว่างช่วงราหู</th><th>ผล</th></tr>
+    <tr><td>ยูนิตเผ่าผีทุกตัว</td><td>ATK +1</td></tr>
+    <tr><td>ยูนิตเผ่าเทพทุกตัว</td><td>ATK −1 (ต่ำสุด 0) ยกเว้นพระราหู</td></tr>
+    <tr><td>ผู้ปกครอง</td><td>ไม่ได้รับผล</td></tr>
+    <tr><td>การ์ดที่มีข้อความ "ราหูอมจันทร์:" (คีย์เวิร์ดราหูจร)</td><td>พลังพิเศษทำงานตลอดช่วง หมดเมื่อราหูคลาย</td></tr>
+  </table></div>
+  <p>การ์ดบางใบ<b>เรียกราหูได้ทันที</b> (เช่น พิธีบูชาราหู พระราหู) ถ้าเรียกทับช่วงเดิม จะใช้วันสิ้นสุดที่ไกลกว่า</p>
+  <div class="note tip">ทัพผีควร<b>รอราหูก่อนบุก</b> ส่วนทัพเทพควรชิงจังหวะก่อนราหูมาถึง ดูเลขเทิร์นกลางกระดานเพื่อวางแผน</div>
+</section>
+
+<section id="death"><h2><span class="no">17</span>ความตาย สุสาน ส่งวิญญาณ</h2>
+  <ul>
+    <li>หลังทุกการกระทำ เกมตรวจยูนิตที่ HP ≤ 0 พร้อมกัน แล้วย้ายลง<b>สุสาน</b> (เรียงช่องซ้ายไปขวา ผู้เล่นปัจจุบันก่อน)</li>
+    <li><b>สุสาน</b>เปิดดูได้ทั้งสองฝ่าย การ์ดหลายใบ<b>ชุบชีวิต</b>หรือ<b>กลืน</b>การ์ดจากสุสานได้</li>
+    <li><b>ส่งวิญญาณ</b> = นำออกจากเกมถาวร ไปอยู่ในเขตส่งวิญญาณ ไม่ลงสุสาน ชุบชีวิตไม่ได้ และ<b>สิ้นใจไม่ทำงาน</b></li>
+    <li><b>อมตะ</b>: ครั้งแรกที่จะตาย ลุกกลับขึ้นช่องเดิมด้วย HP 1 (บัฟถาวรยังอยู่ ดีบัฟและสถานะหายหมด) แล้วเสียอมตะ ใช้ไม่ได้ถ้าถูกส่งวิญญาณหรือถูกสายสิญจน์อยู่</li>
+    <li><b>ของขลังที่ติดยูนิต</b>ลงสุสานพร้อมยูนิต</li>
+    <li><b>โทเคน</b> (ยูนิตที่เกิดจากเอฟเฟกต์) ตายแล้วหายไปเลย ไม่ลงสุสาน</li>
+    <li>ถ้าเอฟเฟกต์ส่งต่อกันเกิน 100 ครั้งในการกระทำเดียว เกมจะหยุดคิวเพื่อกันวนไม่รู้จบ</li>
+  </ul>
+  <div class="note">กลไกพิเศษเฉพาะใบ เช่น <b>อวตาร</b>ของพระนารายณ์ (ตายแล้วกลับมา +2/+2 ได้ 2 ครั้ง แม้ถูกส่งวิญญาณ) และ<b>กล่องดวงใจ</b>ของทศกัณฐ์ (ไม่ตายตราบที่กล่องดวงใจในช่องกับดักยังอยู่ ต้องโจมตีทำลายกล่องก่อน)</div>
+</section>
+
+<section id="great"><h2><span class="no">18</span>กฎความยิ่งใหญ่</h2>
+  <ul>
+    <li>การ์ดระดับต่ำกว่าผู้สรรสร้าง <b>ทำลาย ขโมย ส่งวิญญาณ ล็อกเป้า หรือแปลงร่าง</b>ยูนิตเผ่าเทพระดับผู้สรรสร้างไม่ได้ (ดาเมจปกติยังทำได้)</li>
+    <li>ผู้ปกครองและเทพเจ้า ถูกขโมยไม่ได้ ถูกสิงร่างไม่ได้ และถูกฟื้นจากสุสานศัตรูมาเป็นของเราไม่ได้</li>
+    <li>ข้อความในเกมที่พูดถึงการ์ดผู้ปกครองใช้ถ้อยคำสุภาพเสมอ</li>
+  </ul>
+</section>
+
+<section id="win"><h2><span class="no">19</span>แพ้ ชนะ เสมอ</h2>
+  <ul>
+    <li>ดวงชะตาฝ่ายใดเหลือ <b>0 หรือน้อยกว่า</b> ฝ่ายนั้นแพ้ ถ้าเหลือ 0 พร้อมกันทั้งคู่ = <b>เสมอ</b></li>
+    <li>กด<b>ยอมแพ้</b>ได้ทุกเมื่อ</li>
+    <li>ครบ <b>40 เทิร์นของเกม</b> ฝ่ายที่ดวงชะตามากกว่าชนะ เท่ากันเสมอ</li>
+    <li>ในการดวลผู้เล่น หลุดการเชื่อมต่อเกิน 60 วินาทีนับเป็นแพ้ (กำลังพัฒนา)</li>
+  </ul>
+</section>
+
+<section id="ai"><h2><span class="no">20</span>ดวลกับ AI (หมอผีเฒ่า)<span class="live">เล่นได้แล้ว</span></h2>
+  <p>กดเมนู <b>"ดวล"</b> เลือกเด็คและระดับฝีมือ แล้วกด "เริ่มดวล" ผู้เล่นใหม่เลือก<b>เด็คสำเร็จรูป</b>ยืมเล่นได้เลย</p>
+  <div class="tw"><table>
+    <tr><th>ระดับ</th><th>ลักษณะ</th></tr>
+    <tr><td>ง่าย</td><td>เล่นตามสถานการณ์แต่พลาดบ้าง เหมาะกับการหัดเล่น</td></tr>
+    <tr><td>ปกติ</td><td>เลือกทางที่ได้เปรียบที่สุดในตานั้น</td></tr>
+    <tr><td>ยาก</td><td>คิดล่วงหน้าว่าเราจะสวนกลับอย่างไรในเทิร์นถัดไป</td></tr>
+  </table></div>
+  <div class="note">ช่วง CBT การดวลกับ AI ยังไม่มีรางวัลโกลด์ เพราะผลคำนวณในเครื่องผู้เล่น รางวัลจะมากับการดวลผู้เล่นที่เซิร์ฟเวอร์เป็นกรรมการ</div>
+</section>
+
+<section id="deck"><h2><span class="no">21</span>กติกาจัดเด็ค</h2>
+  <div class="tw"><table>
+    <tr><th>กติกา</th><th>รายละเอียด</th></tr>
+    <tr><td>จำนวน</td><td>เด็คต้องมี <b>30 ใบพอดี</b></td></tr>
+    <tr><td>ชื่อเดียวกันต่อเด็ค</td><td>ธรรมดา/ทั่วไป 3 · หายาก/มหากาพย์ 2 · ตำนาน/พระเจ้า 1 · ผู้สรรสร้างได้แค่ 1 ใบทั้งเด็ค</td></tr>
+    <tr><td>การ์ดระดับสูง</td><td>ตำนาน + พระเจ้า + ผู้สรรสร้าง <b>รวมไม่เกิน 3 ใบ</b></td></tr>
+    <tr><td>หมวดพิเศษ</td><td>เทพเจ้า + ผู้ปกครอง <b>รวมไม่เกิน 3 ใบ</b></td></tr>
+    <tr><td>การ์ดที่ใช้</td><td>ใช้ได้เฉพาะการ์ดที่มีในคลัง และจำนวนไม่เกินที่มีอยู่</td></tr>
+  </table></div>
+  <div class="note tip">ห้องพักตรวจกติกาให้อัตโนมัติ ถ้าผิดจะขึ้นเหตุผล เด็คที่ผ่านกติกาเท่านั้นจึงเลือกไปดวลได้</div>
+</section>
+
+<section id="room"><h2><span class="no">22</span>ห้องพักและเด็ค ๓ เซ็ต</h2>
+  <figure><div class="fig"><img src="wiki/img/room.webp" alt="ห้องพักส่วนตัว จัดเด็ค" loading="lazy"></div><figcaption>ซ้าย: เด็คที่กำลังจัด · ขวา: การ์ดในคลังที่ใส่ได้ กรองตามชื่อ ระดับ ประเภทได้</figcaption></figure>
+  <ul>
+    <li>มีเด็คได้ <b>3 เซ็ต</b> ตั้งชื่อเองได้ แตะแท็บด้านบนเพื่อสลับเซ็ต</li>
+    <li>แตะการ์ดฝั่งคลังเพื่อใส่ แตะการ์ดในเด็คเพื่อเอาออก</li>
+    <li>ปุ่ม <b>"จัดให้อัตโนมัติ"</b> เลือกการ์ดจากคลังให้ครบ 30 ใบตามกติกา</li>
+    <li>ผูกเด็คกับ<b>โหมดการดวล</b>ได้ (ดวล AI, อารีน่า, ดวลเพื่อน, กิลด์ ฯลฯ) เซ็ตเดียวผูกได้หลายโหมด</li>
+    <li>ตอนลงขายการ์ดในตลาด ถ้าการ์ดในเด็คเหลือไม่พอ เกมจะเอาออกจากเด็คให้อัตโนมัติ</li>
+  </ul>
+</section>
+
+<section id="starter"><h2><span class="no">23</span>เด็คสำเร็จรูป</h2>
+  <p>เด็ค 4 ชุดนี้ให้ยืมเล่นกับ AI ได้ทันทีแม้ยังไม่มีการ์ด และเป็นเด็คที่หมอผีเฒ่าใช้สู้กับเรา แต่ละชุดมีระดับตำนาน 1 ใบ ไม่มีพระเจ้าและผู้สรรสร้าง</p>
+  <div class="decks" id="deckList"></div>
+</section>
+
+<section id="strategy"><h2><span class="no">24</span>กลยุทธ์เบื้องต้น</h2>
+  <div class="cols3" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+    <div class="mini"><h4>ลงการ์ดให้คุ้มอาคม</h4>พยายามใช้อาคมให้หมดทุกเทิร์น จัดเด็คให้มีการ์ดต้นทุน 1–3 พอสมควร ช่วงต้นเกมจะได้ไม่ว่าง</div>
+    <div class="mini"><h4>แลกให้คุ้ม</h4>ก่อนสั่งโจมตี ดูธาตุและ HP ของทั้งสองฝ่าย ตีให้ศัตรูตายโดยตัวเรารอด หรือแลกตัวเล็กของเรากับตัวใหญ่ของศัตรู</div>
+    <div class="mini"><h4>ทวารบาลคือกำแพง</h4>ยูนิตทวารบาล HP สูงช่วยกันดวงชะตาได้ดี ส่วนตัวที่เหาะเหินคือทางลัดตีหน้าศัตรู</div>
+    <div class="mini"><h4>นับราหู</h4>เด็คผีรอเทิร์น 3–4, 6–7, 9–10 ก่อนบุกหนัก เด็คเทพรีบปิดเกมก่อนราหู</div>
+    <div class="mini"><h4>เก็บคาถาไว้แก้ทาง</h4>คาถาทำลายหรือสายสิญจน์ เก็บไว้ใช้กับยูนิตตัวอันตรายของศัตรู อย่าใช้กับตัวเล็ก</div>
+    <div class="mini"><h4>ระวังกับดัก</h4>ศัตรูมีกับดักคว่ำอยู่ ลองตีด้วยตัวเล็กก่อน ให้กับดักทำงานกับตัวที่เสียน้อยกว่า</div>
+    <div class="mini"><h4>อย่าให้มือเต็ม</h4>ถือครบ 5 ใบตอนจั่ว การ์ดจะถูกเผาทิ้ง ลงการ์ดที่ไม่จำเป็นต้องเก็บก่อนจบเทิร์น</div>
+    <div class="mini"><h4>ส่งวิญญาณตัวอมตะ</h4>ยูนิตอมตะและพวกที่มีสิ้นใจแรง ๆ ควรกำจัดด้วยการส่งวิญญาณ จะไม่กลับมาอีก</div>
+    <div class="mini"><h4>ใช้บารมี</h4>เทิร์นที่อาคมเหลือ ไม่เสียเปล่า กลายเป็นบารมีไว้เปิดคาถาหรือกับดักพร้อมยูนิตใหญ่ในเทิร์นหน้า</div>
+  </div>
+</section>
+
+<section id="gold"><h2><span class="no">25</span>โกลด์และแต้มบุญ</h2>
+  <div class="two">
+    <div>
+      <h3 style="margin-top:0">โกลด์</h3>
+      <p>เงินหลักของเกม ใช้สุ่มการ์ดและซื้อในตลาดกลาง บัญชีใหม่ได้ <b>20,000</b> ได้เพิ่มจากรางวัลบทเรียน และการขายการ์ดในตลาด</p>
+      <p>ระบบตั้งใจให้โกลด์<b>ถูกเผา</b>ออกจากเกมเพื่อรักษามูลค่า: ค่าสุ่มตู้ทั้งหมด และค่าธรรมเนียมตลาด 5%</p>
+      <p>แหล่งรายได้ประจำ เช่น ภารกิจรายวัน/สัปดาห์ และรางวัลดวลผู้เล่น <span class="soon">กำลังพัฒนา</span></p>
+    </div>
+    <div>
+      <h3 style="margin-top:0">แต้มบุญ</h3>
+      <p>ได้ <b>1 แต้มต่อการสุ่มตู้ปกติ 1 ครั้ง</b> ผูกกับบัญชี เทรดไม่ได้ ซื้อด้วยโกลด์ไม่ได้</p>
+      <p>เป้าหมายระยะยาว: <b>แลกการ์ดพระเจ้า 50,000 แต้มบุญ</b> (เฉพาะแบบที่ยังออกไม่ครบ) และร้านแต้มบุญสำหรับการ์ดที่เลือกได้ <span class="soon">กำลังพัฒนา</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="gacha"><h2><span class="no">26</span>ตู้สุ่มการ์ด</h2>
+  <div class="two">
+    <figure><div class="fig"><img src="wiki/img/gacha.webp" alt="ตู้สุ่มการ์ด" loading="lazy"></div><figcaption>ตู้สุ่มบุษบกทอง แถบด้านซ้ายบอกสถานะการันตี</figcaption></figure>
+    <figure><div class="fig"><img src="wiki/img/gacha_result.webp" alt="ผลการสุ่ม 10 ครั้ง" loading="lazy"></div><figcaption>ผลการสุ่ม ๑๐ ครั้ง เปิดทีละใบ แสงตามระดับสูงสุดที่ได้</figcaption></figure>
+  </div>
+  <div class="tw"><table>
+    <tr><th>ระดับ</th><th>อัตรา</th><th>หมายเหตุ</th></tr>
+    <tr><td>ธรรมดา</td><td>60.109%</td><td></td></tr>
+    <tr><td>ทั่วไป</td><td>27%</td><td></td></tr>
+    <tr><td>หายาก</td><td>9%</td><td></td></tr>
+    <tr><td>มหากาพย์</td><td>2.89%</td><td></td></tr>
+    <tr><td>ตำนาน</td><td>1%</td><td>หลังสุ่มครั้งที่ 150 ที่ยังไม่ได้ตำนาน โอกาสเพิ่ม +0.5% ทุกครั้ง · <b>การันตีภายใน 200 ครั้ง</b></td></tr>
+    <tr><td>พระเจ้า</td><td>0.001%</td><td>แบบละ 3 ใบทั้งเซิร์ฟเวอร์ ถ้าออกครบแล้วจะได้ตำนานแทน</td></tr>
+    <tr><td>ผู้สรรสร้าง</td><td>0%</td><td>ไม่อยู่ในตู้ปกติ ได้จาก<a href="#event">ตู้ผู้สรรสร้าง</a>เท่านั้น</td></tr>
+  </table></div>
+  <ul>
+    <li>ราคา <b>100 โกลด์/ครั้ง</b> หรือ <b>1,000 โกลด์/10 ครั้ง</b> โกลด์ถูกเผาทั้งหมด</li>
+    <li>ได้ระดับตำนานหรือพระเจ้า ตัวนับการันตีจะเริ่มใหม่</li>
+    <li>การสุ่มทำบนเซิร์ฟเวอร์ ผลแก้ไขจากเครื่องผู้เล่นไม่ได้</li>
+    <li>ทุกครั้งที่สุ่มได้ <b>แต้มบุญ +1</b> และนับเข้า<b>จำนวนครั้งสะสมตลอดชีพ</b> ใช้เป็นสิทธิ์เข้าตู้ผู้สรรสร้าง</li>
+  </ul>
+</section>
+
+<section id="limited"><h2><span class="no">27</span>การ์ดจำนวนจำกัด</h2>
+  <ul>
+    <li><b>พระเจ้า</b>: 4 แบบ แบบละ <b>3 ใบ</b>ทั้งเซิร์ฟเวอร์ รวม 12 ใบ</li>
+    <li><b>ผู้สรรสร้าง</b>: 10 แบบ แบบละ <b>1 ใบ</b>ทั้งเซิร์ฟเวอร์ รวม 10 ใบ</li>
+    <li>ทุกใบมี<b>เลขรันเลขไทย</b> รูปแบบ "ลำดับ/ทั้งหมด" เช่น ๑/๓ ๒/๓ ๓/๓ และ ๑/๑ แสดงที่ขอบล่างการ์ด</li>
+    <li>ห้ามผลิตเพิ่มไม่ว่ากรณีใด รวมถึงกิจกรรมและของขวัญจากแอดมิน</li>
+    <li>ในการดวล การ์ดที่มีเลขรันทำงานเหมือนการ์ดปกติ เลขมีผลแค่การสะสม</li>
+  </ul>
+</section>
+
+<section id="event"><h2><span class="no">28</span>ตู้ผู้สรรสร้าง</h2>
+  <ul>
+    <li>ปรากฏในหน้าตู้สุ่มเฉพาะเมื่อแอดมิน<b>เปิดรอบ</b> (เช่น เทศกาลลอยกระทง) รอบละการ์ดผู้สรรสร้าง 1 แบบที่ยังไม่มีเจ้าของ</li>
+    <li>สิทธิ์เข้า: สุ่มตู้ปกติสะสม<b>ครบ 10,000 ครั้ง</b> (นับตลอดชีพ ไม่รีเซ็ต)</li>
+    <li>ค่าสุ่ม <b>5,000 โกลด์/ครั้ง</b> โอกาส <b>0.5%</b> ไม่มีการันตี ไม่มีรางวัลปลอบใจ โกลด์ถูกเผาทั้งหมด</li>
+    <li>มีผู้ได้ → รอบจบทันที ประกาศทั้งเซิร์ฟเวอร์โดย<b>ไม่บอกชื่อ</b>ผู้ได้</li>
+  </ul>
+</section>
+
+<section id="market"><h2><span class="no">29</span>ตลาดกลาง</h2>
+  <figure><div class="fig"><img src="wiki/img/market.webp" alt="ตลาดกลาง" loading="lazy"></div><figcaption>แท็บ ซื้อการ์ด / ลงขายการ์ดของฉัน / รายการที่ฉันลงขาย และประกาศตลาดด้านขวา</figcaption></figure>
+  <ol class="steps">
+    <li><b>ซื้อ</b>: แท็บ "ซื้อการ์ด" กดซื้อ ระบบโอนโกลด์และการ์ดในขั้นตอนเดียว ถ้ามีคนซื้อตัดหน้าไปก่อน จะแจ้งว่ารายการถูกขายแล้ว</li>
+    <li><b>ขาย</b>: แท็บ "ลงขายการ์ดของฉัน" ตั้งราคา (ขั้นต่ำ 10 โกลด์) แล้วกดลงขาย ผู้เล่นทุกคนเห็นทันที การ์ดที่ลงขายจะออกจากคลังชั่วคราว</li>
+    <li><b>ได้เงิน</b>: เมื่อขายออก ได้โกลด์ทันทีหัก<b>ค่าธรรมเนียม 5%</b> (ถูกเผา) แม้ไม่ได้ออนไลน์อยู่</li>
+    <li><b>ยกเลิก</b>: แท็บ "รายการที่ฉันลงขาย" กดยกเลิก การ์ดกลับเข้าคลัง</li>
+  </ol>
+  <ul>
+    <li>ราคาตลาดโดยประมาณ (ใช้อ้างอิง): ธรรมดา 50 · ทั่วไป 120 · หายาก 400 · มหากาพย์ 1,500 · ตำนาน 8,000</li>
+    <li><b>พ่อค้า NPC</b> (เช่น แม่ค้าตลาดน้ำ นายฮ้อยอีสาน) วางขายการ์ดเสมอ และเติมของเมื่อเหลือน้อย</li>
+    <li>ผู้ขายแสดงเป็น "ผู้เล่น" ไม่เปิดเผยชื่อ การ์ดพระเจ้า/ผู้สรรสร้างที่วางขายและขายได้จะถูกประกาศทั้งเซิร์ฟเวอร์โดยไม่ระบุชื่อ</li>
+  </ul>
+</section>
+
+<section id="collection"><h2><span class="no">30</span>คลังการ์ดและฉบับสะสม</h2>
+  <div class="two">
+    <figure><div class="fig"><img src="wiki/img/coll.webp" alt="คลังการ์ด" loading="lazy"></div><figcaption>คลังการ์ด การ์ดที่ยังไม่มีจะเป็นสีเทา</figcaption></figure>
+    <figure><div class="fig"><img src="wiki/img/zoom.webp" alt="ดูการ์ดขยาย" loading="lazy"></div><figcaption>ขยายการ์ด ซูมด้วยปุ่ม ลูกกลิ้ง หรือนิ้ว เอียงการ์ดเพื่อดูประกาย</figcaption></figure>
+  </div>
+  <p><b>ฉบับสะสม</b>: การ์ดระดับตำนาน พระเจ้า และผู้สรรสร้าง (20 แบบ) มีภาพหน้า-หลังความละเอียดสูง ด้านหลังเป็นลายประจำแบบ สลักเลขรันและตราของแท้ ใช้ดูและเทรดเท่านั้น ไม่มีผลในการดวล ไฟล์เข้ารหัสและเก็บในเครื่องเจ้าของ <span class="soon">กำลังพัฒนา</span></p>
+</section>
+
+<section id="news"><h2><span class="no">31</span>ประกาศทั้งเซิร์ฟเวอร์</h2>
+  <div class="tw"><table>
+    <tr><th>เหตุการณ์</th><th>ข้อความ</th><th>บอกชื่อไหม</th></tr>
+    <tr><td>สุ่มได้การ์ดพระเจ้า</td><td>"ประกาศ: การ์ด … ระดับพระเจ้า ๑/๓ ถูกค้นพบแล้ว"</td><td>ไม่บอก</td></tr>
+    <tr><td>ได้การ์ดผู้สรรสร้าง</td><td>"การ์ด … ระดับผู้สรรสร้าง มีผู้ได้รับไปดูแลต่อแล้ว"</td><td>ไม่บอก</td></tr>
+    <tr><td>วางขาย/ขายได้ในตลาด (พระเจ้า/ผู้สรรสร้าง)</td><td>ประกาศชื่อการ์ดและเลขรัน</td><td>ไม่บอก</td></tr>
+    <tr><td>เทรดตัวต่อตัว (พระเจ้า/ผู้สรรสร้าง)</td><td>"การ์ด … ได้รับการครอบครองโดย {ชื่อผู้รับ}" ผู้รับต้องยืนยันก่อน</td><td>บอกชื่อผู้รับ <span class="soon">กำลังพัฒนา</span></td></tr>
+    <tr><td>ตู้ผู้สรรสร้างเปิด</td><td>"ตู้ผู้สรรสร้างเปิดแล้ว: {ชื่อรอบ}"</td><td>—</td></tr>
+  </table></div>
+  <p>หลังได้การ์ด เจ้าของตั้งได้ว่าจะแสดงชื่อเมื่อใช้การ์ดในดวลหรือไม่ (ค่าเริ่มต้นซ่อน) <span class="soon">กำลังพัฒนา</span></p>
+</section>
+
+<section id="coming"><h2><span class="no">32</span>ระบบที่กำลังพัฒนา</h2>
+  <div class="tw"><table>
+    <tr><th>ระบบ</th><th>รายละเอียดโดยย่อ</th></tr>
+    <tr><td>เทรดการ์ดตัวต่อตัว (1:1)</td><td>ส่งลิงก์หรือ QR ให้เพื่อน ทั้งสองฝ่ายยืนยัน ระบบสลับการ์ดในขั้นตอนเดียว</td></tr>
+    <tr><td>ดวลเพื่อน P2P</td><td>สร้างห้องได้รหัส ลิงก์ และ QR เครื่องสองฝั่งเชื่อมกันตรง ทั้งสองเครื่องตรวจผลกันทุกเทิร์นกันโกง</td></tr>
+    <tr><td>ดวลออนไลน์ / อารีน่า</td><td>เซิร์ฟเวอร์จับคู่และเป็นกรรมการ จับเวลาเทิร์น 75 วินาที มีรางวัลโกลด์</td></tr>
+    <tr><td>ดวลทีม 2v2</td><td>ดวงชะตาทีมรวม 40 เล่นพร้อมกันในเทิร์นเดียว เห็นไพ่เพื่อนร่วมทีม</td></tr>
+    <tr><td>กิลด์</td><td>สมาชิก แชท คลังกิลด์ ลานฝึก ด่านฝึก AI โจทย์ปริศนารายสัปดาห์</td></tr>
+    <tr><td>กติกาพิเศษ (Ruleset)</td><td>เช่น คืนราหูนิรันดร์ ศึกสามัญชน ศึกธาตุเดียว ดวลสายฟ้า สงกรานต์ (น้ำ ×2)</td></tr>
+    <tr><td>ภารกิจ ร้านแต้มบุญ ตู้นิรภัยฉบับสะสม</td><td>ตามเอกสารเศรษฐกิจของเกม</td></tr>
+  </table></div>
+</section>
+
+<section id="cards"><h2><span class="no">33</span>การ์ดทุกใบ</h2>
+  <div class="gal-f">
+    <input id="gq" type="search" placeholder="ค้นหาชื่อหรือข้อความการ์ด" aria-label="ค้นหาการ์ด">
+    <select id="gr" aria-label="ระดับ"><option value="">ทุกระดับ</option></select>
+    <select id="gt" aria-label="ชนิด"><option value="">ทุกชนิด</option></select>
+    <select id="gb" aria-label="เผ่า"><option value="">ทุกเผ่า</option></select>
+    <select id="ge" aria-label="ธาตุ"><option value="">ทุกธาตุ</option></select>
+    <select id="gk" aria-label="คีย์เวิร์ด"><option value="">ทุกคีย์เวิร์ด</option></select>
+    <select id="gs" aria-label="เรียง"><option value="id">เรียงตามรหัส</option><option value="cost">ต้นทุนน้อย → มาก</option><option value="rar">ระดับสูง → ต่ำ</option></select>
+  </div>
+  <p class="count" id="gcount"></p>
+  <div class="gal" id="gal"></div>
+</section>
+
+<section id="tokens"><h2><span class="no">34</span>โทเคน</h2>
+  <p>โทเคนคือยูนิตหรือของขลังที่เกิดจากความสามารถของการ์ด ไม่อยู่ในเด็ค ตายแล้วหายไปเลย ไม่ลงสุสานและชุบชีวิตไม่ได้</p>
+  <div class="tw"><table id="tokTable"></table></div>
+</section>
+
+<section id="glossary"><h2><span class="no">35</span>อภิธานศัพท์</h2>
+  <div class="tw"><table>
+    <tr><th>คำ</th><th>ความหมาย</th></tr>
+    <tr><td>ดวงชะตา</td><td>พลังชีวิตของผู้เล่น เริ่ม 30</td></tr>
+    <tr><td>อาคม</td><td>พลังงานใช้ลงการ์ดในเทิร์นนั้น</td></tr>
+    <tr><td>บารมี</td><td>อาคมที่เหลือสะสมไว้ สูงสุด 3 ใช้กับคาถา/กับดัก/ของขลัง</td></tr>
+    <tr><td>สุสาน</td><td>ที่อยู่ของการ์ดที่ตายหรือใช้แล้ว</td></tr>
+    <tr><td>เขตส่งวิญญาณ</td><td>ที่อยู่ของการ์ดที่ออกจากเกมถาวร</td></tr>
+    <tr><td>เทิร์นของเกม</td><td>ตัวนับที่เพิ่มทุกครั้งที่เปลี่ยนผู้เล่น ใช้นับราหูและครบ 40 เทิร์น</td></tr>
+    <tr><td>ยามเช้า / ยามกลางวัน / ยามค่ำ</td><td>ช่วงต้นเทิร์น ช่วงเล่น และช่วงจบเทิร์น</td></tr>
+    <tr><td>ปลุกเสก / สิ้นใจ</td><td>ความสามารถตอนลงการ์ด / ตอนตาย</td></tr>
+    <tr><td>ออร่า</td><td>ความสามารถต่อเนื่องที่มีผลตลอดเวลาที่การ์ดอยู่บนสนาม เช่น "ยูนิตเราทุกตัว +0/+2"</td></tr>
+    <tr><td>โทเคน</td><td>ยูนิตที่เกิดจากเอฟเฟกต์ ตายแล้วหายไป</td></tr>
+    <tr><td>เลขรัน</td><td>หมายเลขเลขไทยของการ์ดจำนวนจำกัด เช่น ๒/๓</td></tr>
+    <tr><td>แต้มบุญ</td><td>แต้มจากการสุ่ม ใช้แลกการ์ดพระเจ้าและของในร้านแต้มบุญ</td></tr>
+    <tr><td>การันตี (pity)</td><td>ตัวนับที่รับประกันได้ระดับตำนานภายใน 200 ครั้ง</td></tr>
+    <tr><td>CBT</td><td>ช่วงทดสอบปิด ข้อมูลจะถูกรีเซตเมื่อสิ้นสุด</td></tr>
+  </table></div>
+</section>
+
+<section id="faq" class="faq"><h2><span class="no">36</span>คำถามที่พบบ่อย</h2>
+  <details><summary>ทำไมยูนิตของฉันโจมตีไม่ได้?</summary><p>เป็นได้หลายสาเหตุ: เพิ่งลงในเทิร์นนี้ (ไม่มีฮึกเหิม) · โจมตีไปแล้วในเทิร์นนี้ · ATK เป็น 0 · หลับ ห้ามตี หรือต้องหอก แตะยูนิตแล้วเกมจะบอกเหตุผล</p></details>
+  <details><summary>ทำไมฉันตีดวงชะตาศัตรูไม่ได้?</summary><p>ศัตรูมียูนิตทวารบาลอยู่ ต้องตีทวารบาลก่อน หรือใช้ยูนิตที่มีเหาะเหิน ยกเว้นทวารบาลตัวนั้นถูกสายสิญจน์หรือมีกำบังอยู่</p></details>
+  <details><summary>ทำไมเลือกยูนิตศัตรูบางตัวเป็นเป้าไม่ได้?</summary><p>ตัวนั้นอาจมีกำบัง หรือการ์ดของเรามีเงื่อนไข เช่น ใช้กับผู้ปกครอง/เทพไม่ได้ หรือต้นทุนต้องไม่เกินที่กำหนด เป้าที่เลือกได้จะเรืองแสงเสมอ</p></details>
+  <details><summary>การ์ดในมือหายไปเอง?</summary><p>ถ้ามือเต็ม 5 ใบตอนจั่ว การ์ดที่จั่วได้จะลงสุสานทันที เปิดดูได้ที่ปุ่มสุสาน และดูได้ในบันทึกการเล่น</p></details>
+  <details><summary>ธาตุใช้กับคาถาไหม?</summary><p>ไม่ใช้ ตัวคูณ 1.5 ใช้เฉพาะยูนิตปะทะยูนิต</p></details>
+  <details><summary>ทำลาย กับ ส่งวิญญาณ ต่างกันอย่างไร?</summary><p>ทำลายส่งลงสุสาน อมตะและสิ้นใจยังทำงาน และอาจถูกชุบชีวิตได้ ส่วนส่งวิญญาณนำออกจากเกมถาวร ไม่มีอะไรทำงานต่อ</p></details>
+  <details><summary>สุ่มตู้แล้วได้การ์ดซ้ำ ทำอะไรได้บ้าง?</summary><p>ใส่เด็คได้ตามลิมิต หรือลงขายในตลาดกลาง ระบบถวายการ์ดซ้ำเป็นแต้มบุญกำลังพัฒนา</p></details>
+  <details><summary>ทำไมเลขทั้งหมดในเกมเป็นเลขไทย?</summary><p>เพื่อบรรยากาศไทยเต็มรูปแบบ ช่องกรอกราคาในตลาดพิมพ์เลขอารบิกได้ ระบบแปลงเป็นเลขไทยให้เอง</p></details>
+  <details><summary>ข้อมูลของฉันจะหายไหม?</summary><p>ช่วง CBT ข้อมูลทั้งหมดจะถูกรีเซตเมื่อสิ้นสุดการทดสอบ</p></details>
+</section>
+
+<section id="cbt"><h2><span class="no">37</span>ช่วงทดสอบ CBT</h2>
+  <ul>
+    <li>เปิดให้เห็นการ์ดทุกใบ เพื่อให้ทดสอบได้เต็มที่</li>
+    <li>บัญชี โกลด์ การ์ด และเด็ค <b>จะถูกรีเซต</b>เมื่อสิ้นสุดการทดสอบ</li>
+    <li>เจอปัญหา กดปุ่ม <b>"CBT · แจ้งปัญหา"</b> มุมขวาบนในเกม</li>
+    <li>ตัวเลข อัตรา และราคาในคู่มืออาจปรับระหว่างทดสอบ</li>
+  </ul>
+</section>
+</main>
+</div>
+
+<div class="dlg" id="dlg" role="dialog" aria-modal="true" aria-label="รายละเอียดการ์ด"><div class="in"><button class="x" id="dlgX" aria-label="ปิด">✕</button><div id="dlgCard"></div><div id="dlgInfo"></div></div></div>
+<a class="totop" href="#start" aria-label="กลับด้านบน">↑</a>
+<footer>สยามมินทร์ดูเอล · คู่มือเกม · ปรับปรุงตามเวอร์ชัน CBT ล่าสุด</footer>
+
+<script>
+const CARDS = __CARDS__;
+const FULL = __FULLDATA__;
+const DECKS = __DECKS__;
+const RECTS = __RECTS__;
+const A = 'game_assets/';
+const TH = n => String(n).replace(/\d/g, d => '๐๑๒๓๔๕๖๗๘๙'[d]);
+__CARDJS__
+
+const BY = {}; CARDS.forEach(c => BY[c.id] = c); const FBY = {}; FULL.cards.forEach(c => FBY[c.id] = c);
+const RANK = ['common','standard','rare','epic','legend','divine','creator'];
+/* ตัวเลขเป็นเลขไทยทั้งหน้า */
+const NO_TH = 'script,style,input,textarea,[data-arabic]';
+function thaiText(n){ if(n.nodeType!==3||!/[0-9]/.test(n.data)) return; const p=n.parentElement; if(!p||p.closest(NO_TH)) return; n.data=TH(n.data); }
+function thaiTree(root){ if(root.nodeType===3) return thaiText(root); if(root.nodeType!==1) return; const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),l=[]; let n; while((n=w.nextNode())) if(/[0-9]/.test(n.data)) l.push(n); l.forEach(thaiText); }
+new MutationObserver(ms=>{for(const m of ms){ if(m.type==='characterData') thaiText(m.target); else m.addedNodes.forEach(thaiTree);} }).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+
+/* ส่วนประกอบการ์ด */
+(function(){ const c = BY.SD055, w = document.getElementById('anatCard'), r = c.rarity_code, l = L[r];
+  const sz = matchMedia('(max-width:1000px)').matches ? 260 : 300; w.style.width = sz + 'px';
+  w.appendChild(cardEl(c, { w: sz }));
+  const pts = [[l.cost[0], l.cost[1]], [l.win[0] + l.win[2] * .8, l.win[1] + l.win[3] * .3], [l.nm[0] + l.nm[2] * .92, l.nm[1] + l.nm[3] / 2], [l.tx[0] + l.tx[2] * .95, l.tx[1] + 2], [l.tx[0] + l.tx[2] * .95, l.tx[1] + l.tx[3] * .7], [l.atk[0], l.atk[1]], [l.hp[0], l.hp[1]]];
+  pts.forEach((p, i) => { const m = document.createElement('div'); m.className = 'mk'; m.textContent = i + 1; m.style.left = p[0] + '%'; m.style.top = p[1] + '%'; w.appendChild(m); });
+})();
+
+/* ระดับการ์ด */
+(function(){ const cnt = {}; CARDS.forEach(c => cnt[c.rarity_code] = (cnt[c.rarity_code] || 0) + 1);
+  const deckLim = { common: 3, standard: 3, rare: 2, epic: 2, legend: 1, divine: 1, creator: '1 (ทั้งเด็ค)' };
+  const supply = { divine: '3 ใบต่อแบบ', creator: '1 ใบต่อแบบ' };
+  const rate = { common: '60.109%', standard: '27%', rare: '9%', epic: '2.89%', legend: '1% (การันตี 200)', divine: '0.001%', creator: 'ตู้ผู้สรรสร้างเท่านั้น' };
+  document.getElementById('rarGrid').innerHTML = RANK.map(r => `<div class="r"><img src="${A}frames/thumb/${r}.webp" alt="กรอบระดับ${RARE_TH[r]}" loading="lazy"><b style="color:${RARE_COL[r]}">${RARE_TH[r]}</b>${cnt[r] || 0} แบบ</div>`).join('');
+  document.getElementById('rarTable').innerHTML = `<tr><th>ระดับ</th><th>จำนวนแบบ</th><th>ใส่เด็คได้ต่อชื่อ</th><th>จำนวนทั้งเซิร์ฟเวอร์</th><th>อัตราตู้ปกติ</th></tr>` +
+    RANK.map(r => `<tr><td style="color:${RARE_COL[r]};font-weight:600">${RARE_TH[r]}</td><td>${cnt[r] || 0}</td><td>${deckLim[r]}</td><td>${supply[r] || 'ไม่จำกัด'}</td><td>${rate[r]}</td></tr>`).join('');
+})();
+
+/* คีย์เวิร์ด */
+const KW = [
+  ['ทวารบาล', 'ศัตรูต้องโจมตียูนิตนี้ก่อน จะข้ามไปตียูนิตอื่นหรือดวงชะตาไม่ได้ (ยกเว้นผู้โจมตีมีเหาะเหิน) ทวารบาลที่ถูกสายสิญจน์หรือยังมีกำบังไม่บังคับ'],
+  ['เหาะเหิน', 'ไม่ต้องโจมตีทวารบาลก่อน เลือกตีเป้าใดก็ได้รวมถึงดวงชะตา'],
+  ['ฮึกเหิม', 'โจมตีได้ตั้งแต่เทิร์นที่ลงสนาม'],
+  ['กำบัง', 'ศัตรูเลือกเป็นเป้าไม่ได้ ทั้งการโจมตีและเอฟเฟกต์ จนกว่ายูนิตนี้จะโจมตีครั้งแรก แล้วกำบังหายถาวร เอฟเฟกต์แบบ "ทุกตัว" หรือ "สุ่ม" ยังโดน'],
+  ['คงกระพัน', 'กันดาเมจครั้งถัดไปได้ทั้งหมด 1 ครั้ง (ทุกแหล่งรวมพิษ) แล้วหาย การ์ดบางใบโจมตีทะลุคงกระพันได้'],
+  ['อมตะ', 'ครั้งแรกที่จะตาย ลุกกลับช่องเดิมด้วย HP 1 แล้วเสียอมตะ ไม่ทำงานถ้าถูกส่งวิญญาณหรือถูกสายสิญจน์'],
+  ['ดูดชีพ', 'ดาเมจที่ยูนิตนี้ทำจากการปะทะหรือตีดวงชะตา ฟื้นดวงชะตาเจ้าของเท่ากัน (ไม่เกิน 30)'],
+  ['ลิ้มเลือด', 'ฆ่ายูนิตศัตรูได้ด้วยการโจมตีหรือถูกโจมตี ได้ +1/+1 ถาวร'],
+  ['ฟื้นฟู', 'ยามเช้าของเจ้าของ ฟื้น HP เต็ม'],
+  ['พิษ X', 'บนผู้โจมตี: เป้าที่โดนตีติดพิษ X · บนผู้ป้องกัน: ผู้ที่ตีมันติดพิษ X · ติดพิษแล้วเสีย HP X ในยามเช้าของเจ้าของ 2 ครั้ง'],
+  ['ราหูจร', 'มีพลังพิเศษที่ทำงานระหว่างช่วงราหูอมจันทร์ (ดูข้อความบนการ์ด)'],
+  ['เมตตามหานิยม', 'คีย์เวิร์ดที่เป็นเงื่อนไขของการ์ดอื่น ส่วนเอฟเฟกต์ "เมตตามหานิยม" บนคาถาคือการขโมยยูนิตศัตรู (ใช้กับผู้ปกครอง/เทพไม่ได้)'],
+  ['อวตาร', 'พระนารายณ์: ตายแล้วกลับขึ้นช่องเดิม HP เต็ม +2/+2 ได้ 2 ครั้ง แม้ถูกส่งวิญญาณ'],
+  ['สายสิญจน์', 'บนยูนิต: เป็นชื่อพลังจับผี/สาปของการ์ดใบนั้น · ในฐานะสถานะ ดูหัวข้อสถานะผิดปกติ'],
+  ['โจมตี 2 ครั้ง', 'โจมตีได้เทิร์นละ 2 ครั้ง (ได้จากความสามารถของการ์ดบางใบ)'],
+];
+(function(){ const has = k => CARDS.filter(c => (c.keywords || []).some(x => x === k || (k === 'พิษ X' && /^พิษ/.test(x))));
+  document.getElementById('kwTable').innerHTML = '<tr><th>คีย์เวิร์ด</th><th>กฎ</th><th>การ์ด</th></tr>' + KW.map(([k, d]) => { const l = has(k);
+    return `<tr id="kw-${k.replace(/\s/g, '')}"><td>${k}</td><td>${d}</td><td class="cs">${l.length ? `${l.length} แบบ<br>${l.slice(0, 4).map(c => `<a href="#" data-card="${c.id}">${c.name_th}</a>`).join(', ')}${l.length > 4 ? ' …' : ''}` : '—'}</td></tr>`; }).join('');
+})();
+
+/* ราหู */
+document.getElementById('rahuRow').innerHTML = Array.from({ length: 12 }, (_, i) => { const t = i + 1, on = t >= 3 && (t % 3 === 0 || (t - 1) % 3 === 0);
+  return `<div class="${on ? 'on' : ''}"><b>${t}</b>${on ? '🌘 ราหู' : 'ปกติ'}</div>`; }).join('');
+
+/* ตัวอย่างปะทะ */
+(function(){ const a = BY.SD055, b = BY.SD074, el = document.getElementById('combatEx');
+  el.appendChild(cardEl(a, { w: 150 }));
+  el.insertAdjacentHTML('beforeend', `<div class="vs">ปะทะ<small>${a.name_th} (น้ำ) ATK 4 → ×1.5 = <b>6</b><br>${b.name_th} (ไฟ) ATK 4 → <b>4</b><br>น้ำชนะไฟ: ยักษ์ HP 3 ตาย<br>ไกรทอง HP 4 − 4 = 0 ตายเช่นกัน</small></div>`);
+  el.appendChild(cardEl(b, { w: 150 }));
+})();
+
+/* ภาพที่มีหมายเลขกำกับ */
+const ANN = {
+  duel: [
+    ['opp', 'กรอบคู่ดวล: ชื่อ ดวงชะตา อาคม บารมี จำนวนเด็ค ไพ่ในมือ (เห็นแค่หลังการ์ด) และสุสาน — ขึ้นกรอบแดงเมื่อตีดวงชะตาได้'],
+    ['opprow', 'ช่องยูนิตคู่ดวล 5 ช่อง'],
+    ['moon', 'ดวงจันทร์ราหู และตัวนับเทิร์นของเกม'],
+    ['myrow', 'ช่องยูนิตของเรา 5 ช่อง ตัวที่โจมตีได้จะเรืองเขียว'],
+    ['mytraps', 'ช่องกับดัก/ของขลังของเรา 2 ช่อง (ของคู่ดวลอยู่ด้านบน)'],
+    ['end', 'ปุ่มจบเทิร์น คำอธิบายวิธีเล่น และปุ่มยอมแพ้'],
+    ['me', 'กรอบของเรา: ดวงชะตา อาคม ◆ บารมี ● เด็ค และปุ่มสุสาน'],
+    ['hand', 'ไพ่ในมือ (สูงสุด 5 ใบ) ใบที่ลงได้เรืองเขียว'],
+    ['log', 'บันทึกการเล่น ทุกการกระทำและเหตุผล'],
+  ],
+};
+document.querySelectorAll('[data-ann]').forEach(f => { const list = ANN[f.dataset.ann]; if (!list) return; const leg = document.getElementById('duelLegend');
+  list.forEach(([k, t], i) => { const r = RECTS[k]; if (!r) return; const bx = document.createElement('div'); bx.className = 'box'; Object.assign(bx.style, { left: r[0] + '%', top: r[1] + '%', width: r[2] + '%', height: r[3] + '%' }); f.appendChild(bx);
+    const m = document.createElement('div'); m.className = 'mk'; m.textContent = i + 1; m.title = t; m.style.left = (r[0] + Math.min(r[2], 4) * .5 + .8) + '%'; m.style.top = (r[1] + 2.2) + '%'; f.appendChild(m);
+    if (leg) leg.insertAdjacentHTML('beforeend', `<li><i>${i + 1}</i><span>${t}</span></li>`); }); });
+
+/* เด็คสำเร็จรูป */
+document.getElementById('deckList').innerHTML = Object.values(DECKS).map(d => { const cnt = {}; d.ids.forEach(i => cnt[i] = (cnt[i] || 0) + 1);
+  const ids = Object.keys(cnt).sort((a, b) => (BY[a].cost - BY[b].cost) || a.localeCompare(b));
+  const theme = { 'ทัพกรุงศรี': 'มนุษย์ ดิน-ไฟ · ผู้ปกครอง 8 อาชีพ ชาวบางระจัน ของขลัง', 'รัตติกาลผี': 'ผี · ปลุกพราย พิธีบูชาราหู', 'หิมพานต์': 'หิมพานต์ ลม-น้ำ · สัตว์หิมพานต์ วรรณคดี', 'ลงกา': 'อสูร ไฟ · ยักษ์ กุมภกรรณ' }[d.name] || '';
+  return `<div class="d"><h4>${d.name}</h4><span class="count">${theme}</span><ul>${ids.map(i => `<li><a href="#" data-card="${i}">${BY[i].name_th}</a> ×${cnt[i]}</li>`).join('')}</ul></div>`; }).join('');
+
+/* แกลเลอรีการ์ด */
+(function(){ const sel = (id, vals, lab) => { const s = document.getElementById(id); vals.forEach(v => s.insertAdjacentHTML('beforeend', `<option value="${v}">${lab ? lab(v) : v}</option>`)); };
+  sel('gr', RANK.slice().reverse(), v => RARE_TH[v]); sel('gt', ['ยูนิต', 'คาถา', 'ของขลัง', 'กับดัก']);
+  sel('gb', [...new Set(FULL.cards.map(c => c.tribe).filter(t => t && t !== '-'))]); sel('ge', ['น้ำ', 'ไฟ', 'ดิน', 'ลม', 'อากาศ']);
+  sel('gk', [...new Set(CARDS.flatMap(c => c.keywords || []))]);
+  const g = document.getElementById('gal'), cnt = document.getElementById('gcount');
+  const draw = () => { const q = document.getElementById('gq').value.trim(), r = gr.value, t = gt.value, b = gb.value, e = ge.value, k = gk.value, s = gs.value;
+    let l = CARDS.filter(c => (!q || (c.name_th + ' ' + (c.text_th || '') + ' ' + (c.keywords || []).join(' ')).includes(q)) && (!r || c.rarity_code === r) && (!t || c.type === t) && (!b || (FBY[c.id] || {}).tribe === b) && (!e || c.element === e) && (!k || (c.keywords || []).includes(k)));
+    if (s === 'cost') l.sort((a, b) => a.cost - b.cost); if (s === 'rar') l.sort((a, b) => RANK.indexOf(b.rarity_code) - RANK.indexOf(a.rarity_code));
+    cnt.textContent = `แสดง ${l.length} จาก ${CARDS.length} แบบ · แตะการ์ดเพื่อดูรายละเอียด`;
+    g.innerHTML = ''; const w = matchMedia('(max-width:600px)').matches ? 140 : 150;
+    l.forEach(c => { const d = document.createElement('div'); d.className = 'g'; d.tabIndex = 0; d.setAttribute('role', 'button'); d.setAttribute('aria-label', c.name_th); d.appendChild(cardEl(c, { w })); d.onclick = () => openCard(c.id); d.onkeydown = ev => { if (ev.key === 'Enter') openCard(c.id); }; g.appendChild(d); }); };
+  ['gq', 'gr', 'gt', 'gb', 'ge', 'gk', 'gs'].forEach(id => document.getElementById(id).addEventListener('input', draw)); draw();
+})();
+function openCard(id) { const c = BY[id], f = FBY[id] || {}, dl = document.getElementById('dlg');
+  const box = document.getElementById('dlgCard'); box.innerHTML = ''; const w = Math.min(320, innerWidth - 80); box.appendChild(cardEl(c, { w, tilt: true, sparkle: true, seed: id.length * 7 }));
+  const inDecks = Object.values(DECKS).filter(d => d.ids.includes(id)).map(d => d.name);
+  document.getElementById('dlgInfo').innerHTML = `<h3 style="margin-top:0">${c.name_th}</h3><div class="chips"><span style="color:${RARE_COL[c.rarity_code]}">${RARE_TH[c.rarity_code]}</span><span>${c.type}</span><span>ธาตุ${c.element}</span>${f.tribe && f.tribe !== '-' ? `<span>เผ่า${f.tribe}</span>` : ''}${f.category ? `<span>${f.category}</span>` : ''}</div>
+    <dl><dt>ต้นทุน</dt><dd>${c.cost}</dd>${c.atk != null ? `<dt>ATK / HP</dt><dd>${c.atk} / ${c.hp}</dd>` : ''}<dt>คีย์เวิร์ด</dt><dd>${(c.keywords || []).join(' · ') || '—'}</dd>${c.max_supply ? `<dt>จำนวนทั้งเซิร์ฟเวอร์</dt><dd>${c.max_supply} ใบ</dd>` : ''}<dt>อยู่ในเด็คสำเร็จรูป</dt><dd>${inDecks.join(', ') || '—'}</dd></dl>
+    <h4>ความสามารถ</h4><p>${c.text_th || '—'}</p>${f.flavor_th ? `<p style="color:var(--muted);font-style:italic">${f.flavor_th}</p>` : ''}`;
+  dl.classList.add('on'); document.getElementById('dlgX').focus(); }
+document.getElementById('dlgX').onclick = () => document.getElementById('dlg').classList.remove('on');
+document.getElementById('dlg').onclick = e => { if (e.target.id === 'dlg') e.currentTarget.classList.remove('on'); };
+addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('dlg').classList.remove('on'); });
+document.addEventListener('click', e => { const a = e.target.closest('[data-card]'); if (a) { e.preventDefault(); openCard(a.dataset.card); } });
+
+/* โทเคน */
+document.getElementById('tokTable').innerHTML = '<tr><th>โทเคน</th><th>ค่าพลัง</th><th>คีย์เวิร์ด / หมายเหตุ</th></tr>' + FULL.tokens.map(t => `<tr><td>${t.name_th}</td><td>${t.atk != null ? t.atk + '/' + t.hp : (t.hp ? 'HP ' + t.hp : '—')}</td><td>${(t.keywords || []).join(' · ')}${t.note ? ' ' + t.note : ''}${t.id === 'TK_COIN' ? 'คาถาต้นทุน 0 ได้อาคม +1 เทิร์นนี้ (ผู้เล่นที่สองได้ตอนเริ่มเกม)' : ''}</td></tr>`).join('');
+
+/* สารบัญ เมนูมือถือ และไฮไลต์หัวข้อ */
+const side = document.getElementById('side'); document.getElementById('navbtn').onclick = () => side.classList.toggle('on');
+side.addEventListener('click', e => { if (e.target.tagName === 'A') side.classList.remove('on'); });
+const links = [...side.querySelectorAll('a')], secs = links.map(a => document.querySelector(a.getAttribute('href')));
+const io = new IntersectionObserver(es => { es.forEach(en => { if (en.isIntersecting) { links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id)); const on = side.querySelector('a.on'); if (on && !matchMedia('(max-width:1000px)').matches) on.scrollIntoView({ block: 'nearest' }); } }); }, { rootMargin: '-30% 0px -60% 0px' });
+secs.forEach(s => s && io.observe(s));
+
+/* ค้นหา */
+const IDX = secs.filter(Boolean).map(s => ({ id: s.id, title: (s.querySelector('h2,h1') || {}).textContent || '', text: s.textContent.replace(/\s+/g, ' ') }));
+const q = document.getElementById('q'), sres = document.getElementById('sres');
+q.addEventListener('input', () => { const v = q.value.trim(); if (!v) { sres.classList.remove('on'); return; }
+  const hits = IDX.filter(x => x.text.includes(v)).slice(0, 8).map(x => { const i = x.text.indexOf(v); return `<a href="#${x.id}"><b>${x.title.replace(/^\d+|^[๐-๙]+/, '')}</b><span>…${x.text.slice(Math.max(0, i - 40), i + 60)}…</span></a>`; });
+  const cards = CARDS.filter(c => c.name_th.includes(v)).slice(0, 6).map(c => `<a href="#" data-card="${c.id}"><b>การ์ด: ${c.name_th}</b><span>${RARE_TH[c.rarity_code]} · ${c.type} · ${(c.text_th || '').slice(0, 60)}</span></a>`);
+  sres.innerHTML = cards.concat(hits).join('') || '<a><span>ไม่พบ ลองคำอื่น</span></a>'; sres.classList.add('on'); });
+sres.addEventListener('click', () => { sres.classList.remove('on'); q.value = ''; });
+document.addEventListener('click', e => { if (!e.target.closest('.search')) sres.classList.remove('on'); });
+thaiTree(document.body);
+</script>
+</body>
+</html>

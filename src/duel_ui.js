@@ -21,12 +21,13 @@ function openDuelSetup() {
     b.innerHTML = `<div class="dsetup"><h3>ดวลกับหมอผีเฒ่า (AI)</h3>
       <h4>เลือกเด็ค</h4><div class="opts">${decks.map(d => `<button class="opt ${d.key === DSET.deck ? 'on' : ''}" data-deck="${d.key}" ${d.ok ? '' : 'disabled'}>${d.name}<small>${d.sub}</small></button>`).join('')}</div>
       <h4>ระดับฝีมือ</h4><div class="opts">${Object.entries(AI_LV).map(([k, t]) => `<button class="opt ${k === DSET.level ? 'on' : ''}" data-lv="${k}">${t}<small>${k === 'easy' ? 'เหมาะกับการหัดเล่น' : k === 'normal' ? 'เล่นตามสถานการณ์' : 'คิดล่วงหน้า 1 เทิร์น'}</small></button>`).join('')}</div>
-      <p style="font-size:13px;color:var(--muted)">เด็คที่จะใช้ได้ต้องครบ 30 ใบและผ่านกติกาจัดเด็ค ถ้าการ์ดยังไม่พอ เลือกเด็คสำเร็จรูปไปก่อนได้ · ช่วง CBT การดวลกับ AI ยังไม่มีรางวัล</p>
+      <p style="font-size:13px;color:var(--muted)">ยังไม่เคยเล่น? <a href="#" id="dsTut" style="color:var(--gold2)">เริ่มบทเรียนกับหมอผีเฒ่า</a> · เด็คที่จะใช้ได้ต้องครบ 30 ใบและผ่านกติกาจัดเด็ค ถ้าการ์ดยังไม่พอ เลือกเด็คสำเร็จรูปไปก่อนได้ · ช่วง CBT การดวลกับ AI ยังไม่มีรางวัล</p>
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:12px"><button class="btn ghost" id="dsX">ยกเลิก</button><button class="btn" id="dsGo">เริ่มดวล</button></div></div>`;
     b.querySelectorAll('[data-deck]').forEach(x => x.onclick = () => { DSET.deck = x.dataset.deck; draw(); });
     b.querySelectorAll('[data-lv]').forEach(x => x.onclick = () => { DSET.level = x.dataset.lv; draw(); });
     b.querySelector('#dsX').onclick = () => m.classList.remove('on');
-    b.querySelector('#dsGo').onclick = () => { m.classList.remove('on'); startDuel(decks.find(d => d.key === DSET.deck).ids); };
+    b.querySelector('#dsTut').onclick = e => { e.preventDefault(); openTutorialList(); };
+    b.querySelector('#dsGo').onclick = () => { m.classList.remove('on'); TUT = null; startDuel(decks.find(d => d.key === DSET.deck).ids); };
   };
   draw(); m.classList.add('on');
 }
@@ -54,7 +55,7 @@ function showMulligan() {
 }
 function handCardEl(c, opt) {
   const base = BY[c.id], cost = DS && c.uid ? DE.costOf(DS.st, 0, c) : base.cost;
-  const w = document.createElement('div'); w.className = 'hcard';
+  const w = document.createElement('div'); w.className = 'hcard'; w.dataset.cid = c.id;
   w.appendChild(cardEl(Object.assign({}, base, { cost }), { w: opt.w }));
   if (opt.w >= 90) { const z = document.createElement('button'); z.className = 'zz'; z.type = 'button'; z.textContent = '⌕'; z.title = 'ดูขยาย'; z.onclick = e => { e.stopPropagation(); zoomCard({ id: c.id, at: 3 }); }; w.appendChild(z); }
   longPress(w, () => zoomCard({ id: c.id, at: 3 }));
@@ -115,15 +116,16 @@ function renderDuel() {
   else if (dSel && dSel.kind === 'play') { const d = DE.D(st.players[0].hand.find(c => c.uid === dSel.card).id);
     prompt(d.type === 'ยูนิต' && dSel.slot == null ? `เลือกช่องวาง ${d.name_th}` : need ? need.label || 'เลือกเป้าหมาย' : ''); }
   else prompt('');
+  tutPaint();
 }
 function unitEl(u, ready) {
   const st = DS.st, el = document.createElement('div'); el.className = 'dunit' + (ready ? ' ready' : '') + (dSel && dSel.unit === u.uid ? ' sel' : '');
-  el.dataset.uid = u.uid;
+  el.dataset.uid = u.uid; el.dataset.cid = u.id;
   if (u.status.sleep > 0 || u.status.stun || u.status.noatk > 0) el.classList.add('sleep');
   el.appendChild(cardEl(BY[u.id], { w: 90 }));
   const a = DE.atkOf(st, u), h = DE.hpOf(st, u), d = DE.D(u.id);
   const st2 = document.createElement('div'); st2.className = 'dstat';
-  st2.innerHTML = `<b class="a ${a > (d.atk || 0) ? 'up' : a < (d.atk || 0) ? 'down' : ''}">${a}</b><b class="h ${u.dmg > 0 ? 'down' : h > (d.hp || 0) ? 'up' : ''}">${h}</b>`;
+  st2.innerHTML = `<b class="a ${a > (d.atk || 0) ? 'up' : a < (d.atk || 0) ? 'down' : ''}${a > 99 ? ' sm' : ''}">${TH(a)}</b><b class="h ${u.dmg > 0 ? 'down' : h > (d.hp || 0) ? 'up' : ''}${h > 99 ? ' sm' : ''}">${TH(h)}</b>`;
   el.appendChild(st2);
   const kws = DE.kwOf(st, u).filter((k, i, arr) => arr.indexOf(k) === i).map(k => (k === 'กำบัง' && u.shroudOff) ? null : (KW_SHORT[k] || (/^พิษ/.test(k) ? k : null))).filter(Boolean);
   const bad = []; if (u.status.sleep > 0) bad.push('หลับ'); if (DE.sealed(u)) bad.push(u.status.stun ? 'ต้องหอก' : 'สายสิญจน์'); if (u.status.poison) bad.push('ติดพิษ'); if (u.status.noatk > 0) bad.push('ห้ามตี');
@@ -134,7 +136,7 @@ function renderPBox(side, tgt) {
   const st = DS.st, P = st.players[side], box = document.getElementById(side ? 'dOpp' : 'dMe');
   box.className = 'pbox' + (st.cur === side && st.phase === 'main' ? ' cur' : '') + (tgt ? ' tgt' : '');
   const res = `<span class="res">${Array.from({ length: Math.max(P.akhomMax, P.akhom) }, (_, i) => `<i class="${i < P.akhom ? 'on' : ''}"></i>`).join('')}&nbsp;${Array.from({ length: 3 }, (_, i) => `<u class="${i < P.barami ? 'on' : ''}"></u>`).join('')}</span>`;
-  box.innerHTML = `<div class="pic"></div><div class="nm">${P.name}${side ? ` · ${AI_LV[DS.level]}` : ''}</div><div class="fate">${P.fate}<small>ดวงชะตา</small></div>${res}
+  box.innerHTML = `<div class="pic"></div><div class="nm">${P.name}${side ? ` · ${AI_LV[DS.level]}` : ''}</div><div class="fate">${Math.max(0, P.fate)}<small>ดวงชะตา</small></div>${res}
     <div class="meta"><span>เด็ค ${P.deck.length}</span>${side ? `<span class="backs">${P.hand.map(() => '<span></span>').join('')}</span>` : ''}<button data-crypt="${side}">สุสาน ${P.crypt.length}</button>${side === 0 ? '<button class="logbtn" data-log="1">บันทึก</button>' : ''}</div>`;
   box.querySelector('.pic').appendChild(side ? charImg('npc_shaman', 'bust', 'หมอผีเฒ่า') : charImg(me().gender, 'bust_talk_right', P.name));
   box.querySelector('[data-crypt]').onclick = e => { e.stopPropagation(); showCrypt(side); };
@@ -152,8 +154,9 @@ function renderHand(L) {
     el.classList.add(can ? 'play' : 'dim'); if (dSel && dSel.card === c.uid) el.classList.add('sel');
     el.onclick = () => {
       if (st.cur !== 0 || dBusy) return toast('รอเทิร์นของคุณ');
-      if (!can) { const d = DE.D(c.id); const why = !DE.canPay(st, 0, c) ? (d.type === 'ยูนิต' ? 'อาคมไม่พอ' : 'อาคมและบารมีไม่พอ') : d.type === 'ยูนิต' ? 'สนามเต็ม' : 'ไม่มีเป้าหมายหรือช่องว่างที่ใช้ได้'; return toast(why); }
+      if (!can) { if (TUT && !TCH[TUT.ch].full) { tutAllowCard(c); return; } const d = DE.D(c.id); const why = !DE.canPay(st, 0, c) ? (d.type === 'ยูนิต' ? 'อาคมไม่พอ' : 'อาคมและบารมีไม่พอ') : d.type === 'ยูนิต' ? 'สนามเต็ม' : 'ไม่มีเป้าหมายหรือช่องว่างที่ใช้ได้'; return toast(why); }
       if (dSel && dSel.card === c.uid) { dSel = null; return renderDuel(); }
+      if (typeof tutAllowCard === 'function' && !tutAllowCard(c)) return;
       dSel = { kind: 'play', card: c.uid, slot: null, picks: [] };
       const d = DE.D(c.id); if (d.type !== 'ยูนิต') continuePlay(); else renderDuel();
     };
@@ -164,9 +167,9 @@ function renderMid(L) {
   const st = DS.st, M = document.getElementById('dMid'), mine = st.cur === 0 && !st.over;
   const anyMove = L.plays.length || L.attacks.length;
   M.innerHTML = `<button class="btn" id="dEnd" ${mine && !dBusy ? '' : 'disabled'}>${mine ? (anyMove ? 'จบเทิร์น' : 'จบเทิร์น ✓') : 'เทิร์นคู่ดวล…'}</button>
-    <div class="info">ลงการ์ด: แตะการ์ดในมือ แล้วแตะช่องหรือเป้า<br>โจมตี: แตะยูนิตที่<b>เรืองเขียว</b> แล้วแตะเป้า<br>ดูการ์ด: แตะยูนิตบนกระดาน · กดค้างหรือคลิกขวาที่การ์ดในมือ<br>อาคม ◆ ใช้ลงการ์ด · บารมี ● เก็บอาคมที่เหลือไว้ใช้กับคาถา/กับดัก/ของขลัง</div>
+    ${TUT ? '' : `<div class="info">ลงการ์ด: แตะการ์ดในมือ แล้วแตะช่องหรือเป้า<br>โจมตี: แตะยูนิตที่<b>เรืองเขียว</b> แล้วแตะเป้า<br>ดูการ์ด: แตะยูนิตบนกระดาน · กดค้างหรือคลิกขวาที่การ์ดในมือ<br>อาคม ◆ ใช้ลงการ์ด · บารมี ● เก็บอาคมที่เหลือไว้ใช้กับคาถา/กับดัก/ของขลัง</div>`}
     <button class="btn ghost" id="dQuit" style="height:38px">ยอมแพ้</button>`;
-  M.querySelector('#dEnd').onclick = () => { if (st.cur !== 0 || dBusy) return; dSel = null; DE.apply(st, { t: 'end', pid: 0 }); afterAction(); };
+  M.querySelector('#dEnd').onclick = () => { if (st.cur !== 0 || dBusy) return; if (!tutAllowEnd()) return; dSel = null; DE.apply(st, { t: 'end', pid: 0 }); tutOnAction({ t: 'end' }); afterAction(); };
   M.querySelector('#dQuit').onclick = () => { if (!confirmQuit()) return; };
 }
 function confirmQuit() {
@@ -186,7 +189,9 @@ function showCrypt(side) {
 function clickUnit(u) {
   const st = DS.st;
   if (u.owner === 0 && st.cur === 0 && !dBusy && !(dSel && dSel.kind === 'play')) {
+    if (!tutAllowAttacker(u)) return;
     const why = DE.canAttack(st, u);
+    if (why && tutTry(u, why)) { toast(why); return; }
     if (!why) { dSel = dSel && dSel.unit === u.uid ? null : { kind: 'atk', unit: u.uid }; return renderDuel(); }
     if (dSel) { dSel = null; renderDuel(); }
     toast(why); return;
@@ -205,7 +210,7 @@ function continuePlay() {
   const st = DS.st; const n = dCurNeed();
   if (!n || !n.options.length) {
     const a = { t: 'play', pid: 0, card: dSel.card, slot: dSel.slot, picks: dSel.picks }; const r = DE.apply(st, a);
-    dSel = null; if (!r.ok) toast(r.err); return afterAction();
+    dSel = null; if (!r.ok) toast(r.err); else tutOnAction(a); return afterAction();
   }
   if (n.kind === 'option' || n.kind === 'crypt' || n.kind === 'discover') return choiceModal(n);
   renderDuel();
@@ -220,8 +225,9 @@ function choiceModal(n) {
   m.classList.add('on');
 }
 function doAttack(target) {
+  if (!tutAllowTarget(dSel.unit, target)) return;
   const st = DS.st, a = { t: 'attack', pid: 0, unit: dSel.unit, target }; dSel = null;
-  lunge(a.unit, 0, () => { const r = DE.apply(st, a); if (!r.ok) toast(r.err); afterAction(); });
+  lunge(a.unit, 0, () => { const r = DE.apply(st, a); if (!r.ok) toast(r.err); else tutOnAction(a); afterAction(); });
 }
 function lunge(uid, side, cb) { const el = document.querySelector(`#dBoard .dunit[data-uid="${uid}"]`); if (!el) return cb(); el.classList.add('lunge'); if (side === 1) el.classList.add('down'); setTimeout(cb, 300); }
 function slotIndexMap() { const m = {}; DS.st.players.forEach((P, side) => P.units.forEach((u, i) => { if (u) m[u.uid] = { side, i }; })); return m; }
@@ -247,12 +253,13 @@ function aiStep() {
   const st = DS.st;
   if (!document.getElementById('duel').classList.contains('on') || st.over) { dBusy = false; return; }
   if (st.cur !== 1) { dBusy = false; renderDuel(); banner('เทิร์นของคุณ'); return; }
-  const a = DAI.decide(st, 1, DS.level);
+  const a = (TUT && !TCH[TUT.ch].full) ? { t: 'end', pid: 1 } : DAI.decide(st, 1, DS.level);
   const go = () => { const r = DE.apply(st, a); if (!r.ok) DE.apply(st, { t: 'end', pid: 1 }); afterAction(); if (st.over) { dBusy = false; return; }
-    if (st.cur === 1) setTimeout(aiStep, 700); else { dBusy = false; renderDuel(); banner('เทิร์นของคุณ'); } };
+    if (st.cur === 1) setTimeout(aiStep, 700); else { dBusy = false; tutOppTurnDone(); renderDuel(); banner('เทิร์นของคุณ'); } };
   if (a.t === 'attack') lunge(a.unit, 1, go); else go();
 }
 function duelOver() {
+  if (TUT && TCH[TUT.ch].full && DS.st.over.winner === 0 && !TUT.done) { dBusy = false; prompt(''); return tutComplete(); }
   const st = DS.st, o = document.getElementById('dOver'), w = st.over.winner;
   dBusy = false; prompt('');
   const title = w === 0 ? 'ชนะ!' : w === 1 ? 'พ่ายแพ้' : 'เสมอ';
@@ -262,7 +269,7 @@ function duelOver() {
     <div class="row"><button class="btn" id="oAgain">ดวลอีกครั้ง</button><button class="btn ghost" id="oSet">เปลี่ยนเด็ค/ระดับ</button><button class="btn ghost" id="oHome">กลับหน้าแรก</button></div>`;
   o.classList.add('on');
   o.querySelector('#oAgain').onclick = () => { o.classList.remove('on'); startDuel(duelDecks().find(d => d.key === DSET.deck).ids); };
-  o.querySelector('#oSet').onclick = () => { o.classList.remove('on'); openDuelSetup(); };
-  o.querySelector('#oHome').onclick = () => { o.classList.remove('on'); show('home'); };
+  o.querySelector('#oSet').onclick = () => { o.classList.remove('on'); TUT = null; openDuelSetup(); };
+  o.querySelector('#oHome').onclick = () => { o.classList.remove('on'); TUT = null; show('home'); };
 }
 addEventListener('resize', () => { if (DS && document.getElementById('duel').classList.contains('on')) renderDuel(); });
