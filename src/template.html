@@ -280,10 +280,15 @@ h1,h2,h3,.display{font-family:Chonburi,serif;font-weight:400}
 .zbar span{min-width:56px;text-align:center;color:var(--text);font-size:14px}
 
 /* ---------- แอดมินจำลอง ---------- */
-#admin{position:fixed;right:12px;bottom:12px;width:300px;background:#101820f5;border:1px solid #4F7FB5;border-radius:12px;padding:12px;z-index:70;display:none;font-size:13px}
+#admin{position:fixed;right:12px;bottom:12px;width:min(320px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;background:#101820f5;border:1px solid #4F7FB5;border-radius:12px;padding:12px;z-index:70;display:none;font-size:13px}
 #admin.on{display:block}
 #admin h4{margin:0 0 8px;color:#9CC3F0;font-family:'Noto Sans Thai'}
 #admin select,#admin input{width:100%;height:34px;margin:4px 0 8px;background:#0E0B0A;color:var(--text);border:1px solid var(--line);border-radius:8px;font-family:inherit}
+#admin .row2{display:flex;gap:6px}#admin .row2>*{flex:1}
+#admin hr{border:none;border-top:1px solid #2A3E58;margin:8px 0}
+#admin .plist{max-height:150px;overflow:auto;font-size:12px;border:1px solid #2A3E58;border-radius:8px;margin:4px 0 8px}
+#admin .plist div{display:flex;justify-content:space-between;gap:6px;padding:3px 8px;border-bottom:1px solid #1E2E44;cursor:pointer}
+#admin .plist div:hover{background:#16263A}
 #admin button{width:100%;height:34px;margin-bottom:6px;border-radius:8px;border:1px solid #4F7FB5;background:#16263A;color:#DCE9F8}
 
 @media (max-width:720px){
@@ -434,7 +439,16 @@ __DUELCSS__
   <label>ชื่อรอบ / เทศกาล</label><input id="aName" value="เทศกาลลอยกระทง">
   <button id="aOpen">เปิดตู้ Event</button><button id="aClose">ปิดตู้ Event</button>
   <label>เกณฑ์สิทธิ์ (ครั้งที่ต้องสุ่ม) — ทดสอบเท่านั้น</label><input id="aTh" type="number" min="1" value="10000">
-  <button id="aGold">+100,000 โกลด์</button><button id="aReset">ล้างข้อมูลทดสอบทั้งหมด</button>
+  <button id="aGold">+100,000 โกลด์ (ตัวเอง)</button>
+  <hr>
+  <h4>เสกโกลด์ให้ผู้เล่น</h4>
+  <label for="aUser">ชื่อผู้ใช้ (ใส่ * = ทุกคน · แตะชื่อในรายการเพื่อเลือก)</label><input id="aUser" list="aUsers" placeholder="เช่น nok หรือ *" autocapitalize="none" spellcheck="false"><datalist id="aUsers"></datalist>
+  <label for="aAmt">จำนวนโกลด์ (ติดลบ = หักออก)</label><input id="aAmt" type="number" value="100000" step="1000">
+  <div class="row2"><button id="aGive">เสกให้คนนี้</button><button id="aGiveAll">เสกให้ทุกคน</button></div>
+  <div class="plist" id="aPlist"></div>
+  <label for="aStart">โกลด์เริ่มต้นของบัญชีใหม่</label><div class="row2"><input id="aStart" type="number" value="20000" step="1000" style="margin:0"><button id="aStartBtn" style="margin:0">บันทึก</button></div>
+  <hr>
+  <button id="aReset">ล้างข้อมูลทดสอบทั้งหมด</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -598,7 +612,7 @@ document.getElementById('loginForm').onsubmit=async ev=>{ev.preventDefault();
   if(ONLINE) return onlineLogin(u,p,err);
   const h=await hash(u+':'+p);
   if(regMode){ if(DB.users[u]) return err.textContent='ชื่อนี้มีผู้ใช้แล้ว';
-    DB.users[u]={pw:h,gender:null,name:'',gold:20000,merit:0,pulls:0,sinceLegend:0,cards:[]};
+    DB.users[u]={pw:h,gender:null,name:'',gold:DB.startGold??20000,merit:0,pulls:0,sinceLegend:0,cards:[]};
   } else { if(!DB.users[u]||DB.users[u].pw!==h) return err.textContent='ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'; }
   DB.cur=u; save(); err.textContent='';
   show(me().gender?'home':'pick');};
@@ -966,6 +980,29 @@ document.getElementById('aOpen').onclick=()=>{if(ONLINE) return adminEvent(true)
   DB.event={open:true,cardId:aCard.value,name:document.getElementById('aName').value||'กิจกรรมพิเศษ'}; DB.threshold=Math.max(1,+document.getElementById('aTh').value||10000);
   Object.values(DB.users).forEach(x=>delete x.seenEv); save(); toast(`เปิดตู้ผู้สรรสร้าง: ${DB.event.name}`); refresh();};
 document.getElementById('aX').onclick=()=>adm.classList.remove('on');
+/* เสกโกลด์ให้ผู้เล่น */
+async function adminPlayers(){ const box=document.getElementById('aPlist'), dl=document.getElementById('aUsers'); let rows=[];
+  if(ONLINE){ if(!IS_ADMIN){box.innerHTML='<div>ล็อกอินด้วยบัญชีแอดมินเพื่อดูรายชื่อ</div>';return;} const r=await sb.rpc('admin_list_players'); if(r.error){box.innerHTML=`<div>${thErr(r.error).includes('function')?'ยังไม่ได้รัน 003_admin_gold.sql':thErr(r.error)}</div>`;return;} rows=r.data; }
+  else rows=Object.entries(DB.users).map(([k,u])=>({username:k,name:u.name,gold:u.gold}));
+  dl.innerHTML=rows.map(r=>`<option value="${r.username}">${r.name||''}</option>`).join('');
+  box.innerHTML=rows.map(r=>`<div data-u="${r.username}"><span><span data-arabic>${r.username}</span>${r.name?' · '+r.name:''}</span><span>${fmt(r.gold)}</span></div>`).join('')||'<div>ยังไม่มีผู้เล่น</div>';
+  box.querySelectorAll('[data-u]').forEach(d=>d.onclick=()=>{document.getElementById('aUser').value=d.dataset.u;}); }
+async function adminGive(who){ const amt=Math.round(+document.getElementById('aAmt').value||0); if(!amt) return toast('ใส่จำนวนโกลด์');
+  if(!who) return toast('ใส่ชื่อผู้ใช้ หรือ * สำหรับทุกคน');
+  if(ONLINE){ if(!IS_ADMIN) return toast('เฉพาะบัญชีแอดมิน'); const {data,error}=await sb.rpc('admin_give_gold',{p_username:who,p_amount:amt});
+    if(error) return toast(thErr(error).includes('function')?'ยังไม่ได้รัน supabase/003_admin_gold.sql':thErr(error),5000);
+    if(who==='*'||who===me().username) { const {data:p}=await sb.from('profiles').select('gold').eq('id',me().id).maybeSingle(); if(p){me().gold=p.gold;refresh();} }
+    toast(who==='*'?`เสก ${fmt(amt)} โกลด์ให้ผู้เล่น ${fmt(data.count)} คนแล้ว`:`เสก ${fmt(amt)} โกลด์ให้ ${who} แล้ว (คงเหลือ ${fmt(data.gold)})`); }
+  else { const list=who==='*'?Object.values(DB.users):[DB.users[who]].filter(Boolean); if(!list.length) return toast('ไม่พบผู้เล่นชื่อผู้ใช้ '+who);
+    list.forEach(u=>u.gold=Math.max(0,u.gold+amt)); save(); refresh(); toast(`เสก ${fmt(amt)} โกลด์ให้ ${who==='*'?'ทุกคน':who} แล้ว`); }
+  adminPlayers(); }
+document.getElementById('aGive').onclick=()=>adminGive(document.getElementById('aUser').value.trim().toLowerCase());
+document.getElementById('aGiveAll').onclick=()=>adminGive('*');
+document.getElementById('aStartBtn').onclick=async()=>{ const v=Math.max(0,Math.round(+document.getElementById('aStart').value||0));
+  if(ONLINE){ if(!IS_ADMIN) return toast('เฉพาะบัญชีแอดมิน'); const {error}=await sb.rpc('admin_set_start_gold',{p_amount:v}); if(error) return toast(thErr(error).includes('function')?'ยังไม่ได้รัน supabase/003_admin_gold.sql':thErr(error),5000); }
+  else { DB.startGold=v; save(); }
+  toast(`บัญชีใหม่จะเริ่มด้วย ${fmt(v)} โกลด์`); };
+new MutationObserver(()=>{ if(adm.classList.contains('on')) adminPlayers(); }).observe(adm,{attributes:true,attributeFilter:['class']});
 document.getElementById('aClose').onclick=()=>{if(ONLINE) return adminEvent(false);DB.event.open=false;save();toast('ปิดตู้ Event แล้ว');refresh();};
 document.getElementById('aTh').onchange=e=>{if(ONLINE) return;DB.threshold=Math.max(1,+e.target.value||10000);save();refresh()};
 document.getElementById('aGold').onclick=()=>{if(!me())return; if(ONLINE) return rpc('admin_add_gold',{p_amount:100000}).then(g=>{if(g!=null){me().gold=g;refresh();toast('เติม 100,000 โกลด์แล้ว')}});me().gold+=100000;save();refresh();};
@@ -1002,10 +1039,11 @@ async function loadMe(user){
   DB.cur=user.id; mkTab='buy'; curDeck=0; gTab='normal'; applyConfig(cf.data||[]); DB.minted={}; (sp.data||[]).forEach(r=>DB.minted[r.card_id]=r.minted);
   lastPush=profJson(me()); IS_ADMIN=!!(await rpc('is_admin'));
   document.getElementById('aGold').textContent=IS_ADMIN?'+100,000 โกลด์ (แอดมิน)':'+100,000 โกลด์';
+  if(adm.classList.contains('on')) adminPlayers();
   if(new URLSearchParams(location.search).has('admin')&&!IS_ADMIN) toast('บัญชีนี้ไม่ใช่แอดมิน ปุ่มหลังบ้านจะใช้ไม่ได้');
   subscribe(user.id); return true;}
 function applyConfig(rows){rows.forEach(r=>{ if(r.key==='event') DB.event={open:!!r.value.open,cardId:r.value.card_id,name:r.value.name};
-  if(r.key==='threshold') DB.threshold=+r.value;});
+  if(r.key==='threshold') DB.threshold=+r.value; if(r.key==='start_gold') document.getElementById('aStart').value=+r.value;});
   aCard.value=DB.event.cardId; document.getElementById('aTh').value=DB.threshold; document.getElementById('aName').value=DB.event.name;}
 const profJson=u=>JSON.stringify({name:u.name,gender:u.gender,decks:u.decks||[],guide:{guideMin:u.guideMin||{},seenNormal:!!u.seenNormal,seenEv:u.seenEv||null}});
 async function pushProfile(){const u=me(); if(!ONLINE||!u) return; const j=profJson(u); if(j===lastPush) return;
